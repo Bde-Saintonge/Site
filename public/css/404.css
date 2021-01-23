@@ -1,0 +1,20 @@
+.error_404{
+    height: 350px;
+
+    background-image: url("https://lyceesaintefamille.com/wp-content/themes/lycee-sainte-famille/css/images/img-quick-access.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.error_404 h1{
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.error_404 p{
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
