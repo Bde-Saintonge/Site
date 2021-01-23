@@ -142,9 +142,9 @@
                     <div class="form-group form-check">
                         {!! $errors->first('agree', '<div class="alert alert-warning" role="alert">:message</div>')!!}
                         <input type="checkbox" class="form-check-input"  name="agree" id="check">
-                        <label class="form-check-label" for="check">Accepter les termes et la politique.</label>
+                        <label class="form-check-label" for="check">Accepter les termes et la politique de confidentialité.</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
 
 
 
