@@ -1,0 +1,63 @@
+.full-div{
+    width: 100%;
+    height: 100vh;
+    padding: 0 0 0 0;
+
+    background-image: url("../media/images/font.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.container-expli {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+
+
+}
+
+.explication {
+    transition: .5s ease;
+    opacity: 0.1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.full-div:hover {
+    opacity: 0.8;
+}
+
+.full-div:hover .explication {
+    opacity: 1 !important;
+}
+
+.text {
+    color: white;
+    font-size: 32px;
+    padding: 16px 0px 0px 0px;
+    text-shadow: 2px 2px 5px black;
+}
+
+
+@media only screen and (min-width: 260px) and (max-width: 519px) {
+    /* For mobile: */
+    .text {
+        color: white;
+        font-size: 20px;
+        padding: 16px 0px 0px 0px;
+        text-shadow: 2px 2px 5px black;
+    }
+}

@@ -1,0 +1,84 @@
+.container-contact, .container-liens, .container-informations{
+    padding: 41px;
+}
+
+.border{
+    border-right: 2px solid white;
+    border-radius: 5px;
+}
+
+.container-contact h2{
+    text-transform: uppercase;
+}
+
+
+.container-contact p{
+    margin: 1em 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 18px;
+}
+
+
+.container-contact .img-adress{
+    float: left;
+    width: 25%;
+}
+
+.container-contact .img-tel{
+    float: left;
+    position: relative;
+    left: -70px;
+}
+
+.container-contact .tel{
+    position: relative;
+    top: 15px;
+    left: -25px;
+}
+
+.container-contact .img-send{
+    float: left;
+    position: relative;
+    left: -95px;
+    top: 15px;
+}
+
+.container-contact .send{
+    position: relative;
+    top: 35px;
+    left: -50px;
+}
+
+.container-liens a{
+    margin: 1em 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 54px;
+    text-transform: uppercase;
+}
+
+.container-informations p{
+    margin: 1em 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+
+.pad-arround-footer{
+    display: flex;
+    padding: 20px;
+    width: calc(100% - 40px);
+    height: 25px;
+    /*background-color: white;*/
+}
+
+@media only screen and (min-width: 0px) and (max-width: 979px) {
+    /* For mobile: */
+    .border{
+        border-right: 0px solid white;
+        border-bottom: 2px solid white;
+        border-radius: 5px;
+    }
+}
