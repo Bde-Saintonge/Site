@@ -95,6 +95,7 @@ class RegisterController extends BaseController
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);*/
+
     }
 
     protected function insert_SQL_User(Request $request){
