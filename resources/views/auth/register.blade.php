@@ -99,7 +99,7 @@
                     <div class="form-group">
                         {!! $errors->first('classe', '<div class="alert alert-warning" role="alert">:message</div>')!!}
                         <label for="class">Votre classe:</label>
-                        <select  class="form-control" name="classe" id="class">
+                        <select  class="form-control" name="class" id="class">
                             <option name="seconde_gt_a">Seconde GT A</option>
                             <option name="seconde_gt_b">Seconde GT B</option>
                             <option name="seconde_pro_tisec">Seconde PRO TISEC</option>
@@ -141,7 +141,7 @@
                     </div>
                     <div class="form-group form-check">
                         {!! $errors->first('agree', '<div class="alert alert-warning" role="alert">:message</div>')!!}
-                        <input type="checkbox" class="form-check-input"  name="agree" id="check">
+                        <input type="checkbox" class="form-check-input"  name="agree" id="check" checked>
                         <label class="form-check-label" for="check">Accepter les termes et la politique de confidentialité.</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Envoyer</button>

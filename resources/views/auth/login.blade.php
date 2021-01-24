@@ -92,6 +92,9 @@
                         </div>
                     @endif
                     <div class="form-group">
+                        <h2>Se connecter</h2>
+                    </div>
+                    <div class="form-group">
                         {!! $errors->first('email', '<div class="alert alert-warning" role="alert">:message</div>')!!}
                         <label for="email">Votre email:</label>
                         <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email">
@@ -100,6 +103,9 @@
                         {!! $errors->first('password', '<div class="alert alert-warning" role="alert">:message</div>')!!}
                         <label for="password">Password</label>
                         <input type="password" class="form-control" name="password"  value="{{ old('password') }}"id="password">
+                    </div>
+                    <div class="form-group">
+                        <a href="/register">Vous n'avez pas de compte ?</a>
                     </div>
                     <button type="submit" class="btn btn-primary">Envoyer</button>
 
