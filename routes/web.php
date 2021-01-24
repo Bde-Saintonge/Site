@@ -28,6 +28,14 @@ Route::get('/index.html', function () {
     return view('welcome');
 });
 
+Route::get('/mentions-legales', function () {
+    return view('regulation.mentions-legales');
+});
+
+Route::get('/rgpd', function () {
+    return view('regulation.rgpd');
+});
+
 /*
  * Auth & Dashboard Route
  */
