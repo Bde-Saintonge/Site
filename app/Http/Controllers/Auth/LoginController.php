@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -25,23 +26,12 @@ class LoginController extends BaseController
 
     protected function validator(Request $request)
     {
-        $convert_objet_to_array = (array)$request->request;
 
-        $messages = [
-            'email.required' => "Vous devez compléter par votre <strong>adresse mail.</strong>",
-            'email.string' => "Vous devez entrer une <strong>chaine de caractère.</strong>",
-            'email.max' => "Veuillez compléter votre<strong> adresse mail avec moins de 255 caractères.</strong>",
-            'email.email' => "Veuillez compléter par votre<strong> adresse mail.</strong>",
-            'password.required' => "Vous devez compléter par votre <strong>mot de passe.</strong>",
-            'password.string' => "Vous devez entrer une <strong>chaine de caractère.</strong>",
-            'password.min' => "Veuillez compléter votre nom de famille <strong>avec moins de 8 caractères.</strong>",
-            'password.confirmed' => "Vous devez compléter par votre <strong>Les mots de passes ne sont pas identiques.</strong>",
-        ];
 
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:6']
-        ], $messages);
+        ], array_merge(User::generate_error('email'), User::generate_error('password')));
 
 
         if ($validator->fails()){
@@ -66,7 +56,7 @@ class LoginController extends BaseController
                 return redirect()->route('dashboard');
             }else{
                 return view('auth.login' ,[
-                    'error' => 'Votre email et/ou votre mot de passe ne sont pas correcte.'
+                    'error' => 'Votre email et/ou votre mot de passe ne correspondent pas.'
                 ]);
             }
         }
