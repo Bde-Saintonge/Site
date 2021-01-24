@@ -77,13 +77,15 @@ class RegisterController extends BaseController
 
     protected function insert_SQL_User(Request $request){
 
+
         User::create([
-            'lastname' => $request->lastname,
             'name' => $request->name,
+            'lastname' => $request->lastname,
             'email' => $request->email,
-            'class' => $request->class,
             'password' => Hash::make($request->password),
-            'permission' => "eleve",
+            'class' => $request->class,
+            'profile_photo_path' => asset('media/images/LOGO-2020-1.jpg'),
+            'permission' => 1,
             'created_at' => now()->timestamp,
             'updated_at' => now()->timestamp,
         ]);
