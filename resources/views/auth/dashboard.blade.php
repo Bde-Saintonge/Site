@@ -182,12 +182,6 @@
                         <h2>Réglementation</h2>
                     </div>
 
-                    <div class="pad-arround-footer">
-                        <img src="{{asset('media/images/cgu.png')}}"  height="35px" style="position: relative;left: 25px;">
-                        <h4 style="position: relative;left: 50px;bottom: 20px;">
-                            <a href="/cgu" target="_blank">CGU</a>
-                        </h4>
-                    </div>
 
                     <div class="pad-arround-footer">
                         <img src="{{asset('media/images/mention-legale.png')}}"  height="35px" style="position: relative;left: 25px;">
