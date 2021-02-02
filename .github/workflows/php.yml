@@ -13,10 +13,11 @@ jobs:
 
     steps:
       - run : echo "hey !"
+        
       - uses: actions/checkout@v2
 
       - name: Validate composer.json and composer.lock
-      - run: composer validate
+        run: composer validate
 
       - name: Cache Composer packages
         id: composer-cache
