@@ -37,7 +37,7 @@
     </div>
     <nav>
         <div class="logo-nav">
-            <a href="">
+            <a href="/">
                 <img src="{{asset('media/images/LOGO-2020-1.jpg')}}" alt="logo">
             </a>
         </div>
