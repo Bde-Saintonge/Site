@@ -85,9 +85,12 @@
         background-image: #292d3e;
         border-bottom: 1px solid #052840;
     }
-
-
-
+    .explication {
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
     nav ul {
         width: 100%!important;
         flex-direction: column;
@@ -154,9 +157,12 @@
         background-image: white;
         border-bottom: 1px solid #052840;
     }
-
-
-
+    .explication {
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
     nav ul {
         width: 100%!important;
         flex-direction: column;
@@ -223,9 +229,12 @@
         background-image: white;
         border-bottom: 1px solid #052840;
     }
-
-
-
+    .explication {
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
     nav ul {
         width: 100%!important;
         flex-direction: column;
