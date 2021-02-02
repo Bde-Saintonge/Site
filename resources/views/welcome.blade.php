@@ -200,7 +200,7 @@
                         <div class="pad-arround-footer">
                             <img src="{{asset('media/images/footer-mail.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
                             <h4 style="position: relative;left: 50px;bottom: 28px;">
-                                <a href="/nous-contacter" target="_blank" >Nous contacter</a>
+                                <a href="mailto:contact@bde-saintonge.fr" >Nous contacter</a>
                             </h4>
                         </div>
 
