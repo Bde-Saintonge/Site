@@ -64,7 +64,7 @@
                 <a href="/pole-com">Pôle Com</a>
             </li>
             <li>
-                <a href="/nous-contacter">Contact</a>
+                <a href="mailto:contact@bde-saintonge.fr">Contact</a>
             </li>
         </ul>
     </nav>
