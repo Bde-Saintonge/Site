@@ -43,7 +43,7 @@
         </div>
         <ul>
             <li>
-                <a href="/">Accueil</a>
+                <a href="/">Accueil</a> //le deploiement via github fonctionne
             </li>
             <li>
                 <a href="/login">Se Connecter</a>
