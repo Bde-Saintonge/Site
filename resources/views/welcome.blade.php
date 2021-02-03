@@ -162,7 +162,7 @@
                             <h4>Pôle Communication</h4>
                         </div>
                         <p>Présentation / Explication du Pôle Communication</p>
-                        <button><a href="/bdc" target="_blank">En savoir Plus</a></button>
+                        <button><a href="/pole-com" target="_blank">En savoir Plus</a></button>
                     </div>
                 </div>
             </div>
