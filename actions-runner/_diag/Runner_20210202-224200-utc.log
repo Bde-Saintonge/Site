@@ -1,0 +1,1376 @@
+[2021-02-02 22:42:00Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 22:42:00Z INFO HostContext] Well known config file 'Credentials': '/home/site/bde/actions-runner/.credentials'
+[2021-02-02 22:42:00Z INFO Listener] Runner is built for Linux (X64) - linux-x64.
+[2021-02-02 22:42:00Z INFO Listener] RuntimeInformation: Linux 4.19.0-14-amd64 #1 SMP Debian 4.19.171-2 (2021-01-30).
+[2021-02-02 22:42:00Z INFO Listener] Version: 2.276.1
+[2021-02-02 22:42:00Z INFO Listener] Commit: 5effa808be96eae7f2e08d713426b8d056bddff1
+[2021-02-02 22:42:00Z INFO Listener] Culture: fr-FR
+[2021-02-02 22:42:00Z INFO Listener] UI Culture: fr-FR
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 22:42:00Z INFO Listener] Validating directory permissions for: '/home/site/bde/actions-runner'
+[2021-02-02 22:42:00Z INFO CommandLineParser] Parse
+[2021-02-02 22:42:00Z INFO CommandLineParser] Parsing 1 args
+[2021-02-02 22:42:00Z INFO CommandLineParser] parsing argument
+[2021-02-02 22:42:00Z INFO CommandLineParser] HasArgs: False
+[2021-02-02 22:42:00Z INFO CommandLineParser] Adding Command: run
+[2021-02-02 22:42:00Z INFO Listener] Arguments parsed
+[2021-02-02 22:42:00Z INFO Runner] ExecuteCommand
+[2021-02-02 22:42:00Z INFO ConfigurationStore] currentAssemblyLocation: /home/site/bde/actions-runner/bin/Runner.Listener.dll
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:42:00Z INFO ConfigurationStore] binPath: /home/site/bde/actions-runner/bin
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 22:42:00Z INFO ConfigurationStore] RootFolder: /home/site/bde/actions-runner
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 22:42:00Z INFO HostContext] Well known config file 'Runner': '/home/site/bde/actions-runner/.runner'
+[2021-02-02 22:42:00Z INFO ConfigurationStore] ConfigFilePath: /home/site/bde/actions-runner/.runner
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 22:42:00Z INFO HostContext] Well known config file 'Credentials': '/home/site/bde/actions-runner/.credentials'
+[2021-02-02 22:42:00Z INFO ConfigurationStore] CredFilePath: /home/site/bde/actions-runner/.credentials
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 22:42:00Z INFO HostContext] Well known config file 'MigratedCredentials': '/home/site/bde/actions-runner/.credentials_migrated'
+[2021-02-02 22:42:00Z INFO ConfigurationStore] MigratedCredFilePath: /home/site/bde/actions-runner/.credentials_migrated
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 22:42:00Z INFO HostContext] Well known config file 'Service': '/home/site/bde/actions-runner/.service'
+[2021-02-02 22:42:00Z INFO ConfigurationStore] ServiceConfigFilePath: /home/site/bde/actions-runner/.service
+[2021-02-02 22:42:00Z INFO CommandSettings] Flag 'help': 'False'
+[2021-02-02 22:42:00Z INFO CommandSettings] Flag 'version': 'False'
+[2021-02-02 22:42:00Z INFO CommandSettings] Flag 'commit': 'False'
+[2021-02-02 22:42:00Z INFO CommandSettings] Flag 'check': 'False'
+[2021-02-02 22:42:00Z INFO CommandSettings] Command 'configure': 'False'
+[2021-02-02 22:42:00Z INFO CommandSettings] Command 'remove': 'False'
+[2021-02-02 22:42:00Z INFO CommandSettings] Command 'warmup': 'False'
+[2021-02-02 22:42:00Z INFO ConfigurationManager] LoadSettings
+[2021-02-02 22:42:00Z INFO ConfigurationStore] IsConfigured()
+[2021-02-02 22:42:00Z INFO ConfigurationStore] IsConfigured: True
+[2021-02-02 22:42:00Z INFO ConfigurationManager] Is configured: True
+[2021-02-02 22:42:00Z INFO ConfigurationStore] Read setting file: 279 chars
+[2021-02-02 22:42:00Z INFO ConfigurationManager] Settings Loaded
+[2021-02-02 22:42:00Z INFO ConfigurationStore] IsServiceConfigured()
+[2021-02-02 22:42:00Z INFO ConfigurationStore] IsServiceConfigured: False
+[2021-02-02 22:42:00Z INFO CommandSettings] Command 'run': 'True'
+[2021-02-02 22:42:00Z INFO ConfigurationStore] IsConfigured()
+[2021-02-02 22:42:00Z INFO ConfigurationStore] IsConfigured: True
+[2021-02-02 22:42:00Z INFO ConfigurationManager] Is configured: True
+[2021-02-02 22:42:00Z INFO Runner] Could not parse the argument value '' for StartupType. Defaulting to Manual
+[2021-02-02 22:42:00Z INFO Runner] Set runner startup type - Manual
+[2021-02-02 22:42:00Z INFO CommandSettings] Flag 'once': 'False'
+[2021-02-02 22:42:00Z INFO Runner] RunAsync
+[2021-02-02 22:42:00Z INFO ConfigurationManager] LoadSettings
+[2021-02-02 22:42:00Z INFO ConfigurationStore] IsConfigured()
+[2021-02-02 22:42:00Z INFO ConfigurationStore] IsConfigured: True
+[2021-02-02 22:42:00Z INFO ConfigurationManager] Is configured: True
+[2021-02-02 22:42:00Z INFO ConfigurationManager] Settings Loaded
+[2021-02-02 22:42:00Z INFO MessageListener] {
+  "AgentId": 2,
+  "AgentName": "Site",
+  "PoolId": 1,
+  "PoolName": "Default",
+  "ServerUrl": "https://pipelines.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn",
+  "GitHubUrl": "https://github.com/Bde-Saintonge/Site",
+  "WorkFolder": "_work"
+}
+[2021-02-02 22:42:00Z INFO MessageListener] Loading Credentials
+[2021-02-02 22:42:00Z INFO ConfigurationStore] HasCredentials()
+[2021-02-02 22:42:00Z INFO ConfigurationStore] stored True
+[2021-02-02 22:42:00Z INFO CredentialManager] GetCredentialProvider
+[2021-02-02 22:42:00Z INFO CredentialManager] Creating type OAuth
+[2021-02-02 22:42:00Z INFO CredentialManager] Creating credential type: OAuth
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:42:00Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 22:42:00Z INFO HostContext] Well known config file 'RSACredentials': '/home/site/bde/actions-runner/.credentials_rsaparams'
+[2021-02-02 22:42:00Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 22:42:00Z INFO MessageListener] Attempt to create session.
+[2021-02-02 22:42:00Z INFO MessageListener] Connecting to the Runner Server...
+[2021-02-02 22:42:00Z INFO RunnerServer] Establish connection with 100 seconds timeout.
+[2021-02-02 22:42:00Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2021-02-02 22:42:00Z INFO RunnerServer] Establish connection with 60 seconds timeout.
+[2021-02-02 22:42:00Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2021-02-02 22:42:00Z INFO RunnerServer] Establish connection with 60 seconds timeout.
+[2021-02-02 22:42:00Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2021-02-02 22:42:01Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2021-02-02 22:42:01Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2021-02-02 22:42:01Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2021-02-02 22:42:01Z INFO MessageListener] VssConnection created
+[2021-02-02 22:42:01Z INFO Terminal] WRITE LINE: 
+[2021-02-02 22:42:01Z INFO Terminal] WRITE LINE: 
+[2021-02-02 22:42:02Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75b0f7c0-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 8807c4c6-3675-47d2-be4b-164ce69e9fbf
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: DBDD671119F446F8A5F41277439F306C Ref B: MRS20EDGE0113 Ref C: 2021-02-02T22:42:02Z
+Date: Tue, 02 Feb 2021 22:42:01 GMT
+
+[2021-02-02 22:42:02Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 22:42:02Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 22:42:02Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-02 22:42:02Z INFO MessageListener] Session created.
+[2021-02-02 22:42:02Z INFO Terminal] WRITE LINE: 2021-02-02 22:42:02Z: Listening for Jobs
+[2021-02-02 22:42:02Z INFO JobDispatcher] Set runner/worker IPC timeout to 30 seconds.
+[2021-02-02 22:44:00Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 22:44:00Z INFO MessageListener] Message '16' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-02 22:44:00Z INFO JobDispatcher] Job request 15 for plan 895c59d6-de99-467b-bb83-4f49206cde1e job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-02 22:44:00Z INFO JobDispatcher] Pull OrchestrationId 895c59d6-de99-467b-bb83-4f49206cde1e.build.__default from JWT claims
+[2021-02-02 22:44:00Z INFO Terminal] WRITE LINE: 2021-02-02 22:44:00Z: Running job: build
+[2021-02-02 22:44:00Z INFO JobDispatcher] Start renew job request 15 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 22:44:01Z INFO JobDispatcher] Successfully renew job request 15, job is valid till 02/02/2021 22:54:01
+[2021-02-02 22:44:01Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 96 102'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-02 22:44:01Z INFO ProcessInvokerWrapper] Process started with process id 1819, waiting for process exit.
+[2021-02-02 22:44:01Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 22:44:01Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-02 22:44:01Z INFO JobNotification] Entering StartMonitor
+[2021-02-02 22:44:05Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 22:44:05Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 22:44:05Z INFO ProcessInvokerWrapper] Finished process 1819 with exit code 102, and elapsed time 00:00:04.2419680.
+[2021-02-02 22:44:05Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-02 22:44:05Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-02 22:44:05Z INFO Terminal] WRITE LINE: 2021-02-02 22:44:05Z: Job build completed with result: Failed
+[2021-02-02 22:44:05Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 22:44:05Z INFO JobDispatcher] job renew has been canceled, stop renew job request 15.
+[2021-02-02 22:44:05Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-02 22:44:05Z INFO JobNotification] Entering EndMonitor
+[2021-02-02 22:45:24Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 22:45:24Z INFO MessageListener] Message '17' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-02 22:45:24Z INFO JobDispatcher] Job request 16 for plan f6107e82-3ac1-43d0-821b-3373f41410f3 job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-02 22:45:24Z INFO JobDispatcher] Pull OrchestrationId f6107e82-3ac1-43d0-821b-3373f41410f3.build.__default from JWT claims
+[2021-02-02 22:45:24Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-02 22:45:24Z INFO Terminal] WRITE LINE: 2021-02-02 22:45:24Z: Running job: build
+[2021-02-02 22:45:24Z INFO JobDispatcher] Start renew job request 16 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 22:45:24Z INFO JobDispatcher] Successfully renew job request 16, job is valid till 02/02/2021 22:55:24
+[2021-02-02 22:45:24Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 100 104'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-02 22:45:24Z INFO ProcessInvokerWrapper] Process started with process id 1875, waiting for process exit.
+[2021-02-02 22:45:24Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 22:45:24Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-02 22:45:24Z INFO JobNotification] Entering StartMonitor
+[2021-02-02 22:45:29Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 22:45:29Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 22:45:29Z INFO ProcessInvokerWrapper] Finished process 1875 with exit code 102, and elapsed time 00:00:04.8265158.
+[2021-02-02 22:45:29Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-02 22:45:29Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-02 22:45:29Z INFO Terminal] WRITE LINE: 2021-02-02 22:45:29Z: Job build completed with result: Failed
+[2021-02-02 22:45:29Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 22:45:29Z INFO JobDispatcher] job renew has been canceled, stop renew job request 16.
+[2021-02-02 22:45:29Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-02 22:45:29Z INFO JobNotification] Entering EndMonitor
+[2021-02-02 22:55:11Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 22:55:11Z INFO MessageListener] Message '18' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-02 22:55:11Z INFO JobDispatcher] Job request 17 for plan e45a551f-bfd6-43b5-b9ac-2651949309d1 job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-02 22:55:11Z INFO JobDispatcher] Pull OrchestrationId e45a551f-bfd6-43b5-b9ac-2651949309d1.build.__default from JWT claims
+[2021-02-02 22:55:11Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-02 22:55:11Z INFO Terminal] WRITE LINE: 2021-02-02 22:55:11Z: Running job: build
+[2021-02-02 22:55:11Z INFO JobDispatcher] Start renew job request 17 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 22:55:11Z INFO JobDispatcher] Successfully renew job request 17, job is valid till 02/02/2021 23:05:11
+[2021-02-02 22:55:11Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 100 104'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-02 22:55:11Z INFO ProcessInvokerWrapper] Process started with process id 2024, waiting for process exit.
+[2021-02-02 22:55:11Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 22:55:11Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-02 22:55:11Z INFO JobNotification] Entering StartMonitor
+[2021-02-02 22:55:18Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 22:55:18Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 22:55:18Z INFO ProcessInvokerWrapper] Finished process 2024 with exit code 102, and elapsed time 00:00:06.6970486.
+[2021-02-02 22:55:18Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-02 22:55:18Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-02 22:55:18Z INFO Terminal] WRITE LINE: 2021-02-02 22:55:18Z: Job build completed with result: Failed
+[2021-02-02 22:55:18Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 22:55:18Z INFO JobDispatcher] job renew has been canceled, stop renew job request 17.
+[2021-02-02 22:55:18Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-02 22:55:18Z INFO JobNotification] Entering EndMonitor
+[2021-02-02 23:25:18Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-02 23:37:52Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d68da464-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: a8910ca8-0ca9-4805-bd44-cc4b3620bb0a
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 236234A861E94A758D3C84448AF2FACB Ref B: MRS20EDGE0113 Ref C: 2021-02-02T23:37:51Z
+Date: Tue, 02 Feb 2021 23:37:51 GMT
+
+[2021-02-02 23:37:52Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 23:37:52Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-02 23:50:02Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 23:50:02Z INFO MessageListener] Message '19' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-02 23:50:02Z INFO JobDispatcher] Job request 18 for plan 6c5cef7a-e9d8-4568-a031-51db8a85bbaf job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-02 23:50:02Z INFO JobDispatcher] Pull OrchestrationId 6c5cef7a-e9d8-4568-a031-51db8a85bbaf.build.__default from JWT claims
+[2021-02-02 23:50:02Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-02 23:50:02Z INFO Terminal] WRITE LINE: 2021-02-02 23:50:02Z: Running job: build
+[2021-02-02 23:50:02Z INFO JobDispatcher] Start renew job request 18 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 23:50:03Z INFO JobDispatcher] Successfully renew job request 18, job is valid till 03/02/2021 00:00:02
+[2021-02-02 23:50:03Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 105'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-02 23:50:03Z INFO ProcessInvokerWrapper] Process started with process id 3308, waiting for process exit.
+[2021-02-02 23:50:03Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 23:50:03Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-02 23:50:03Z INFO JobNotification] Entering StartMonitor
+[2021-02-02 23:50:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 23:50:07Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 23:50:07Z INFO ProcessInvokerWrapper] Finished process 3308 with exit code 102, and elapsed time 00:00:04.7420233.
+[2021-02-02 23:50:07Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-02 23:50:07Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-02 23:50:07Z INFO Terminal] WRITE LINE: 2021-02-02 23:50:07Z: Job build completed with result: Failed
+[2021-02-02 23:50:07Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 23:50:07Z INFO JobDispatcher] job renew has been canceled, stop renew job request 18.
+[2021-02-02 23:50:07Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-02 23:50:07Z INFO JobNotification] Entering EndMonitor
+[2021-02-02 23:52:16Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 23:52:16Z INFO MessageListener] Message '20' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-02 23:52:16Z INFO JobDispatcher] Job request 19 for plan f7b2a40a-6d35-49f1-bdb9-fab38612ca55 job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-02 23:52:16Z INFO JobDispatcher] Pull OrchestrationId f7b2a40a-6d35-49f1-bdb9-fab38612ca55.build.__default from JWT claims
+[2021-02-02 23:52:16Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-02 23:52:16Z INFO Terminal] WRITE LINE: 2021-02-02 23:52:16Z: Running job: build
+[2021-02-02 23:52:16Z INFO JobDispatcher] Start renew job request 19 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 23:52:16Z INFO JobDispatcher] Successfully renew job request 19, job is valid till 03/02/2021 00:02:16
+[2021-02-02 23:52:16Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 106'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-02 23:52:16Z INFO ProcessInvokerWrapper] Process started with process id 3352, waiting for process exit.
+[2021-02-02 23:52:16Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 23:52:16Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-02 23:52:16Z INFO JobNotification] Entering StartMonitor
+[2021-02-02 23:52:22Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 23:52:22Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 23:52:22Z INFO ProcessInvokerWrapper] Finished process 3352 with exit code 102, and elapsed time 00:00:05.6695590.
+[2021-02-02 23:52:22Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-02 23:52:22Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-02 23:52:22Z INFO Terminal] WRITE LINE: 2021-02-02 23:52:22Z: Job build completed with result: Failed
+[2021-02-02 23:52:22Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 23:52:22Z INFO JobDispatcher] job renew has been canceled, stop renew job request 19.
+[2021-02-02 23:52:22Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-02 23:52:22Z INFO JobNotification] Entering EndMonitor
+[2021-02-03 00:22:24Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 00:33:16Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29d2b5a4-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 8ab8ee08-c4c0-45aa-b4bf-6aa4123bd292
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 64BCB71FA07C484DBA11A1AF6D2F3D67 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T00:33:16Z
+Date: Wed, 03 Feb 2021 00:33:16 GMT
+
+[2021-02-03 00:33:16Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 00:33:17Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 00:52:32Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 01:22:39Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 01:28:30Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d68b7e03-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: a82733f0-c4a1-41c1-89ef-8c0fc601b301
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: CECC05C7CC1C462DA3A46FD69FE8411A Ref B: MRS20EDGE0113 Ref C: 2021-02-03T01:28:30Z
+Date: Wed, 03 Feb 2021 01:28:30 GMT
+
+[2021-02-03 01:28:30Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 01:28:30Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 01:52:46Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 02:22:53Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 02:23:43Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29dfa74e-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 4a22b02b-3df0-4c3c-98be-ca535dbd51a3
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: CA036BFD050D49E1A85BD89DF31960E5 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T02:23:43Z
+Date: Wed, 03 Feb 2021 02:23:43 GMT
+
+[2021-02-03 02:23:43Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 02:23:44Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 02:53:01Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 03:18:57Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d6802b5f-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: d3abba66-f259-4c06-b6e4-2caa31f84e8b
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 008F7A82CD3A49A6874ED340072BB571 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T03:18:56Z
+Date: Wed, 03 Feb 2021 03:18:56 GMT
+
+[2021-02-03 03:18:57Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 03:18:57Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 03:23:08Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 03:53:15Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 04:14:10Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d682af88-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: f85a1d96-c41f-4358-b210-b83690d752fd
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 780CF2AF7B31475185641A93CFA0640A Ref B: MRS20EDGE0113 Ref C: 2021-02-03T04:14:10Z
+Date: Wed, 03 Feb 2021 04:14:09 GMT
+
+[2021-02-03 04:14:10Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 04:14:11Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 04:23:23Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 04:53:30Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 05:09:24Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29e7a6f1-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: fbfad744-b1a5-435f-ae01-55e0ed08b93a
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 4B943C94B8A040988FA76CA7CB678955 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T05:09:23Z
+Date: Wed, 03 Feb 2021 05:09:23 GMT
+
+[2021-02-03 05:09:24Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 05:09:24Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 05:23:37Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 05:53:48Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 06:04:41Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29e2e9f7-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: b6f63f56-c99d-41b1-b579-ab4fd38aa0ba
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: A3F3D3F399CD41A2B4690A84E57B6C72 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T06:04:41Z
+Date: Wed, 03 Feb 2021 06:04:41 GMT
+
+[2021-02-03 06:04:41Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 06:04:42Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 06:23:56Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 06:54:04Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 06:59:56Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 7598af50-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: a73af907-7622-4ea9-b906-49ecd9f1e696
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 06D324139A04438AA280729C504BD328 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T06:59:56Z
+Date: Wed, 03 Feb 2021 06:59:56 GMT
+
+[2021-02-03 06:59:56Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 06:59:57Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 07:24:12Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 07:54:19Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 07:55:09Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29ecc309-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: b62710c2-5cf5-427a-b335-1d35ba3f72a3
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: BAFCE2CA92454C45886331B4435FF977 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T07:55:09Z
+Date: Wed, 03 Feb 2021 07:55:09 GMT
+
+[2021-02-03 07:55:09Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 07:55:10Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 08:03:51Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 08:03:51Z INFO MessageListener] Message '21' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-03 08:03:51Z INFO JobDispatcher] Job request 20 for plan c208ac5f-1373-4733-b634-90182e58be81 job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-03 08:03:51Z INFO JobDispatcher] Pull OrchestrationId c208ac5f-1373-4733-b634-90182e58be81.build.__default from JWT claims
+[2021-02-03 08:03:51Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-03 08:03:51Z INFO Terminal] WRITE LINE: 2021-02-03 08:03:51Z: Running job: build
+[2021-02-03 08:03:51Z INFO JobDispatcher] Start renew job request 20 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 08:03:52Z INFO JobDispatcher] Successfully renew job request 20, job is valid till 03/02/2021 08:13:52
+[2021-02-03 08:03:52Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 106'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-03 08:03:52Z INFO ProcessInvokerWrapper] Process started with process id 8553, waiting for process exit.
+[2021-02-03 08:03:52Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 08:03:52Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-03 08:03:52Z INFO JobNotification] Entering StartMonitor
+[2021-02-03 08:04:00Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 08:04:00Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 08:04:00Z INFO ProcessInvokerWrapper] Finished process 8553 with exit code 102, and elapsed time 00:00:07.6989415.
+[2021-02-03 08:04:00Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-03 08:04:00Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-03 08:04:00Z INFO Terminal] WRITE LINE: 2021-02-03 08:04:00Z: Job build completed with result: Failed
+[2021-02-03 08:04:00Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 08:04:00Z INFO JobDispatcher] job renew has been canceled, stop renew job request 20.
+[2021-02-03 08:04:00Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-03 08:04:00Z INFO JobNotification] Entering EndMonitor
+[2021-02-03 08:33:59Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 08:50:43Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29e8b6be-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 4e8d3567-48e3-4673-bf9a-b4e5e4c0aa18
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: A4DF55E52B5B48779DEE0155109721C9 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T08:50:43Z
+Date: Wed, 03 Feb 2021 08:50:43 GMT
+
+[2021-02-03 08:50:43Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 08:50:44Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 09:04:07Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 09:34:15Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 09:45:57Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 758cafed-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 17e789bf-f363-4d3a-8185-0a9b80b85295
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 3B7EE291945E4DFF9636012DB1AF0280 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T09:45:57Z
+Date: Wed, 03 Feb 2021 09:45:57 GMT
+
+[2021-02-03 09:45:57Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 09:45:58Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 10:00:06Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 10:00:06Z INFO MessageListener] Message '22' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-03 10:00:06Z INFO JobDispatcher] Job request 21 for plan 29e49529-1958-4e4f-882d-91fa96998169 job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-03 10:00:06Z INFO JobDispatcher] Pull OrchestrationId 29e49529-1958-4e4f-882d-91fa96998169.build.__default from JWT claims
+[2021-02-03 10:00:06Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-03 10:00:06Z INFO Terminal] WRITE LINE: 2021-02-03 10:00:06Z: Running job: build
+[2021-02-03 10:00:06Z INFO JobDispatcher] Start renew job request 21 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 10:00:07Z INFO JobDispatcher] Successfully renew job request 21, job is valid till 03/02/2021 10:10:07
+[2021-02-03 10:00:07Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 106'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-03 10:00:07Z INFO ProcessInvokerWrapper] Process started with process id 9662, waiting for process exit.
+[2021-02-03 10:00:07Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 10:00:07Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-03 10:00:07Z INFO JobNotification] Entering StartMonitor
+[2021-02-03 10:00:14Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 10:00:14Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 10:00:14Z INFO ProcessInvokerWrapper] Finished process 9662 with exit code 102, and elapsed time 00:00:07.7495373.
+[2021-02-03 10:00:14Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-03 10:00:14Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-03 10:00:14Z INFO Terminal] WRITE LINE: 2021-02-03 10:00:14Z: Job build completed with result: Failed
+[2021-02-03 10:00:14Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 10:00:14Z INFO JobDispatcher] job renew has been canceled, stop renew job request 21.
+[2021-02-03 10:00:14Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-03 10:00:14Z INFO JobNotification] Entering EndMonitor
+[2021-02-03 10:30:14Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 10:41:07Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29fec979-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: e5b52f7f-b74c-41f1-b020-e3dd552f9216
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: EE9E058B3A204BB1AA6AC96554F64B17 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T10:41:07Z
+Date: Wed, 03 Feb 2021 10:41:06 GMT
+
+[2021-02-03 10:41:07Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 10:41:07Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 10:51:13Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 10:51:13Z INFO MessageListener] Message '23' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-03 10:51:13Z INFO JobDispatcher] Job request 22 for plan 618a82e3-3d34-412e-a202-88a3a8fc38ec job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-03 10:51:13Z INFO JobDispatcher] Pull OrchestrationId 618a82e3-3d34-412e-a202-88a3a8fc38ec.build.__default from JWT claims
+[2021-02-03 10:51:13Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-03 10:51:13Z INFO Terminal] WRITE LINE: 2021-02-03 10:51:13Z: Running job: build
+[2021-02-03 10:51:13Z INFO JobDispatcher] Start renew job request 22 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 10:51:14Z INFO JobDispatcher] Successfully renew job request 22, job is valid till 03/02/2021 11:01:14
+[2021-02-03 10:51:14Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 106'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-03 10:51:14Z INFO ProcessInvokerWrapper] Process started with process id 10228, waiting for process exit.
+[2021-02-03 10:51:14Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 10:51:14Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-03 10:51:14Z INFO JobNotification] Entering StartMonitor
+[2021-02-03 10:51:23Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 10:51:23Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 10:51:23Z INFO ProcessInvokerWrapper] Finished process 10228 with exit code 102, and elapsed time 00:00:08.5841451.
+[2021-02-03 10:51:23Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-03 10:51:23Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-03 10:51:23Z INFO Terminal] WRITE LINE: 2021-02-03 10:51:23Z: Job build completed with result: Failed
+[2021-02-03 10:51:23Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 10:51:23Z INFO JobDispatcher] job renew has been canceled, stop renew job request 22.
+[2021-02-03 10:51:23Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-03 10:51:23Z INFO JobNotification] Entering EndMonitor
+[2021-02-03 10:54:23Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 10:54:23Z INFO MessageListener] Message '24' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-03 10:54:23Z INFO JobDispatcher] Job request 23 for plan 4e7fc4d4-86e9-4b1e-9ec0-68db9aff7b7a job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-03 10:54:23Z INFO JobDispatcher] Pull OrchestrationId 4e7fc4d4-86e9-4b1e-9ec0-68db9aff7b7a.build.__default from JWT claims
+[2021-02-03 10:54:23Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-03 10:54:23Z INFO Terminal] WRITE LINE: 2021-02-03 10:54:23Z: Running job: build
+[2021-02-03 10:54:23Z INFO JobDispatcher] Start renew job request 23 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 10:54:24Z INFO JobDispatcher] Successfully renew job request 23, job is valid till 03/02/2021 11:04:24
+[2021-02-03 10:54:24Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 106'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-03 10:54:24Z INFO ProcessInvokerWrapper] Process started with process id 10303, waiting for process exit.
+[2021-02-03 10:54:24Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 10:54:24Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-03 10:54:24Z INFO JobNotification] Entering StartMonitor
+[2021-02-03 10:54:32Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 10:54:32Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 10:54:32Z INFO ProcessInvokerWrapper] Finished process 10303 with exit code 102, and elapsed time 00:00:08.5112906.
+[2021-02-03 10:54:32Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-03 10:54:32Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-03 10:54:32Z INFO Terminal] WRITE LINE: 2021-02-03 10:54:32Z: Job build completed with result: Failed
+[2021-02-03 10:54:32Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 10:54:32Z INFO JobDispatcher] job renew has been canceled, stop renew job request 23.
+[2021-02-03 10:54:32Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-03 10:54:32Z INFO JobNotification] Entering EndMonitor
+[2021-02-03 11:24:31Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 11:36:14Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 7582ae5a-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 5d578e40-a4b9-44b7-a5ad-4220a965286a
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: CB0630A384274DA0B3226B24234568CC Ref B: MRS20EDGE0113 Ref C: 2021-02-03T11:36:14Z
+Date: Wed, 03 Feb 2021 11:36:13 GMT
+
+[2021-02-03 11:36:14Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 11:36:14Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 11:54:39Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 12:24:46Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 12:31:28Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75fe7b02-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 7953651b-6e77-489d-8c40-1baa033dc196
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: C45FEB5762BF425EB125C831458FBF79 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T12:31:28Z
+Date: Wed, 03 Feb 2021 12:31:27 GMT
+
+[2021-02-03 12:31:28Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 12:31:29Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 12:54:54Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 13:07:23Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 13:07:23Z INFO MessageListener] Message '25' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-03 13:07:23Z INFO JobDispatcher] Job request 24 for plan ca033993-fc6b-45a0-9245-4783ac249871 job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-03 13:07:23Z INFO JobDispatcher] Pull OrchestrationId ca033993-fc6b-45a0-9245-4783ac249871.build.__default from JWT claims
+[2021-02-03 13:07:23Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-03 13:07:23Z INFO Terminal] WRITE LINE: 2021-02-03 13:07:23Z: Running job: build
+[2021-02-03 13:07:23Z INFO JobDispatcher] Start renew job request 24 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 13:07:23Z INFO JobDispatcher] Successfully renew job request 24, job is valid till 03/02/2021 13:17:23
+[2021-02-03 13:07:23Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 106'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-03 13:07:23Z INFO ProcessInvokerWrapper] Process started with process id 11537, waiting for process exit.
+[2021-02-03 13:07:23Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 13:07:23Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-03 13:07:23Z INFO JobNotification] Entering StartMonitor
+[2021-02-03 13:07:31Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 13:07:31Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 13:07:31Z INFO ProcessInvokerWrapper] Finished process 11537 with exit code 102, and elapsed time 00:00:07.7856053.
+[2021-02-03 13:07:31Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-03 13:07:31Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-03 13:07:31Z INFO Terminal] WRITE LINE: 2021-02-03 13:07:31Z: Job build completed with result: Failed
+[2021-02-03 13:07:31Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 13:07:31Z INFO JobDispatcher] job renew has been canceled, stop renew job request 24.
+[2021-02-03 13:07:31Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-03 13:07:31Z INFO JobNotification] Entering EndMonitor
+[2021-02-03 13:26:38Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 2981be61-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 6db56e91-67f1-45bb-bad8-bece5a44fa2a
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: F7E095BAFDC4466B94EAE538783CACDB Ref B: MRS20EDGE0113 Ref C: 2021-02-03T13:26:38Z
+Date: Wed, 03 Feb 2021 13:26:37 GMT
+
+[2021-02-03 13:26:38Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 13:26:39Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 13:37:31Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 13:43:29Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 13:43:29Z INFO MessageListener] Message '26' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-03 13:43:29Z INFO JobDispatcher] Job request 25 for plan 58843111-c8c0-435c-bea2-b179acfec13e job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-03 13:43:29Z INFO JobDispatcher] Pull OrchestrationId 58843111-c8c0-435c-bea2-b179acfec13e.build.__default from JWT claims
+[2021-02-03 13:43:29Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-03 13:43:29Z INFO Terminal] WRITE LINE: 2021-02-03 13:43:29Z: Running job: build
+[2021-02-03 13:43:29Z INFO JobDispatcher] Start renew job request 25 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 13:43:30Z INFO JobDispatcher] Successfully renew job request 25, job is valid till 03/02/2021 13:53:29
+[2021-02-03 13:43:30Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 106'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-03 13:43:30Z INFO ProcessInvokerWrapper] Process started with process id 12020, waiting for process exit.
+[2021-02-03 13:43:30Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 13:43:30Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-03 13:43:30Z INFO JobNotification] Entering StartMonitor
+[2021-02-03 13:43:39Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 13:43:39Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-03 13:43:39Z INFO ProcessInvokerWrapper] Finished process 12020 with exit code 102, and elapsed time 00:00:09.2466233.
+[2021-02-03 13:43:39Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-03 13:43:39Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-03 13:43:39Z INFO Terminal] WRITE LINE: 2021-02-03 13:43:39Z: Job build completed with result: Failed
+[2021-02-03 13:43:39Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-03 13:43:39Z INFO JobDispatcher] job renew has been canceled, stop renew job request 25.
+[2021-02-03 13:43:39Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-03 13:43:39Z INFO JobNotification] Entering EndMonitor
+[2021-02-03 14:13:39Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 14:22:03Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 298bcc97-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: e8a6ba5c-0a9d-4da9-9a4b-1464fea01485
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 39D14B85FD774A68B2B1B25B82817301 Ref B: MRS20EDGE0113 Ref C: 2021-02-03T14:22:02Z
+Date: Wed, 03 Feb 2021 14:22:03 GMT
+
+[2021-02-03 14:22:03Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 14:22:04Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 14:43:49Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 15:13:56Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 15:17:17Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d6cf1485-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: a04b5e86-7a73-4f10-879b-e854dd15b814
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: CBF37C33A39F45D2A2AB0B2528DD54CC Ref B: MRS20EDGE0113 Ref C: 2021-02-03T15:17:17Z
+Date: Wed, 03 Feb 2021 15:17:17 GMT
+
+[2021-02-03 15:17:17Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 15:17:18Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 15:44:04Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 16:12:31Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75e7ea68-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 6ad1b95a-daa9-4208-afd3-fc0b664558b7
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 373ABA48E45249D8BA22BB6B529DEB8A Ref B: PRAEDGE1409 Ref C: 2021-02-03T16:12:30Z
+Date: Wed, 03 Feb 2021 16:12:30 GMT
+
+[2021-02-03 16:12:31Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 16:12:31Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 16:14:12Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 16:44:19Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 17:07:44Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 299b9265-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: ca886457-9208-4ef7-ac04-8db89e6bf23f
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: F2BEA4A765114B0F8F2605AFCAA7DD34 Ref B: MRS20EDGE0119 Ref C: 2021-02-03T17:07:44Z
+Date: Wed, 03 Feb 2021 17:07:43 GMT
+
+[2021-02-03 17:07:44Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 17:07:45Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 17:14:27Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 17:44:34Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 18:02:58Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29a4303b-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 51bf8770-2468-4265-8db8-354511c03c9e
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: FAA7F47EBD284CD5A778DB5556C70F2D Ref B: MRS20EDGE0119 Ref C: 2021-02-03T18:02:58Z
+Date: Wed, 03 Feb 2021 18:02:58 GMT
+
+[2021-02-03 18:02:58Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 18:02:59Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 18:14:43Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 18:44:50Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 18:58:13Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d6fa2826-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 05f22059-8c97-4219-bcb4-1d0f9f74a730
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 8F3F7FF158AF4CF6BDDC3F4089BA69D7 Ref B: MRS20EDGE0110 Ref C: 2021-02-03T18:58:13Z
+Date: Wed, 03 Feb 2021 18:58:12 GMT
+
+[2021-02-03 18:58:13Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 18:58:13Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 19:14:57Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 19:45:04Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 19:53:26Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75d611b2-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: c905c3c3-1d27-4685-a8f8-f25b52dfd6a0
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 8246290D7C784FBCAF2F6D574EF62FFE Ref B: MRS20EDGE0110 Ref C: 2021-02-03T19:53:26Z
+Date: Wed, 03 Feb 2021 19:53:25 GMT
+
+[2021-02-03 19:53:26Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 19:53:27Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 20:15:12Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 20:45:19Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 20:48:40Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29abcdfd-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 6f5d5d44-c0f0-4055-9917-5bf2813d77e8
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: CE6BE90976AC4DA5B48F4252CAF8FE0C Ref B: MRS20EDGE0110 Ref C: 2021-02-03T20:48:39Z
+Date: Wed, 03 Feb 2021 20:48:40 GMT
+
+[2021-02-03 20:48:40Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 20:48:41Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 21:15:26Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 21:43:53Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75ce3d09-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: c8f4d7b4-a6b7-46f8-9cdb-81416e27631f
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 27C88367784540158581EC87A126D66E Ref B: MRS20EDGE0110 Ref C: 2021-02-03T21:43:53Z
+Date: Wed, 03 Feb 2021 21:43:53 GMT
+
+[2021-02-03 21:43:53Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 21:43:54Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 21:45:34Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 22:15:42Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 22:39:07Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75cafe01-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 662a100a-377e-42a7-b457-ff2d13dee11c
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: F598B5E4358446DC82B073BB928A4E56 Ref B: MRS20EDGE0110 Ref C: 2021-02-03T22:39:07Z
+Date: Wed, 03 Feb 2021 22:39:07 GMT
+
+[2021-02-03 22:39:07Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 22:39:08Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 22:45:49Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 23:15:56Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-03 23:34:21Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d6e4147f-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: e0c6bd99-3a60-4733-ae90-de0060d433b9
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 559F8D943C96402EBE8771CA5A8BED09 Ref B: MRS20EDGE0110 Ref C: 2021-02-03T23:34:21Z
+Date: Wed, 03 Feb 2021 23:34:20 GMT
+
+[2021-02-03 23:34:21Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-03 23:34:22Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-03 23:46:04Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 00:16:11Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 00:29:34Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29bd15f4-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 0c096d69-ef59-456c-b51b-bb3dfe391fdc
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: F6A56339890F42ACB18E28DC0C7B0860 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T00:29:34Z
+Date: Thu, 04 Feb 2021 00:29:34 GMT
+
+[2021-02-04 00:29:34Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 00:29:35Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 00:46:18Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 01:16:25Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 01:24:48Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75c11ce3-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 207da771-de14-4da9-8ea9-87ccefbe30dd
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 8E78D8C6CBA6426C8DCC057DBC0DD9D8 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T01:24:47Z
+Date: Thu, 04 Feb 2021 01:24:48 GMT
+
+[2021-02-04 01:24:48Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 01:24:48Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 01:46:33Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 02:16:40Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 02:20:01Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 753deec6-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 3313e9ee-76b8-4ab9-8827-d40a52ba6b92
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: AFA99ACB32F04489A3A91642E3843AE3 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T02:20:00Z
+Date: Thu, 04 Feb 2021 02:20:00 GMT
+
+[2021-02-04 02:20:01Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 02:20:01Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 02:46:48Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 03:15:15Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d619b4da-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 149536e6-10d3-4061-967f-4f5a3c2c926d
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: C249F5D364B446B3AAFBAFED7F8CBEEE Ref B: MRS20EDGE0110 Ref C: 2021-02-04T03:15:14Z
+Date: Thu, 04 Feb 2021 03:15:14 GMT
+
+[2021-02-04 03:15:15Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 03:15:15Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 03:16:55Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 03:47:02Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 04:10:28Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d6153bb6-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 307dc655-fdfb-4d34-b26d-ac4eac5b53ef
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 3C72BE9DB93942AD83A004D0033EF326 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T04:10:28Z
+Date: Thu, 04 Feb 2021 04:10:27 GMT
+
+[2021-02-04 04:10:28Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 04:10:29Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 04:17:10Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 04:47:17Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 05:05:42Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75334c3f-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 32d04069-eec1-4611-8fea-a2fb185ca843
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: E9784E6C8C3046788ED8C44D3CB7AC5F Ref B: MRS20EDGE0110 Ref C: 2021-02-04T05:05:42Z
+Date: Thu, 04 Feb 2021 05:05:41 GMT
+
+[2021-02-04 05:05:42Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 05:05:42Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 05:17:25Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 05:47:32Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 06:00:55Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d613beb9-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 1a65ea96-9e2e-4fd5-91d5-1c68f8dc1a3d
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 22AA17D696B746478464653185084FCD Ref B: MRS20EDGE0110 Ref C: 2021-02-04T06:00:55Z
+Date: Thu, 04 Feb 2021 06:00:55 GMT
+
+[2021-02-04 06:00:55Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 06:00:56Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 06:17:40Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 06:47:47Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 06:56:10Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 752d7d31-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 702eb935-7980-422f-be43-0259cc89105c
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: D9A51AC710184054B093704D01C95821 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T06:56:09Z
+Date: Thu, 04 Feb 2021 06:56:09 GMT
+
+[2021-02-04 06:56:10Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 06:56:10Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 07:17:55Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 07:48:03Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 07:51:24Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 29504fcd-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 05baca5a-af51-4834-b063-ef209aa8f3ac
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: B253E4A692984EA2A4790E7491CE1FDA Ref B: MRS20EDGE0110 Ref C: 2021-02-04T07:51:23Z
+Date: Thu, 04 Feb 2021 07:51:24 GMT
+
+[2021-02-04 07:51:24Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 07:51:24Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 08:18:10Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 08:46:37Z WARN GitHubActionsService] Authentication failed with status code 401.
+Transfer-Encoding: chunked
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d605365b-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 9e78b6fb-5825-4048-a9b2-78da06df8e6d
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: CBC395B8CCD141B090C2159BA778D370 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T08:46:37Z
+Date: Thu, 04 Feb 2021 08:46:36 GMT
+
+[2021-02-04 08:46:37Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 08:46:37Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 08:48:18Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 09:18:25Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 09:41:51Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d60177f8-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: ba84d332-4f22-440a-b540-0a1ddb6a919b
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 10EF057903064EE6A1942962F0347A17 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T09:41:51Z
+Date: Thu, 04 Feb 2021 09:41:51 GMT
+
+[2021-02-04 09:41:51Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 09:41:51Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 09:48:33Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 10:18:40Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 10:37:05Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 751e873c-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: f62635a4-e157-485e-9f2b-e1204fe090d9
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 969DA9F3D3C9459597A967903A3A0354 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T10:37:05Z
+Date: Thu, 04 Feb 2021 10:37:05 GMT
+
+[2021-02-04 10:37:05Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 10:37:05Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 10:48:48Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 11:18:55Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 11:32:19Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d63976da-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: e25a64a3-5b29-4796-93fe-80dc3f3941fc
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 32F2430BE0AD4827B396D564BF6D92D6 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T11:32:19Z
+Date: Thu, 04 Feb 2021 11:32:19 GMT
+
+[2021-02-04 11:32:19Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 11:32:20Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 11:49:04Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 12:19:10Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 12:27:32Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d635585a-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: ad201bd7-ede6-4c6b-b56e-b7613ef797b3
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: E3137EC5249949B697A668086DFE0DB7 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T12:27:32Z
+Date: Thu, 04 Feb 2021 12:27:32 GMT
+
+[2021-02-04 12:27:32Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 12:27:33Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 12:49:18Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 13:19:26Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 13:22:47Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75123a54-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: feabc87e-14c5-4e0f-be95-3a4529fdb59e
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: F0718574EFCC4005BCE8EF3958E29FAC Ref B: MRS20EDGE0110 Ref C: 2021-02-04T13:22:47Z
+Date: Thu, 04 Feb 2021 13:22:47 GMT
+
+[2021-02-04 13:22:47Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 13:22:48Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 13:49:35Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 14:18:02Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 750d9f54-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 944db23d-84d3-414b-a5dc-dc1aaba4f0ad
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: A87823571BDE4EB4A8B18828E8A2E5FC Ref B: MRS20EDGE0110 Ref C: 2021-02-04T14:18:02Z
+Date: Thu, 04 Feb 2021 14:18:01 GMT
+
+[2021-02-04 14:18:02Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 14:18:03Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 14:19:43Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 14:49:51Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 15:13:16Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75094bb0-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: d4443a3b-84f4-482f-96b3-fb9f0c1d9d41
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: B993F5688D424EA0BFC56C89CF883BC0 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T15:13:16Z
+Date: Thu, 04 Feb 2021 15:13:15 GMT
+
+[2021-02-04 15:13:16Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 15:13:17Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 15:19:58Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 15:50:05Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 16:08:30Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 0241bf1b-a93c-4983-800f-665ce5e69dd4
+ActivityId: 297dc9bc-ab62-460a-b9f5-300acc716844
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 640501d7-c21f-46db-9e4f-1c8bddfd32ce
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 018C2D587F57444E84C43366501470C3 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T16:08:30Z
+Date: Thu, 04 Feb 2021 16:08:30 GMT
+
+[2021-02-04 16:08:30Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 16:08:30Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 16:20:13Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 16:50:20Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 17:03:43Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 757ef3e1-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: 02ee9011-de92-4cb6-83d3-629fc5496f94
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 51A6139E8ED3422B803B9C8698846FF9 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T17:03:43Z
+Date: Thu, 04 Feb 2021 17:03:42 GMT
+
+[2021-02-04 17:03:43Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 17:03:44Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 17:20:28Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 17:50:37Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 17:58:58Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d65af6cd-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: bd6baccb-500e-4904-bed4-2b9e32dc36f6
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 7C17BFCA6FA444A9871495635D61EA97 Ref B: MRS20EDGE0110 Ref C: 2021-02-04T17:58:58Z
+Date: Thu, 04 Feb 2021 17:58:58 GMT
+
+[2021-02-04 17:58:58Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 17:58:59Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-04 18:20:44Z INFO MessageListener] No message retrieved from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4' within last 30 minutes.
+[2021-02-04 18:32:36Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 18:32:36Z INFO MessageListener] Message '27' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-04 18:32:36Z INFO JobDispatcher] Job request 26 for plan 3c9d5950-4fe3-49bb-b4b7-7ca74a4d1bc0 job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-04 18:32:36Z INFO JobDispatcher] Pull OrchestrationId 3c9d5950-4fe3-49bb-b4b7-7ca74a4d1bc0.build.__default from JWT claims
+[2021-02-04 18:32:36Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-04 18:32:36Z INFO Terminal] WRITE LINE: 2021-02-04 18:32:36Z: Running job: build
+[2021-02-04 18:32:36Z INFO JobDispatcher] Start renew job request 26 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-04 18:32:37Z INFO JobDispatcher] Successfully renew job request 26, job is valid till 04/02/2021 18:42:37
+[2021-02-04 18:32:37Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 106'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-04 18:32:37Z INFO ProcessInvokerWrapper] Process started with process id 28524, waiting for process exit.
+[2021-02-04 18:32:37Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-04 18:32:37Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-04 18:32:37Z INFO JobNotification] Entering StartMonitor
+[2021-02-04 18:32:46Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-04 18:32:46Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-04 18:32:46Z INFO ProcessInvokerWrapper] Finished process 28524 with exit code 102, and elapsed time 00:00:08.4741874.
+[2021-02-04 18:32:46Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 102
+[2021-02-04 18:32:46Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Failed
+[2021-02-04 18:32:46Z INFO Terminal] WRITE LINE: 2021-02-04 18:32:46Z: Job build completed with result: Failed
+[2021-02-04 18:32:46Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-04 18:32:46Z INFO JobDispatcher] job renew has been canceled, stop renew job request 26.
+[2021-02-04 18:32:46Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-04 18:32:46Z INFO JobNotification] Entering EndMonitor
+[2021-02-04 18:51:49Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 18:51:49Z INFO MessageListener] Message '28' received from session '96d8e721-1e2c-4eab-a5fa-52f14f96d3f4'.
+[2021-02-04 18:51:49Z INFO JobDispatcher] Job request 27 for plan 9e20ab06-30f3-43cf-b8d5-ea074a689388 job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-04 18:51:49Z INFO JobDispatcher] Pull OrchestrationId 9e20ab06-30f3-43cf-b8d5-ea074a689388.build.__default from JWT claims
+[2021-02-04 18:51:49Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-04 18:51:49Z INFO Terminal] WRITE LINE: 2021-02-04 18:51:49Z: Running job: build
+[2021-02-04 18:51:49Z INFO JobDispatcher] Start renew job request 27 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-04 18:51:49Z INFO JobDispatcher] Successfully renew job request 27, job is valid till 04/02/2021 19:01:49
+[2021-02-04 18:51:49Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 101 106'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-04 18:51:49Z INFO ProcessInvokerWrapper] Process started with process id 28826, waiting for process exit.
+[2021-02-04 18:51:49Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-04 18:51:49Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-04 18:51:49Z INFO JobNotification] Entering StartMonitor
+[2021-02-04 18:51:56Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-04 18:51:56Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-04 18:51:56Z INFO ProcessInvokerWrapper] Finished process 28826 with exit code 100, and elapsed time 00:00:07.1632007.
+[2021-02-04 18:51:56Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 100
+[2021-02-04 18:51:56Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Succeeded
+[2021-02-04 18:51:56Z INFO Terminal] WRITE LINE: 2021-02-04 18:51:56Z: Job build completed with result: Succeeded
+[2021-02-04 18:51:56Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-04 18:51:56Z INFO JobDispatcher] job renew has been canceled, stop renew job request 27.
+[2021-02-04 18:51:56Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-04 18:51:56Z INFO JobNotification] Entering EndMonitor
+[2021-02-04 18:54:20Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: 9c9460c1-442d-4cc9-b434-04f549c4cd17
+ActivityId: d6577f46-e3b6-40e8-b498-4acc83cfb870
+X-TFS-Session: cc25d8ce-702c-4347-8892-82bed87be9d3
+X-VSS-E2EID: d5de0f16-31c6-4f10-bea8-a0e6f7e9abbb
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 7B70A79A029B436A92C548C8141BBFBF Ref B: MRS20EDGE0120 Ref C: 2021-02-04T18:54:20Z
+Date: Thu, 04 Feb 2021 18:54:20 GMT
+
+[2021-02-04 18:54:20Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-04 18:54:21Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown

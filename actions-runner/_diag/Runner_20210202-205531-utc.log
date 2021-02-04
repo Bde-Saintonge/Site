@@ -1,0 +1,178 @@
+[2021-02-02 20:55:31Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 20:55:31Z INFO HostContext] Well known config file 'Credentials': '/home/site/bde/actions-runner/.credentials'
+[2021-02-02 20:55:31Z INFO Listener] Runner is built for Linux (X64) - linux-x64.
+[2021-02-02 20:55:31Z INFO Listener] RuntimeInformation: Linux 4.19.0-14-amd64 #1 SMP Debian 4.19.171-2 (2021-01-30).
+[2021-02-02 20:55:31Z INFO Listener] Version: 2.276.1
+[2021-02-02 20:55:31Z INFO Listener] Commit: 5effa808be96eae7f2e08d713426b8d056bddff1
+[2021-02-02 20:55:31Z INFO Listener] Culture: fr-FR
+[2021-02-02 20:55:31Z INFO Listener] UI Culture: fr-FR
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 20:55:31Z INFO Listener] Validating directory permissions for: '/home/site/bde/actions-runner'
+[2021-02-02 20:55:31Z INFO CommandLineParser] Parse
+[2021-02-02 20:55:31Z INFO CommandLineParser] Parsing 1 args
+[2021-02-02 20:55:31Z INFO CommandLineParser] parsing argument
+[2021-02-02 20:55:31Z INFO CommandLineParser] HasArgs: False
+[2021-02-02 20:55:31Z INFO CommandLineParser] Adding Command: run
+[2021-02-02 20:55:31Z INFO Listener] Arguments parsed
+[2021-02-02 20:55:31Z INFO Runner] ExecuteCommand
+[2021-02-02 20:55:31Z INFO ConfigurationStore] currentAssemblyLocation: /home/site/bde/actions-runner/bin/Runner.Listener.dll
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:31Z INFO ConfigurationStore] binPath: /home/site/bde/actions-runner/bin
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 20:55:31Z INFO ConfigurationStore] RootFolder: /home/site/bde/actions-runner
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 20:55:31Z INFO HostContext] Well known config file 'Runner': '/home/site/bde/actions-runner/.runner'
+[2021-02-02 20:55:31Z INFO ConfigurationStore] ConfigFilePath: /home/site/bde/actions-runner/.runner
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 20:55:31Z INFO HostContext] Well known config file 'Credentials': '/home/site/bde/actions-runner/.credentials'
+[2021-02-02 20:55:31Z INFO ConfigurationStore] CredFilePath: /home/site/bde/actions-runner/.credentials
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 20:55:31Z INFO HostContext] Well known config file 'MigratedCredentials': '/home/site/bde/actions-runner/.credentials_migrated'
+[2021-02-02 20:55:31Z INFO ConfigurationStore] MigratedCredFilePath: /home/site/bde/actions-runner/.credentials_migrated
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 20:55:31Z INFO HostContext] Well known config file 'Service': '/home/site/bde/actions-runner/.service'
+[2021-02-02 20:55:31Z INFO ConfigurationStore] ServiceConfigFilePath: /home/site/bde/actions-runner/.service
+[2021-02-02 20:55:31Z INFO CommandSettings] Flag 'help': 'False'
+[2021-02-02 20:55:31Z INFO CommandSettings] Flag 'version': 'False'
+[2021-02-02 20:55:31Z INFO CommandSettings] Flag 'commit': 'False'
+[2021-02-02 20:55:31Z INFO CommandSettings] Flag 'check': 'False'
+[2021-02-02 20:55:31Z INFO CommandSettings] Command 'configure': 'False'
+[2021-02-02 20:55:31Z INFO CommandSettings] Command 'remove': 'False'
+[2021-02-02 20:55:31Z INFO CommandSettings] Command 'warmup': 'False'
+[2021-02-02 20:55:31Z INFO ConfigurationManager] LoadSettings
+[2021-02-02 20:55:31Z INFO ConfigurationStore] IsConfigured()
+[2021-02-02 20:55:31Z INFO ConfigurationStore] IsConfigured: True
+[2021-02-02 20:55:31Z INFO ConfigurationManager] Is configured: True
+[2021-02-02 20:55:31Z INFO ConfigurationStore] Read setting file: 279 chars
+[2021-02-02 20:55:31Z INFO ConfigurationManager] Settings Loaded
+[2021-02-02 20:55:31Z INFO ConfigurationStore] IsServiceConfigured()
+[2021-02-02 20:55:31Z INFO ConfigurationStore] IsServiceConfigured: False
+[2021-02-02 20:55:31Z INFO CommandSettings] Command 'run': 'True'
+[2021-02-02 20:55:31Z INFO ConfigurationStore] IsConfigured()
+[2021-02-02 20:55:31Z INFO ConfigurationStore] IsConfigured: True
+[2021-02-02 20:55:31Z INFO ConfigurationManager] Is configured: True
+[2021-02-02 20:55:31Z INFO Runner] Could not parse the argument value '' for StartupType. Defaulting to Manual
+[2021-02-02 20:55:31Z INFO Runner] Set runner startup type - Manual
+[2021-02-02 20:55:31Z INFO CommandSettings] Flag 'once': 'False'
+[2021-02-02 20:55:31Z INFO Runner] RunAsync
+[2021-02-02 20:55:31Z INFO ConfigurationManager] LoadSettings
+[2021-02-02 20:55:31Z INFO ConfigurationStore] IsConfigured()
+[2021-02-02 20:55:31Z INFO ConfigurationStore] IsConfigured: True
+[2021-02-02 20:55:31Z INFO ConfigurationManager] Is configured: True
+[2021-02-02 20:55:31Z INFO ConfigurationManager] Settings Loaded
+[2021-02-02 20:55:31Z INFO MessageListener] {
+  "AgentId": 2,
+  "AgentName": "Site",
+  "PoolId": 1,
+  "PoolName": "Default",
+  "ServerUrl": "https://pipelines.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn",
+  "GitHubUrl": "https://github.com/Bde-Saintonge/Site",
+  "WorkFolder": "_work"
+}
+[2021-02-02 20:55:31Z INFO MessageListener] Loading Credentials
+[2021-02-02 20:55:31Z INFO ConfigurationStore] HasCredentials()
+[2021-02-02 20:55:31Z INFO ConfigurationStore] stored True
+[2021-02-02 20:55:31Z INFO CredentialManager] GetCredentialProvider
+[2021-02-02 20:55:31Z INFO CredentialManager] Creating type OAuth
+[2021-02-02 20:55:31Z INFO CredentialManager] Creating credential type: OAuth
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:31Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 20:55:31Z INFO HostContext] Well known config file 'RSACredentials': '/home/site/bde/actions-runner/.credentials_rsaparams'
+[2021-02-02 20:55:31Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 20:55:31Z INFO MessageListener] Attempt to create session.
+[2021-02-02 20:55:31Z INFO MessageListener] Connecting to the Runner Server...
+[2021-02-02 20:55:31Z INFO RunnerServer] Establish connection with 100 seconds timeout.
+[2021-02-02 20:55:31Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2021-02-02 20:55:31Z INFO RunnerServer] Establish connection with 60 seconds timeout.
+[2021-02-02 20:55:31Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2021-02-02 20:55:31Z INFO RunnerServer] Establish connection with 60 seconds timeout.
+[2021-02-02 20:55:31Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2021-02-02 20:55:32Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2021-02-02 20:55:32Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2021-02-02 20:55:32Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2021-02-02 20:55:32Z INFO MessageListener] VssConnection created
+[2021-02-02 20:55:32Z INFO Terminal] WRITE LINE: 
+[2021-02-02 20:55:32Z INFO Terminal] WRITE LINE: 
+[2021-02-02 20:55:32Z WARN GitHubActionsService] Authentication failed with status code 401.
+WWW-Authenticate: Bearer
+Strict-Transport-Security: max-age=2592000
+X-TFS-ProcessId: edbf39e7-38c0-4384-bfd2-0714b7ff201f
+ActivityId: 75b59b79-cb21-431b-957c-7937ca43b36e
+X-TFS-Session: 2d3bbac1-46fc-4b62-a84c-7f1e3eff2ca3
+X-VSS-E2EID: 0abe67bf-f4e7-4cc4-a501-6ba237868e43
+X-VSS-SenderDeploymentId: 2c974d96-2c30-cef5-eff2-3e0511a903a5
+X-TFS-ServiceError: The+user+%27System%3aPublicAccess%3baaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa%27+is+not+authorized+to+access+this+resource.
+X-VSS-S2STargetService: 0000005A-0000-8888-8000-000000000000/visualstudio.com
+X-MSEdge-Ref: Ref A: 4FCCB91BFD8542F2B66FDCE944751B8E Ref B: MRS20EDGE0118 Ref C: 2021-02-02T20:55:33Z
+Date: Tue, 02 Feb 2021 20:55:32 GMT
+
+[2021-02-02 20:55:32Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 20:55:32Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 20:55:33Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2021-02-02 20:55:33Z INFO MessageListener] Session created.
+[2021-02-02 20:55:33Z INFO Terminal] WRITE LINE: 2021-02-02 20:55:33Z: Listening for Jobs
+[2021-02-02 20:55:33Z INFO JobDispatcher] Set runner/worker IPC timeout to 30 seconds.
+[2021-02-02 20:55:35Z INFO RSAFileKeyManager] Loading RSA key parameters from file /home/site/bde/actions-runner/.credentials_rsaparams
+[2021-02-02 20:55:35Z INFO MessageListener] Message '12' received from session 'b586ae65-e1be-4412-a4d0-ad6c0e91e234'.
+[2021-02-02 20:55:35Z INFO JobDispatcher] Job request 11 for plan 6786c0ed-e3d9-4d99-9de2-fcec7e45e70b job ca395085-040a-526b-2ce8-bdc85f692774 received.
+[2021-02-02 20:55:35Z INFO JobDispatcher] Pull OrchestrationId 6786c0ed-e3d9-4d99-9de2-fcec7e45e70b.build.__default from JWT claims
+[2021-02-02 20:55:35Z INFO Terminal] WRITE LINE: 2021-02-02 20:55:35Z: Running job: build
+[2021-02-02 20:55:35Z INFO JobDispatcher] Start renew job request 11 for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 20:55:35Z INFO JobDispatcher] Successfully renew job request 11, job is valid till 02/02/2021 21:05:35
+[2021-02-02 20:55:35Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   File name: '/home/site/bde/actions-runner/bin/Runner.Worker'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   Arguments: 'spawnclient 100 103'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/bin'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'True'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper]   High priority process: 'True'
+[2021-02-02 20:55:35Z INFO ProcessInvokerWrapper] Process started with process id 1382, waiting for process exit.
+[2021-02-02 20:55:35Z INFO JobDispatcher] Send job request message to worker for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 20:55:35Z INFO JobNotification] Entering JobStarted Notification
+[2021-02-02 20:55:35Z INFO JobNotification] Entering StartMonitor
+[2021-02-02 20:55:39Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 20:55:39Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 20:55:39Z INFO ProcessInvokerWrapper] Finished process 1382 with exit code 100, and elapsed time 00:00:03.9715433.
+[2021-02-02 20:55:39Z INFO JobDispatcher] Worker finished for job ca395085-040a-526b-2ce8-bdc85f692774. Code: 100
+[2021-02-02 20:55:39Z INFO JobDispatcher] finish job request for job ca395085-040a-526b-2ce8-bdc85f692774 with result: Succeeded
+[2021-02-02 20:55:39Z INFO Terminal] WRITE LINE: 2021-02-02 20:55:39Z: Job build completed with result: Succeeded
+[2021-02-02 20:55:39Z INFO JobDispatcher] Stop renew job request for job ca395085-040a-526b-2ce8-bdc85f692774.
+[2021-02-02 20:55:39Z INFO JobDispatcher] job renew has been canceled, stop renew job request 11.
+[2021-02-02 20:55:39Z INFO JobNotification] Entering JobCompleted Notification
+[2021-02-02 20:55:39Z INFO JobNotification] Entering EndMonitor
+[2021-02-02 21:01:27Z ERR  GitHubActionsService] GET request to https://pipelines.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn/_apis/distributedtask/pools/1/messages?sessionId=b586ae65-e1be-4412-a4d0-ad6c0e91e234&lastMessageId=12 failed. HTTP Status: Forbidden, AFD Ref: Ref A: E484994B612D4DDC98E0E32F264C5713 Ref B: MRS20EDGE0118 Ref C: 2021-02-02T21:01:27Z
+[2021-02-02 21:01:27Z ERR  MessageListener] Catch exception during get next message.
+[2021-02-02 21:01:27Z ERR  MessageListener] GitHub.DistributedTask.WebApi.AccessDeniedException: Access denied. System:ServiceIdentity;DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD needs View permissions to perform the action.
+   at GitHub.Services.WebApi.VssHttpClientBase.HandleResponseAsync(HttpResponseMessage response, CancellationToken cancellationToken)
+   at GitHub.Services.WebApi.VssHttpClientBase.SendAsync(HttpRequestMessage message, HttpCompletionOption completionOption, Object userState, CancellationToken cancellationToken)
+   at GitHub.Services.WebApi.VssHttpClientBase.SendAsync[T](HttpRequestMessage message, Object userState, CancellationToken cancellationToken)
+   at GitHub.Services.WebApi.VssHttpClientBase.SendAsync[T](HttpMethod method, IEnumerable`1 additionalHeaders, Guid locationId, Object routeValues, ApiResourceVersion version, HttpContent content, IEnumerable`1 queryParameters, Object userState, CancellationToken cancellationToken)
+   at GitHub.Runner.Listener.MessageListener.GetNextMessageAsync(CancellationToken token)
+[2021-02-02 21:01:27Z INFO MessageListener] Non-retriable exception: Access denied. System:ServiceIdentity;DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD needs View permissions to perform the action.
+[2021-02-02 21:01:27Z INFO JobDispatcher] Shutting down JobDispatcher. Make sure all WorkerDispatcher has finished.
+[2021-02-02 21:01:27Z INFO JobDispatcher] Ensure WorkerDispather for job ca395085-040a-526b-2ce8-bdc85f692774 run to finish, cancel any running job.
+[2021-02-02 21:01:27Z INFO JobDispatcher] Job request ca395085-040a-526b-2ce8-bdc85f692774 processed succeed.
+[2021-02-02 21:01:28Z ERR  GitHubActionsService] DELETE request to https://pipelines.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn/_apis/distributedtask/pools/1/sessions/b586ae65-e1be-4412-a4d0-ad6c0e91e234 failed. HTTP Status: Forbidden, AFD Ref: Ref A: 9C01BC8C382E481A97F23CE3041EE35A Ref B: MRS20EDGE0118 Ref C: 2021-02-02T21:01:27Z
+[2021-02-02 21:01:28Z ERR  Terminal] WRITE ERROR: An error occurred: Access denied. System:ServiceIdentity;DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD needs View permissions to perform the action.
+[2021-02-02 21:01:28Z ERR  Listener] GitHub.DistributedTask.WebApi.AccessDeniedException: Access denied. System:ServiceIdentity;DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD needs View permissions to perform the action.
+   at GitHub.Services.WebApi.VssHttpClientBase.HandleResponseAsync(HttpResponseMessage response, CancellationToken cancellationToken)
+   at GitHub.Services.WebApi.VssHttpClientBase.SendAsync(HttpRequestMessage message, HttpCompletionOption completionOption, Object userState, CancellationToken cancellationToken)
+   at GitHub.Services.WebApi.VssHttpClientBase.SendAsync(HttpMethod method, Guid locationId, Object routeValues, ApiResourceVersion version, HttpContent content, IEnumerable`1 queryParameters, Object userState, CancellationToken cancellationToken)
+   at GitHub.DistributedTask.WebApi.TaskAgentHttpClientBase.DeleteAgentSessionAsync(Int32 poolId, Guid sessionId, Object userState, CancellationToken cancellationToken)
+   at GitHub.Runner.Listener.MessageListener.DeleteSessionAsync()
+   at GitHub.Runner.Listener.Runner.RunAsync(RunnerSettings settings, Boolean runOnce)
+   at GitHub.Runner.Listener.Runner.ExecuteCommand(CommandSettings command)
+   at GitHub.Runner.Listener.Program.MainAsync(IHostContext context, String[] args)
