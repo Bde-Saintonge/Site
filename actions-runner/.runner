@@ -1,0 +1,9 @@
+﻿{
+  "agentId": 2,
+  "agentName": "Site",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelines.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn",
+  "gitHubUrl": "https://github.com/Bde-Saintonge/Site",
+  "workFolder": "_work"
+}

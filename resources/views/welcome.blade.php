@@ -37,13 +37,13 @@
     </div>
     <nav>
         <div class="logo-nav">
-            <a href="/">
+            <a href="">
                 <img src="{{asset('media/images/LOGO-2020-1.jpg')}}" alt="logo">
             </a>
         </div>
         <ul>
             <li>
-                <a href="/">Accueil</a> //le deploiement via github fonctionne
+                <a href="/">Accueil</a>
             </li>
             <li>
                 <a href="/login">Se Connecter</a>
@@ -82,7 +82,7 @@
                 <img src="" class="image" style="width:100%">
                 <div class="explication center">
                     <div class="text">
-                        <span style="font-weight: bold;">Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge. Créé en 2018, ce bureau regroupe trois entités détaillées ci-dessus : le Bureau Des Actions (BDA), le Bureau des Sports (BDS), le Bureau de la culture (BDC) ainsi que le Pôle Communication.</span>
+                        <span style="font-weight: bold;">Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge. Créé en 2018, ce bureau regroupe trois entités détaillées ci-dessous : le Bureau Des Actions (BDA), le Bureau des Sports (BDS), le Bureau de la culture (BDC) ainsi que le Pôle Communication.</span>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                         <div class="container-title">
                             <h4>Bureau de la Culture (BDC)</h4>
                         </div>
-                        <p>Présentation / Explication de la Culture</p>
+                        <p>Présentation / Explication du bureau de la Culture</p>
                         <button><a href="/bdc" target="_blank">En savoir Plus</a></button>
                     </div>
                 </div>
@@ -188,19 +188,19 @@
                         </div>
 
                         <div class="pad-arround-footer">
-                            <img src="{{asset('media/images/footer-tel.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
+                            <img src="{{asset('media/images/footer-adresse.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
                             <h4 style="position: relative;left: 50px;top: 10px;">12 rue Saintonge 33000 Bordeaux</h4>
                         </div>
 
                         <div class="pad-arround-footer">
-                            <img src="{{asset('media/images/footer-adresse.svg')}}"'" width="25px" height="35px" style="position: relative;left: 25px;">
+                            <img src="{{asset('media/images/footer-tel.svg')}}"'" width="25px" height="35px" style="position: relative;left: 25px;">
                             <h4 style="position: relative;left: 50px;top: 10px;">Tèl : 05 56 99 39 29</h4>
                         </div>
 
                         <div class="pad-arround-footer">
                             <img src="{{asset('media/images/footer-mail.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
                             <h4 style="position: relative;left: 50px;bottom: 28px;">
-                                <a href="mailto:contact@bde-saintonge.fr" >Nous contacter</a>
+                                <a href="mailto:contact@bde-saintonge.fr" target="_blank" >Nous contacter</a>
                             </h4>
                         </div>
 

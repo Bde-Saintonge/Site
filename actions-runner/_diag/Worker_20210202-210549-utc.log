@@ -1,0 +1,1288 @@
+[2021-02-02 21:05:49Z INFO HostContext] No proxy settings were found based on environmental variables (http_proxy/https_proxy/HTTP_PROXY/HTTPS_PROXY)
+[2021-02-02 21:05:49Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:49Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:49Z INFO HostContext] Well known config file 'Credentials': '/home/site/bde/actions-runner/.credentials'
+[2021-02-02 21:05:49Z INFO Worker] Version: 2.276.1
+[2021-02-02 21:05:49Z INFO Worker] Commit: 5effa808be96eae7f2e08d713426b8d056bddff1
+[2021-02-02 21:05:49Z INFO Worker] Culture: fr-FR
+[2021-02-02 21:05:49Z INFO Worker] UI Culture: fr-FR
+[2021-02-02 21:05:49Z INFO Worker] Waiting to receive the job message from the channel.
+[2021-02-02 21:05:49Z INFO Worker] Message received.
+[2021-02-02 21:05:49Z INFO Worker] Job message:
+ {
+  "fileTable": [
+    ".github/workflows/php.yml"
+  ],
+  "mask": [
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    },
+    {
+      "type": "regex",
+      "value": "***"
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "reference": {
+        "type": "script"
+      },
+      "inputs": {
+        "type": 2,
+        "map": [
+          {
+            "key": "script",
+            "value": {
+              "type": 0,
+              "file": 1,
+              "line": 15,
+              "col": 15,
+              "lit": "echo \"hey !\""
+            }
+          }
+        ]
+      },
+      "condition": "success()",
+      "id": "0deead84-eb6b-5d70-5f34-89114cbbd574",
+      "name": "run"
+    }
+  ],
+  "variables": {
+    "system.isScheduled": {
+      "value": "False"
+    },
+    "system": {
+      "value": "actions"
+    },
+    "system.hosttype": {
+      "value": "actions"
+    },
+    "system.servertype": {
+      "value": "Hosted"
+    },
+    "system.culture": {
+      "value": "en-US"
+    },
+    "system.collectionId": {
+      "value": "8f350ce8-ff57-46b5-87eb-bcef733b57a8"
+    },
+    "system.collectionUri": {
+      "value": "https://pipelines.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn/"
+    },
+    "system.taskDefinitionsUri": {
+      "value": "https://pipelines.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn/"
+    },
+    "system.pipelineStartTime": {
+      "value": "2021-02-02 21:05:46+00:00"
+    },
+    "system.definitionId": {
+      "value": "3"
+    },
+    "system.runner.lowdiskspacethreshold": {
+      "value": "100"
+    },
+    "DistributedTask.NewActionMetadata": {
+      "value": "true"
+    },
+    "DistributedTask.UseContextNameForGITHUBACTION": {
+      "value": "true"
+    },
+    "system.teamProjectId": {
+      "value": "00000000-0000-0000-0000-000000000000"
+    },
+    "build.buildId": {
+      "value": "13"
+    },
+    "build.containerId": {
+      "value": "2649"
+    },
+    "system.definitionName": {
+      "value": "Site"
+    },
+    "system.planId": {
+      "value": "47046eb3-cbc9-4ac0-9118-927bf7e79930"
+    },
+    "system.timelineId": {
+      "value": "47046eb3-cbc9-4ac0-9118-927bf7e79930"
+    },
+    "system.stageDisplayName": {
+      "value": "__default"
+    },
+    "system.stageId": {
+      "value": "96ac2280-8cb4-5df5-99de-dd2da759617d"
+    },
+    "system.stageName": {
+      "value": "__default"
+    },
+    "system.stageAttempt": {
+      "value": "1"
+    },
+    "system.phaseDisplayName": {
+      "value": "build"
+    },
+    "system.phaseId": {
+      "value": "6884a131-87da-5381-61f3-d7acc3b91d76"
+    },
+    "system.phaseName": {
+      "value": "build"
+    },
+    "system.phaseAttempt": {
+      "value": "1"
+    },
+    "system.jobIdentifier": {
+      "value": "build.__default"
+    },
+    "system.jobAttempt": {
+      "value": "1"
+    },
+    "System.JobPositionInPhase": {
+      "value": "1"
+    },
+    "System.TotalJobsInPhase": {
+      "value": "1"
+    },
+    "system.github.job": {
+      "value": "build"
+    },
+    "system.jobDisplayName": {
+      "value": "build"
+    },
+    "system.jobId": {
+      "value": "ca395085-040a-526b-2ce8-bdc85f692774"
+    },
+    "system.jobName": {
+      "value": "__default"
+    },
+    "system.github.token": {
+      "value": "***",
+      "isSecret": true
+    },
+    "system.runnerGroupName": {
+      "value": "Default"
+    }
+  },
+  "messageType": "PipelineAgentJobRequest",
+  "plan": {
+    "scopeIdentifier": "00000000-0000-0000-0000-000000000000",
+    "planType": "Actions",
+    "version": 12,
+    "planId": "47046eb3-cbc9-4ac0-9118-927bf7e79930",
+    "planGroup": "Actions:00000000-0000-0000-0000-000000000000:1",
+    "artifactUri": "vstfs:///Build/Build/13",
+    "artifactLocation": null,
+    "definition": {
+      "_links": {},
+      "id": 3,
+      "name": "Site"
+    },
+    "owner": {
+      "_links": {},
+      "id": 3,
+      "name": "Bde-Saintonge"
+    }
+  },
+  "timeline": {
+    "id": "47046eb3-cbc9-4ac0-9118-927bf7e79930",
+    "changeId": 7,
+    "location": null
+  },
+  "jobId": "ca395085-040a-526b-2ce8-bdc85f692774",
+  "jobDisplayName": "build",
+  "jobName": "__default",
+  "requestId": 12,
+  "lockedUntil": "0001-01-01T00:00:00",
+  "resources": {
+    "endpoints": [
+      {
+        "data": {
+          "ServerId": "8f350ce8-ff57-46b5-87eb-bcef733b57a8",
+          "ServerName": "QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn",
+          "CacheServerUrl": "https://artifactcache.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn/"
+        },
+        "name": "SystemVssConnection",
+        "url": "https://pipelines.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn/",
+        "authorization": {
+          "parameters": {
+            "AccessToken": ***
+          },
+          "scheme": "OAuth"
+        },
+        "isShared": false,
+        "isReady": true
+      }
+    ]
+  },
+  "contextData": {
+    "github": {
+      "t": 2,
+      "d": [
+        {
+          "k": "ref",
+          "v": "refs/heads/main"
+        },
+        {
+          "k": "sha",
+          "v": "7b7444e90f9e9041610521043974f1abba11bc94"
+        },
+        {
+          "k": "repository",
+          "v": "Bde-Saintonge/Site"
+        },
+        {
+          "k": "repository_owner",
+          "v": "Bde-Saintonge"
+        },
+        {
+          "k": "repositoryUrl",
+          "v": "git://github.com/Bde-Saintonge/Site.git"
+        },
+        {
+          "k": "run_id",
+          "v": "531950819"
+        },
+        {
+          "k": "run_number",
+          "v": "13"
+        },
+        {
+          "k": "retention_days",
+          "v": "90"
+        },
+        {
+          "k": "actor",
+          "v": "jul-fls"
+        },
+        {
+          "k": "workflow",
+          "v": "PHP Composer"
+        },
+        {
+          "k": "head_ref",
+          "v": ""
+        },
+        {
+          "k": "base_ref",
+          "v": ""
+        },
+        {
+          "k": "event_name",
+          "v": "push"
+        },
+        {
+          "k": "event",
+          "v": {
+            "t": 2,
+            "d": [
+              {
+                "k": "after",
+                "v": "7b7444e90f9e9041610521043974f1abba11bc94"
+              },
+              {
+                "k": "base_ref",
+                "v": null
+              },
+              {
+                "k": "before",
+                "v": "450f48083bc4c633d81352e0b8451e3059f0c436"
+              },
+              {
+                "k": "commits",
+                "v": {
+                  "t": 1,
+                  "a": [
+                    {
+                      "t": 2,
+                      "d": [
+                        {
+                          "k": "author",
+                          "v": {
+                            "t": 2,
+                            "d": [
+                              {
+                                "k": "email",
+                                "v": "julienflusin3@gmail.com"
+                              },
+                              {
+                                "k": "name",
+                                "v": "Julien Flusin"
+                              },
+                              {
+                                "k": "username",
+                                "v": "jul-fls"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "k": "committer",
+                          "v": {
+                            "t": 2,
+                            "d": [
+                              {
+                                "k": "email",
+                                "v": "noreply@github.com"
+                              },
+                              {
+                                "k": "name",
+                                "v": "GitHub"
+                              },
+                              {
+                                "k": "username",
+                                "v": "web-flow"
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "k": "distinct",
+                          "v": true
+                        },
+                        {
+                          "k": "id",
+                          "v": "7b7444e90f9e9041610521043974f1abba11bc94"
+                        },
+                        {
+                          "k": "message",
+                          "v": "test deploy"
+                        },
+                        {
+                          "k": "timestamp",
+                          "v": "2021-02-02T22:00:39+01:00"
+                        },
+                        {
+                          "k": "tree_id",
+                          "v": "f33f4d7f34f8396b51d8d919f34538571e0eeb48"
+                        },
+                        {
+                          "k": "url",
+                          "v": "https://github.com/Bde-Saintonge/Site/commit/7b7444e90f9e9041610521043974f1abba11bc94"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "compare",
+                "v": "https://github.com/Bde-Saintonge/Site/compare/450f48083bc4...7b7444e90f9e"
+              },
+              {
+                "k": "created",
+                "v": false
+              },
+              {
+                "k": "deleted",
+                "v": false
+              },
+              {
+                "k": "forced",
+                "v": false
+              },
+              {
+                "k": "head_commit",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "author",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "email",
+                            "v": "julienflusin3@gmail.com"
+                          },
+                          {
+                            "k": "name",
+                            "v": "Julien Flusin"
+                          },
+                          {
+                            "k": "username",
+                            "v": "jul-fls"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "committer",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "email",
+                            "v": "noreply@github.com"
+                          },
+                          {
+                            "k": "name",
+                            "v": "GitHub"
+                          },
+                          {
+                            "k": "username",
+                            "v": "web-flow"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "distinct",
+                      "v": true
+                    },
+                    {
+                      "k": "id",
+                      "v": "7b7444e90f9e9041610521043974f1abba11bc94"
+                    },
+                    {
+                      "k": "message",
+                      "v": "test deploy"
+                    },
+                    {
+                      "k": "timestamp",
+                      "v": "2021-02-02T22:00:39+01:00"
+                    },
+                    {
+                      "k": "tree_id",
+                      "v": "f33f4d7f34f8396b51d8d919f34538571e0eeb48"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://github.com/Bde-Saintonge/Site/commit/7b7444e90f9e9041610521043974f1abba11bc94"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "organization",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "avatar_url",
+                      "v": "https://avatars.githubusercontent.com/u/75099600?v=4"
+                    },
+                    {
+                      "k": "description",
+                      "v": "Bureau des élèves du lycée Sainte Famille Saintonge"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/orgs/Bde-Saintonge/events"
+                    },
+                    {
+                      "k": "hooks_url",
+                      "v": "https://api.github.com/orgs/Bde-Saintonge/hooks"
+                    },
+                    {
+                      "k": "id",
+                      "v": 75099600.0
+                    },
+                    {
+                      "k": "issues_url",
+                      "v": "https://api.github.com/orgs/Bde-Saintonge/issues"
+                    },
+                    {
+                      "k": "login",
+                      "v": "Bde-Saintonge"
+                    },
+                    {
+                      "k": "members_url",
+                      "v": "https://api.github.com/orgs/Bde-Saintonge/members{/member}"
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "MDEyOk9yZ2FuaXphdGlvbjc1MDk5NjAw"
+                    },
+                    {
+                      "k": "public_members_url",
+                      "v": "https://api.github.com/orgs/Bde-Saintonge/public_members{/member}"
+                    },
+                    {
+                      "k": "repos_url",
+                      "v": "https://api.github.com/orgs/Bde-Saintonge/repos"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/orgs/Bde-Saintonge"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "pusher",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "email",
+                      "v": "julienflusin3@gmail.com"
+                    },
+                    {
+                      "k": "name",
+                      "v": "jul-fls"
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "ref",
+                "v": "refs/heads/main"
+              },
+              {
+                "k": "repository",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "archive_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/{archive_format}{/ref}"
+                    },
+                    {
+                      "k": "archived",
+                      "v": false
+                    },
+                    {
+                      "k": "assignees_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/assignees{/user}"
+                    },
+                    {
+                      "k": "blobs_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/git/blobs{/sha}"
+                    },
+                    {
+                      "k": "branches_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/branches{/branch}"
+                    },
+                    {
+                      "k": "clone_url",
+                      "v": "https://github.com/Bde-Saintonge/Site.git"
+                    },
+                    {
+                      "k": "collaborators_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/collaborators{/collaborator}"
+                    },
+                    {
+                      "k": "comments_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/comments{/number}"
+                    },
+                    {
+                      "k": "commits_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/commits{/sha}"
+                    },
+                    {
+                      "k": "compare_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/compare/{base}...{head}"
+                    },
+                    {
+                      "k": "contents_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/contents/{+path}"
+                    },
+                    {
+                      "k": "contributors_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/contributors"
+                    },
+                    {
+                      "k": "created_at",
+                      "v": 1607163821.0
+                    },
+                    {
+                      "k": "default_branch",
+                      "v": "main"
+                    },
+                    {
+                      "k": "deployments_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/deployments"
+                    },
+                    {
+                      "k": "description",
+                      "v": "Le code du site du BDE"
+                    },
+                    {
+                      "k": "disabled",
+                      "v": false
+                    },
+                    {
+                      "k": "downloads_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/downloads"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/events"
+                    },
+                    {
+                      "k": "fork",
+                      "v": false
+                    },
+                    {
+                      "k": "forks",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "forks_count",
+                      "v": 0.0
+                    },
+                    {
+                      "k": "forks_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/forks"
+                    },
+                    {
+                      "k": "full_name",
+                      "v": "Bde-Saintonge/Site"
+                    },
+                    {
+                      "k": "git_commits_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/git/commits{/sha}"
+                    },
+                    {
+                      "k": "git_refs_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/git/refs{/sha}"
+                    },
+                    {
+                      "k": "git_tags_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/git/tags{/sha}"
+                    },
+                    {
+                      "k": "git_url",
+                      "v": "git://github.com/Bde-Saintonge/Site.git"
+                    },
+                    {
+                      "k": "has_downloads",
+                      "v": true
+                    },
+                    {
+                      "k": "has_issues",
+                      "v": true
+                    },
+                    {
+                      "k": "has_pages",
+                      "v": false
+                    },
+                    {
+                      "k": "has_projects",
+                      "v": true
+                    },
+                    {
+                      "k": "has_wiki",
+                      "v": true
+                    },
+                    {
+                      "k": "homepage",
+                      "v": null
+                    },
+                    {
+                      "k": "hooks_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/hooks"
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/Bde-Saintonge/Site"
+                    },
+                    {
+                      "k": "id",
+                      "v": 318758775.0
+                    },
+                    {
+                      "k": "issue_comment_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/issues/comments{/number}"
+                    },
+                    {
+                      "k": "issue_events_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/issues/events{/number}"
+                    },
+                    {
+                      "k": "issues_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/issues{/number}"
+                    },
+                    {
+                      "k": "keys_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/keys{/key_id}"
+                    },
+                    {
+                      "k": "labels_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/labels{/name}"
+                    },
+                    {
+                      "k": "language",
+                      "v": "Blade"
+                    },
+                    {
+                      "k": "languages_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/languages"
+                    },
+                    {
+                      "k": "license",
+                      "v": null
+                    },
+                    {
+                      "k": "master_branch",
+                      "v": "main"
+                    },
+                    {
+                      "k": "merges_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/merges"
+                    },
+                    {
+                      "k": "milestones_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/milestones{/number}"
+                    },
+                    {
+                      "k": "mirror_url",
+                      "v": null
+                    },
+                    {
+                      "k": "name",
+                      "v": "Site"
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "MDEwOlJlcG9zaXRvcnkzMTg3NTg3NzU="
+                    },
+                    {
+                      "k": "notifications_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/notifications{?since,all,participating}"
+                    },
+                    {
+                      "k": "open_issues",
+                      "v": 4.0
+                    },
+                    {
+                      "k": "open_issues_count",
+                      "v": 4.0
+                    },
+                    {
+                      "k": "organization",
+                      "v": "Bde-Saintonge"
+                    },
+                    {
+                      "k": "owner",
+                      "v": {
+                        "t": 2,
+                        "d": [
+                          {
+                            "k": "avatar_url",
+                            "v": "https://avatars.githubusercontent.com/u/75099600?v=4"
+                          },
+                          {
+                            "k": "email",
+                            "v": "contact@bde-saintonge.fr"
+                          },
+                          {
+                            "k": "events_url",
+                            "v": "https://api.github.com/users/Bde-Saintonge/events{/privacy}"
+                          },
+                          {
+                            "k": "followers_url",
+                            "v": "https://api.github.com/users/Bde-Saintonge/followers"
+                          },
+                          {
+                            "k": "following_url",
+                            "v": "https://api.github.com/users/Bde-Saintonge/following{/other_user}"
+                          },
+                          {
+                            "k": "gists_url",
+                            "v": "https://api.github.com/users/Bde-Saintonge/gists{/gist_id}"
+                          },
+                          {
+                            "k": "gravatar_id",
+                            "v": ""
+                          },
+                          {
+                            "k": "html_url",
+                            "v": "https://github.com/Bde-Saintonge"
+                          },
+                          {
+                            "k": "id",
+                            "v": 75099600.0
+                          },
+                          {
+                            "k": "login",
+                            "v": "Bde-Saintonge"
+                          },
+                          {
+                            "k": "name",
+                            "v": "Bde-Saintonge"
+                          },
+                          {
+                            "k": "node_id",
+                            "v": "MDEyOk9yZ2FuaXphdGlvbjc1MDk5NjAw"
+                          },
+                          {
+                            "k": "organizations_url",
+                            "v": "https://api.github.com/users/Bde-Saintonge/orgs"
+                          },
+                          {
+                            "k": "received_events_url",
+                            "v": "https://api.github.com/users/Bde-Saintonge/received_events"
+                          },
+                          {
+                            "k": "repos_url",
+                            "v": "https://api.github.com/users/Bde-Saintonge/repos"
+                          },
+                          {
+                            "k": "site_admin",
+                            "v": false
+                          },
+                          {
+                            "k": "starred_url",
+                            "v": "https://api.github.com/users/Bde-Saintonge/starred{/owner}{/repo}"
+                          },
+                          {
+                            "k": "subscriptions_url",
+                            "v": "https://api.github.com/users/Bde-Saintonge/subscriptions"
+                          },
+                          {
+                            "k": "type",
+                            "v": "Organization"
+                          },
+                          {
+                            "k": "url",
+                            "v": "https://api.github.com/users/Bde-Saintonge"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "k": "private",
+                      "v": true
+                    },
+                    {
+                      "k": "pulls_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/pulls{/number}"
+                    },
+                    {
+                      "k": "pushed_at",
+                      "v": 1612299639.0
+                    },
+                    {
+                      "k": "releases_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/releases{/id}"
+                    },
+                    {
+                      "k": "size",
+                      "v": 5594.0
+                    },
+                    {
+                      "k": "ssh_url",
+                      "v": "git@github.com:Bde-Saintonge/Site.git"
+                    },
+                    {
+                      "k": "stargazers",
+                      "v": 1.0
+                    },
+                    {
+                      "k": "stargazers_count",
+                      "v": 1.0
+                    },
+                    {
+                      "k": "stargazers_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/stargazers"
+                    },
+                    {
+                      "k": "statuses_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/statuses/{sha}"
+                    },
+                    {
+                      "k": "subscribers_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/subscribers"
+                    },
+                    {
+                      "k": "subscription_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/subscription"
+                    },
+                    {
+                      "k": "svn_url",
+                      "v": "https://github.com/Bde-Saintonge/Site"
+                    },
+                    {
+                      "k": "tags_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/tags"
+                    },
+                    {
+                      "k": "teams_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/teams"
+                    },
+                    {
+                      "k": "trees_url",
+                      "v": "https://api.github.com/repos/Bde-Saintonge/Site/git/trees{/sha}"
+                    },
+                    {
+                      "k": "updated_at",
+                      "v": "2021-02-02T20:50:17Z"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://github.com/Bde-Saintonge/Site"
+                    },
+                    {
+                      "k": "watchers",
+                      "v": 1.0
+                    },
+                    {
+                      "k": "watchers_count",
+                      "v": 1.0
+                    }
+                  ]
+                }
+              },
+              {
+                "k": "sender",
+                "v": {
+                  "t": 2,
+                  "d": [
+                    {
+                      "k": "avatar_url",
+                      "v": "https://avatars.githubusercontent.com/u/50296610?v=4"
+                    },
+                    {
+                      "k": "events_url",
+                      "v": "https://api.github.com/users/jul-fls/events{/privacy}"
+                    },
+                    {
+                      "k": "followers_url",
+                      "v": "https://api.github.com/users/jul-fls/followers"
+                    },
+                    {
+                      "k": "following_url",
+                      "v": "https://api.github.com/users/jul-fls/following{/other_user}"
+                    },
+                    {
+                      "k": "gists_url",
+                      "v": "https://api.github.com/users/jul-fls/gists{/gist_id}"
+                    },
+                    {
+                      "k": "gravatar_id",
+                      "v": ""
+                    },
+                    {
+                      "k": "html_url",
+                      "v": "https://github.com/jul-fls"
+                    },
+                    {
+                      "k": "id",
+                      "v": 50296610.0
+                    },
+                    {
+                      "k": "login",
+                      "v": "jul-fls"
+                    },
+                    {
+                      "k": "node_id",
+                      "v": "MDQ6VXNlcjUwMjk2NjEw"
+                    },
+                    {
+                      "k": "organizations_url",
+                      "v": "https://api.github.com/users/jul-fls/orgs"
+                    },
+                    {
+                      "k": "received_events_url",
+                      "v": "https://api.github.com/users/jul-fls/received_events"
+                    },
+                    {
+                      "k": "repos_url",
+                      "v": "https://api.github.com/users/jul-fls/repos"
+                    },
+                    {
+                      "k": "site_admin",
+                      "v": false
+                    },
+                    {
+                      "k": "starred_url",
+                      "v": "https://api.github.com/users/jul-fls/starred{/owner}{/repo}"
+                    },
+                    {
+                      "k": "subscriptions_url",
+                      "v": "https://api.github.com/users/jul-fls/subscriptions"
+                    },
+                    {
+                      "k": "type",
+                      "v": "User"
+                    },
+                    {
+                      "k": "url",
+                      "v": "https://api.github.com/users/jul-fls"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "k": "server_url",
+          "v": "https://github.com"
+        },
+        {
+          "k": "api_url",
+          "v": "https://api.github.com"
+        },
+        {
+          "k": "graphql_url",
+          "v": "https://api.github.com/graphql"
+        }
+      ]
+    },
+    "needs": {
+      "t": 2
+    },
+    "matrix": null,
+    "strategy": {
+      "t": 2,
+      "d": [
+        {
+          "k": "fail-fast",
+          "v": true
+        },
+        {
+          "k": "job-index",
+          "v": 0.0
+        },
+        {
+          "k": "job-total",
+          "v": 1.0
+        },
+        {
+          "k": "max-parallel",
+          "v": 1.0
+        }
+      ]
+    }
+  }
+}
+[2021-02-02 21:05:49Z INFO JobRunner] Job ID ca395085-040a-526b-2ce8-bdc85f692774
+[2021-02-02 21:05:49Z INFO JobRunner] Creating job server with URL: https://pipelines.actions.githubusercontent.com/QVeLwaMWQkInkFv2fQ4ZitZZRK5MJcNtIgxToLGcPg8KerswEn/
+[2021-02-02 21:05:49Z INFO GitHubActionsService] Starting operation Location.GetConnectionData
+[2021-02-02 21:05:49Z INFO Worker] Listening for cancel message from the channel.
+[2021-02-02 21:05:49Z INFO Worker] Waiting for the job to complete or for a cancel message from the channel.
+[2021-02-02 21:05:50Z INFO GitHubActionsService] Finished operation Location.GetConnectionData
+[2021-02-02 21:05:50Z INFO JobServerQueue] Start process web console line queue.
+[2021-02-02 21:05:50Z INFO JobServerQueue] Start process file upload queue.
+[2021-02-02 21:05:50Z INFO JobServerQueue] Start process timeline update queue.
+[2021-02-02 21:05:50Z INFO ExecutionContext] Initialize GitHub context
+[2021-02-02 21:05:50Z INFO ExecutionContext] Initialize Env context
+[2021-02-02 21:05:50Z INFO ConfigurationStore] currentAssemblyLocation: /home/site/bde/actions-runner/bin/Runner.Worker.dll
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO ConfigurationStore] binPath: /home/site/bde/actions-runner/bin
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO ConfigurationStore] RootFolder: /home/site/bde/actions-runner
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known config file 'Runner': '/home/site/bde/actions-runner/.runner'
+[2021-02-02 21:05:50Z INFO ConfigurationStore] ConfigFilePath: /home/site/bde/actions-runner/.runner
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known config file 'Credentials': '/home/site/bde/actions-runner/.credentials'
+[2021-02-02 21:05:50Z INFO ConfigurationStore] CredFilePath: /home/site/bde/actions-runner/.credentials
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known config file 'MigratedCredentials': '/home/site/bde/actions-runner/.credentials_migrated'
+[2021-02-02 21:05:50Z INFO ConfigurationStore] MigratedCredFilePath: /home/site/bde/actions-runner/.credentials_migrated
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known config file 'Service': '/home/site/bde/actions-runner/.service'
+[2021-02-02 21:05:50Z INFO ConfigurationStore] ServiceConfigFilePath: /home/site/bde/actions-runner/.service
+[2021-02-02 21:05:50Z INFO ConfigurationStore] Read setting file: 279 chars
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Diag': '/home/site/bde/actions-runner/_diag'
+[2021-02-02 21:05:50Z INFO JobRunner] Starting the job execution context.
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO JobRunner] Validating directory permissions for: '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Tools': '/home/site/bde/actions-runner/_work/_tool'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Temp': '/home/site/bde/actions-runner/_work/_temp'
+[2021-02-02 21:05:50Z INFO JobRunner] Getting job extension.
+[2021-02-02 21:05:50Z INFO JobRunner] Initialize job. Getting all job steps.
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Diag': '/home/site/bde/actions-runner/_diag'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known config file 'Credentials': '/home/site/bde/actions-runner/.credentials'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known config file 'SetupInfo': '/home/site/bde/actions-runner/.setup_info'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO PipelineDirectoryManager] Loading tracking config if exists: /home/site/bde/actions-runner/_work/_PipelineMapping/Bde-Saintonge/Site/PipelineFolder.json
+[2021-02-02 21:05:50Z INFO PipelineDirectoryManager] Updating job run properties.
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO JobExtension] Downloading actions
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Actions': '/home/site/bde/actions-runner/_work/_actions'
+[2021-02-02 21:05:50Z INFO JobExtension] Adding .
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Diag': '/home/site/bde/actions-runner/_diag'
+[2021-02-02 21:05:50Z INFO JobExtension] Total accessible running process: 355.
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO JobRunner] Total job steps: 1.
+[2021-02-02 21:05:50Z INFO JobRunner] Run all job steps.
+[2021-02-02 21:05:50Z INFO StepsRunner] Processing step: DisplayName='Run echo "hey !"'
+[2021-02-02 21:05:50Z INFO StepsRunner] Initialize Env context for step
+[2021-02-02 21:05:50Z INFO StepsRunner] Evaluating: success()
+[2021-02-02 21:05:50Z INFO StepsRunner] Result: true
+[2021-02-02 21:05:50Z INFO StepsRunner] Starting the step.
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Temp': '/home/site/bde/actions-runner/_work/_temp'
+[2021-02-02 21:05:50Z INFO ActionRunner] Write event payload to /home/site/bde/actions-runner/_work/_temp/_github_workflow/event.json
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Temp': '/home/site/bde/actions-runner/_work/_temp'
+[2021-02-02 21:05:50Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IFileCommandExtension'
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddPathFileCommand, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetEnvFileCommand, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Getting extensions for interface: 'GitHub.Runner.Worker.IActionCommandExtension'
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.InternalPluginSetRepoPathCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetEnvCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SetOutputCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.SaveStateCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddPathCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddMaskCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.AddMatcherCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.RemoveMatcherCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.WarningCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.ErrorCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.DebugCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.GroupCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.EndGroupCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ExtensionManager] Creating instance: GitHub.Runner.Worker.EchoCommandExtension, Runner.Worker
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command internal-set-repo-path
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command set-env
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command set-output
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command save-state
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command add-path
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command add-mask
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command add-matcher
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command remove-matcher
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command warning
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command error
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command debug
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command group
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command endgroup
+[2021-02-02 21:05:50Z INFO ActionCommandManager] Register action command extension for command echo
+[2021-02-02 21:05:50Z INFO ScriptHandler] Which: 'bash'
+[2021-02-02 21:05:50Z INFO ScriptHandler] Location: '/usr/bin/bash'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Work': '/home/site/bde/actions-runner/_work'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Temp': '/home/site/bde/actions-runner/_work/_temp'
+[2021-02-02 21:05:50Z INFO ScriptHandler] Which: 'bash'
+[2021-02-02 21:05:50Z INFO ScriptHandler] Location: '/usr/bin/bash'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper] Starting process:
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   File name: '/usr/bin/bash'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   Arguments: '-e /home/site/bde/actions-runner/_work/_temp/88c6d843-9e18-4348-b867-2eeb998041c1.sh'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   Working directory: '/home/site/bde/actions-runner/_work/Site/Site'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   Require exit code zero: 'False'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   Encoding web name:  ; code page: ''
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   Force kill process on cancellation: 'False'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   Redirected STDIN: 'False'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   Persist current code page: 'False'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   Keep redirected STDIN open: 'False'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper]   High priority process: 'False'
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper] Failed to update oom_score_adj for PID: 1698.
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper] System.UnauthorizedAccessException: Access to the path '/proc/1698/oom_score_adj' is denied.
+ ---> System.IO.IOException: Permission denied
+   --- End of inner exception stack trace ---
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirectory, Func`2 errorRewriter)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode)
+   at System.IO.FileStream.OpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamWriter.ValidateArgsAndOpenPath(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   at System.IO.StreamWriter..ctor(String path)
+   at System.IO.File.WriteAllText(String path, String contents)
+   at GitHub.Runner.Sdk.ProcessInvoker.WriteProcessOomScoreAdj(Int32 processId, Int32 oomScoreAdj)
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper] Process started with process id 1698, waiting for process exit.
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper] STDOUT/STDERR stream read finished.
+[2021-02-02 21:05:50Z INFO ProcessInvokerWrapper] Finished process 1698 with exit code 0, and elapsed time 00:00:00.0324656.
+[2021-02-02 21:05:50Z INFO StepsRunner] Step result: 
+[2021-02-02 21:05:50Z INFO StepsRunner] No need for updating job result with current step result 'Succeeded'.
+[2021-02-02 21:05:50Z INFO StepsRunner] Current state: job state = ''
+[2021-02-02 21:05:50Z INFO JobRunner] Finalize job.
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Bin': '/home/site/bde/actions-runner/bin'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Root': '/home/site/bde/actions-runner'
+[2021-02-02 21:05:50Z INFO HostContext] Well known directory 'Diag': '/home/site/bde/actions-runner/_diag'
+[2021-02-02 21:05:50Z INFO JobExtension] Initialize Env context
+[2021-02-02 21:05:50Z INFO JobExtension] Initialize steps context
+[2021-02-02 21:05:50Z INFO JobExtension] Total accessible running process: 325.
+[2021-02-02 21:05:50Z INFO JobExtension] Inspecting process environment variables. PID: 55 (kworker/1:1-events)
+[2021-02-02 21:05:50Z INFO LinuxProcessExtensions] Read env from /proc/55/environ
+[2021-02-02 21:05:50Z WARN JobExtension] Ignore exception during read process environment variables: Access to the path '/proc/55/environ' is denied.
+[2021-02-02 21:05:50Z INFO JobExtension] Inspecting process environment variables. PID: 286 (kworker/u12:26-flush-8:0)
+[2021-02-02 21:05:50Z INFO LinuxProcessExtensions] Read env from /proc/286/environ
+[2021-02-02 21:05:50Z WARN JobExtension] Ignore exception during read process environment variables: Access to the path '/proc/286/environ' is denied.
+[2021-02-02 21:05:50Z INFO JobExtension] Inspecting process environment variables. PID: 348 (kworker/4:2-events)
+[2021-02-02 21:05:50Z INFO LinuxProcessExtensions] Read env from /proc/348/environ
+[2021-02-02 21:05:50Z WARN JobExtension] Ignore exception during read process environment variables: Access to the path '/proc/348/environ' is denied.
+[2021-02-02 21:05:50Z INFO JobExtension] Inspecting process environment variables. PID: 443 (kworker/3:2-events)
+[2021-02-02 21:05:50Z INFO LinuxProcessExtensions] Read env from /proc/443/environ
+[2021-02-02 21:05:50Z WARN JobExtension] Ignore exception during read process environment variables: Access to the path '/proc/443/environ' is denied.
+[2021-02-02 21:05:50Z INFO JobRunner] Job result after all job steps finish: Succeeded
+[2021-02-02 21:05:50Z INFO JobRunner] Completing the job execution context.
+[2021-02-02 21:05:50Z INFO JobRunner] Shutting down the job server queue.
+[2021-02-02 21:05:50Z INFO JobServerQueue] Fire signal to shutdown all queues.
+[2021-02-02 21:05:50Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'cb120194-5eea-44c2-ac94-c182ab1cbeac', success rate: 1/1.
+[2021-02-02 21:05:50Z INFO JobServerQueue] Try to append 1 batches web console lines for record '0deead84-eb6b-5d70-5f34-89114cbbd574', success rate: 1/1.
+[2021-02-02 21:05:51Z INFO JobServerQueue] Try to append 1 batches web console lines for record 'e196d75a-b6b5-4bf8-8ee5-fb752a8dfe73', success rate: 1/1.
+[2021-02-02 21:05:51Z INFO JobServerQueue] All queue process task stopped.
+[2021-02-02 21:05:51Z INFO JobServerQueue] Web console line queue drained.
+[2021-02-02 21:05:51Z INFO JobServerQueue] Uploading 4 files in one shot.
+[2021-02-02 21:05:52Z INFO JobServerQueue] Try to upload 4 log files or attachments, success rate: 4/4.
+[2021-02-02 21:05:52Z INFO JobServerQueue] File upload queue drained.
+[2021-02-02 21:05:52Z INFO JobServerQueue] Timeline update queue drained.
+[2021-02-02 21:05:52Z INFO JobServerQueue] All queue process tasks have been stopped, and all queues are drained.
+[2021-02-02 21:05:52Z INFO TempDirectoryManager] Cleaning runner temp folder: /home/site/bde/actions-runner/_work/_temp
+[2021-02-02 21:05:52Z INFO JobRunner] Raising job completed event.
+[2021-02-02 21:05:52Z INFO Worker] Job completed.
