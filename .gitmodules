@@ -1,3 +1,0 @@
-[submodule "vendor/bacon/bacon-qr-code"] 
-  path = vendor/bacon/bacon-qr-code 
-  url = git://https://github.com/Bacon/BaconQrCode/
