@@ -14,9 +14,7 @@ jobs:
     steps:
       - run : echo "hey !"
         
-      - uses: actions/checkout@v1
-        with:
-          submodules: false
+      - uses: actions/checkout@v2
 
       - name: Validate composer.json and composer.lock
         run: composer validate
