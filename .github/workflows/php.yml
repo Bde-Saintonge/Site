@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Validate composer.json and composer.lock
-        run: composer validate
+        run: /usr/local/bin/composer validate
 
       - name: Cache Composer packages
         id: composer-cache
@@ -36,4 +36,4 @@ jobs:
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
       - name: Run test suite
-        run: composer run-script test
+        run: /usr/local/bin/composer run-script test
