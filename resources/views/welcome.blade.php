@@ -43,7 +43,7 @@
         </div>
         <ul>
             <li>
-                <a href="/">Accueil</a> //hey
+                <a href="/">Accueil</a>
             </li>
             <li>
                 <a href="/login">Se Connecter</a>
