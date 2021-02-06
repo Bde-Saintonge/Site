@@ -44,7 +44,7 @@
     </div>
     <nav>
         <div class="logo-nav">
-            <a href="">
+            <a href="/">
                 <img src="{{asset('media/images/LOGO-2020-1.jpg')}}" alt="logo">
             </a>
         </div>
@@ -56,7 +56,8 @@
                 <a href="/login">Se Connecter</a>
             </li>
             <li >
-                <a href="/blog">Blog</a>
+                <a href="https://www.youtube.com/channel/UCavw3aPAmd220peMhn96kjg" target="_blank">
+                <img src="{{asset('media/images/yt.svg')}}" alt="logo youtube" width="40px" height="auto" style="position: relative;left: 0px;"></a>
             </li>
             <li class="bda">
                 <a href="/bda">BDA</a>
@@ -71,7 +72,7 @@
                 <a href="/pole-com">Pôle Com</a>
             </li>
             <li>
-                <a href="/nous-contacter">Contact</a>
+                <a href="mailto:contact@bde-saintonge.fr">Contact</a>
             </li>
         </ul>
     </nav>
@@ -170,19 +171,19 @@
                     </div>
 
                     <div class="pad-arround-footer">
-                        <img src="{{asset('media/images/footer-tel.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
+                        <img src="{{asset('media/images/footer-adresse.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
                         <h4 style="position: relative;left: 50px;top: 10px;">12 rue Saintonge 33000 Bordeaux</h4>
                     </div>
 
                     <div class="pad-arround-footer">
-                        <img src="{{asset('media/images/footer-adresse.svg')}}"'" width="25px" height="35px" style="position: relative;left: 25px;">
-                        <h4 style="position: relative;left: 50px;top: 10px;">Tèl : 05 56 99 39 29</h4>
+                        <img src="{{asset('media/images/footer-tel.svg')}}"'" width="25px" height="35px" style="position: relative;left: 25px;">
+                        <h4 style="position: relative;left: 50px;top: 10px;">Tél : 05 56 99 39 29</h4>
                     </div>
 
                     <div class="pad-arround-footer">
                         <img src="{{asset('media/images/footer-mail.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
                         <h4 style="position: relative;left: 50px;bottom: 28px;">
-                            <a href="/nous-contacter" target="_blank" >Nous contacter</a>
+                            <a href="mailto:contact@bde-saintonge.fr" target="_blank" >Nous contacter</a>
                         </h4>
                     </div>
 
