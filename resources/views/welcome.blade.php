@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>BDE Saintonge </title>
 
-    <!-- Fichier Locaux CSS hey-->
+    <!-- Fichier Locaux CSS-->
     <link rel="stylesheet" href="{{asset('css/reboot.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
