@@ -8,17 +8,11 @@ on:
 
 jobs:
   build:
-
     runs-on: self-hosted
-
     steps:
-      - run : echo "hey !"
-        
       - uses: actions/checkout@v2
-
       - name: Validate composer.json and composer.lock
         run: /usr/local/bin/composer validate
-
       - name: Cache Composer packages
         id: composer-cache
         uses: actions/cache@v2
@@ -27,13 +21,6 @@ jobs:
           key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-php-
-
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: /usr/local/bin/composer install --prefer-dist --no-progress --no-suggest
-
-     #Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-      #- name: Run test suite
-        #run: /usr/local/bin/composer run-script test
