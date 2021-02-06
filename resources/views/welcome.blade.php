@@ -119,7 +119,7 @@
             <!-- Div Habillage BDA -->
             <div class="margin-arround column">
                 <div class="card">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
+                    <img src="{{asset('media/images/bda_logo.png')}}" alt="Logo du BDA" style="width:100%">
                     <div class="container">
                         <div class="container-title">
                             <h4>Bureau des Actions (BDA)</h4>
@@ -138,7 +138,7 @@
             <!-- Div Habillage BDC -->
             <div class="margin-arround column">
                 <div class="card">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
+                    <img src="{{asset('media/images/bdc_logo.png')}}" alt="Logo du BDC" style="width:100%">
                     <div class="container">
                         <div class="container-title">
                             <h4>Bureau de la Culture (BDC)</h4>
@@ -157,7 +157,7 @@
             <!-- Div Habillage Pôle Com -->
             <div class="margin-arround column">
                 <div class="card">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
+                    <img src="{{asset('media/images/pole-com_logo.png')}}" alt="Logo du pole Communication" style="width:100%">
                     <div class="container">
                         <div class="container-title">
                             <h4>Pôle Communication</h4>
