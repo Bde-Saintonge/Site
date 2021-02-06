@@ -283,7 +283,7 @@
             <div class="margin-arround column blue-footer border">
                 <div class="container-liens">
                     <div class="pad-arround-footer column center">
-                        <h2>Information</h2>
+                        <h2>Informations</h2>
                     </div>
 
                     <div class="pad-arround-footer">
@@ -318,7 +318,7 @@
             <div class="margin-arround column blue-footer border">
                 <div class="container-liens">
                     <div class="pad-arround-footer column center">
-                        <h2>Liens Utile</h2>
+                        <h2>Liens Utiles</h2>
                     </div>
 
                     <div class="pad-arround-footer">
