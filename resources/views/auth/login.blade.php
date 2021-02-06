@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="UTF-8">
-    <title>BDE Saintonge </title>
+    <title>BDE Saintonge Login</title>
 
     <!-- Fichier Locaux CSS -->
     <link rel="stylesheet" href="{{asset('css/reboot.css')}}">
