@@ -100,7 +100,7 @@
             <!-- Div Habillage BDS -->
             <div class="margin-arround column">
                 <div class="card">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
+                    <img src="{{asset('media/images/bds_logo.png')}}" alt="Logo du BDS" style="width:100%">
                     <div class="container">
                         <div class="container-title">
                             <h4>Bureau des Sports (BDS)</h4>
