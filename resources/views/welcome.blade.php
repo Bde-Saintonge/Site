@@ -195,7 +195,7 @@
 
                         <div class="pad-arround-footer">
                             <img src="{{asset('media/images/footer-tel.svg')}}"'" width="25px" height="35px" style="position: relative;left: 25px;">
-                            <h4 style="position: relative;left: 50px;top: 10px;">Tèl : 05 56 99 39 29</h4>
+                            <h4 style="position: relative;left: 50px;top: 10px;">Tél : 05 56 99 39 29</h4>
                         </div>
 
                         <div class="pad-arround-footer">
