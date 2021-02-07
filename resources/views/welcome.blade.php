@@ -1,7 +1,7 @@
 <!-- Initialisation du contenu du document HTML   -->
 @extends('layouts.base')
 @section('content')
-    <!-- Section Explication BDE -->
+  <!-- Section Explication BDE -->
     <section class="row wrap full-screen">
         <!-- Div de Construction Explication BDE-->
         <div class="xLarge-12 large-12 medium-12 small-12 xSmall-12 full-div">
@@ -10,7 +10,7 @@
                 <img src="" class="image" style="width:100%">
                 <div class="explication center">
                     <div class="text">
-                        <span style="font-weight: bold;">Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge. Créé en 2018, ce bureau regroupe trois entités détaillées ci-desouus : le Bureau Des Actions (BDA), le Bureau des Sports (BDS), le Bureau de la culture (BDC) ainsi que le Pôle Communication.</span>
+                        <span style="fontgit -weight: bold;">Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge. Créé en 2018, ce bureau regroupe trois entités détaillées ci-desouus : le Bureau Des Actions (BDA), le Bureau des Sports (BDS), le Bureau de la culture (BDC) ainsi que le Pôle Communication.</span>
                     </div>
                 </div>
             </div>
