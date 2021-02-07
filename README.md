@@ -1,4 +1,4 @@
-# Infra-Bde
+# Infra-Bde //test
 ## **!! Seules les personnes qui maintiennent le serveur et le site du Bde doivent avoir accès à ce repository !!**
 Ce repository est là pour permettre à l'ensemble des personnes qui maintiennent le serveur Bde d'avoir toutes les vues HTML directement ici, vous trouverez donc dans ce repo :
 - La page d'acceuil
