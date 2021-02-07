@@ -3,7 +3,7 @@
     height: 100vh;
     padding: 0 0 0 0;
 
-    background-image: url("../media/images/font.jpg");
+    background-image: url("/media/images/font.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
