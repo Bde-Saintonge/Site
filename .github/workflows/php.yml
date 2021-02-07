@@ -11,14 +11,15 @@ jobs:
       - uses: actions/checkout@v2
       - name: Validate composer.json and composer.lock
         run: /usr/local/bin/composer validate
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
+  #Mets en cache les packages composer (apparemment inutile et ralenti l'éxécution du workflow)
+      #- name: Cache Composer packages
+        #id: composer-cache
+        #uses: actions/cache@v2
+        #with:
+          #path: vendor
+          #key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          #restore-keys: |
+            #${{ runner.os }}-php-
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: /usr/local/bin/composer install --prefer-dist --no-progress --no-suggest
