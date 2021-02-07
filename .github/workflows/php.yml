@@ -22,4 +22,4 @@ jobs:
             #${{ runner.os }}-php-
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: /usr/local/bin/composer install --prefer-dist --no-progress --no-suggest
+        run: /usr/local/bin/composer update --prefer-dist --no-progress --no-suggest
