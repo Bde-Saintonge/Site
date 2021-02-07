@@ -1,8 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 
-    <meta charset="UTF-8">
+    <!-- Default meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+
+    <meta name='author' content='BDE Saintonge'>
+    <meta name='owner' content='BDE Saintonge'>
+    <meta name='subject' content="BDE Saintonge">
+
+    <meta name='identifier-URL' content='https://www.bde-saintonge.fr/'>
+    <meta name="description" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux">
+    <meta name='reply-to' content='contact@bde-saintonge.fr'>
+
+    <meta name='language' content='FR'>
+    <meta name='target' content='all'>
+    <meta name='theme-color' content='#FAEC71'>
+
+    <link rel='shortcut icon' type='image/png' href='{{asset('media/images/LOGO-2020-1.jpg')}}'>
+
+    <link rel="apple-touch-icon" href="{{asset('media/images/LOGO-2020-1.jpg')}}" />
+
+    <!-- Twitter Card meta -->
+    <meta name='twitter:card' content='summary'>
+    <meta name="twitter:site" content="@Netinq" />
+    <meta name="twitter:title" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux" />
+    <meta name='twitter:url' content='https://www.bde-saintonge.fr/' />
+    <meta name='twitter:domain' content='bde-saintonge.fr' />
+    <meta name="twitter:description" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux" />
+    <meta name="twitter:image" content="{{asset('media/images/LOGO-2020-1.jpg')}}" />
+
+    <!-- Open Graph meta -->
+    <meta property='og:title' content='Site du BDE Sainte Famille Saintonge Bordeaux ' />
+    <meta property="og:description" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux" />
+    <meta property="og:image" content="{{asset('media/images/LOGO-2020-1.jpg')}}" />
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content='https://www.bde-saintonge.fr/' />
+    <meta property='og:site_name' content='BDE Saintonge' />
+    <meta property='author' content='BDE Saintonge' />
+    <meta property='profile:gender' content='male' />
+    <meta property="og:locale" content="fr_FR" />
+
+    <!-- IOS meta -->
+    <meta name="apple-mobile-web-app-title" content="BDE-Saintonge">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
     <title>BDE Saintonge </title>
 
     <!-- Fichier Locaux CSS-->
