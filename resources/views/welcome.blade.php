@@ -1,11 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 
-    <meta charset="UTF-8">
+    <!-- Default meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+
+    <meta name='author' content='BDE Saintonge'>
+    <meta name='owner' content='BDE Saintonge'>
+    <meta name='subject' content="BDE Saintonge">
+
+    <meta name='identifier-URL' content='https://www.bde-saintonge.fr/'>
+    <meta name="description" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux">
+    <meta name='reply-to' content='contact@bde-saintonge.fr'>
+
+    <meta name='language' content='FR'>
+    <meta name='target' content='all'>
+    <meta name='theme-color' content='#FAEC71'>
+
+    <link rel='shortcut icon' type='image/png' href='{{asset('media/images/LOGO-2020-1.jpg')}}'>
+
+    <link rel="apple-touch-icon" href="{{asset('media/images/LOGO-2020-1.jpg')}}" />
+
+    <!-- Twitter Card meta -->
+    <meta name='twitter:card' content='summary'>
+    <meta name="twitter:site" content="@Netinq" />
+    <meta name="twitter:title" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux" />
+    <meta name='twitter:url' content='https://www.bde-saintonge.fr/' />
+    <meta name='twitter:domain' content='bde-saintonge.fr' />
+    <meta name="twitter:description" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux" />
+    <meta name="twitter:image" content="{{asset('media/images/LOGO-2020-1.jpg')}}" />
+
+    <!-- Open Graph meta -->
+    <meta property='og:title' content='Site du BDE Sainte Famille Saintonge Bordeaux ' />
+    <meta property="og:description" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux" />
+    <meta property="og:image" content="{{asset('media/images/LOGO-2020-1.jpg')}}" />
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content='https://www.bde-saintonge.fr/' />
+    <meta property='og:site_name' content='BDE Saintonge' />
+    <meta property='author' content='BDE Saintonge' />
+    <meta property='profile:gender' content='male' />
+    <meta property="og:locale" content="fr_FR" />
+
+    <!-- IOS meta -->
+    <meta name="apple-mobile-web-app-title" content="BDE-Saintonge">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
     <title>BDE Saintonge </title>
 
-    <!-- Fichier Locaux CSS -->
+    <!-- Fichier Locaux CSS-->
     <link rel="stylesheet" href="{{asset('css/reboot.css')}}">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
@@ -49,7 +93,8 @@
                 <a href="/login">Se Connecter</a>
             </li>
             <li >
-                <a href="/blog">Blog</a>
+                <a href="https://www.youtube.com/channel/UCavw3aPAmd220peMhn96kjg" target="_blank">
+                <img src="{{asset('media/images/yt.svg')}}" alt="logo youtube" width="40px" height="auto" style="position: relative;left: 0px;"></a>
             </li>
             <li class="bda">
                 <a href="/bda">BDA</a>
@@ -64,7 +109,7 @@
                 <a href="/pole-com">Pôle Com</a>
             </li>
             <li>
-                <a href="/nous-contacter">Contact</a>
+                <a href="mailto:contact@bde-saintonge.fr">Contact</a>
             </li>
         </ul>
     </nav>
@@ -82,7 +127,7 @@
                 <img src="" class="image" style="width:100%">
                 <div class="explication center">
                     <div class="text">
-                        <span>Bienvenue sur le site du bureau des élève du lycée Sainte Famille Saintonge. Crée en 2018, ce bureau regroupe trois entités détaillées ci-dessus : le Bureau Des Actions (BDA), le Bureau des Sports (BDS), le Bureau de la culture (BDC) ainsi que le Pôle Communication.</span>
+                        <span style="font-weight: bold;">Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge. Créé en 2018, ce bureau regroupe trois entités détaillées ci-desouus : le Bureau Des Actions (BDA), le Bureau des Sports (BDS), le Bureau de la culture (BDC) ainsi que le Pôle Communication.</span>
                     </div>
                 </div>
             </div>
@@ -99,7 +144,7 @@
             <!-- Div Habillage BDS -->
             <div class="margin-arround column">
                 <div class="card">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
+                    <img src="{{asset('media/images/bds_logo.png')}}" alt="Logo du BDS" style="width:100%">
                     <div class="container">
                         <div class="container-title">
                             <h4>Bureau des Sports (BDS)</h4>
@@ -118,7 +163,7 @@
             <!-- Div Habillage BDA -->
             <div class="margin-arround column">
                 <div class="card">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
+                    <img src="{{asset('media/images/bda_logo.png')}}" alt="Logo du BDA" style="width:100%">
                     <div class="container">
                         <div class="container-title">
                             <h4>Bureau des Actions (BDA)</h4>
@@ -137,12 +182,12 @@
             <!-- Div Habillage BDC -->
             <div class="margin-arround column">
                 <div class="card">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
+                    <img src="{{asset('media/images/bdc_logo.png')}}" alt="Logo du BDC" style="width:100%">
                     <div class="container">
                         <div class="container-title">
                             <h4>Bureau de la Culture (BDC)</h4>
                         </div>
-                        <p>Présentation / Explication de la Culture</p>
+                        <p>Présentation / Explication du bureau de la Culture</p>
                         <button><a href="/bdc" target="_blank">En savoir Plus</a></button>
                     </div>
                 </div>
@@ -156,13 +201,13 @@
             <!-- Div Habillage Pôle Com -->
             <div class="margin-arround column">
                 <div class="card">
-                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style="width:100%">
+                    <img src="{{asset('media/images/pole-com_logo.png')}}" alt="Logo du pole Communication" style="width:100%">
                     <div class="container">
                         <div class="container-title">
                             <h4>Pôle Communication</h4>
                         </div>
                         <p>Présentation / Explication du Pôle Communication</p>
-                        <button><a href="/bdc" target="_blank">En savoir Plus</a></button>
+                        <button><a href="/pole-com" target="_blank">En savoir Plus</a></button>
                     </div>
                 </div>
             </div>
@@ -184,23 +229,23 @@
                 <div class="margin-arround column blue-footer border">
                     <div class="container-liens">
                         <div class="pad-arround-footer column center">
-                            <h2>Information</h2>
+                            <h2>Informations</h2>
                         </div>
 
                         <div class="pad-arround-footer">
-                            <img src="{{asset('media/images/footer-tel.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
+                            <img src="{{asset('media/images/footer-adresse.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
                             <h4 style="position: relative;left: 50px;top: 10px;">12 rue Saintonge 33000 Bordeaux</h4>
                         </div>
 
                         <div class="pad-arround-footer">
-                            <img src="{{asset('media/images/footer-adresse.svg')}}"'" width="25px" height="35px" style="position: relative;left: 25px;">
-                            <h4 style="position: relative;left: 50px;top: 10px;">Tèl : 05 56 99 39 29</h4>
+                            <img src="{{asset('media/images/footer-tel.svg')}}"'" width="25px" height="35px" style="position: relative;left: 25px;">
+                            <h4 style="position: relative;left: 50px;top: 10px;">Tél : 05 56 99 39 29</h4>
                         </div>
 
                         <div class="pad-arround-footer">
                             <img src="{{asset('media/images/footer-mail.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
                             <h4 style="position: relative;left: 50px;bottom: 28px;">
-                                <a href="/nous-contacter" target="_blank" >Nous contacter</a>
+                                <a href="mailto:contact@bde-saintonge.fr" target="_blank" >Nous contacter</a>
                             </h4>
                         </div>
 
@@ -219,7 +264,7 @@
                 <div class="margin-arround column blue-footer border">
                     <div class="container-liens">
                         <div class="pad-arround-footer column center">
-                            <h2>Liens Utile</h2>
+                            <h2>Liens Utiles</h2>
                         </div>
 
                         <div class="pad-arround-footer">
