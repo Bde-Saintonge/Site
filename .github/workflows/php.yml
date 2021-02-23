@@ -24,5 +24,4 @@ jobs:
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: /usr/local/bin/composer update --prefer-dist --no-progress --no-suggest
       - name: Complied Css & JS and Minifly it
-        run: /usr/bin/npm run rebuild
-        run: /usr/bin/npm run prod
+        run: /usr/bin/npm run rebuild && /usr/bin/npm run prod
