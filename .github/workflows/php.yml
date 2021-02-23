@@ -8,7 +8,8 @@ jobs:
   Deployment:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v2
+      - name: Push code to server
+        uses: actions/checkout@v2
       - name: Validate composer.json and composer.lock
         run: /usr/local/bin/composer validate
       - name: Update & Install dependencies
