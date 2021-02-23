@@ -216,11 +216,11 @@
   -ms-transform: translate(-50%, -50%);
 }
 
-.full-div:hover {
-  opacity: 0.8;
+.full-div {
+  opacity: 1;
 }
 
-.full-div:hover .explication {
+.full-div .explication {
   opacity: 1 !important;
 }
 
