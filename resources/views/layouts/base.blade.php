@@ -122,12 +122,16 @@
 
                     <div class="pad-arround-footer">
                         <img src="{{asset('media/images/footer-adresse.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
+                        <span style="cursor:pointer" onclick="window.open('https://goo.gl/maps/zxMQJ3HJmS6JM1GE6');">
                         <h4 style="position: relative;left: 50px;top: 10px;">12 rue Saintonge 33000 Bordeaux</h4>
+                        </span>
                     </div>
 
                     <div class="pad-arround-footer">
                         <img src="{{asset('media/images/footer-tel.svg')}}"'" width="25px" height="35px" style="position: relative;left: 25px;">
+                        <span style="cursor:pointer" onclick="window.open('tel:+33556993929',_self);">
                         <h4 style="position: relative;left: 50px;top: 10px;">Tél : 05 56 99 39 29</h4>
+                        </span>
                     </div>
 
                     <div class="pad-arround-footer">
