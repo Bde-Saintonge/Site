@@ -87,7 +87,7 @@
                     <img src="{{asset('media/images/pole-com_logo.png')}}" alt="Logo du pole Communication" style="width:100%">
                     <div class="container">
                         <div class="container-title">
-                            <h4>Pôle Communication</h4>
+                            <h4>Pôle Com</h4>
                         </div>
                         <p>Présentation / Explication du Pôle Communication</p>
                         <button><a href="/pole-com" target="_blank">En savoir Plus</a></button>
