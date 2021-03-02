@@ -84,13 +84,13 @@
                 <li class="bda">
                     <a href="/bda">BDA</a>
                 </li>
-                <li class="'bdc') ? 'active' : '' ?>">
+                <li class="bdc">
                     <a href="/bdc">BDC</a>
                 </li>
                 <li class="bds">
                     <a href="/bds">BDS</a>
                 </li>
-                <li>
+                <li class="pole-com">
                     <a href="/pole-com">Pôle Com</a>
                 </li>
                 <li>
