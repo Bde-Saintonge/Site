@@ -24,7 +24,7 @@ jobs:
       - name: Update Node JS Dependencies
         run: /usr/bin/npm update
       - name: Set Up .env
-        run:  echo ${{ secrets.File_Env_Content }}" > .env
+        run:  echo ${{ secrets.File_Env_Content }} > .env
       - name: Compile Css & JS and Minify it
         run: /usr/bin/npm rebuild && /usr/bin/npm run prod
       - name: Generate key
