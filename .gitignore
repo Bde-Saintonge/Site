@@ -2,6 +2,7 @@
 .phpunit.result.cache
 docker-compose.override.yml
 vendor/*
+node_modules/*
 Homestead.json
 Homestead.yaml
 npm-debug.log

@@ -23,8 +23,8 @@ jobs:
         run: /usr/local/bin/composer update
       - name: Update Node JS Dependencies
         run: /usr/bin/npm update
-      - name: Copy .env
-        run: /usr/bin/php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: Set Up .env
+        run:  echo ${{ secrets.File_Env_Content }}" > .env
       - name: Compile Css & JS and Minify it
         run: /usr/bin/npm rebuild && /usr/bin/npm run prod
       - name: Generate key
