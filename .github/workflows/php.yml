@@ -8,6 +8,7 @@ jobs:
   Deployment:
     runs-on: self-hosted
     steps:
+      - shell: bash
       - name: Push code to server
         uses: actions/checkout@v2
       - name: Validate composer.json and composer.lock
@@ -24,7 +25,6 @@ jobs:
       - name: Update Node JS Dependencies
         run: /usr/bin/npm update
       - name: Set Up .env
-          - shell: bash
           env:
             File_Env_Content: ${{ secrets.File_Env_Content }}
         run:  echo "$File_Env_Content" > .env
