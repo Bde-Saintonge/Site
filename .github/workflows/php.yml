@@ -10,26 +10,75 @@ jobs:
     steps:
       - name: Push code to server
         uses: actions/checkout@v2
+        
       - name: Validate composer.json and composer.lock
         run: /usr/local/bin/composer validate
+        
       - name: Update & Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: /usr/local/bin/composer install --prefer-dist --no-progress --no-suggest
+        
       - name: Maintenance Mode Up
         run: /usr/bin/php artisan down
+        
       - name: Install Node JS Dependencies
         run: /usr/bin/npm install
+        
       - name: Update Composer Dependencies
         run: /usr/local/bin/composer update
+        
       - name: Update Node JS Dependencies
         run: /usr/bin/npm update
-      - name: Set Up .env
-        run: echo "${{ secrets.File_Env_Content }}" > .env
+        
+      - name: Set Up .env file
+        run: echo "#Début du remplissage auto par github" > .env
+            echo "APP_DEBUG=${{ secrets.ENV_APP_DEBUG }}" > .env
+            echo "APP_ENV=${{ secrets.ENV_APP_ENV }}" > .env
+            echo "APP_KEY=${{ secrets.ENV_APP_KEY }}" > .env
+            echo "APP_NAME=${{ secrets.ENV_APP_NAME }}" > .env
+            echo "APP_URL=${{ secrets.ENV_APP_URL }}" > .env
+            echo "AWS_ACCESS_KEY_ID=${{ secrets.ENV_AWS_ACCESS_KEY_ID }}" > .env
+            echo "AWS_BUCKET=${{ secrets.ENV_AWS_BUCKET }}" > .env
+            echo "AWS_AWS_DEFAULT_REGION=${{ secrets.ENV_AWS_DEFAULT_REGION }}" > .env
+            echo "AWS_SECRET_ACCESS_KEY=${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}" > .env
+            echo "BROADCAST_DRIVER=${{ secrets.ENV_BROADCAST_DRIVER }}" > .env
+            echo "CACHE_DRIVER=${{ secrets.ENV_CACHE_DRIVER }}" > .env
+            echo "DB_CONNECTION=${{ secrets.ENV_DB_CONNECTION }}" > .env
+            echo "DB_DATABASE=${{ secrets.ENV_DB_DATABASE }}" > .env
+            echo "DB_HOST=${{ secrets.ENV_DB_HOST }}" > .env
+            echo "DB_PASSWORD=${{ secrets.ENV_DB_PASSWORD }}" > .env
+            echo "DB_PORT=${{ secrets.ENV_DB_PORT }}" > .env
+            echo "DB_USERNAME=${{ secrets.ENV_DB_USERNAME }}" > .env
+            echo "LOG_CHANNEL=${{ secrets.ENV_LOG_CHANNEL }}" > .env
+            echo "MAIL_DRIVER=${{ secrets.ENV_MAIL_DRIVER }}" > .env
+            echo "MAIL_ENCRYPTION=${{ secrets.ENV_MAIL_ENCRYPTION }}" > .env
+            echo "MAIL_FROM_ADDRESS=${{ secrets.ENV_MAIL_FROM_ADDRESS }}" > .env
+            echo "MAIL_FROM_NAME=${{ secrets.ENV_MAIL_FROM_NAME }}" > .env
+            echo "MAIL_HOST=${{ secrets.ENV_MAIL_HOST }}" > .env
+            echo "MAIL_PASSWORD=${{ secrets.ENV_MAIL_PASSWORD }}" > .env
+            echo "MAIL_PORT=${{ secrets.ENV_MAIL_PORT }}" > .env
+            echo "MAIL_USERNAME=${{ secrets.ENV_MAIL_USERNAME }}" > .env
+            echo "MIX_PUSHER_APP_CLUSTER=${{ secrets.ENV_MIX_PUSHER_APP_CLUSTER }}" > .env
+            echo "MIX_PUSHER_APP_KEY=${{ secrets.ENV_MIX_PUSHER_APP_KEY }}" > .env
+            echo "PUSHER_APP_CLUSTER=${{ secrets.ENV_PUSHER_APP_CLUSTER }}" > .env
+            echo "PUSHER_APP_ID=${{ secrets.ENV_PUSHER_APP_ID }}" > .env
+            echo "PUSHER_APP_KEY=${{ secrets.ENV_PUSHER_APP_KEY }}" > .env
+            echo "PUSHER_APP_SECRET=${{ secrets.ENV_PUSHER_APP_SECRET }}" > .env
+            echo "QUEUE_CONNECTION=${{ secrets.ENV_QUEUE_CONNECTION }}" > .env
+            echo "REDIS_HOST=${{ secrets.ENV_REDIS_HOST }}" > .env
+            echo "REDIS_PASSWORD=${{ secrets.ENV_REDIS_PASSWORD }}" > .env
+            echo "REDIS_PORT=${{ secrets.ENV_REDIS_PORT }}" > .env
+            echo "SESSION_DRIVER=${{ secrets.ENV_SESSION_DRIVER }}" > .env
+            echo "#Fin du remplissage auto par github" > .env
+        
       - name: Compile Css & JS and Minify it
         run: /usr/bin/npm rebuild && /usr/bin/npm run prod
+        
       - name: Generate key
         run: /usr/bin/php artisan key:generate
+        
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
+        
       - name: Maintenance Mode Down
         run: /usr/bin/php artisan up
