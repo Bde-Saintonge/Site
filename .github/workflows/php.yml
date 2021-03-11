@@ -30,7 +30,7 @@ jobs:
       - name: Update Node JS Dependencies
         run: /usr/bin/npm update
         
-      - name: Set Up .env && file
+      - name: Set Up .env file
         run: echo -e "#Début du remplissage auto par github\r\n" > .env &&
             echo -e "APP_DEBUG=${{ secrets.ENV_APP_DEBUG }}\r\n" > .env &&
             echo -e "APP_ENV=${{ secrets.ENV_APP_ENV }}\r\n" > .env &&
@@ -69,7 +69,7 @@ jobs:
             echo -e "REDIS_PASSWORD=${{ secrets.ENV_REDIS_PASSWORD }}\r\n" > .env &&
             echo -e "REDIS_PORT=${{ secrets.ENV_REDIS_PORT }}\r\n" > .env &&
             echo -e "SESSION_DRIVER=${{ secrets.ENV_SESSION_DRIVER }}\r\n" > .env &&
-            echo -e "#Fin du remplissage auto par github" > .env &&
+            echo -e "#Fin du remplissage auto par github" > .env
         
       - name: Compile Css & JS and Minify it
         run: /usr/bin/npm rebuild && /usr/bin/npm run prod
