@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Push code to server
         uses: actions/checkout@v2
+        with:
+          submodules: false
         
       - name: Validate composer.json and composer.lock
         run: /usr/local/bin/composer validate
