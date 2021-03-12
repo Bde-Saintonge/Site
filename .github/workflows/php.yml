@@ -9,7 +9,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Push code to server
-        uses: actions/checkout@latest
+        uses: actions/checkout@v2.3.4
         
       - name: Validate composer.json and composer.lock
         run: /usr/local/bin/composer validate
