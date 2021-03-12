@@ -68,8 +68,7 @@ jobs:
                       REDIS_HOST=${{ secrets.ENV_REDIS_HOST }}\r\n
                       REDIS_PASSWORD=${{ secrets.ENV_REDIS_PASSWORD }}\r\n
                       REDIS_PORT=${{ secrets.ENV_REDIS_PORT }}\r\n
-                      SESSION_DRIVER=${{ secrets.ENV_SESSION_DRIVER }}\r\n
-                      \#Fin du remplissage auto par github' > .env
+                      SESSION_DRIVER=${{ secrets.ENV_SESSION_DRIVER }}\r\n#Fin du remplissage auto par github' > .env
         
       - name: Compile Css & JS and Minify it
         run: /usr/bin/npm rebuild && /usr/bin/npm run prod
