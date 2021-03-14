@@ -31,44 +31,44 @@ jobs:
         run: /usr/bin/npm update
         
       - name: Set Up .env file
-        run: echo -e '#Début du remplissage auto par github\r\n \
-                      APP_DEBUG=${{ secrets.ENV_APP_DEBUG }}\r\n \
-                      APP_ENV=${{ secrets.ENV_APP_ENV }}\r\n \
-                      APP_KEY=${{ secrets.ENV_APP_KEY }}\r\n \
-                      APP_NAME=${{ secrets.ENV_APP_NAME }}\r\n \
-                      APP_URL=${{ secrets.ENV_APP_URL }}\r\n \
-                      AWS_ACCESS_KEY_ID=${{ secrets.ENV_AWS_ACCESS_KEY_ID }}\r\n \
-                      AWS_BUCKET=${{ secrets.ENV_AWS_BUCKET }}\r\n \
-                      AWS_AWS_DEFAULT_REGION=${{ secrets.ENV_AWS_DEFAULT_REGION }}\r\n \
-                      AWS_SECRET_ACCESS_KEY=${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}\r\n \
-                      BROADCAST_DRIVER=${{ secrets.ENV_BROADCAST_DRIVER }}\r\n \
-                      CACHE_DRIVER=${{ secrets.ENV_CACHE_DRIVER }}\r\n \
-                      DB_CONNECTION=${{ secrets.ENV_DB_CONNECTION }}\r\n \
-                      DB_DATABASE=${{ secrets.ENV_DB_DATABASE }}\r\n \
-                      DB_HOST=${{ secrets.ENV_DB_HOST }}\r\n \
-                      DB_PASSWORD=${{ secrets.ENV_DB_PASSWORD }}\r\n \
-                      DB_PORT=${{ secrets.ENV_DB_PORT }}\r\n \
-                      DB_USERNAME=${{ secrets.ENV_DB_USERNAME }}\r\n \
-                      LOG_CHANNEL=${{ secrets.ENV_LOG_CHANNEL }}\r\n \
-                      MAIL_DRIVER=${{ secrets.ENV_MAIL_DRIVER }}\r\n \
-                      MAIL_ENCRYPTION=${{ secrets.ENV_MAIL_ENCRYPTION }}\r\n \
-                      MAIL_FROM_ADDRESS=${{ secrets.ENV_MAIL_FROM_ADDRESS }}\r\n \
-                      MAIL_FROM_NAME=${{ secrets.ENV_MAIL_FROM_NAME }}\r\n \
-                      MAIL_HOST=${{ secrets.ENV_MAIL_HOST }}\r\n \
-                      MAIL_PASSWORD=${{ secrets.ENV_MAIL_PASSWORD }}\r\n \
-                      MAIL_PORT=${{ secrets.ENV_MAIL_PORT }}\r\n \
-                      MAIL_USERNAME=${{ secrets.ENV_MAIL_USERNAME }}\r\n \
-                      MIX_PUSHER_APP_CLUSTER=${{ secrets.ENV_MIX_PUSHER_APP_CLUSTER }}\r\n \
-                      MIX_PUSHER_APP_KEY=${{ secrets.ENV_MIX_PUSHER_APP_KEY }}\r\n \
-                      PUSHER_APP_CLUSTER=${{ secrets.ENV_PUSHER_APP_CLUSTER }}\r\n \
-                      PUSHER_APP_ID=${{ secrets.ENV_PUSHER_APP_ID }}\r\n \
-                      PUSHER_APP_KEY=${{ secrets.ENV_PUSHER_APP_KEY }}\r\n \
-                      PUSHER_APP_SECRET=${{ secrets.ENV_PUSHER_APP_SECRET }}\r\n \
-                      QUEUE_CONNECTION=${{ secrets.ENV_QUEUE_CONNECTION }}\r\n \
-                      REDIS_HOST=${{ secrets.ENV_REDIS_HOST }}\r\n \
-                      REDIS_PASSWORD=${{ secrets.ENV_REDIS_PASSWORD }}\r\n \
-                      REDIS_PORT=${{ secrets.ENV_REDIS_PORT }}\r\n \
-                      SESSION_DRIVER=${{ secrets.ENV_SESSION_DRIVER }}\r\n \#Fin du remplissage auto par github' > .env
+        run: echo -e '#Début du remplissage auto par github\r\n
+                      APP_DEBUG=${{ secrets.ENV_APP_DEBUG }}\r\n
+                      APP_ENV=${{ secrets.ENV_APP_ENV }}\r\n
+                      APP_KEY=${{ secrets.ENV_APP_KEY }}\r\n
+                      APP_NAME=${{ secrets.ENV_APP_NAME }}\r\n
+                      APP_URL=${{ secrets.ENV_APP_URL }}\r\n
+                      AWS_ACCESS_KEY_ID=${{ secrets.ENV_AWS_ACCESS_KEY_ID }}\r\n
+                      AWS_BUCKET=${{ secrets.ENV_AWS_BUCKET }}\r\n
+                      AWS_AWS_DEFAULT_REGION=${{ secrets.ENV_AWS_DEFAULT_REGION }}\r\n
+                      AWS_SECRET_ACCESS_KEY=${{ secrets.ENV_AWS_SECRET_ACCESS_KEY }}\r\n
+                      BROADCAST_DRIVER=${{ secrets.ENV_BROADCAST_DRIVER }}\r\n
+                      CACHE_DRIVER=${{ secrets.ENV_CACHE_DRIVER }}\r\n
+                      DB_CONNECTION=${{ secrets.ENV_DB_CONNECTION }}\r\n
+                      DB_DATABASE=${{ secrets.ENV_DB_DATABASE }}\r\n
+                      DB_HOST=${{ secrets.ENV_DB_HOST }}\r\n
+                      DB_PASSWORD=${{ secrets.ENV_DB_PASSWORD }}\r\n
+                      DB_PORT=${{ secrets.ENV_DB_PORT }}\r\n
+                      DB_USERNAME=${{ secrets.ENV_DB_USERNAME }}\r\n
+                      LOG_CHANNEL=${{ secrets.ENV_LOG_CHANNEL }}\r\n
+                      MAIL_DRIVER=${{ secrets.ENV_MAIL_DRIVER }}\r\n
+                      MAIL_ENCRYPTION=${{ secrets.ENV_MAIL_ENCRYPTION }}\r\n
+                      MAIL_FROM_ADDRESS=${{ secrets.ENV_MAIL_FROM_ADDRESS }}\r\n
+                      MAIL_FROM_NAME=${{ secrets.ENV_MAIL_FROM_NAME }}\r\n
+                      MAIL_HOST=${{ secrets.ENV_MAIL_HOST }}\r\n
+                      MAIL_PASSWORD=${{ secrets.ENV_MAIL_PASSWORD }}\r\n
+                      MAIL_PORT=${{ secrets.ENV_MAIL_PORT }}\r\n
+                      MAIL_USERNAME=${{ secrets.ENV_MAIL_USERNAME }}\r\n
+                      MIX_PUSHER_APP_CLUSTER=${{ secrets.ENV_MIX_PUSHER_APP_CLUSTER }}\r\n
+                      MIX_PUSHER_APP_KEY=${{ secrets.ENV_MIX_PUSHER_APP_KEY }}\r\n
+                      PUSHER_APP_CLUSTER=${{ secrets.ENV_PUSHER_APP_CLUSTER }}\r\n
+                      PUSHER_APP_ID=${{ secrets.ENV_PUSHER_APP_ID }}\r\n
+                      PUSHER_APP_KEY=${{ secrets.ENV_PUSHER_APP_KEY }}\r\n
+                      PUSHER_APP_SECRET=${{ secrets.ENV_PUSHER_APP_SECRET }}\r\n
+                      QUEUE_CONNECTION=${{ secrets.ENV_QUEUE_CONNECTION }}\r\n
+                      REDIS_HOST=${{ secrets.ENV_REDIS_HOST }}\r\n
+                      REDIS_PASSWORD=${{ secrets.ENV_REDIS_PASSWORD }}\r\n
+                      REDIS_PORT=${{ secrets.ENV_REDIS_PORT }}\r\n
+                      SESSION_DRIVER=${{ secrets.ENV_SESSION_DRIVER }}\r\n#Fin du remplissage auto par github' > .env
         
       - name: Compile Css & JS and Minify it
         run: /usr/bin/npm rebuild && /usr/bin/npm run prod
