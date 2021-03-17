@@ -1,5 +1,5 @@
 # Site-Bde
-Ce repository est là pour permettre à l'ensemble des personnes qui maintiennent le serveur Bde d'avoir toutes les vues HTML directement ici, vous trouverez donc dans ce repo :
+Ce repository est là pour permettre à l'ensemble des personnes qui maintiennent le serveur Bde d'avoir tout le contenu du site directement ici, vous trouverez donc dans ce repo :
 - La page d'acceuil
 - Les pages d'articles
 - Les mentions légales
