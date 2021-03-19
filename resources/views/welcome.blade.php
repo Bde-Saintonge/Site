@@ -1,7 +1,7 @@
 <!-- Initialisation du contenu du document HTML   -->
 @extends('layouts.base')
 @section('content')
-  <!-- Section Explication BDE -->
+    <!-- Section Explication BDE -->
     <section class="row wrap full-screen">
         <!-- Div de Construction Explication BDE-->
         <div class="xLarge-12 large-12 medium-12 small-12 xSmall-12 full-div">
@@ -102,5 +102,3 @@
     <!-- Fin Section Bureau-->
 <!-- Fin d'Initialisation du contenu du document HTML -->
 @endsection
-
-
