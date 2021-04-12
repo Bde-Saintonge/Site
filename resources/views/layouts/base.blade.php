@@ -77,10 +77,6 @@
                 <li>
                     <a href="/login">Se Connecter</a>
                 </li>
-                <li >
-                    <a href="https://www.youtube.com/channel/UCavw3aPAmd220peMhn96kjg" target="_blank">
-                        <img src="{{asset('media/images/yt.svg')}}" alt="logo youtube" width="40px" height="auto" style="position: relative;left: 0px;"></a>
-                </li>
                 <li class="bda">
                     <a href="/bda">BDA</a>
                 </li>
@@ -95,6 +91,11 @@
                 </li>
                 <li>
                     <a href="mailto:contact@bde-saintonge.fr">Contact</a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/channel/UCavw3aPAmd220peMhn96kjg" target="_blank">
+                        <img src="{{asset('media/images/yt.svg')}}" alt="logo youtube" width="40px" height="auto" style="position: relative;left: 0px;">
+                    </a>
                 </li>
             </ul>
         </nav>
