@@ -68,9 +68,9 @@
                     <img src="{{asset('media/images/bdc_logo.png')}}" alt="Logo du BDC" style="width:100%">
                     <div class="container">
                         <div class="container-title">
-                            <h4>Bureau de la Culture (BDC)</h4>
+                            <h4>Bureau des Cultures (BDC)</h4>
                         </div>
-                        <p>Présentation / Explication du bureau de la Culture</p>
+                        <p>Présentation / Explication du bureau des Cultures</p>
                         <button><a href="/bdc" target="_blank">En savoir Plus</a></button>
                     </div>
                 </div>
