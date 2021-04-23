@@ -10,7 +10,7 @@
                 <img src="" class="image" style="width:100%">
                 <div class="explication center">
                     <div class="text">
-                        <span style="font-weight: bold;">Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge. Créé en 2018, ce bureau regroupe trois entités détaillées ci-desous : le Bureau Des Actions (BDA), le Bureau des Sports (BDS), le Bureau des cultures (BDC) ainsi que le Pôle Communication.</span>
+                        <span style="font-weight: bold;">Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge. Créé en 2018, ce bureau regroupe trois entités détaillées ci-desous : le Bureau Des Actions (BDA), le Bureau des cultures (BDC), le Bureau des Sports (BDS) ainsi que le Pôle Communication.</span>
                     </div>
                 </div>
             </div>
@@ -22,26 +22,8 @@
 
     <!-- Section Bureau-->
     <section class="row wrap bureau">
-        <!-- Div de Construction BDS -->
-        <div class="xLarge-3 large-3 medium-6 small-6 xSmall-6 blue-content ">
-            <!-- Div Habillage BDS -->
-            <div class="margin-arround column">
-                <div class="card">
-                    <img src="{{asset('media/images/bds_logo.png')}}" alt="Logo du BDS" style="width:100%">
-                    <div class="container">
-                        <div class="container-title">
-                            <h4>Bureau des Sports (BDS)</h4>
-                        </div>
-                        <p>Présentation / Explication du Bureau des Sports</p>
-                        <button><a href="/bds" target="_blank">En savoir Plus</a></button>
-                    </div>
-                </div>
-            </div>
-            <!-- Fin Habillage BDS -->
-        </div>
-        <!-- Fin Div de Construction BDS -->
-
-        <!-- Div de Construction BDA -->
+    
+    <!-- Div de Construction BDA -->
         <div class="xLarge-3 large-3 medium-6 small-6 xSmall-6 blue-content">
             <!-- Div Habillage BDA -->
             <div class="margin-arround column">
@@ -59,7 +41,7 @@
             <!-- Fin Habillage BDA -->
         </div>
         <!-- Fin Div de Construction BDA -->
-
+        
         <!-- Div de Construction BDC -->
         <div class="xLarge-3 large-3 medium-6 small-6 xSmall-6 blue-content">
             <!-- Div Habillage BDC -->
@@ -78,6 +60,25 @@
             <!-- Fin Div Habillage BDC -->
         </div>
         <!-- Fin Div de Construction BDC -->
+        
+        <!-- Div de Construction BDS -->
+        <div class="xLarge-3 large-3 medium-6 small-6 xSmall-6 blue-content ">
+            <!-- Div Habillage BDS -->
+            <div class="margin-arround column">
+                <div class="card">
+                    <img src="{{asset('media/images/bds_logo.png')}}" alt="Logo du BDS" style="width:100%">
+                    <div class="container">
+                        <div class="container-title">
+                            <h4>Bureau des Sports (BDS)</h4>
+                        </div>
+                        <p>Présentation / Explication du Bureau des Sports</p>
+                        <button><a href="/bds" target="_blank">En savoir Plus</a></button>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Habillage BDS -->
+        </div>
+        <!-- Fin Div de Construction BDS -->
 
         <!-- Div de Construction Pôle Com -->
         <div class="xLarge-3 large-3 medium-6 small-6 xSmall-6 blue-content">
