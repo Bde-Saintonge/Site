@@ -3,9 +3,6 @@ name: CI/CD
 on:
   push:
     branches: [ main ]
-  pull_request:
-    types: [closed]
-
 jobs:
   Deployment:
     runs-on: self-hosted
