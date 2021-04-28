@@ -129,7 +129,7 @@
                     </div>
 
                     <div class="pad-arround-footer">
-                        <img src="{{asset('media/images/footer-tel.svg')}}"'" width="25px" height="35px" style="position: relative;left: 25px;">
+                        <img src="{{asset('media/images/footer-tel.svg')}}" width="25px" height="35px" style="position: relative;left: 25px;">
                         <span style="cursor:pointer" onclick="window.open('tel:+33556993929');">
                         <h4 style="position: relative;left: 50px;top: 10px;">Tél : 05 56 99 39 29</h4>
                         </span>
