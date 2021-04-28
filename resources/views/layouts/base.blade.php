@@ -18,9 +18,9 @@
     <meta name='target' content='all'>
     <meta name='theme-color' content='#FAEC71'>
 
-    <link rel='shortcut icon' type='image/png' href='{{asset('media/images/LOGO-2020-1.jpg')}}'>
+    <link rel='shortcut icon' type='image/png' href='{{asset('media/images/LOGO-2020-1.png')}}'>
 
-    <link rel="apple-touch-icon" href="{{asset('media/images/LOGO-2020-1.jpg')}}" />
+    <link rel="apple-touch-icon" href="{{asset('media/images/LOGO-2020-1.png')}}" />
 
     <!-- Twitter Card meta -->
     <meta name='twitter:card' content='summary'>
@@ -50,7 +50,7 @@
     <title>BDE Saintonge </title>
 
     <!-- ICON Tab Navigator -->
-    <link rel="icon" href="{{asset('media/images/LOGO-2020-1.jpg')}}">
+    <link rel="icon" href="{{asset('media/images/LOGO-2020-1.png')}}">
 
     <!-- Librairie  Local CSS -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
@@ -69,7 +69,7 @@
         <nav>
             <ul>
                 <li>
-                    <a href="/"> <img src="{{asset('media/images/LOGO-2020-1.jpg')}}" alt="logo"> </a>
+                    <a href="/"> <img src="{{asset('media/images/LOGO-2020-1.png')}}" alt="logo"> </a>
                 </li>
                 <li>
                     <a href="/">Accueil</a>
