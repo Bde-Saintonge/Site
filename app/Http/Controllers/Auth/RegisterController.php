@@ -52,7 +52,7 @@ class RegisterController extends BaseController
      * Get a validator for an incoming registration request.
      *
      * @param  Illuminate\Http\Request array  $request
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\Http\RedirectResponse
      */
 
     protected function validator(Request $request)
@@ -85,7 +85,7 @@ class RegisterController extends BaseController
             'password' => Hash::make($request->password),
             'class' => $request->class,
             'profile_photo_path' => asset('media/images/LOGO-2020-1.jpg'),
-            'permission' => 1,
+            'role' => 'eleve',
             'created_at' => now()->timestamp,
             'updated_at' => now()->timestamp,
         ]);
