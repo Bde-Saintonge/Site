@@ -14,7 +14,11 @@ use Illuminate\Http\Request;
 class LoginController extends BaseController
 {
     //
-
+    /**
+     * Méthode qui retroune la vue de connexion
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     protected function index(){
         if(isset($_SESSION['session'])){
             return redirect()->route('dashboard');
@@ -23,6 +27,12 @@ class LoginController extends BaseController
         }
 
     }
+
+    /**
+     * Méthode qui permet de vérifier les informations envoyés au formulaire
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
 
     protected function validator(Request $request)
     {
@@ -41,6 +51,11 @@ class LoginController extends BaseController
 
     }
 
+    /**
+     * Méthode qui permet de vérifier si l'utilisateur existe en BDD
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     protected function login_check_SQL(Request $request){
 
         $users = DB::select("select * from users");
