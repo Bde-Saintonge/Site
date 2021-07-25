@@ -27,7 +27,6 @@ class LoginController extends BaseController
     protected function validator(Request $request)
     {
 
-
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:6']
@@ -63,7 +62,10 @@ class LoginController extends BaseController
 
     }
 
-    protected function loggout(){
-
+    /**
+     * Méthode qui permet de déconnecter un utilisateur
+     */
+    protected function logout(){
+        unset($_SESSION);
     }
 }
