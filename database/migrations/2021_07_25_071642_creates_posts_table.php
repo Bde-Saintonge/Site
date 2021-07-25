@@ -19,6 +19,8 @@ class CreatesPostsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->longText('content');
+            $table->integer('office_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }
