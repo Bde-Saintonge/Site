@@ -25,24 +25,30 @@ class PostTableSeeder extends Seeder
             'password' => Hash::make('admin123456'),
             'class' => 'Seconde GT A',
             'profile_photo_path' => 'http://127.0.0.1:8000/media/images/LOGO-2020-1.jpg',
-            #'created_at' => now()->timestamp,
-            #'updated_at' => now()->timestamp
+            'created_at' => $faker->dateTime,
+            'updated_at' => $faker->dateTime,
         ]);
 
         $office_id_1 = DB::table('offices')->insertGetId([
             'name' => 'BDA',
             'slug' => $faker->slug,
-            'posts_count' => 5
+            'posts_count' => 5,
+            'created_at' => $faker->dateTime,
+            'updated_at' => $faker->dateTime,
         ]);
         $office_id_2 = DB::table('offices')->insertGetId([
             'name' => 'BDC',
             'slug' => $faker->slug,
-            'posts_count' => 5
+            'posts_count' => 5,
+            'created_at' => $faker->dateTime,
+            'updated_at' => $faker->dateTime,
         ]);
         $office_id_3 = DB::table('offices')->insertGetId([
             'name' => 'BDS',
             'slug' => $faker->slug,
-            'posts_count' => 5
+            'posts_count' => 5,
+            'created_at' => $faker->dateTime,
+            'updated_at' => $faker->dateTime,
         ]);
 
         for($i = 0; $i < 5; $i++) {
