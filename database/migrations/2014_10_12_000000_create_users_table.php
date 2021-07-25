@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('class');
             $table->text('profile_photo_path')->nullable();
-            $table->integer('id_permission')->nullable();
+            $table->string('role')->nullable();
             $table->timestamps();
         });
     }
