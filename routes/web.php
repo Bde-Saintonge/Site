@@ -42,7 +42,6 @@ Route::get('/rgpd', function () {
 
 Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index');
 Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@validator');
-Route::get('/register-insert-data', 'App\Http\Controllers\Auth\RegisterController@insert_SQL_User')->name('register-insert-data');
 
 Route::get('/login', 'App\Http\Controllers\Auth\LoginController@index')->name('login');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@validator');

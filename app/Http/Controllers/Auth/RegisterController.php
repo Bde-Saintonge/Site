@@ -71,7 +71,7 @@ class RegisterController extends BaseController
             return back()->withErrors($validator)->withInput();
         }
 
-        return Redirect::route("register-insert-data", $request);
+        return $this->insert_SQL_User($request);
 
     }
 
