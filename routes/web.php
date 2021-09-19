@@ -46,9 +46,18 @@ Route::get('/register-insert-data', 'App\Http\Controllers\Auth\RegisterControlle
 
 Route::get('/login', 'App\Http\Controllers\Auth\LoginController@index')->name('login');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@validator');
-Route::get('/login/check_user', 'App\Http\Controllers\Auth\LoginController@login_check_SQL')->name('check_user');
 
 Route::get('/dashboard', 'App\Http\Controllers\Auth\DashboardController@index')->name('dashboard');
+
+/*
+ * Posts Route
+ */
+$slugPattern = '[a-z0-9\-]+';
+
+Route::get('/user/{id}', 'App\Http\Controllers\PostController@user')->name('posts.user')->where('id', '[0-9]+');
+Route::get('/{office_slug}', 'App\Http\Controllers\PostController@office')->name('posts.office')->where('office_slug', $slugPattern);
+Route::get('/{office_slug}/{post_slug}', 'App\Http\Controllers\PostController@show')->name('posts.show')->where(['office_slug' => $slugPattern, 'post_slug' => $slugPattern]);
+
 
 /*
  * Clear Cache Route
