@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-session_start();
-
 /*
  * Welcome Route
  */
@@ -45,6 +43,8 @@ Route::post('/register', 'App\Http\Controllers\Auth\RegisterController@validator
 
 Route::get('/login', 'App\Http\Controllers\Auth\LoginController@index')->name('login');
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@validator');
+
+Route::get('/logout','App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
 Route::get('/dashboard', 'App\Http\Controllers\Auth\DashboardController@index')->name('dashboard');
 

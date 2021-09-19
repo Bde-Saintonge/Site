@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends BaseController
 {
     //
 
-    protected function index(){
+    public function index(){
 
+        if(Auth::check()){
+            $posts = Post::where('is_published', false)->get();
 
-        if(isset($_SESSION['session'])){
             return view('auth.dashboard', [
-                'success' => 'Vous êtes bien connecté.'
+                'success' => "Vous êtes bien connecté avec l'utilisateur ". Auth::user()->name,
+                'posts' => $posts
             ]);
         }else{
-            return view('auth.login', [
-                'error' => "Vous devez d’abord vous connecter pour pouvoir accéder à votre Tableau de bord."
+            return back()->withErrors([
+                'error' => "Veillez-vous connecter avant d’accéder à votre compte",
             ]);
         }
     }
