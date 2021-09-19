@@ -43,11 +43,12 @@ class LoginController extends BaseController
         ], array_merge(User::generate_error('email'), User::generate_error('password')));
 
 
+
         if ($validator->fails()){
             return back()->withErrors($validator)->withInput();
         }
 
-        return Redirect::route("check_user", $request);
+        return $this->login_check_SQL($request);
 
     }
 
@@ -58,21 +59,15 @@ class LoginController extends BaseController
      */
     protected function login_check_SQL(Request $request){
 
-        $users = DB::select("select * from users");
+        $user = User::where('email', $request->email)->first();
 
-        foreach ($users as $user){
-
-            if($request->email == $user->email && Hash::check($request->password, $user->password)){
-
-
-                $_SESSION['session'] = Hash::make($request->email);
-
-                return redirect()->route('dashboard');
-            }else{
-                return view('auth.login' ,[
-                    'error' => 'Votre email et/ou votre mot de passe ne correspondent pas.'
-                ]);
-            }
+        if(Hash::check($request->password, $user->password)){
+            $_SESSION['session'] = Hash::make($request->email);
+            return redirect()->route('dashboard');
+        }else{
+            return view('auth.login' ,[
+                'error' => 'Votre email et/ou votre mot de passe ne correspondent pas.'
+            ]);
         }
 
     }
