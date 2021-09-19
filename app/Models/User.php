@@ -29,8 +29,7 @@ class User extends Authenticatable
         'email',
         'password',
         'class',
-        'profile_photo_path',
-        'id_permission'
+        'profile_photo_path'
     ];
 
     /**
@@ -43,6 +42,7 @@ class User extends Authenticatable
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'role',
     ];
 
     /**
@@ -62,6 +62,18 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * This function return an boolean if the user is an Administrator or not
+     * @return false
+     */
+    public function isAdmin(){
+        if($this->role === 'admin'){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     static function generate_error($name){
         return [

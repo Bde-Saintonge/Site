@@ -57,6 +57,16 @@ Route::get('/user/{id}', 'App\Http\Controllers\PostController@user')->name('post
 Route::get('/{office_slug}', 'App\Http\Controllers\PostController@office')->name('posts.office')->where('office_slug', $slugPattern);
 Route::get('/{office_slug}/{post_slug}', 'App\Http\Controllers\PostController@show')->name('posts.show')->where(['office_slug' => $slugPattern, 'post_slug' => $slugPattern]);
 
+/*
+ * Admin Route CRUD
+ */
+Route::get('/admin/create/post', 'App\Http\Controllers\PostController@create_post');
+Route::post('/admin/create/post', 'App\Http\Controllers\PostController@create_BDD');
+
+Route::get('/admin/{id}/validate', 'App\Http\Controllers\PostController@validate_post')->where('id', '[0-9]+');
+Route::get('/admin/{id}/edit', 'App\Http\Controllers\PostController@edit')->where('id', '[0-9]+');
+
+Route::get('/admin/{id}/delete', 'App\Http\Controllers\PostController@delete')->where('id', '[0-9]+');
 
 /*
  * Clear Cache Route

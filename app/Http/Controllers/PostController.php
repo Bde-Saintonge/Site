@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Office;
 use App\Models\Post;
 use App\Models\User;
+use DateTime;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class PostController extends Controller
 {
@@ -16,11 +20,12 @@ class PostController extends Controller
      * @param String $office_slug : Nom du bureau
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\View\View
      */
-    public function office(String $office_slug)
+    public function office(String $office_name)
     {
-        $office = Office::where('slug', $office_slug)->first();
+        $office = Office::where('name', $office_name)->first();
+
         if (isset($office) && !empty($office)){
-            $posts = Post::where('office_id', $office->id)->paginate($this->per_page);
+            $posts = Post::where('office_id', $office->id)->where('is_published', true)->paginate($this->per_page);
             if (isset($posts) && !empty($posts)){
                 return view('posts.index', compact('posts', 'office'));
             }else{
@@ -68,4 +73,75 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * Méthode qui permet de retourner la vue de création d'un article
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function create_post (){
+        if($this->check_role()){
+            return view('admin/create');
+        }else{
+            return back()->withErrors([
+                'error' => "Veillez-vous connecter avant de créer un article",
+            ]);
+        }
+    }
+
+    /**
+     * Méthode qui permet d'enregister les données saisies
+     * @param Request $request
+     */
+    public function create_BDD(Request $request){
+        dd($request);
+    }
+
+    /**
+     * Méthode qui permet de valider un article
+     * @param $id_post
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function validate_post($id_post){
+
+        if (Auth::check()){
+            $AdminController = new AdminController();
+
+            if ($AdminController->check_role()){
+
+                if($AdminController->isAdmin()){
+                    //Vérifie si l'utilisateur a le droit de valider l'article
+                    $post = Post::where('id', $id_post)->first();
+                    $post->is_published = true;
+                    $post->updated_at = new DateTime('now');
+                    $post->save();
+                    return redirect()->intended('dashboard');
+                }else{
+                    return back()->withErrors([
+                        'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
+                    ]);
+                }
+            }else{
+                return back()->withErrors([
+                    'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
+                ]);
+            }
+        }else{
+            return back()->withErrors([
+                'error' => "Veillez-vous connecter avant de valider un article",
+            ]);
+        }
+    }
+
+    /**
+     * méthode qui permet de modifier un article
+     */
+    public function edit($id_post){
+        echo "edit";
+    }
+
+    /**
+     * Méthode qui permet de supprimer un aticle
+     */
+    public function delete($id_post){
+        echo "delete";
+    }
 }

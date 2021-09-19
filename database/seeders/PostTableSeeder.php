@@ -18,11 +18,36 @@ class PostTableSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        $user_id = DB::table('users')->insertGetId([
+        $admin = DB::table('users')->insertGetId([
             'name' => 'admin',
             'lastname' => 'admin',
             'email'=> 'admin@localhost.dev',
             'password' => Hash::make('admin123456'),
+            'role' => 'admin',
+            'class' => 'Seconde GT A',
+            'profile_photo_path' => 'http://127.0.0.1:8000/media/images/LOGO-2020-1.jpg',
+            'created_at' => $faker->dateTime,
+            'updated_at' => $faker->dateTime,
+        ]);
+
+        $user = DB::table('users')->insertGetId([
+            'name' => 'user',
+            'lastname' => 'user',
+            'email'=> 'user@localhost.dev',
+            'password' => Hash::make('user123456'),
+            'role' => 'eleve',
+            'class' => 'Seconde GT A',
+            'profile_photo_path' => 'http://127.0.0.1:8000/media/images/LOGO-2020-1.jpg',
+            'created_at' => $faker->dateTime,
+            'updated_at' => $faker->dateTime,
+        ]);
+
+        $bda = DB::table('users')->insertGetId([
+            'name' => 'bda',
+            'lastname' => 'bda',
+            'email'=> 'bda@localhost.dev',
+            'password' => Hash::make('bda123456'),
+            'role' => 'bda',
             'class' => 'Seconde GT A',
             'profile_photo_path' => 'http://127.0.0.1:8000/media/images/LOGO-2020-1.jpg',
             'created_at' => $faker->dateTime,
@@ -56,11 +81,24 @@ class PostTableSeeder extends Seeder
                 'name' => $faker->name,
                 'slug' => $faker->slug,
                 'content' => $faker->text,
+                'is_published' => (bool)mt_rand(0, 1),
+                'user_id'    => mt_rand(0,1) ? $admin : $bda,
+                'office_id' => $this->random_office($office_id_1, $office_id_2, $office_id_3),
                 'created_at' => $faker->dateTime,
-                'updated_at' => $faker->dateTime,
-                'user_id'    => $user_id,
-                'office_id' => $office_id_1
+                'updated_at' => $faker->dateTime
             ]);
         }
     }
+
+    public function random_office($office1, $office2, $office3){
+        $nb = mt_rand(0,3);
+        if ($nb === 1){
+            return $office1;
+        }elseif($nb == 2){
+            return $office2;
+        }else{
+            return $office3;
+        }
+    }
+
 }

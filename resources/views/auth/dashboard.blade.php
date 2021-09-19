@@ -4,6 +4,8 @@
 
         <div class="xLarge-12 large-12 medium-12 small-12 xSmall-12" >
 
+            {!! $errors->first('error', '<div class="alert alert-warning center" role="alert">:message</div>')!!}
+
             <div class="margin-arround center">
                 @if(isset($success))
                     <div class="alert alert-success">
@@ -32,6 +34,9 @@
                             <th>{{$post->name}}</th>
                             <th>{{$post->updated_at}}</th>
                             <th>
+                                <button type="button" class="btn btn-primary">
+                                    <a target="_blank"  href="/admin/{{$post->id}}/validate">Valider</a>
+                                </button>
                                 <button type="button" class="btn btn-primary">
                                     <a target="_blank"  href="/admin/{{$post->id}}/edit">Modifier</a>
                                 </button>
