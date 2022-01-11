@@ -78,13 +78,26 @@ class PostController extends Controller
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function create_post (){
-        if($this->check_role()){
-            return view('admin/create');
+
+        if(Auth::check()){
+            $AdminController = new AdminController();
+            if($AdminController->check_role()){
+                if ($AdminController->isAdmin()){
+                    $offices = Office::all();
+                    return view('admin/create',[
+                        'offices' => $offices
+                    ]);
+                }
+            }return back()->withErrors([
+                'error' => "Vous ne disposez pas des permissions nécessaires pour effectuer cette action",
+            ]);
         }else{
             return back()->withErrors([
                 'error' => "Veillez-vous connecter avant de créer un article",
             ]);
         }
+
+
     }
 
     /**
@@ -116,12 +129,12 @@ class PostController extends Controller
                     return redirect()->intended('dashboard');
                 }else{
                     return back()->withErrors([
-                        'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
+                        'error' => "Vous ne disposez pas des permissions nécessaires pour effectuer cette action",
                     ]);
                 }
             }else{
                 return back()->withErrors([
-                    'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
+                    'error' => "Vous ne disposez pas des permissions nécessaires pour effectuer cette action",
                 ]);
             }
         }else{
