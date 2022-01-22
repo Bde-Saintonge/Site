@@ -38,12 +38,11 @@ class AdminController extends BaseController
      */
     public function check_if_user_can (){
 
-
         if (isset($this->office_id)) {
 
             $office = Office::where('id', $this->office_id)->first();
 
-            if ($this->user->role === strtolower($office->name)) {
+            if (Auth::user()->role === strtolower($office->name)) {
                 return true;
             } else {
                 return false;
