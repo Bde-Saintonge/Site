@@ -174,11 +174,8 @@
             </button>
         </div>
     </header>
-
     <main>
-
         @yield('content')
-
     </main>
 </body>
 <footer>
