@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
-class PostController extends Controller
+class PostController extends AdminController
 {
     //Définition de l'attribut de la classe
     private $per_page = 5;
@@ -79,25 +79,13 @@ class PostController extends Controller
      */
     public function create_post (){
 
-        if(Auth::check()){
-            $AdminController = new AdminController();
-            if($AdminController->check_role()){
-                if ($AdminController->isAdmin()){
-                    $offices = Office::all();
-                    return view('admin/create',[
-                        'offices' => $offices
-                    ]);
-                }
-            }return back()->withErrors([
-                'error' => "Vous ne disposez pas des permissions nécessaires pour effectuer cette action",
-            ]);
+        if($this->check_role()){
+            return view('admin/create');
         }else{
             return back()->withErrors([
                 'error' => "Veillez-vous connecter avant de créer un article",
             ]);
         }
-
-
     }
 
     /**
@@ -105,7 +93,7 @@ class PostController extends Controller
      * @param Request $request
      */
     public function create_BDD(Request $request){
-        dd($request);
+        // TODO
     }
 
     /**
@@ -129,12 +117,12 @@ class PostController extends Controller
                     return redirect()->intended('dashboard');
                 }else{
                     return back()->withErrors([
-                        'error' => "Vous ne disposez pas des permissions nécessaires pour effectuer cette action",
+                        'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
                     ]);
                 }
             }else{
                 return back()->withErrors([
-                    'error' => "Vous ne disposez pas des permissions nécessaires pour effectuer cette action",
+                    'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
                 ]);
             }
         }else{
@@ -145,16 +133,16 @@ class PostController extends Controller
     }
 
     /**
-     * méthode qui permet de modifier un article
+     * Méthode qui permet de modifier un article
      */
     public function edit($id_post){
-        echo "edit";
+        // TODO: "edit";
     }
 
     /**
      * Méthode qui permet de supprimer un aticle
      */
     public function delete($id_post){
-        echo "delete";
+        // TODO: "delete";
     }
 }
