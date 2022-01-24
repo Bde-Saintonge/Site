@@ -45,11 +45,13 @@ class PostController extends AdminController
     public function user(Int $user_id)
     {
         $user = User::find($user_id);
+
         if (isset($user) && !empty($user)){
             $posts = Post::where('user_id', $user->id)->paginate($this->per_page);
         }else{
             abort(404);
         }
+
         if (isset($posts) && !empty($posts)){
             return view('posts.index', compact('posts', 'user'));
         }else{
@@ -104,22 +106,14 @@ class PostController extends AdminController
     public function validate_post($id_post){
 
         if (Auth::check()){
-            $AdminController = new AdminController();
 
-            if ($AdminController->check_role()){
-
-                if($AdminController->isAdmin()){
-                    //Vérifie si l'utilisateur a le droit de valider l'article
-                    $post = Post::where('id', $id_post)->first();
-                    $post->is_published = true;
-                    $post->updated_at = new DateTime('now');
-                    $post->save();
-                    return redirect()->intended('dashboard');
-                }else{
-                    return back()->withErrors([
-                        'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
-                    ]);
-                }
+            if($this->isAdmin()){
+                //Vérifie si l'utilisateur a le droit de valider l'article
+                $post = Post::where('id', $id_post)->first();
+                $post->is_published = true;
+                $post->updated_at = new DateTime('now');
+                $post->save();
+                return redirect()->intended('dashboard');
             }else{
                 return back()->withErrors([
                     'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
