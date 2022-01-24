@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .zoom {
+        @apply transition ease-in-out delay-150 hover:scale-[1.2] duration-300;
+    }
+}
