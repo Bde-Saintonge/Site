@@ -56,7 +56,7 @@ class AdminController extends BaseController
      */
     public function isAdmin (){
 
-        if ($this->user->role === 'admin') {
+        if (Auth::user()->role === 'admin') {
             return true;
         } else {
             return false;

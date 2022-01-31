@@ -82,7 +82,11 @@ class PostController extends AdminController
     public function create_post (){
 
         if($this->check_role()){
-            return view('admin/create');
+            $offices = Office::all();
+            return view('admin/create', [
+                'user' => Auth::user(),
+                'offices' => $offices
+            ]);
         }else{
             return back()->withErrors([
                 'error' => "Veillez-vous connecter avant de créer un article",
@@ -94,8 +98,30 @@ class PostController extends AdminController
      * Méthode qui permet d'enregister les données saisies
      * @param Request $request
      */
-    public function create_BDD(Request $request){
-        // TODO
+    public function create_BDD(Request $request, Post $post){
+
+        if($this->check_role()){
+            $validateData = $request->validate([
+                'name' => 'required|max:255',
+                'slug' => 'required',
+                'office_id' => 'required',
+                'content' => 'required',
+            ]);
+
+            Post::create([
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'content' => $request->content,
+                'office_id' => $request->office_id,
+                'user_id' => Auth::user()->id
+            ]);
+
+            return redirect('/dashboard')->with('success', 'Article en attente de validation');
+        }else{
+            return back()->withErrors([
+                'error' => "Veillez-vous connecter avant de créer un article",
+            ]);
+        }
     }
 
     /**
@@ -130,7 +156,45 @@ class PostController extends AdminController
      * Méthode qui permet de modifier un article
      */
     public function edit($id_post){
-        // TODO: "edit";
+        if($this->check_role()){
+
+            $post = Post::findOrFail($id_post)->first();
+            $offices = Office::all();
+
+            return view('admin.view',[
+                'post' => $post,
+                'offices' => $offices
+            ]);
+
+        }else{
+            return back()->withErrors([
+                'error' => "Veillez-vous connecter avant de créer un article",
+            ]);
+        }
+    }
+
+    /**
+     * Méthode qui permet de mettre à jour un article
+     * @param Request $request
+     * @param Post $post
+     */
+    public function modify(Request $request, Post $post){
+        $validateData = $request->validate([
+            'name' => 'required|max:255',
+            'slug' => 'required',
+            'office_id' => 'required',
+            'content' => 'required',
+        ]);
+
+        $post->update([
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'content' => $request->content,
+            'office_id' => $request->office_id,
+            'user_id' => Auth::user()->id
+        ]);
+
+        return redirect('/dashboard')->with('success', 'Article modifié en attente de validation');
     }
 
     /**

@@ -65,6 +65,7 @@ Route::post('/admin/create/post', 'App\Http\Controllers\PostController@create_BD
 
 Route::get('/admin/{id}/validate', 'App\Http\Controllers\PostController@validate_post')->where('id', '[0-9]+');
 Route::get('/admin/{id}/edit', 'App\Http\Controllers\PostController@edit')->where('id', '[0-9]+');
+Route::post('/admin/{id}/edit', 'App\Http\Controllers\PostController@modify')->where('id', '[0-9]+');
 
 Route::get('/admin/{id}/delete', 'App\Http\Controllers\PostController@delete')->where('id', '[0-9]+');
 
