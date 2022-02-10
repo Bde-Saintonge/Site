@@ -1,3 +1,1 @@
-fichier de test
-fichier de test
-test 2
+Package sebastian/resource-operations is abandoned, you should avoid using it. No replacement was suggested.

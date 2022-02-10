@@ -1,15 +1,10 @@
-@import "404.css";
-@import "alert.css";
-@import "button.css";
-@import "card.css";
-@import "explication_bde.css";
-@import "fonts.css";
-@import "footer.css";
-@import "form.css";
-@import "login.css";
-@import "navbar.css";
-@import "reboot.css";
-@import "register.css";
-@import "responsive.css";
-@import "style.css";
-@import "theme.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .zoom {
+        @apply transition ease-in-out delay-150 hover:scale-[1.2] duration-300;
+    }
+}

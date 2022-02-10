@@ -71,7 +71,6 @@ Route::get('/admin/{id}/delete', 'App\Http\Controllers\PostController@delete')->
 /*
  * Clear Cache Route
  */
-
 Route::get('/clean-all-cache', function (){
     \Artisan::call('route:clear');
     \Artisan::call('view:clear');

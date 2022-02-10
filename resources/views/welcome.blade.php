@@ -1,105 +1,66 @@
 <!-- Initialisation du contenu du document HTML   -->
 @extends('layouts.base')
 @section('content')
-    <!-- Section Explication BDE -->
-    <section class="row wrap full-screen">
-        <!-- Div de Construction Explication BDE-->
-        <div class="xLarge-12 large-12 medium-12 small-12 xSmall-12 full-div">
-            <!-- Div Habillage Explication BDE -->
-            <div class="container-expli">
-                <img src="" class="image" style="width:100%">
-                <div class="explication center">
-                    <div class="text">
-                        <span style="font-weight: bold;">Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge. Créé en 2018, ce bureau regroupe trois entités détaillées ci-dessous : le Bureau Des Actions (BDA), le Bureau des cultures (BDC), le Bureau des Sports (BDS) ainsi que le Pôle Communication.</span>
-                    </div>
-                </div>
+    <section class="bg-cover bg-no-repeat" style="background-image: url( {{ asset('media/images/fond.jpg')}} )">
+        <div class="text-black container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
+            <div class="bg-white/90 rounded-md flex flex-col justify-center p-6 text-center lg:max-w-md xl:max-w-lg lg:text-left">
+                <h1 class="text-4xl font-bold leading-none sm:text-6xl">
+                    Bureau des
+                    <span class="text-blue-400">élèves</span>
+                    de Saintonge
+                </h1>
+                <p class="mt-6 text-lg text-justify ">
+                    Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge.
+                    <br class="hidden md:inline lg:hidden">
+                    Créé en 2018, ce bureau regroupe trois entités détaillées ci-dessous : le <strong>Bureau Des Actions</strong> (BDA), le <strong>Bureau des cultures</strong> (BDC), le <strong>Bureau des Sports</strong> (BDS) ainsi que le <strong>Pôle Communication</strong>.
+                </p>
+                
             </div>
-            <!-- Fin Div Habillage Explication BDE -->
         </div>
-        <!-- Fin Div de Construction -->
     </section>
-    <!-- Fin Section Explication BDE -->
-
-    <!-- Section Bureau-->
-    <section class="row wrap bureau">
-    
-    <!-- Div de Construction BDA -->
-        <div class="xLarge-3 large-3 medium-6 small-6 xSmall-6 blue-content">
-            <!-- Div Habillage BDA -->
-            <div class="margin-arround column">
-                <div class="card">
-                    <img src="{{asset('media/images/bda_logo.png')}}" alt="Logo du BDA" style="width:100%">
-                    <div class="container">
-                        <div class="container-title">
-                            <h4>Bureau des Actions (BDA)</h4>
-                        </div>
-                        <p>Présentation / Explication du Bureau des Actions</p>
-                        <button><a href="/bda" target="_blank">En savoir Plus</a></button>
+    <section class="dark:bg-gray-700 bg-white p-16">
+        <div class="grid grid-cols-2 xl:grid-cols-4 justify-items-center">
+            <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
+                <img src="{{ asset('media/images/bda_logo.png')}}" alt="" class="object-cover object-center w-full rounded-t-md h-72">
+                <div class="flex flex-col justify-between p-6 space-y-8">
+                    <div class="space-y-2">
+                        <h2 class="text-3xl font-semibold tracking-wide">BUREAU DES ACTIONS (BDA)</h2>
+                        <p>Présentation / Explication du Bureau des Actions.</p>
                     </div>
+                    <div href="/bda" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white">EN SAVOIR PLUS</div>
                 </div>
             </div>
-            <!-- Fin Habillage BDA -->
-        </div>
-        <!-- Fin Div de Construction BDA -->
-        
-        <!-- Div de Construction BDC -->
-        <div class="xLarge-3 large-3 medium-6 small-6 xSmall-6 blue-content">
-            <!-- Div Habillage BDC -->
-            <div class="margin-arround column">
-                <div class="card">
-                    <img src="{{asset('media/images/bdc_logo.png')}}" alt="Logo du BDC" style="width:100%">
-                    <div class="container">
-                        <div class="container-title">
-                            <h4>Bureau des Cultures (BDC)</h4>
-                        </div>
-                        <p>Présentation / Explication du bureau des Cultures</p>
-                        <button><a href="/bdc" target="_blank">En savoir Plus</a></button>
+            <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
+                <img src="{{ asset('media/images/bdc_logo.png')}}" alt="" class="object-cover object-center w-full rounded-t-md h-72">
+                <div class="flex flex-col justify-between p-6 space-y-8">
+                    <div class="space-y-2">
+                        <h2 class="text-3xl font-semibold tracking-wide">BUREAU DES CULTURES (BDC)</h2>
+                        <p>Présentation / Explication du bureau des Cultures.</p>
                     </div>
+                    <div href="/bdc" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white">EN SAVOIR PLUS</div>
                 </div>
             </div>
-            <!-- Fin Div Habillage BDC -->
-        </div>
-        <!-- Fin Div de Construction BDC -->
-        
-        <!-- Div de Construction BDS -->
-        <div class="xLarge-3 large-3 medium-6 small-6 xSmall-6 blue-content ">
-            <!-- Div Habillage BDS -->
-            <div class="margin-arround column">
-                <div class="card">
-                    <img src="{{asset('media/images/bds_logo.png')}}" alt="Logo du BDS" style="width:100%">
-                    <div class="container">
-                        <div class="container-title">
-                            <h4>Bureau des Sports (BDS)</h4>
-                        </div>
-                        <p>Présentation / Explication du Bureau des Sports</p>
-                        <button><a href="/bds" target="_blank">En savoir Plus</a></button>
+            <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
+                <img src="{{ asset('media/images/bds_logo.png')}}" alt="" class="object-cover object-center w-full rounded-t-md h-72">
+                <div class="flex flex-col justify-between p-6 space-y-8">
+                    <div class="space-y-2">
+                        <h2 class="text-3xl font-semibold tracking-wide">BUREAU DES SPORTS (BDS)</h2>
+                        <p>Présentation / Explication du Bureau des Sports.</p>
                     </div>
+                    <div href="/bds" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white">EN SAVOIR PLUS</div>
                 </div>
             </div>
-            <!-- Fin Habillage BDS -->
-        </div>
-        <!-- Fin Div de Construction BDS -->
-
-        <!-- Div de Construction Pôle Com -->
-        <div class="xLarge-3 large-3 medium-6 small-6 xSmall-6 blue-content">
-            <!-- Div Habillage Pôle Com -->
-            <div class="margin-arround column">
-                <div class="card">
-                    <img src="{{asset('media/images/pole-com_logo.png')}}" alt="Logo du pole Communication" style="width:100%">
-                    <div class="container">
-                        <div class="container-title">
-                            <h4>Bureau du Pôle Com</h4>
-                        </div>
-                        <p>Présentation / Explication du Bureau du Pôle Communication</p>
-                        <button><a href="/pole-com" target="_blank">En savoir Plus</a></button>
+            <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
+                <img src="{{ asset('media/images/pole-com_logo.png')}}" alt="" class="object-cover object-center w-full rounded-t-md h-72">
+                <div class="flex flex-col justify-between p-6 space-y-8">
+                    <div class="space-y-2">
+                        <h2 class="text-3xl font-semibold tracking-wide">BUREAU DU PÔLE COM</h2>
+                        <p>Présentation / Explication du Bureau du Pôle Communication.</p>
                     </div>
+                    <div href="/pole-com" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white">EN SAVOIR PLUS</button>
                 </div>
             </div>
-            <!-- Fin Div Habillage Pôle Com -->
+            
         </div>
-        <!-- Fin Div de Construction Pôle Com -->
-
     </section>
-    <!-- Fin Section Bureau-->
-<!-- Fin d'Initialisation du contenu du document HTML -->
 @endsection

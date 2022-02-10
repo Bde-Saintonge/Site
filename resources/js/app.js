@@ -1,2 +1,3 @@
-require('./bootstrap');
-require('./script');
+require("./bootstrap");
+require("./script");
+require("./navbar");
