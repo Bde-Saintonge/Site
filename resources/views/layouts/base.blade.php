@@ -206,7 +206,7 @@
             <div class="flex flex-col space-y-4 w-max">
                 <h2 class="font-medium">Liens Utiles</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-technologique/" target="_blank">Lycée Général</a>
+                    <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-general/" target="_blank">Lycée Général</a>
                     <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-technologique/" target="_blank">Lycée Technologique</a>
                     <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-professionnel/" target="_blank">Lycée Professionnel</a>
                 </div>
