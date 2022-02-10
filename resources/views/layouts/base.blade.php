@@ -206,21 +206,21 @@
             <div class="flex flex-col space-y-4 w-max">
                 <h2 class="font-medium">Liens Utiles</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a rel="noopener noreferrer" href="#">Lycée Général</a>
-                    <a rel="noopener noreferrer" href="#">Lycée Technologique</a>
-                    <a rel="noopener noreferrer" href="#">Lycée Professionnel</a>
+                    <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-technologique/" target="_blank">Lycée Général</a>
+                    <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-technologique/" target="_blank">Lycée Technologique</a>
+                    <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-professionnel/" target="_blank">Lycée Professionnel</a>
                 </div>
             </div>
             <div class="flex flex-col space-y-4 w-max">
                 <h2 class="font-medium">Réglementation</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a rel="noopener noreferrer" href="#">Mentions Légales</a>
-                    <a rel="noopener noreferrer" href="#">RGPD</a>
+                    <a rel="noopener noreferrer" href="/mentions-legales">Mentions Légales</a>
+                    <a rel="noopener noreferrer" href="/rgpd">RGPD</a>
                 </div>
             </div>
         </div>
         <div class="flex items-center justify-center px-6 pt-12 text-sm">
-            <span class="dark:text-coolGray-400">© Copyright 2022. BDE-Saintonge tous droits réservés.</span>
+            <span class="dark:text-coolGray-400">© Copyright {{ date("Y") }}. BDE-Saintonge tous droits réservés.</span>
         </div>
     </footer>
     <script src="{{ asset('js/app.js') }}"></script>
