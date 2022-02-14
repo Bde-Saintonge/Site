@@ -27,7 +27,7 @@
                         <h2 class="text-xl sm:text-3xl font-semibold tracking-wide">BUREAU DES ACTIONS (BDA)</h2>
                         <p>Présentation / Explication du Bureau des Actions.</p>
                     </div>
-                    <div href="/bda" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</div>
+                    <a href="/bda" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</a>
                 </div>
             </div>
             <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
@@ -37,7 +37,7 @@
                         <h2 class="text-xl sm:text-3xl font-semibold tracking-wide">BUREAU DES CULTURES (BDC)</h2>
                         <p>Présentation / Explication du bureau des Cultures.</p>
                     </div>
-                    <div href="/bdc" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</div>
+                    <a href="/bdc" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</a>
                 </div>
             </div>
             <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
@@ -47,7 +47,7 @@
                         <h2 class="text-xl sm:text-3xl font-semibold tracking-wide">BUREAU DES SPORTS (BDS)</h2>
                         <p>Présentation / Explication du Bureau des Sports.</p>
                     </div>
-                    <div href="/bds" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</div>
+                    <a href="/bds" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</a>
                 </div>
             </div>
             <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
@@ -57,7 +57,7 @@
                         <h2 class="text-xl sm:text-3xl font-semibold tracking-wide">BUREAU DU PÔLE COM</h2>
                         <p>Présentation / Explication du Bureau du Pôle Communication.</p>
                     </div>
-                    <div href="/pole-com" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</button>
+                    <a href="/pole-com" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</a>
                 </div>
             </div>
             
