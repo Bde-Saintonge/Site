@@ -193,8 +193,8 @@
     </main>
     <footer class="p-6 text-black bg-white dark:bg-gray-700 dark:text-white">
         <hr class="w-3/4 rounded-lg border-2 mx-auto my-10">
-        <div class="container grid grid-cols-1 justify-items-center mx-auto gap-x-3 gap-y-8 sm:grid-cols-3">
-            <div class="flex flex-col space-y-4 w-max">
+        <div class="container grid grid-cols-1 text-center sm:justify-items-center mx-auto gap-x-3 gap-y-8 sm:grid-cols-3">
+            <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Informations</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
                     <a rel="noopener noreferrer" href="https://goo.gl/maps/kLbFeMLv2B3DZ2cB6" target="_blank">12 rue
@@ -203,7 +203,7 @@
                     <a rel="noopener noreferrer" href="mailto:contact@bde-saintonge.fr">Nous contacter par mail</a>
                 </div>
             </div>
-            <div class="flex flex-col space-y-4 w-max">
+            <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Liens Utiles</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
                     <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-general/" target="_blank">Lycée Général</a>
@@ -211,7 +211,7 @@
                     <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-professionnel/" target="_blank">Lycée Professionnel</a>
                 </div>
             </div>
-            <div class="flex flex-col space-y-4 w-max">
+            <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Réglementation</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
                     <a rel="noopener noreferrer" href="/mentions-legales">Mentions Légales</a>
@@ -220,7 +220,7 @@
             </div>
         </div>
         <div class="flex items-center justify-center px-6 pt-12 text-sm">
-            <span class="dark:text-coolGray-400">© Copyright {{ date("Y") }}. BDE-Saintonge tous droits réservés.</span>
+            <span class="dark:text-coolGray-400 text-center">© Copyright {{ date("Y") }}. BDE-Saintonge tous droits réservés.</span>
         </div>
     </footer>
     <script src="{{ asset('js/app.js') }}"></script>
