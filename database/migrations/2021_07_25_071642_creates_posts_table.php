@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Query\Expression;
 
 class CreatesPostsTable extends Migration
 {
@@ -18,6 +19,7 @@ class CreatesPostsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
+            $table->string('summary')->virtualAs(new Expression("CONCAT(SUBSTRING(content, 1, 100), '...')"));
             $table->longText('content');
             $table->integer('office_id')->unsigned();
             $table->integer('user_id')->unsigned();
@@ -27,7 +29,7 @@ class CreatesPostsTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations.%
      *
      * @return void
      */

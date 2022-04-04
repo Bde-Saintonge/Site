@@ -74,7 +74,7 @@
                         class="flex items-center px-4 -mb-1 hover:border-b-2 border-transparent hover:text-blue-400 hover:border-blue-400">BDC</a>
                 </li>
                 <li class="flex">
-                    <a href="bda"
+                    <a href="bds"
                         class="flex items-center px-4 -mb-1 hover:border-b-2 border-transparent hover:text-blue-400 hover:border-blue-400">BDS</a>
                 </li>
                 <li class="flex">
@@ -197,25 +197,25 @@
             <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Informations</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a rel="noopener noreferrer" href="https://goo.gl/maps/kLbFeMLv2B3DZ2cB6" target="_blank">12 rue
+                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="https://goo.gl/maps/kLbFeMLv2B3DZ2cB6" target="_blank">12 rue
                         Saintonge 33000 Bordeaux</a>
-                    <a rel="noopener noreferrer" href="tel:+33556993929">Tél : 05 56 99 39 29</a>
-                    <a rel="noopener noreferrer" href="mailto:contact@bde-saintonge.fr">Nous contacter par mail</a>
+                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="tel:+33556993929">Tél : 05 56 99 39 29</a>
+                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="mailto:contact@bde-saintonge.fr">Nous contacter par mail</a>
                 </div>
             </div>
             <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Liens Utiles</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-general/" target="_blank">Lycée Général</a>
-                    <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-technologique/" target="_blank">Lycée Technologique</a>
-                    <a rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-professionnel/" target="_blank">Lycée Professionnel</a>
+                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-general/" target="_blank">Lycée Général</a>
+                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-technologique/" target="_blank">Lycée Technologique</a>
+                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-professionnel/" target="_blank">Lycée Professionnel</a>
                 </div>
             </div>
             <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Réglementation</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a rel="noopener noreferrer" href="/mentions-legales">Mentions Légales</a>
-                    <a rel="noopener noreferrer" href="/rgpd">RGPD</a>
+                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="/mentions-legales">Mentions Légales</a>
+                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="/rgpd">RGPD</a>
                 </div>
             </div>
         </div>
