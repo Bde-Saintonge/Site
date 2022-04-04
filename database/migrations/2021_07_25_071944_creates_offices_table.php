@@ -16,6 +16,7 @@ class CreatesOfficesTable extends Migration
         Schema::create('offices', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('complete_name');
             $table->string('slug');
             $table->integer('posts_count')->unsigned()->default(0);
             $table->timestamps();

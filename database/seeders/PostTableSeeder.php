@@ -56,6 +56,7 @@ class PostTableSeeder extends Seeder
 
         $office_id_1 = DB::table('offices')->insertGetId([
             'name' => 'BDA',
+            'complete_name' => 'Bureau des Actions',
             'slug' => $faker->slug,
             'posts_count' => 5,
             'created_at' => $faker->dateTime,
@@ -63,6 +64,7 @@ class PostTableSeeder extends Seeder
         ]);
         $office_id_2 = DB::table('offices')->insertGetId([
             'name' => 'BDC',
+            'complete_name' => 'Bureau des Cultures',
             'slug' => $faker->slug,
             'posts_count' => 5,
             'created_at' => $faker->dateTime,
@@ -70,6 +72,15 @@ class PostTableSeeder extends Seeder
         ]);
         $office_id_3 = DB::table('offices')->insertGetId([
             'name' => 'BDS',
+            'complete_name' => 'Bureau des Sports',
+            'slug' => $faker->slug,
+            'posts_count' => 5,
+            'created_at' => $faker->dateTime,
+            'updated_at' => $faker->dateTime,
+        ]);
+        $office_id_4 = DB::table('offices')->insertGetId([
+            'name' => 'Pôle-Com',
+            'complete_name' => 'Pôle Communication',
             'slug' => $faker->slug,
             'posts_count' => 5,
             'created_at' => $faker->dateTime,
@@ -78,7 +89,7 @@ class PostTableSeeder extends Seeder
 
         for($i = 0; $i < 5; $i++) {
             DB::table('posts')->insert([
-                'name' => $faker->name,
+                'title' => $faker->title,
                 'slug' => $faker->slug,
                 'content' => $faker->text,
                 'is_published' => (bool)mt_rand(0, 1),

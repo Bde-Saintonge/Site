@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends AdminController
 {
     //Définition de l'attribut de la classe
-    private $per_page = 5;
+    private $per_page = 10;
 
     /**
      * Méthode qui permet de retourne la liste des articles d'un bureau
@@ -24,17 +24,17 @@ class PostController extends AdminController
     {
         $office = Office::where('name', $office_name)->first();
 
-        if (isset($office) && !empty($office)){
-            $posts = Post::where('office_id', $office->id)->where('is_published', true)->paginate($this->per_page);
-            if (isset($posts) && !empty($posts)){
+        if (isset($office) && !empty($office)) {
+            $posts = Post::where('office_id', $office->id)->where('is_published', true)->paginate(5);
+            
+            if (isset($posts) && !empty($posts)) {
                 return view('posts.index', compact('posts', 'office'));
-            }else{
+            } else {
                 abort(404);
             }
-        }else{
+        } else {
             abort(404);
         }
-
     }
 
     /**
@@ -45,14 +45,14 @@ class PostController extends AdminController
     public function user(Int $user_id)
     {
         $user = User::find($user_id);
-        if (isset($user) && !empty($user)){
+        if (isset($user) && !empty($user)) {
             $posts = Post::where('user_id', $user->id)->paginate($this->per_page);
-        }else{
+        } else {
             abort(404);
         }
-        if (isset($posts) && !empty($posts)){
+        if (isset($posts) && !empty($posts)) {
             return view('posts.index', compact('posts', 'user'));
-        }else{
+        } else {
             abort(404);
         }
     }
@@ -66,9 +66,9 @@ class PostController extends AdminController
     public function show(String $office_slug, String $post_slug)
     {
         $post = Post::where('slug', $post_slug)->first();
-        if (isset($post) && !empty($post)){
+        if (isset($post) && !empty($post)) {
             return view('posts.show', compact('post'));
-        }else{
+        } else {
             abort(404);
         }
     }
@@ -77,11 +77,12 @@ class PostController extends AdminController
      * Méthode qui permet de retourner la vue de création d'un article
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function create_post (){
+    public function create_post()
+    {
 
-        if($this->check_role()){
+        if ($this->check_role()) {
             return view('admin/create');
-        }else{
+        } else {
             return back()->withErrors([
                 'error' => "Veillez-vous connecter avant de créer un article",
             ]);
@@ -92,7 +93,8 @@ class PostController extends AdminController
      * Méthode qui permet d'enregister les données saisies
      * @param Request $request
      */
-    public function create_BDD(Request $request){
+    public function create_BDD(Request $request)
+    {
         // TODO
     }
 
@@ -101,31 +103,32 @@ class PostController extends AdminController
      * @param $id_post
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function validate_post($id_post){
+    public function validate_post($id_post)
+    {
 
-        if (Auth::check()){
+        if (Auth::check()) {
             $AdminController = new AdminController();
 
-            if ($AdminController->check_role()){
+            if ($AdminController->check_role()) {
 
-                if($AdminController->isAdmin()){
+                if ($AdminController->isAdmin()) {
                     //Vérifie si l'utilisateur a le droit de valider l'article
                     $post = Post::where('id', $id_post)->first();
                     $post->is_published = true;
                     $post->updated_at = new DateTime('now');
                     $post->save();
                     return redirect()->intended('dashboard');
-                }else{
+                } else {
                     return back()->withErrors([
                         'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
                     ]);
                 }
-            }else{
+            } else {
                 return back()->withErrors([
                     'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
                 ]);
             }
-        }else{
+        } else {
             return back()->withErrors([
                 'error' => "Veillez-vous connecter avant de valider un article",
             ]);
@@ -135,14 +138,16 @@ class PostController extends AdminController
     /**
      * Méthode qui permet de modifier un article
      */
-    public function edit($id_post){
+    public function edit($id_post)
+    {
         // TODO: "edit";
     }
 
     /**
      * Méthode qui permet de supprimer un aticle
      */
-    public function delete($id_post){
+    public function delete($id_post)
+    {
         // TODO: "delete";
     }
 }

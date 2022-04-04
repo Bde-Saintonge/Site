@@ -29,7 +29,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'content', 'office_id', 'user_id'];
+    protected $fillable = ['title', 'slug', 'content', 'office_id', 'user_id', 'is_published'];
 
     public function office()
     {
@@ -42,11 +42,13 @@ class Post extends Model
     }
 
 
-    public function getHtmlAttribute() {
+    public function getHtmlAttribute()
+    {
         return Markdown::parse($this->content);
     }
 
-    public function getExcerpt($max_words = 100, $ending = "...") {
+    public function getExcerpt($max_words = 100, $ending = "...")
+    {
         $text = strip_tags($this->html);
         $words = explode(' ', $text);
         if (count($words) > $max_words) {
