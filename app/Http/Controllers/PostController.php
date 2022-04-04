@@ -25,8 +25,8 @@ class PostController extends AdminController
         $office = Office::where('name', $office_name)->first();
 
         if (isset($office) && !empty($office)) {
-            $posts = Post::where('office_id', $office->id)->where('is_published', true)->paginate(5);
-            
+            $posts = Post::where('office_id', $office->id)->where('is_published', true)->paginate(7);
+
             if (isset($posts) && !empty($posts)) {
                 return view('posts.index', compact('posts', 'office'));
             } else {

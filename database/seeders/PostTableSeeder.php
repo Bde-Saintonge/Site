@@ -87,7 +87,7 @@ class PostTableSeeder extends Seeder
             'updated_at' => $faker->dateTime,
         ]);
 
-        for($i = 0; $i < 5; $i++) {
+        for($i = 0; $i < 25; $i++) {
             DB::table('posts')->insert([
                 'title' => $faker->title,
                 'slug' => $faker->slug,
