@@ -1,10 +1,10 @@
 @extends('layouts.base')
 @section('content')
     {{-- /\_/\  (
- ( ^.^ ) _)
-   \"/  (
- ( | | )
-(__d b__) --}}
+    ( ^.^ ) _)
+    \"/  (
+    ( | | )
+    (__d b__) --}}
 
 
     {{-- dark:bg-coolGray-800 dark:text-coolGray-100 --}}
@@ -57,7 +57,8 @@
                                 <h3 class="text-2xl font-semibold group-hover:underline group-focus:underline">
                                     {{ $post->title }}
                                 </h3>
-                                <span class="text-xs dark:text-coolGray-400">{{ $post->created_at->format('d/m/Y') }}</span>
+                                <span
+                                    class="text-xs dark:text-coolGray-400">{{ $post->created_at->format('d/m/Y') }}</span>
                                 <p>
                                     {{ $post->summary }}
                                 </p>
@@ -68,7 +69,26 @@
             </div>
             {{-- {{ dd($posts) }} --}}
         </div>
+        @if (count($posts) > 0)
+            <div class="items-center justify-center  text-xs  space-x-3 flex">
+                <span class="block">Page {{ $posts->currentPage() }} sur {{ $posts->lastPage() }}</span>
+                <div class="space-x-1">
+                    <a href="{{ $posts->previousPageUrl() }}" title="précédent"
+                        class="inline-flex items-center justify-center w-8 h-8 py-0 border rounded-md shadow">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" class="w-4">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </a>
+                    <a href="{{ $posts->nextPageUrl() }}" title="suivant"
+                        class="inline-flex items-center justify-center w-8 h-8 py-0 border rounded-md shadow">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round" class="w-4">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        @endif
     </section>
 @endsection
-
-
