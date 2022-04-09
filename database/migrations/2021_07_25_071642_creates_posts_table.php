@@ -23,7 +23,7 @@ class CreatesPostsTable extends Migration
             $table->longText('content');
             $table->integer('office_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->boolean('is_published');
+            $table->boolean('is_published')->default('0');
             $table->timestamps();
         });
     }
