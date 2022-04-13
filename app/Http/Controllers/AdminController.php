@@ -10,28 +10,25 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends BaseController
 {
-    private $user;
     public $office_id;
 
-    public function __construct() {
-        $this->user = Auth::user();
-    }
 
     /**
      * Méthode qui permet de vérifier si l'utilisateur est administrateur ou membre d'un des bureaux
      * @return bool
      */
     public function check_role (){
-        if($this->user->role === "admin"){
-            return true;
-        }else{
-            if($this->user->role === "bda" OR $this->user->role === "bdc" OR $this->user->role === "bds" OR $this->user->role === "pole_com"){
-                return true;
-            }else{
-                return false;
-            }
-        }
 
+        switch (Auth::user()->role){
+            case "admin":
+            case "bda":
+            case "bdc":
+            case "bds":
+            case "pole_com":
+                return true;
+            default:
+                return false;
+        }
     }
 
 
@@ -41,12 +38,11 @@ class AdminController extends BaseController
      */
     public function check_if_user_can (){
 
-
         if (isset($this->office_id)) {
 
             $office = Office::where('id', $this->office_id)->first();
 
-            if ($this->user->role === strtolower($office->name)) {
+            if (Auth::user()->role === strtolower($office->name)) {
                 return true;
             } else {
                 return false;
@@ -60,7 +56,7 @@ class AdminController extends BaseController
      */
     public function isAdmin (){
 
-        if ($this->user->role === 'admin') {
+        if (Auth::user()->role === 'admin') {
             return true;
         } else {
             return false;
