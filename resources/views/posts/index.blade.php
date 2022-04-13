@@ -30,7 +30,7 @@
             @endif
             @foreach ($posts as $key => $post)
                 @if ($key === 0)
-                    <a rel="noopener noreferrer" href="#"
+                    <a rel="noopener noreferrer" href="/{{$office->slug}}/{{$post->slug}}"
                         class="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-coolGray-900">
                         <img src="https://source.unsplash.com/random/480x360" alt=""
                             class="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-coolGray-500">
@@ -48,8 +48,8 @@
             <div class="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
                 @foreach ($posts as $key => $post)
-                    @if ($key != 0)
-                        <a rel="noopener noreferrer" href="#"
+                    @if ($key != 0) 
+                        <a rel="noopener noreferrer" href="/{{$office->slug}}/{{$post->slug}}"
                             class="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-coolGray-900">
                             <img class="object-cover w-full rounded h-44 dark:bg-coolGray-500"
                                 src="https://source.unsplash.com/random/480x360?1" alt="">

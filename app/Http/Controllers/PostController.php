@@ -57,17 +57,20 @@ class PostController extends AdminController
         }
     }
 
+    //@param String $office_slug : Url du bureau
     /**
-     * Méthode qui permet d'afficher le contenu d'un article
-     * @param String $office_slug : Url du bureau
+     * Méthode qui permet d'afficher le contenu d'un article 
+     *
      * @param String $post_slug : Url du post
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
-    public function show(String $office_slug, String $post_slug)
+    public function show(String $office_slug, String $post_slug) //
     {
         $post = Post::where('slug', $post_slug)->first();
+        $office = Office::where('id', $post->office_id)->first();
+
         if (isset($post) && !empty($post)) {
-            return view('posts.show', compact('post'));
+            return view('posts.show', compact('office', 'post'));
         } else {
             abort(404);
         }
