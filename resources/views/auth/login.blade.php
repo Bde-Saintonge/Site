@@ -3,7 +3,7 @@
 @section('content')
     <section class="flex justify-center dark:bg-gray-700 row wrap full-screen" id="register-image">
         <div
-            class=" bg-zinc-100 dark:bg-white flex flex-col max-w-md p-6 rounded-md sm:p-10 dark:bg-coolGray-900 dark:text-coolGray-100">
+            class="my-12 bg-zinc-100 dark:bg-white flex flex-col max-w-md p-6 rounded-md sm:p-10 dark:bg-coolGray-900 dark:text-coolGray-100">
             <div class="mb-8 text-center">
                 <h1 class="my-3 text-4xl font-bold">Se connecter</h1>
                 <p class="text-sm dark:text-coolGray-400">Connectez-vous pour accéder à votre compte.</p>
@@ -34,13 +34,12 @@
                 </div>
                 <div class="space-y-2">
                     <div>
-                        <button type="button" type="submit"
+                        <button type="submit"
                             class="w-full px-8 py-3 rounded-md text-white bg-blue-400">Connexion</button>
                     </div>
                 </div>
             </form>
         </div>
-
     </section>
 @endsection
 <!-- Fin de l'Initialisation du document HTML -->
