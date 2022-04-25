@@ -23,8 +23,7 @@
                 <div
                     class="p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 lg:max-w-4xl sm:px-10 sm:mx-12 lg:rounded-md shadow-md shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white">
                     <div class="space-y-2">
-                        <p class="inline-block text-2xl font-semibold sm:text-3xl">The Best Activewear from the Nordstrom
-                            Anniversary Sale</p>
+                        <p class="inline-block text-2xl font-semibold sm:text-3xl">{{ $post->title }}</p>
                         <p class="text-xs dark:text-coolGray-400">Par
                             <a href="/{{ strtolower($office->name) }}" class="text-xs hover:underline">{{ $office->name }}</a>
                         </p>
