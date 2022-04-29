@@ -16,17 +16,17 @@ class LoginController extends BaseController
 {
     //
     /**
-     * Méthode qui retroune la vue de connexion
+     * Endpoint GET qui retourne la vue de connexion
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function index(){
-        if(Auth::check()){
-            return redirect()->route('dashboard');
-        }else{
+    public function index()
+    {
+        if (Auth::check()) {
+            return redirect('/dashboard/bda');
+        } else {
             return view("auth.login");
         }
-
     }
 
     /**
@@ -50,7 +50,6 @@ class LoginController extends BaseController
         return back()->withErrors([
             'error' => "L'adresse email et/ou le mot de passe ne coreespondent pas",
         ]);
-
     }
 
 
@@ -59,7 +58,8 @@ class LoginController extends BaseController
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
