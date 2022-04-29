@@ -46,12 +46,13 @@ Route::post('/login', 'App\Http\Controllers\Auth\LoginController@validator');
 
 Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
-Route::get('/dashboard', 'App\Http\Controllers\Auth\DashboardController@index')->name('dashboard');
-
 /*
  * Posts Route
  */
+$officePattern = '[a-z-]{3,8}';
 $slugPattern = '[a-z0-9\-]+';
+
+Route::get('/dashboard/{office_name}', 'App\Http\Controllers\Auth\DashboardController@index')->name('dashboard')->where('office_name', $officePattern);;
 
 Route::get('/user/{id}', 'App\Http\Controllers\PostController@user')->name('posts.user')->where('id', '[0-9]+');
 Route::get('/{office_slug}', 'App\Http\Controllers\PostController@office')->name('posts.office')->where('office_slug', $slugPattern);

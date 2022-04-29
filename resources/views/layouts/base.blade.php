@@ -114,7 +114,7 @@
 
             @if (Auth::user())
                 <div class="items-center flex-shrink-0 hidden lg:flex">
-                    <a href="/dashboard"
+                    <a href="/dashboard/bda"
                         class="mr-1 self-center px-8 py-3 font-semibold rounded bg-blue-400 text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">
                         Dashboard</a>
                     <a href="/logout"

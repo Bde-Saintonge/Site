@@ -120,7 +120,7 @@ class PostController extends AdminController
                     $post->is_published = true;
                     $post->updated_at = new DateTime('now');
                     $post->save();
-                    return redirect()->intended('dashboard');
+                    return  back();
                 } else {
                     return back()->withErrors([
                         'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
