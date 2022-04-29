@@ -19,9 +19,7 @@
             @foreach ($offices_typo as $office)
                 <a href="/dashboard/{{ $office[0] }}"
                     class="
-                    @if ($active_office == $office[0]) 
-                        dark:border-blue-400
-                    @endif
+                    @if ($active_office == $office[0]) dark:border-blue-400 @endif
                     flex items-center flex-shrink-0 px-5 py-2 border-b-4 hover:dark:border-blue-300 dark:text-Gray-400">{{ $office[1] }}</a>
             @endforeach
         </div>

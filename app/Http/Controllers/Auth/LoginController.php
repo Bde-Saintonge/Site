@@ -44,7 +44,7 @@ class LoginController extends BaseController
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            return redirect()->intended('dashboard/bda');
         }
 
         return back()->withErrors([
