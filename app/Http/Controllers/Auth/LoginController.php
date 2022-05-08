@@ -48,7 +48,7 @@ class LoginController extends BaseController
         }
 
         return back()->withErrors([
-            'error' => "L'adresse email et/ou le mot de passe ne coreespondent pas",
+            'error' => "L'adresse e-mail et/ou le mot de passe ne correspondent pas !",
         ]);
     }
 

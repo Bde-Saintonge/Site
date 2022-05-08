@@ -12,7 +12,8 @@
                 @csrf
                 <div class="space-y-4">
                     <div>
-                        {!! $errors->first('error', '<div class="alert alert-warning" role="alert">:message</div>') !!}
+                        {!! $errors->first('error', '<div class="font-semibold text-red-500 my-2">:message</div>') !!}
+
                         <label for="email" class="block mb-2 text-sm">Adresse e-mail</label>
                         {{-- <input type="email" class="form-control" name="email" value="{{ old('email') }}" id="email"> --}}
                         <input type="email" name="email" id="email" value="{{ old('email') }}"
@@ -22,8 +23,7 @@
                     <div>
                         <div class="flex justify-between mb-2">
                             <label for="password" class="text-sm">Mot de passe</label>
-                            <a rel="noopener noreferrer" href="/forgot-password" target="_blank"
-                                class="text-xs hover:underline dark:text-coolGray-400">Mot de passe oublié ?</a>
+                            <a rel="noopener noreferrer" href="/forgot-password" class="text-xs hover:underline dark:text-coolGray-400">Mot de passe oublié ?</a>
                         </div>
                         {{-- <input type="password" class="form-control" name="password"  value="{{ old('password') }}"id="password"> --}}
 
