@@ -33,6 +33,6 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->from('support@bbe-saintonge.fr')->view('emails.resetPassword');
+        return $this->view('emails.resetPassword');
     }
 }
