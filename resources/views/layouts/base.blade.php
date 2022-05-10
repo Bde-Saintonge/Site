@@ -118,7 +118,7 @@
                         class="mr-1 self-center px-8 py-3 font-semibold rounded bg-blue-400 text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">
                         Dashboard</a>
                     <a href="/logout"
-                        class="ml-1 self-center px-3 py-2 font-semibold rounded bg-red-400 text-white hover:bg-red-300 focus:outline-none focus:ring focus:ring-red-900">
+                        class="ml-1 self-center px-3 py-1 font-medium rounded bg-red-400 text-white hover:bg-red-300 focus:outline-none focus:ring focus:ring-red-900">
                         Déconnexion</a>
                 </div>
             @else

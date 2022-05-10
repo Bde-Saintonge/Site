@@ -25,9 +25,9 @@
                 <div class="flex flex-col justify-between p-6 space-y-8">
                     <div class="space-y-2">
                         <h2 class="text-xl sm:text-3xl font-semibold tracking-wide">BUREAU DES ACTIONS (BDA)</h2>
-                        <p>Présentation / Explication du Bureau des Actions.</p>
+                        <p>S'occupe des activit&eacute;s telles que le journal du lyc&eacute;e, l'atelier th&eacute;&acirc;tre, etc.</p>
                     </div>
-                    <a href="/bda" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</a>
+                    <a href="/bda" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">VOIR LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
@@ -35,9 +35,9 @@
                 <div class="flex flex-col justify-between p-6 space-y-8">
                     <div class="space-y-2">
                         <h2 class="text-xl sm:text-3xl font-semibold tracking-wide">BUREAU DES CULTURES (BDC)</h2>
-                        <p>Présentation / Explication du bureau des Cultures.</p>
+                        <p>S'occupe d'organiser et d'animer les &eacute;v&eacute;nements cultuels du lyc&eacute;e.</p>
                     </div>
-                    <a href="/bdc" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</a>
+                    <a href="/bdc" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">VOIR LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
@@ -45,19 +45,19 @@
                 <div class="flex flex-col justify-between p-6 space-y-8">
                     <div class="space-y-2">
                         <h2 class="text-xl sm:text-3xl font-semibold tracking-wide">BUREAU DES SPORTS (BDS)</h2>
-                        <p>Présentation / Explication du Bureau des Sports.</p>
+                        <p>S'occupe d'organiser et d'animer les &eacute;v&eacute;nements sportifs.</p>
                     </div>
-                    <a href="/bds" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</a>
+                    <a href="/bds" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">VOIR LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             <div class="max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
                 <img src="{{ asset('media/images/pole-com_logo.png')}}" alt="" class="object-cover object-center w-full rounded-t-md h-44 sm:h-72">
                 <div class="flex flex-col justify-between p-6 space-y-8">
                     <div class="space-y-2">
-                        <h2 class="text-xl sm:text-3xl font-semibold tracking-wide">BUREAU DU PÔLE COM</h2>
-                        <p>Présentation / Explication du Bureau du Pôle Communication.</p>
+                        <h2 class="text-xl sm:text-3xl font-semibold tracking-wide">BUREAU DU P&Ocirc;LE COM</h2>
+                        <p>Assure principalement la gestion des articles de ce site web.</p>
                     </div>
-                    <a href="/pole-com" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">EN SAVOIR PLUS</a>
+                    <a href="/pole-com" class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">VOIR LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             

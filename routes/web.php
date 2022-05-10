@@ -46,6 +46,8 @@ Route::post('/login', 'App\Http\Controllers\Auth\LoginController@validator');
 
 Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 
+Route::post('/reset_password_without_token', 'App\Http\Controllers\Auth\ResetPasswordController@reset_password_without_token')->name('reset_password_without_token');
+
 /*
  * Posts Route
  */
