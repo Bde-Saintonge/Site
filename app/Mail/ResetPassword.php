@@ -33,6 +33,6 @@ class ResetPassword extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.resetPassword');
+        return $this->subject('Réinitialisation de mot de passe - BDE Saintonge')->view('emails.resetPassword');
     }
 }
