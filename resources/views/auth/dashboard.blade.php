@@ -4,12 +4,27 @@
 
         <div class="justify-center xLarge-12 large-12 medium-12 small-12 xSmall-12">
 
-            {!! $errors->first('error', '<div class="alert alert-warning center" role="alert">:message</div>') !!}
+            @if (session('errors'))
+                <div
+                    class="bg-zinc-100 md:w-max flex items-center p-6 space-x-4 rounded-md dark:bg-gray-500 text-black dark:text-white">
+                    <div class="flex items-center self-stretch justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                            class="w-10 h-10">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <span>{{session('errors')->first()}}</span>
+                </div>
+            @endif
+            
 
-            @if (isset($success))
+
+            @if (isset($user_success))
                 <div
                     class="flex items-center justify-between p-6 border-l-8 sm:py-8 border-blue-400 bg-Gray-900 text-Gray-100">
-                    <span>{{ $success }}</span>
+                    <span>{{ $user_success }}</span>
                 </div>
             @endif
         </div>
@@ -20,7 +35,7 @@
                 <a href="/dashboard/{{ $office[0] }}"
                     class="
                     @if ($active_office == $office[0]) border-blue-400 @endif
-                    flex items-center flex-shrink-0 px-5 py-2 border-b-4 hover:border-blue-300 dark:text-Gray-400">{{ $office[1] }}</a>
+                    flex items-center flex-shrink-0 px-5 py-2 border-b-4 hover:border-blue-300 darùk:text-Gray-400">{{ $office[1] }}</a>
             @endforeach
         </div>
         <div
@@ -62,21 +77,21 @@
                                     </td>
                                     <td>
                                         <span class="px-3 py-1 font-semibold rounded-md bg-green-500 text-white">
-                                            <a target="_blank" href="/admin/{{ $post->id }}/validate">
+                                            <a href="/admin/{{ $post->id }}/validate">
                                                 <span>Accepter</span>
                                             </a>
                                         </span>
                                     </td>
                                     <td>
                                         <span class="px-3 py-1 font-semibold rounded-md bg-blue-500 text-white">
-                                            <a target="_blank" href="/admin/{{ $post->id }}/edit">
+                                            <a href="/admin/{{ $post->id }}/edit">
                                                 <span>Modifier</span>
                                             </a>
                                         </span>
                                     </td>
                                     <td>
                                         <span class="px-3 py-1 font-semibold rounded-md bg-red-500 text-white">
-                                            <a target="_blank" href="/admin/{{ $post->id }}/delete">
+                                            <a href="/admin/{{ $post->id }}/delete">
                                                 <span>Supprimer</span>
                                             </a>
                                         </span>

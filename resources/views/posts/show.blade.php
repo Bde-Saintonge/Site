@@ -16,25 +16,29 @@
 @extends('layouts.base')
 @section('content')
 
-        <div class="md:min-h-[60rem] lg:min-h-[49rem] p-5 mx-auto sm:p-10 md:p-16 dark:bg-gray-700">
-            <div class="flex flex-col max-w-5xl mx-auto overflow-hidden rounded">
-                <img src="https://source.unsplash.com/random/480x360" alt=""
-                    class="w-full h-60 sm:h-96 dark:bg-coolGray-500">
-                <div
-                    class="p-6 pb-12 m-4 mx-auto -mt-16 space-y-6 lg:max-w-4xl sm:px-10 sm:mx-12 lg:rounded-md shadow-md shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white">
-                    <div class="space-y-2">
-                        <p class="inline-block text-2xl font-semibold sm:text-3xl">{{ $post->title }}</p>
-                        <p class="text-xs dark:text-coolGray-400">Par
-                            <a href="/{{ strtolower($office->name) }}" class="text-xs hover:underline">{{ $office->name }}</a>
-                        </p>
-                    </div>
-                    <div class="dark:text-coolGray-100">
-                        <p>
-                            {{-- <?= $post->content ?> --}}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="p-6 dark:bg-gray-800 dark:text-gray-50">
+	<form novalidate="" action="" class="container flex flex-col mx-auto space-y-12">
+		<fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
 
+			<div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
+				<div class="col-span-full sm:col-span-3">
+					<label for="username" class="text-sm">Titre article</label>
+					<input id="username" type="text" placeholder="Mon super article" class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-blue-400 dark:border-gray-700 dark:text-gray-900">
+				</div>
+
+				<div class="col-span-full sm:col-span-3">
+					<label for="website" class="text-sm">Lien image article</label>
+					<input id="website" type="url" placeholder="https://monimage.fr/estici" class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-blue-400 dark:border-gray-700 dark:text-gray-900">
+				</div>
+
+				<div class="col-span-full">
+					<label for="bio" class="text-sm">Bio</label>
+					<textarea id="bio" placeholder="" class="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-blue-400 dark:border-gray-700 dark:text-gray-900"></textarea>
+                    <x-forms.tinymce-editor/>
+                </div>				
+			</div>
+		</fieldset>
+	</form>
+</section>
+<x-head.tinymce-config/>
 @endsection

@@ -112,30 +112,21 @@ class PostController extends AdminController
         if (Auth::check()) {
             $AdminController = new AdminController();
 
-            if ($AdminController->check_role()) {
-
-                if ($AdminController->isAdmin()) {
-                    //Vérifie si l'utilisateur a le droit de valider l'article
-                    $post = Post::where('id', $id_post)->first();
-                    $post->is_published = true;
-                    $post->updated_at = new DateTime('now');
-                    $post->save();
-                    return  back();
-                } else {
-                    return back()->withErrors([
-                        'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
-                    ]);
-                }
-            } else {
-                return back()->withErrors([
-                    'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
-                ]);
+            if ($AdminController->check_perm()) {
+                $post = Post::where('id', $id_post)->first();
+                $post->is_published = true;
+                $post->updated_at = new DateTime('now');
+                $post->save();
+                return back()->with('success', "Article validé avec succés !");
             }
-        } else {
             return back()->withErrors([
-                'error' => "Veillez-vous connecter avant de valider un article",
+                'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
             ]);
         }
+
+        return back()->withErrors([
+            'error' => "Veillez-vous connecter avant de valider un article",
+        ]);
     }
 
     /**
@@ -143,14 +134,64 @@ class PostController extends AdminController
      */
     public function edit($id_post)
     {
-        // TODO: "edit";
+        if (Auth::check()) {
+
+            $AdminController = new AdminController();
+
+            if ($AdminController->check_perm()) {
+                $post = Post::find($id_post);
+
+                if (!is_null($post)) {
+                    return view('posts.show', [
+                        'post' => $post
+                    ]);
+                }
+
+                return back()->withErrors([
+                    'error' => "L'article n'existe plus.",
+                ]);
+            }
+
+            return back()->withErrors([
+                'error' => "Vous ne disposez pas des permissions nécessaires pour modifier des articles.",
+            ]);
+        }
+
+
+        return back()->withErrors([
+            'error' => "Veillez-vous connecter avant de modifier un article.",
+        ]);
     }
 
+
     /**
-     * Méthode qui permet de supprimer un aticle
+     * Méthode qui permet de supprimer un article
      */
     public function delete($id_post)
     {
-        // TODO: "delete";
+        if (Auth::check()) {
+
+            $AdminController = new AdminController();
+
+            if ($AdminController->check_perm()) {
+                $post = Post::find($id_post);
+
+                if (!is_null($post)) {
+                    return back()->with('success', "Article supprimé avec succés !");
+                }
+
+                return back()->withErrors([
+                    'error' => "L'article n'existe plus.",
+                ]);
+            }
+
+            return back()->withErrors([
+                'error' => "Vous ne disposez pas des permissions nécessaires pour supprimer des articles.",
+            ]);
+        }
+
+        return back()->withErrors([
+            'error' => "Veillez-vous connecter avant de supprimer un article.",
+        ]);
     }
 }

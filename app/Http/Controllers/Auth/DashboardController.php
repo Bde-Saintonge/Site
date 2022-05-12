@@ -37,9 +37,9 @@ class DashboardController extends BaseController
                 $posts = Post::where('office_id', $office_id)->orderBy('updated_at', 'desc')->get();
 
                 return view('auth.dashboard', [
-                    'success' => "Vous êtes bien connecté avec l'utilisateur " . Auth::user()->name,
+                    'user_success' => "Vous êtes bien connecté avec l'utilisateur " . Auth::user()->name,
                     'posts' => $posts,
-                    'offices_typo' => [['bda', 'BDA'],['bdc', 'BDC'],['bds', 'BDS'],['pole-com', 'Pôle-Com']],
+                    'offices_typo' => [['bda', 'BDA'], ['bdc', 'BDC'], ['bds', 'BDS'], ['pole-com', 'Pôle-Com']],
                     'active_office' => $office_name
                 ]);
             }

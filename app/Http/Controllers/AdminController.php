@@ -31,6 +31,21 @@ class AdminController extends BaseController
         }
     }
 
+    /**
+     * Méthode qui permet de vérifier si l'utilisateur a le droit de valider / supprimer un article
+     * @return bool
+     */
+
+    public function check_perm(){
+        switch (Auth::user()->role){
+            case "admin":
+            case "pole_com":
+                return true;
+            default:
+                return false;
+        }
+    }
+
 
     /**
      * Méthode qui permet de vérifier si l'utilisateur a le droit d'effectuer une action
@@ -49,20 +64,6 @@ class AdminController extends BaseController
             }
         }
     }
-
-    /**
-     * Méthode qui permet de vérifier si l'utilisateur est administrateur est a le droit de valider un article
-     * @return bool
-     */
-    public function isAdmin (){
-
-        if (Auth::user()->role === 'admin') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
 
 }
