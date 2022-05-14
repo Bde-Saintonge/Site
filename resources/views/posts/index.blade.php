@@ -1,16 +1,17 @@
 @extends('layouts.base')
 @section('content')
     {{-- /\_/\  (
-    ( ^.^ ) _)
-    \"/  (
-    ( | | )
-    (__d b__) --}}
+        ( ^.^ ) _)
+        \"/  (
+        ( | | )
+        (__d b__) --}}
 
+    
 
     {{-- dark:bg-coolGray-800 dark:text-coolGray-100 --}}
     <section class="dark:bg-gray-700 bg-white dark:text-white">
         <div
-            class="container mx-auto flex flex-col items-center px-4 py-16 text-center md:py-32 md:px-10 lg:px-32 xl:max-w-3xl">
+            class="container mx-auto flex flex-col items-center px-4 py-16 text-center md:pt-32 md:px-10 lg:px-32 xl:max-w-3xl">
             <h1 class="text-4xl font-bold leading-none sm:text-5xl">News du <span
                     class="dark:text-blue-400">{{ $office->complete_name }}</span>.</h1>
             <p class="px-8 mt-8 mb-12 text-lg">Vous êtes sur la page d'articles du
@@ -32,7 +33,7 @@
                 @if ($key === 0)
                     <a rel="noopener noreferrer" href="/{{$office->slug}}/{{$post->slug}}"
                         class="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-coolGray-900">
-                        <img src="https://source.unsplash.com/random/480x360" alt=""
+                        <img src="{{ $post->image_url }}" alt=""
                             class="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-coolGray-500">
                         <div class="p-6 space-y-2 lg:col-span-5">
                             <h3 class="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">
@@ -52,7 +53,7 @@
                         <a rel="noopener noreferrer" href="/{{$office->slug}}/{{$post->slug}}"
                             class="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-coolGray-900">
                             <img class="object-cover w-full rounded h-44 dark:bg-coolGray-500"
-                                src="https://source.unsplash.com/random/480x360?1" alt="">
+                                src="{{ $post->image_url }}" alt="">
                             <div class="p-6 space-y-2">
                                 <h3 class="text-2xl font-semibold group-hover:underline group-focus:underline">
                                     {{ $post->title }}

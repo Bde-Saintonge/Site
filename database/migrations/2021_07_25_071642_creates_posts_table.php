@@ -18,6 +18,7 @@ class CreatesPostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->string('image_url');
             $table->string('slug');
             $table->string('summary')->virtualAs(new Expression("CONCAT(SUBSTRING(content, 1, 100), '...')"));
             $table->longText('content');

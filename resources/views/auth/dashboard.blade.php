@@ -140,14 +140,14 @@
                                     </td>
                                     <td>
                                         <span class="px-3 py-1 font-semibold rounded-md bg-blue-500 text-white">
-                                            <a target="_blank" href="/admin/{{ $post->id }}/edit">
+                                            <a href="/admin/{{ $post->id }}/edit">
                                                 <span>Modifier</span>
                                             </a>
                                         </span>
                                     </td>
                                     <td>
                                         <span class="px-3 py-1 font-semibold rounded-md bg-red-500 text-white">
-                                            <a target="_blank" href="/admin/{{ $post->id }}/delete">
+                                            <a href="/admin/{{ $post->id }}/delete">
                                                 <span>Supprimer</span>
                                             </a>
                                         </span>

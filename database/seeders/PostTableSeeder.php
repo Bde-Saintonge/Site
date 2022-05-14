@@ -90,6 +90,7 @@ class PostTableSeeder extends Seeder
         for($i = 0; $i < 25; $i++) {
             DB::table('posts')->insert([
                 'title' => $faker->title,
+                'image_url' => 'https://source.unsplash.com/random/480x360',
                 'slug' => $faker->slug,
                 'content' => $faker->text,
                 'is_published' => (bool)mt_rand(0, 1),
