@@ -1,5 +1,5 @@
 <div>
     <form method="post">
-        <textarea id="myeditorinstance">Hello, World!</textarea>
+        <textarea id="content">Bonjour!</textarea>
     </form>
 </div>
