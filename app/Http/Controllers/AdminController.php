@@ -2,6 +2,7 @@
 
 
 namespace App\Http\Controllers;
+
 use App\Models\Office;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -10,16 +11,17 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends BaseController
 {
-    public $office_id;
+    protected $office_id;
 
 
     /**
      * Méthode qui permet de vérifier si l'utilisateur est administrateur ou membre d'un des bureaux
      * @return bool
      */
-    public function check_role (){
+    public function check_role()
+    {
 
-        switch (Auth::user()->role){
+        switch (Auth::user()->role) {
             case "admin":
             case "bda":
             case "bdc":
@@ -36,8 +38,9 @@ class AdminController extends BaseController
      * @return bool
      */
 
-    public function check_perm(){
-        switch (Auth::user()->role){
+    public function check_perm()
+    {
+        switch (Auth::user()->role) {
             case "admin":
             case "pole_com":
                 return true;
@@ -46,12 +49,18 @@ class AdminController extends BaseController
         }
     }
 
+    public function check_office_modify_post($post_id)
+    {
+        $role = Auth::user()->role; //pole_com Pôle_Com
+    }
+
 
     /**
      * Méthode qui permet de vérifier si l'utilisateur a le droit d'effectuer une action
      * @return bool
      */
-    public function check_if_user_can (){
+    public function check_if_user_can()
+    {
 
         if (isset($this->office_id)) {
 
@@ -64,6 +73,4 @@ class AdminController extends BaseController
             }
         }
     }
-
-
 }

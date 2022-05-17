@@ -15,10 +15,10 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <span>{{session('errors')->first()}}</span>
+                    <span>{{ session('errors')->first() }}</span>
                 </div>
             @endif
-            
+
 
 
             @if (isset($user_success))

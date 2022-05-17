@@ -15,7 +15,7 @@ class Post extends Model
      *
      * @var string
      */
-    protected $table = 'posts';
+    protected $table = 'post';
 
     /**
      * The database primary key value.

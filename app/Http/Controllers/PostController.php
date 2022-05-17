@@ -163,8 +163,32 @@ class PostController extends AdminController
         ]);
     }
 
-
     /**
+     * Méthode qui permet de mettre à jouts un post en bdd
+     */
+    public function store(Request $request)
+    {
+        dd($request);
+
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'image_url' => 'required',
+            'content' => 'required',
+        ]);
+
+        $post = Post::find($request->id_post);
+
+        $post->update([
+            'title' => $request->title,
+            'image_url' => $request->image_url,
+            'content' => $request->contented,
+        ]);
+
+        return redirect()->with('success', "Article modifié avec succés !");
+    }
+
+
+    /** 
      * Méthode qui permet de supprimer un article
      */
     public function delete($id_post)

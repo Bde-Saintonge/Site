@@ -19,9 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('class');
-            $table->text('profile_photo_path')->nullable();
-            $table->string('role')->nullable();
+            $table->string('class')->nullable();
+            $table->foreignId('office_id')->nullable()->constrained();
+            $table->boolean('deactivated')->default('0');
             $table->timestamps();
         });
     }

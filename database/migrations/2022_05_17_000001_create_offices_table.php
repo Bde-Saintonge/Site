@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatesOfficesTable extends Migration
+class CreateOfficesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,17 +14,16 @@ class CreatesOfficesTable extends Migration
     public function up()
     {
         Schema::create('offices', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->string('complete_name');
             $table->string('slug');
-            $table->integer('posts_count')->unsigned()->default(0);
             $table->timestamps();
         });
 
         #Schema::table('posts', function (Blueprint $table) {
-            #$table->foreign('user_id')->references('id')->on('users');
-            #$table->foreign('office_id')->references('id')->on('offices');
+        #$table->foreign('user_id')->references('id')->on('users');
+        #$table->foreign('office_id')->references('id')->on('offices');
         #});
     }
 
