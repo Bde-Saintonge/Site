@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Office;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,12 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends BaseController
 {
     protected $office_id;
+    protected $user;
+
+    public function __construct()
+    {
+        $this->user = User::find(Auth::user()->id);
+    }
 
 
     /**
@@ -20,32 +27,34 @@ class AdminController extends BaseController
      */
     public function check_role()
     {
-
-        switch (Auth::user()->role) {
-            case "admin":
-            case "bda":
-            case "bdc":
-            case "bds":
-            case "pole_com":
-                return true;
-            default:
-                return false;
-        }
+        foreach ($this->user->roles as $role) {
+            switch ($role->name) {
+                case "admin":
+                case "bde":
+                    return true;
+                default:
+                    return false;
+            }
+        };
     }
 
     /**
-     * Méthode qui permet de vérifier si l'utilisateur a le droit de valider / supprimer un article
+     * Méthode qui permet de vérifier si l'utilisateur est admin ou membre du pôle com
      * @return bool
      */
 
-    public function check_perm()
+    public function check_if_admin_or_polecom()
     {
-        switch (Auth::user()->role) {
-            case "admin":
-            case "pole_com":
-                return true;
-            default:
-                return false;
+        foreach ($this->user->roles as $role) {
+            switch ($role->name) {
+                case "admin":
+                    return true;
+                default:
+                    break;
+            }
+        };
+
+        if ($this->user->office_id == Office::where('code_name', 'pole-com')->first()->id) {
         }
     }
 

@@ -20,6 +20,7 @@ class PostTableSeeder extends Seeder
 
         $office_id_1 = DB::table('offices')->insertGetId([
             'name' => 'BDA',
+            'code_name' => 'bda',
             'complete_name' => 'Bureau des Actions',
             'slug' => $faker->slug,
             'created_at' => $faker->dateTime,
@@ -27,6 +28,7 @@ class PostTableSeeder extends Seeder
         ]);
         $office_id_2 = DB::table('offices')->insertGetId([
             'name' => 'BDC',
+            'code_name' => 'bdc',
             'complete_name' => 'Bureau des Cultures',
             'slug' => $faker->slug,
             'created_at' => $faker->dateTime,
@@ -34,6 +36,7 @@ class PostTableSeeder extends Seeder
         ]);
         $office_id_3 = DB::table('offices')->insertGetId([
             'name' => 'BDS',
+            'code_name' => 'bds',
             'complete_name' => 'Bureau des Sports',
             'slug' => $faker->slug,
             'created_at' => $faker->dateTime,
@@ -41,6 +44,7 @@ class PostTableSeeder extends Seeder
         ]);
         $office_id_4 = DB::table('offices')->insertGetId([
             'name' => 'Pôle-Com',
+            'code_name' => 'pole-com',
             'complete_name' => 'Pôle Communication',
             'slug' => $faker->slug,
             'created_at' => $faker->dateTime,
@@ -87,15 +91,15 @@ class PostTableSeeder extends Seeder
             'name' => 'bde',
         ]);
 
-        $role_user_admin = DB::table('users_roles')->insert([
+        $role_user_admin = DB::table('role_user')->insert([
             'user_id' =>  $admin,
             'role_id' => $role_admin,
         ]);
-        $role_user_bda = DB::table('users_roles')->insert([
+        $role_user_bda = DB::table('role_user')->insert([
             'user_id' =>  $bda,
             'role_id' => $role_bde,
         ]);
-        $role_user_bds = DB::table('users_roles')->insert([
+        $role_user_bds = DB::table('role_user')->insert([
             'user_id' =>  $bds,
             'role_id' => $role_bde,
         ]);
@@ -109,7 +113,7 @@ class PostTableSeeder extends Seeder
                 'content' => $faker->text,
                 'is_published' => (bool)mt_rand(0, 1),
                 'user_id'    => mt_rand(0, 1) ? 1 : 3,
-                'office_id' => 1,
+                'office_id' => random_int(1, 3),
                 'created_at' => $faker->dateTime,
                 'updated_at' => $faker->dateTime
             ]);

@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -75,6 +76,11 @@ class User extends Authenticatable
         } else {
             return false;
         }
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
     }
 
     static function generate_error($name)

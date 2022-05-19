@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\AdminController;
 use App\Models\Post;
+use App\Models\Office;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,20 +20,23 @@ class DashboardController extends BaseController
 
             if ($admin_controller->check_role()) {
 
-                switch ($office_name) {
-                    case 'bda':
-                        $office_id = 1;
-                        break;
-                    case 'bdc':
-                        $office_id = 2;
-                        break;
-                    case 'bds':
-                        $office_id = 3;
-                        break;
-                    case 'pole-com':
-                        $office_id = 4;
-                        break;
-                }
+                $office_id = Office::where('code_name', $office_name)->first()->id;
+
+                // dd($office_id);
+                // switch ($office_name) {
+                //     case 'bda':
+                //         $office_id = 1;
+                //         break;
+                //     case 'bdc':
+                //         $office_id = 2;
+                //         break;
+                //     case 'bds':
+                //         $office_id = 3;
+                //         break;
+                //     case 'pole-com':
+                //         $office_id = 4;
+                //         break;
+                // }
 
                 $posts = Post::where('office_id', $office_id)->orderBy('updated_at', 'desc')->get();
 
