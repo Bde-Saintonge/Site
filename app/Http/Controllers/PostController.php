@@ -83,7 +83,7 @@ class PostController extends AdminController
     public function create_post()
     {
 
-        if ($this->check_role()) {
+        if ($this->check_role('admin') && $this->check_role('bde')) {
             return view('admin/create');
         } else {
             return back()->withErrors([

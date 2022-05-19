@@ -22,64 +22,28 @@ class AdminController extends BaseController
 
 
     /**
-     * Méthode qui permet de vérifier si l'utilisateur est administrateur ou membre d'un des bureaux
+     * Vérifie si l'utilisateur possède le rôle passé en paramètre
      * @return bool
      */
-    public function check_role()
+    protected function check_role(string $checkedRole)
     {
-        foreach ($this->user->roles as $role) {
-            switch ($role->name) {
-                case "admin":
-                case "bde":
-                    return true;
-                default:
-                    return false;
-            }
-        };
-    }
-
-    /**
-     * Méthode qui permet de vérifier si l'utilisateur est admin ou membre du pôle com
-     * @return bool
-     */
-
-    public function check_if_admin_or_polecom()
-    {
-        foreach ($this->user->roles as $role) {
-            switch ($role->name) {
-                case "admin":
-                    return true;
-                default:
-                    break;
-            }
-        };
-
-        if ($this->user->office_id == Office::where('code_name', 'pole-com')->first()->id) {
-        }
-    }
-
-    public function check_office_modify_post($post_id)
-    {
-        $role = Auth::user()->role; //pole_com Pôle_Com
-    }
-
-
-    /**
-     * Méthode qui permet de vérifier si l'utilisateur a le droit d'effectuer une action
-     * @return bool
-     */
-    public function check_if_user_can()
-    {
-
-        if (isset($this->office_id)) {
-
-            $office = Office::where('id', $this->office_id)->first();
-
-            if (Auth::user()->role === strtolower($office->name)) {
+        foreach ($this->user->roles as $userRole) {
+            if ($userRole->name === $checkedRole) {
                 return true;
-            } else {
-                return false;
             }
+        };
+        return false;
+    }
+
+    /**
+     * Vérifie si l'utilisateur fait parti du bureau passé en paramètre
+     * @return bool
+     */
+    protected function check_office(string $checkedOffice = 'pole-com')
+    {
+        if ($this->user->office_id === Office::where('code_name', $checkedOffice)->first()->id) {
+            return true;
         }
+        return false;
     }
 }
