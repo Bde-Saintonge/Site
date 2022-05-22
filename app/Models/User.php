@@ -65,19 +65,6 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    /**
-     * This function return an boolean if the user is an Administrator or not
-     * @return false
-     */
-    public function isAdmin()
-    {
-        if ($this->role === 'admin') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function roles()
     {
         return $this->belongsToMany(Role::class);

@@ -110,9 +110,8 @@ class PostController extends AdminController
     {
 
         if (Auth::check()) {
-            $AdminController = new AdminController();
 
-            if ($AdminController->check_perm()) {
+            if ($this->check_perm('admin') && $this->check_perm('bde')) {
                 $post = Post::where('id', $id_post)->first();
                 $post->is_published = true;
                 $post->updated_at = new DateTime('now');
