@@ -1,10 +1,12 @@
 @extends('layouts.base')
 @section('content')
-    <section class="p-6 dark:bg-gray-800 dark:text-gray-50">
-        <form action="{{ route('updatePost') }}" class="container justify-center flex flex-col mx-auto space-y-12">
+    <section class="p-6 dark:bg-gray-700 dark:text-gray-50">
+        <form action="{{ route('updatePost') }}" method="POST"
+            class="container justify-center flex flex-col mx-auto space-y-12 shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-gray-800 text-black dark:text-white rounded-md shadow-md">
+
             @csrf
             <input type="hidden" name="id" value="{{ $post->id }}">
-            <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
+            <fieldset class="grid grid-cols-3 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-800">
                 <div class="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
                     <div class="col-span-full sm:col-span-3">
 

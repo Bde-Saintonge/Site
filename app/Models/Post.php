@@ -29,7 +29,7 @@ class Post extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'image_url', 'slug', 'content', 'office_id', 'user_id', 'is_published'];
+    protected $fillable = ['title', 'image_url', 'slug', 'content', 'office_id', 'is_published'];
 
     public function office()
     {

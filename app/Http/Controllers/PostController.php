@@ -37,26 +37,6 @@ class PostController extends AdminController
         }
     }
 
-    /**
-     * Méthode qui permet de retourner la liste des articles selon un utilisateur
-     * @param Int $user_id : Id de l'utilisateur
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
-     */
-    public function user(Int $user_id)
-    {
-        $user = User::find($user_id);
-        if (isset($user) && !empty($user)) {
-            $posts = Post::where('user_id', $user->id)->paginate($this->per_page);
-        } else {
-            abort(404);
-        }
-        if (isset($posts) && !empty($posts)) {
-            return view('posts.index', compact('posts', 'user'));
-        } else {
-            abort(404);
-        }
-    }
-
     //@param String $office_slug : Url du bureau
     /**
      * Méthode qui permet d'afficher le contenu d'un article 
@@ -133,40 +113,47 @@ class PostController extends AdminController
      */
     public function edit($id_post)
     {
-        if (Auth::check()) {
-
-            $AdminController = new AdminController();
-
-            if ($AdminController->check_perm()) {
-                $post = Post::find($id_post);
-
-                if (!is_null($post)) {
-                    return view('posts.show', [
-                        'post' => $post
-                    ]);
-                }
-
-                return back()->withErrors([
-                    'error' => "L'article n'existe plus.",
-                ]);
-            }
-
+        if (!Auth::check()) {
             return back()->withErrors([
-                'error' => "Vous ne disposez pas des permissions nécessaires pour modifier des articles.",
+                'error' => "Veillez-vous connecter avant de modifier un article.",
             ]);
         }
 
+        $post = Post::find($id_post);
+
+        if (is_null($post)) {
+            return back()->withErrors([
+                'error' => "L'article n'existe plus.",
+            ]);
+        }
+
+        if ($this->check_role("admin") || $this->check_office($post->office->code_name)) {
+            return view('posts.show', [
+                'post' => $post
+            ]);
+        }
 
         return back()->withErrors([
-            'error' => "Veillez-vous connecter avant de modifier un article.",
+            'error' => "Vous ne disposez pas des permissions nécessaires pour modifier cet article.",
         ]);
     }
 
     /**
-     * Méthode qui permet de mettre à jouts un post en bdd
+     * Méthode qui permet de mettre à jours un post en bdd
      */
     public function store(Request $request)
     {
+        $post = Post::find($request->id_post);
+
+        if (is_null($post)) {
+            return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
+                'error' => "L'article n'existe plus.",
+            ]);
+        }
+
+        if ($this->check_role("admin") || $this->check_office($post->office->code_name)) {
+        }
+
         dd($request);
 
         $this->validate($request, [
@@ -175,7 +162,7 @@ class PostController extends AdminController
             'content' => 'required',
         ]);
 
-        $post = Post::find($request->id_post);
+
 
         $post->update([
             'title' => $request->title,

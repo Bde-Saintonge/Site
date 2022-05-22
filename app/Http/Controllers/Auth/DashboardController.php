@@ -16,9 +16,11 @@ class DashboardController extends AdminController
 
     public function index($office_name)
     {
-
         if (Auth::check()) {
-            if ($this->check_role('admin') && $this->check_role('bde')) {
+            if (
+                $this->check_role('admin') ||
+                $this->check_role('bde')
+            ) {
 
                 $office_id = Office::where('code_name', $office_name)->first()->id;
 
@@ -27,7 +29,7 @@ class DashboardController extends AdminController
                 return view('auth.dashboard', [
                     'user_success' => "Vous êtes bien connecté avec l'utilisateur " . Auth::user()->name,
                     'posts' => $posts,
-                    'offices_typo' => Office::all(),
+                    'offices_typo' => Office::select('code_name', 'name')->get(),
                     'active_office' => $office_name,
                 ]);
             }

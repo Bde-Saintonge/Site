@@ -22,7 +22,6 @@ class PostTableSeeder extends Seeder
             'name' => 'BDA',
             'code_name' => 'bda',
             'complete_name' => 'Bureau des Actions',
-            'slug' => $faker->slug,
             'created_at' => $faker->dateTime,
             'updated_at' => $faker->dateTime,
         ]);
@@ -30,7 +29,6 @@ class PostTableSeeder extends Seeder
             'name' => 'BDC',
             'code_name' => 'bdc',
             'complete_name' => 'Bureau des Cultures',
-            'slug' => $faker->slug,
             'created_at' => $faker->dateTime,
             'updated_at' => $faker->dateTime,
         ]);
@@ -38,7 +36,6 @@ class PostTableSeeder extends Seeder
             'name' => 'BDS',
             'code_name' => 'bds',
             'complete_name' => 'Bureau des Sports',
-            'slug' => $faker->slug,
             'created_at' => $faker->dateTime,
             'updated_at' => $faker->dateTime,
         ]);
@@ -46,7 +43,6 @@ class PostTableSeeder extends Seeder
             'name' => 'Pôle-Com',
             'code_name' => 'pole-com',
             'complete_name' => 'Pôle Communication',
-            'slug' => $faker->slug,
             'created_at' => $faker->dateTime,
             'updated_at' => $faker->dateTime,
         ]);
@@ -75,7 +71,7 @@ class PostTableSeeder extends Seeder
             'name' => 'bds',
             'lastname' => 'bds',
             'email' => 'bds@localhost.dev',
-            'password' => Hash::make('user123456'),
+            'password' => Hash::make('bds123456'),
             'office_id' => 3,
             'class' => 'Seconde GT A',
             'created_at' => $faker->dateTime,
@@ -95,6 +91,10 @@ class PostTableSeeder extends Seeder
             'user_id' =>  $admin,
             'role_id' => $role_admin,
         ]);
+        $role_user_admin_2 = DB::table('role_user')->insert([
+            'user_id' =>  $admin,
+            'role_id' => $role_bde,
+        ]);
         $role_user_bda = DB::table('role_user')->insert([
             'user_id' =>  $bda,
             'role_id' => $role_bde,
@@ -112,7 +112,6 @@ class PostTableSeeder extends Seeder
                 'slug' => $faker->slug,
                 'content' => $faker->text,
                 'is_published' => (bool)mt_rand(0, 1),
-                'user_id'    => mt_rand(0, 1) ? 1 : 3,
                 'office_id' => random_int(1, 3),
                 'created_at' => $faker->dateTime,
                 'updated_at' => $faker->dateTime

@@ -23,7 +23,6 @@ class CreatePostsTable extends Migration
             $table->string('summary')->virtualAs(new Expression("CONCAT(SUBSTRING(content, 1, 100), '...')"));
             $table->longText('content');
             $table->foreignId('office_id')->constrained();
-            $table->foreignId('user_id')->constrained();
             $table->boolean('is_published')->default('0');
             $table->timestamps();
         });

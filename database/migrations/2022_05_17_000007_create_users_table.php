@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('class')->nullable();
             $table->foreignId('office_id')->nullable()->constrained();
-            $table->boolean('deactivated')->default('0');
             $table->timestamps();
         });
     }

@@ -20,6 +20,13 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
 
     /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -64,6 +71,11 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class);
+    }
 
     public function roles()
     {

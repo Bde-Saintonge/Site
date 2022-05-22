@@ -17,7 +17,10 @@ class AdminController extends BaseController
 
     public function __construct()
     {
-        $this->user = User::find(Auth::user()->id);
+        $this->middleware(function ($request, $next) {
+            $this->user = User::find(Auth::user()->id);
+            return $next($request);
+        });
     }
 
 
