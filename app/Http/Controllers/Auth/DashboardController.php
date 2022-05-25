@@ -14,7 +14,7 @@ class DashboardController extends AdminController
      * Méthode qui permet de retourner les articles d'un bureau vers le dashboard
      */
 
-    public function index($office_name)
+    public function index($office_code_name)
     {
         if (Auth::check()) {
             if (
@@ -22,7 +22,7 @@ class DashboardController extends AdminController
                 $this->check_role('bde')
             ) {
 
-                $office_id = Office::where('code_name', $office_name)->first()->id;
+                $office_id = Office::where('code_name', $office_code_name)->first()->id;
 
                 $posts = Post::where('office_id', $office_id)->orderBy('updated_at', 'desc')->get();
 
@@ -30,7 +30,7 @@ class DashboardController extends AdminController
                     'user_success' => "Vous êtes bien connecté avec l'utilisateur " . Auth::user()->name,
                     'posts' => $posts,
                     'offices_typo' => Office::select('code_name', 'name')->get(),
-                    'active_office' => $office_name,
+                    'active_office' => $office_code_name,
                 ]);
             }
         } else {

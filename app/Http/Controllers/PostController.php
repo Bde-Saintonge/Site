@@ -20,9 +20,10 @@ class PostController extends AdminController
      * @param String $office_slug : Nom du bureau
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\View\View
      */
-    public function office(String $office_name)
+    public function office(String $office_code_name)
     {
-        $office = Office::where('name', $office_name)->first();
+        //TODO: Faire un summary interne
+        $office = Office::where('name', $office_code_name)->first();
 
         if (isset($office) && !empty($office)) {
             $posts = Post::where('office_id', $office->id)->where('is_published', true)->paginate(7);
@@ -44,13 +45,12 @@ class PostController extends AdminController
      * @param String $post_slug : Url du post
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
-    public function show(String $office_slug, String $post_slug) //
+    public function show(String $office_code_name, String $post_slug) //
     {
         $post = Post::where('slug', $post_slug)->first();
-        $office = Office::where('id', $post->office_id)->first();
 
         if (isset($post) && !empty($post)) {
-            return view('posts.show', compact('office', 'post'));
+            return view('posts.show', compact('post'));
         } else {
             abort(404);
         }
@@ -111,7 +111,7 @@ class PostController extends AdminController
     /**
      * Méthode qui permet de modifier un article
      */
-    public function edit($id_post)
+    public function edit(int $id_post)
     {
         if (!Auth::check()) {
             return back()->withErrors([
@@ -127,23 +127,23 @@ class PostController extends AdminController
             ]);
         }
 
-        if ($this->check_role("admin") || $this->check_office($post->office->code_name)) {
-            return view('posts.show', [
-                'post' => $post
+        if (!$this->check_role("admin") && !$this->check_office($post->office->code_name)) {
+            return back()->withErrors([
+                'error' => "Vous ne disposez pas des permissions nécessaires pour modifier cet article.",
             ]);
         }
 
-        return back()->withErrors([
-            'error' => "Vous ne disposez pas des permissions nécessaires pour modifier cet article.",
+        return view('posts.create', [
+            'post' => $post
         ]);
     }
 
     /**
      * Méthode qui permet de mettre à jours un post en bdd
      */
-    public function store(Request $request)
+    public function store(int $id_post, Request $request)
     {
-        $post = Post::find($request->id_post);
+        $post = Post::find($id_post);
 
         if (is_null($post)) {
             return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
@@ -151,26 +151,27 @@ class PostController extends AdminController
             ]);
         }
 
-        if ($this->check_role("admin") || $this->check_office($post->office->code_name)) {
+        if (!$this->check_role("admin") && !$this->check_office($post->office->code_name)) {
+            return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
+                'error' => "Vous ne disposez pas des permissions nécessaires pour modifier cet article.",
+            ]);
         }
 
-        dd($request);
-
-        $this->validate($request, [
+        $validator = $request->validate([
             'title' => 'required|max:255',
             'image_url' => 'required',
             'content' => 'required',
         ]);
 
-
+        // dd($request->content, $validator);
 
         $post->update([
             'title' => $request->title,
             'image_url' => $request->image_url,
-            'content' => $request->contented,
+            'content' => $request->content,
         ]);
 
-        return redirect()->with('success', "Article modifié avec succés !");
+        return redirect("dashboard/{$post->office->code_name}")->with('success', "Article modifié avec succés !");
     }
 
 

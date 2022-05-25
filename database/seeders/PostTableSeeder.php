@@ -52,6 +52,7 @@ class PostTableSeeder extends Seeder
             'lastname' => 'admin',
             'email' => 'admin@localhost.dev',
             'password' => Hash::make('admin123456'),
+            'office_id' => 4,
             'created_at' => $faker->dateTime,
             'updated_at' => $faker->dateTime,
         ]);

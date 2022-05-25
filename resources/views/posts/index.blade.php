@@ -6,7 +6,7 @@
         ( | | )
         (__d b__) --}}
 
-    
+
 
     {{-- dark:bg-coolGray-800 dark:text-coolGray-100 --}}
     <section class="dark:bg-gray-700 bg-white dark:text-white">
@@ -31,7 +31,7 @@
             @endif
             @foreach ($posts as $key => $post)
                 @if ($key === 0)
-                    <a rel="noopener noreferrer" href="/{{$office->slug}}/{{$post->slug}}"
+                    <a rel="noopener noreferrer" href="/{{ $office->code_name }}/{{ $post->slug }}"
                         class="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-coolGray-900">
                         <img src="{{ $post->image_url }}" alt=""
                             class="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 dark:bg-coolGray-500">
@@ -49,8 +49,8 @@
             <div class="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
                 @foreach ($posts as $key => $post)
-                    @if ($key != 0) 
-                        <a rel="noopener noreferrer" href="/{{$office->slug}}/{{$post->slug}}"
+                    @if ($key != 0)
+                        <a rel="noopener noreferrer" href="/{{ $office->code_name }}/{{ $post->slug }}"
                             class="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-coolGray-900">
                             <img class="object-cover w-full rounded h-44 dark:bg-coolGray-500"
                                 src="{{ $post->image_url }}" alt="">

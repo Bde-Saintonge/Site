@@ -43,8 +43,7 @@ class LoginController extends BaseController
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            $office = is_null(User::find(Auth::user()->id)->office_id) ? "bda" : User::find(Auth::user()->id)->office->code_name;
-            return redirect()->intended("dashboard/{$office}");
+            return redirect()->intended("dashboard/" . User::find(Auth::user()->id)->office->code_name);
         }
 
         return back()->withErrors([
