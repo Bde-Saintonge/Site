@@ -62,7 +62,7 @@ class PostController extends AdminController
      */
     public function create_post()
     {
-
+        // !$this->check_role("admin") && !$this->check_office($post->office->code_name)
         if ($this->check_role('admin') && $this->check_role('bde')) {
             return view('admin/create');
         } else {

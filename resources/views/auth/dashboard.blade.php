@@ -30,16 +30,26 @@
         </div>
 
         <div
-            class="my-12 flex items-center space-x-2 overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap bg-Gray-800 text-Gray-100">
+            class="my-12 flex items-center space-x-2 sm:mx-a overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap bg-Gray-800 text-Gray-100">
             @foreach ($offices_typo as $office)
                 <a href="/dashboard/{{ $office->code_name }}"
                     class="
                     @if ($active_office == $office->code_name) border-blue-400 @endif
                     flex items-center flex-shrink-0 px-5 py-2 border-b-4 hover:border-blue-300 darùk:text-Gray-400">{{ $office->name }}</a>
             @endforeach
+
+            <div class="inline-flex items-center divide-x rounded dark:bg-blue-400 dark:text-gray-800 divide-gray-700">
+                <button type="button" class="px-8 py-3">Caret</button>
+                <button type="button" title="Toggle dropdown" class="p-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
         <div
-            class="mt-6 rounded-md shadow-md shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black  container p-2 mx-auto sm:p-4 dark:text-Gray-100">
+            class="mt-6 rounded-md shadow-md shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black container p-2 mx-auto sm:p-4 dark:text-Gray-100">
             <h2 class="mb-4 text-2xl font-semibold leading-tight">Articles à valider</h2>
             <div class="overflow-x-auto">
                 <table class="min-w-full text-xs">

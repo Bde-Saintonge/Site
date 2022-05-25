@@ -2,9 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer components {
     .zoom {
         @apply transition ease-in-out delay-150 hover:scale-[1.2] duration-300;
     }
+}
+
+.bde h1 {
+    font-size: 3rem; /* 48px */
+    line-height: 1;
+}
+
+.bde h2 {
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem; /* 40px */
+}
+
+.bde h3 {
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem; /* 36px */
+}
+
+.bde h4 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem; /* 32px */
+}
+
+.bde h5 {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
+}
+
+.bde h6 {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
 }
