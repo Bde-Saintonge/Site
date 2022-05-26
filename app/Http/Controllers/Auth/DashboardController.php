@@ -27,7 +27,6 @@ class DashboardController extends AdminController
                 $posts = Post::where('office_id', $office_id)->orderBy('updated_at', 'desc')->get();
 
                 return view('auth.dashboard', [
-                    'user_success' => "Vous êtes bien connecté avec l'utilisateur " . Auth::user()->name,
                     'posts' => $posts,
                     'offices_typo' => Office::select('code_name', 'name')->get(),
                     'active_office' => $office_code_name,

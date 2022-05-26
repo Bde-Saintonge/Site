@@ -20,7 +20,9 @@
         </div>
     </section>
 
-
+    {{-- @php
+    dd($posts);
+    @endphp --}}
 
     <section class="dark:bg-gray-700 bg-white dark:text-white">
         <div class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">

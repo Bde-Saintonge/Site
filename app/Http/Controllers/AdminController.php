@@ -18,7 +18,7 @@ class AdminController extends BaseController
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->user = User::find(Auth::user()->id);
+            $this->user = (is_null(User::find(Auth::user()))) ? null : User::find(Auth::user()->id);
             return $next($request);
         });
     }
@@ -28,7 +28,7 @@ class AdminController extends BaseController
      * Vérifie si l'utilisateur possède le rôle passé en paramètre
      * @return bool
      */
-    protected function check_role(string $checkedRole)
+    protected function check_role(string $checkedRole): int
     {
         foreach ($this->user->roles as $userRole) {
             if ($userRole->name === $checkedRole) {
@@ -42,7 +42,7 @@ class AdminController extends BaseController
      * Vérifie si l'utilisateur fait parti du bureau passé en paramètre
      * @return bool
      */
-    protected function check_office(string $checkedOffice = 'pole-com')
+    protected function check_office(string $checkedOffice = 'pole-com'): int
     {
         if ($this->user->office_id === Office::where('code_name', $checkedOffice)->first()->id) {
             return true;

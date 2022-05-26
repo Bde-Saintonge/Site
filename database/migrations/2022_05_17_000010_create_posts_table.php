@@ -24,6 +24,7 @@ class CreatePostsTable extends Migration
             $table->longText('content');
             $table->foreignId('office_id')->constrained();
             $table->boolean('is_published')->default('0');
+            $table->boolean('in_trash')->default('0');
             $table->timestamps();
         });
     }

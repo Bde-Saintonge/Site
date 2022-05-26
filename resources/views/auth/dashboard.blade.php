@@ -1,46 +1,24 @@
 @extends('layouts.base')
 @section('content')
-    <section class="my-6 dark:bg-gray-700 dark:text-white row wrap full-screen" id="register-image">
+    <section class="my-6 dark:bg-gray-700 dark:text-white row wrap full-screen">
 
-        <div class="justify-center xLarge-12 large-12 medium-12 small-12 xSmall-12">
+        <x-alert :errors="session('errors')" :success="session('success')" />
 
-            @if (session('errors'))
-                <div
-                    class="bg-zinc-100 md:w-max flex items-center p-6 space-x-4 rounded-md dark:bg-gray-500 text-black dark:text-white">
-                    <div class="flex items-center self-stretch justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                            class="w-10 h-10">
-                            <path fill-rule="evenodd"
-                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <span>{{ session('errors')->first() }}</span>
-                </div>
-            @endif
+        <div class="flex items-center justify-center flex-wrap">
+            <div class="flex items-center justify-center gap-2 w-full my-8 bg-Gray-800 text-Gray-100 flex-wrap">
+                {{-- overflow-x-auto overflow-y-hidden  flex-nowrap --}}
+                @foreach ($offices_typo as $office)
+                    <a href="/dashboard/{{ $office->code_name }}"
+                        class="
+                        @if ($active_office == $office->code_name) border-blue-400 @endif
+                       flex-shrink-0 px-5 py-2 border-b-4 hover:border-blue-300 darùk:text-Gray-400">{{ $office->name }}</a>
+                @endforeach
+            </div>
 
 
-
-            @if (isset($user_success))
-                <div
-                    class="flex items-center justify-between p-6 border-l-8 sm:py-8 border-blue-400 bg-Gray-900 text-Gray-100">
-                    <span>{{ $user_success }}</span>
-                </div>
-            @endif
-        </div>
-
-        <div
-            class="my-12 flex items-center space-x-2 sm:mx-a overflow-x-auto overflow-y-hidden sm:justify-center flex-nowrap bg-Gray-800 text-Gray-100">
-            @foreach ($offices_typo as $office)
-                <a href="/dashboard/{{ $office->code_name }}"
-                    class="
-                    @if ($active_office == $office->code_name) border-blue-400 @endif
-                    flex items-center flex-shrink-0 px-5 py-2 border-b-4 hover:border-blue-300 darùk:text-Gray-400">{{ $office->name }}</a>
-            @endforeach
-
-            <div class="inline-flex items-center divide-x rounded dark:bg-blue-400 dark:text-gray-800 divide-gray-700">
-                <button type="button" class="px-8 py-3">Caret</button>
-                <button type="button" title="Toggle dropdown" class="p-3">
+            <div class="inline-flex divide-x rounded bg-blue-400 text-white divide-gray-600">
+                <button type="button" class="font-semibold px-4 py-2">Nouvel Article</button>
+                <button type="button" title="Toggle dropdown" class="p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                         class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -48,6 +26,9 @@
                 </button>
             </div>
         </div>
+
+
+
         <div
             class="mt-6 rounded-md shadow-md shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black container p-2 mx-auto sm:p-4 dark:text-Gray-100">
             <h2 class="mb-4 text-2xl font-semibold leading-tight">Articles à valider</h2>
@@ -72,7 +53,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($posts as $post)
+                        @foreach ($posts->sortBy('created_at') as $post)
                             @if (!$post->is_published)
                                 <tr class="border-b border-opacity-20 dark:border-Gray-700 dark:bg-Gray-900">
                                     <td class="p-3">

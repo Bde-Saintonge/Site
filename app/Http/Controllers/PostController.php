@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends AdminController
 {
-    //Définition de l'attribut de la classe
-    private $per_page = 10;
-
     /**
      * Méthode qui permet de retourne la liste des articles d'un bureau
      * @param String $office_slug : Nom du bureau
@@ -22,20 +19,15 @@ class PostController extends AdminController
      */
     public function office(String $office_code_name)
     {
-        //TODO: Faire un summary interne
-        $office = Office::where('name', $office_code_name)->first();
+        $office = Office::search($office_code_name);
 
-        if (isset($office) && !empty($office)) {
-            $posts = Post::where('office_id', $office->id)->where('is_published', true)->paginate(7);
-
-            if (isset($posts) && !empty($posts)) {
-                return view('posts.index', compact('posts', 'office'));
-            } else {
-                abort(404);
-            }
-        } else {
+        if (is_null($office)) {
             abort(404);
         }
+
+        $posts = Post::select('title', 'image_url', 'slug', 'summary', 'created_at')->where('office_id', $office->id)->where('is_published', true)->orderBy('created_at', 'desc')->paginate(7);
+
+        return view('posts.index', compact('posts', 'office'));
     }
 
     //@param String $office_slug : Url du bureau
@@ -62,6 +54,7 @@ class PostController extends AdminController
      */
     public function create_post()
     {
+        //TODO: Faire un summary interne
         // !$this->check_role("admin") && !$this->check_office($post->office->code_name)
         if ($this->check_role('admin') && $this->check_role('bde')) {
             return view('admin/create');
@@ -91,7 +84,7 @@ class PostController extends AdminController
 
         if (Auth::check()) {
 
-            if ($this->check_perm('admin') && $this->check_perm('bde')) {
+            if ($this->check_role('admin') && $this->check_role('bde')) {
                 $post = Post::where('id', $id_post)->first();
                 $post->is_published = true;
                 $post->updated_at = new DateTime('now');
@@ -143,6 +136,12 @@ class PostController extends AdminController
      */
     public function store(int $id_post, Request $request)
     {
+        if (!Auth::check()) {
+            return back()->withErrors([
+                'error' => "Veillez-vous connecter avant de modifier un article.",
+            ]);
+        }
+
         $post = Post::find($id_post);
 
         if (is_null($post)) {
@@ -180,20 +179,27 @@ class PostController extends AdminController
      */
     public function delete($id_post)
     {
+        return back()->with([
+            'success' => ["L'article n'existe plus."],
+        ]);
+
+
+        $post = Post::find($id_post);
+
+        if (is_null($post)) {
+            return back()->withErrors([
+                'error' => "L'article n'existe plus.",
+            ]);
+        }
+
+
+
         if (Auth::check()) {
-
-            $AdminController = new AdminController();
-
-            if ($AdminController->check_perm()) {
-                $post = Post::find($id_post);
+            if ($this->check_role("admin") || $this->check_office($post->office->code_name)) {
 
                 if (!is_null($post)) {
                     return back()->with('success', "Article supprimé avec succés !");
                 }
-
-                return back()->withErrors([
-                    'error' => "L'article n'existe plus.",
-                ]);
             }
 
             return back()->withErrors([
