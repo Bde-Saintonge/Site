@@ -16,6 +16,7 @@ class Alert extends Component
      */
     public function __construct($errors, $success)
     {
+        // dd($errors, $success);
         $this->setErrorElements($errors);
         $this->setSuccessElements($success);
     }
@@ -27,7 +28,7 @@ class Alert extends Component
             array_push($this->elements, null);
             return;
         }
-        dd($errors);
+
         foreach ($errors as $msg) {
             array_push($this->elements, ['type' => 'error', 'message' => $msg]);
         }
@@ -38,8 +39,6 @@ class Alert extends Component
             array_push($this->elements, null);
             return;
         }
-
-
         foreach ($success as $value) {
             array_push($this->elements, ['type' => 'success', 'message' => $value]);
         }
@@ -53,6 +52,7 @@ class Alert extends Component
      */
     public function render()
     {
+        // dd($this->elements);
         if (!is_null($this->elements[0]) || !is_null($this->elements[1]))
             return view('components.alert', $this->elements);
     }

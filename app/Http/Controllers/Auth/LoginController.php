@@ -36,6 +36,7 @@ class LoginController extends BaseController
 
     public function validator(Request $request)
     {
+        // dd('hey)');
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -46,9 +47,7 @@ class LoginController extends BaseController
             return redirect()->intended("dashboard/" . User::find(Auth::user()->id)->office->code_name);
         }
 
-        return back()->withErrors([
-            'error' => "L'adresse e-mail et/ou le mot de passe ne correspondent pas !",
-        ]);
+        return back()->withErrors(["L'adresse e-mail et/ou le mot de passe ne correspondent pas !"]);
     }
 
 

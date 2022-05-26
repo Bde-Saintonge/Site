@@ -187,9 +187,7 @@ class PostController extends AdminController
         $post = Post::find($id_post);
 
         if (is_null($post)) {
-            return back()->withErrors([
-                'error' => "L'article n'existe plus.",
-            ]);
+            return back()->withErrors(["L'article n'existe plus."]);
         }
 
 
@@ -203,7 +201,7 @@ class PostController extends AdminController
             }
 
             return back()->withErrors([
-                'error' => "Vous ne disposez pas des permissions nécessaires pour supprimer des articles.",
+                "Vous ne disposez pas des permissions nécessaires pour supprimer des articles."
             ]);
         }
 
