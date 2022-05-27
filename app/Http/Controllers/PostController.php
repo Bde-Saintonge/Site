@@ -215,11 +215,6 @@ class PostController extends AdminController
          * A + ( O . !P ) => A le droit de supprimer.
          * !A . ( !O + P ) => N'a pas le droit de supprimer.
          */
-
-        // dd(!$this->check_role("admin") && !$this->check_office($post->office->code_name));
-        // dd(!$this->check_role("admin") && $post->is_published);
-        // dd(!$this->check_role("admin") && !$this->check_office($post->office->code_name) || !$this->check_role("admin") && $post->is_published);
-        // dd(!$this->check_role("admin") && (!$this->check_office($post->office->code_name) || $post->is_published));
         if (!$this->check_role("admin") && (!$this->check_office($post->office->code_name) || $post->is_published)) {
             return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
                 'error' => "Vous ne disposez pas des permissions nécessaires pour supprimer cet article.",

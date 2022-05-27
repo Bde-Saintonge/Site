@@ -22,7 +22,7 @@
             </div>
         </div>
     </section>
-    <section class="dark:bg-gray-700 bg-white py-12 px-4 sm:p-16">
+    <section class="dark:bg-gray-700 bg-white py-12 px-6 sm:p-16">
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-12 justify-items-center">
             <div
                 class="max-w-sm sm:max-w-md lg:max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
