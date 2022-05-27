@@ -161,16 +161,17 @@
                     <hr class="border-gray-200 dark:border-gray-700 ">
                     <a href="mailto:contact@bde-saintonge.fr" alt="Mail contact famille saintonge"
                         class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 stroke-1 dark:stroke-white stroke-slate-900"
-                            fill="none" viewBox="0 0 24 24">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="mr-2 inline h-6 stroke-1 dark:stroke-white stroke-slate-900" fill="none"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                    </a>
+                        Mail</a>
                     <a href="https://www.youtube.com/channel/UCavw3aPAmd220peMhn96kjg" target="_blank"
                         alt="Lien chaîne youtube famille saintonge"
                         class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="h-6" viewBox="0 -38 256 256" version="1.1"
+                        <svg class="mr-2 inline h-6" viewBox="0 -38 256 256" version="1.1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             preserveAspectRatio="xMidYMid">
                             <g>
@@ -181,6 +182,7 @@
                                 </polygon>
                             </g>
                         </svg>
+                        Youtube
                     </a>
                     <hr class="border-gray-200 dark:border-gray-700 ">
                     @if (Auth::user())
