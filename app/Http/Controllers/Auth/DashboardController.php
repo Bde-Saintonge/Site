@@ -24,7 +24,7 @@ class DashboardController extends AdminController
 
                 $office_id = Office::where('code_name', $office_code_name)->first()->id;
 
-                $posts = Post::where('office_id', $office_id)->orderBy('updated_at', 'desc')->get();
+                $posts = Post::select(['id', 'title', 'created_at', 'updated_at', 'is_published'])->where([['office_id', $office_id], ['in_trash', false]])->orderBy('updated_at', 'desc')->get();
 
                 return view('auth.dashboard', [
                     'posts' => $posts,

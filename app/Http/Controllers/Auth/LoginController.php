@@ -36,7 +36,6 @@ class LoginController extends BaseController
 
     public function validator(Request $request)
     {
-        // dd('hey)');
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],

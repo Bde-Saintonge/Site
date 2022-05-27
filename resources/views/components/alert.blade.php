@@ -4,7 +4,7 @@
             @case('error')
                 <div class="flex w-full justify-center" onclick="remove(this)">
                     <div
-                        class="w-max m-4 bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded flex text-center sm:text-left justify-center sm:space-between gap-4 flex-wrap sm:flex-nowrap">
+                        class="w-max m-2 bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded flex text-center sm:text-left justify-center sm:space-between gap-4 flex-wrap sm:flex-nowrap">
                         <strong class="font-bold">Erreur !</strong>
                         <span class="">{{ $element['message'] }}</span>
 
@@ -21,7 +21,7 @@
             @case('success')
                 <div class="flex w-full justify-center" onclick="remove(this)">
                     <div
-                        class="w-max m-4 bg-green-200 border border-green-400 text-green-700 px-4 py-3 rounded flex text-center sm:text-left justify-center sm:space-between gap-4 flex-wrap sm:flex-nowrap">
+                        class="w-max m-2 bg-green-200 border border-green-400 text-green-700 px-4 py-3 rounded flex text-center sm:text-left justify-center sm:space-between gap-4 flex-wrap sm:flex-nowrap">
                         <strong class="font-bold">Succès !</strong>
                         <span class="">{{ $element['message'] }}</span>
 

@@ -27,8 +27,6 @@
             </div>
         </div>
 
-
-
         <div
             class="mt-6 rounded-md shadow-md shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black container p-2 mx-auto sm:p-4 dark:text-Gray-100">
             <h2 class="mb-4 text-2xl font-semibold leading-tight">Articles à valider</h2>
@@ -83,7 +81,7 @@
                                     <td>
                                         <span class="px-3 py-1 font-semibold rounded-md bg-red-500 text-white">
                                             <a href="/admin/{{ $post->id }}/delete">
-                                                <span>Supprimer</span>
+                                                <span>Corbeille</span>
                                             </a>
                                         </span>
                                     </td>
@@ -139,7 +137,7 @@
                                     <td>
                                         <span class="px-3 py-1 font-semibold rounded-md bg-red-500 text-white">
                                             <a href="/admin/{{ $post->id }}/delete">
-                                                <span>Supprimer</span>
+                                                <span>Corbeille</span>
                                             </a>
                                         </span>
                                     </td>

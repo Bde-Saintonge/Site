@@ -9,6 +9,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function GuzzleHttp\Promise\is_settled;
 
 class PostController extends AdminController
 {
@@ -25,7 +26,13 @@ class PostController extends AdminController
             abort(404);
         }
 
-        $posts = Post::select('title', 'image_url', 'slug', 'summary', 'created_at')->where('office_id', $office->id)->where('is_published', true)->orderBy('created_at', 'desc')->paginate(7);
+        $posts = Post::select('title', 'image_url', 'slug', 'summary', 'created_at')->where([
+            ['office_id', $office->id],
+            ['is_published', true],
+            ['in_trash', false]
+        ])
+            ->orderBy('created_at', 'desc')
+            ->paginate(7);
 
         return view('posts.index', compact('posts', 'office'));
     }
@@ -41,11 +48,15 @@ class PostController extends AdminController
     {
         $post = Post::where('slug', $post_slug)->first();
 
-        if (isset($post) && !empty($post)) {
-            return view('posts.show', compact('post'));
-        } else {
+        if (is_null($post) || empty($post)) {
             abort(404);
         }
+
+        if ($post->checkInTrash()) {
+            abort(404);
+        }
+
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -65,14 +76,14 @@ class PostController extends AdminController
         }
     }
 
-    /**
-     * Méthode qui permet d'enregister les données saisies
-     * @param Request $request
-     */
-    public function create_BDD(Request $request)
-    {
-        // TODO
-    }
+    // /**
+    //  * Méthode qui permet d'enregister les données saisies
+    //  * @param Request $request
+    //  */
+    // public function create_BDD(Request $request)
+    // {
+    //     // TODO
+    // }
 
     /**
      * Méthode qui permet de valider un article
@@ -81,23 +92,21 @@ class PostController extends AdminController
      */
     public function validate_post($id_post)
     {
-
-        if (Auth::check()) {
-
-            if ($this->check_role('admin') && $this->check_role('bde')) {
-                $post = Post::where('id', $id_post)->first();
-                $post->is_published = true;
-                $post->updated_at = new DateTime('now');
-                $post->save();
-                return back()->with('success', "Article validé avec succés !");
-            }
+        if (!Auth::check()) {
             return back()->withErrors([
-                'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
+                'error' => "Veillez-vous connecter avant de valider un article",
             ]);
         }
 
+        if ($this->check_role('admin') && $this->check_role('bde')) {
+            $post = Post::where('id', $id_post)->first();
+            $post->is_published = true;
+            $post->updated_at = new DateTime('now');
+            $post->save();
+            return back()->with(['success' => ["Article validé avec succés !"]]);
+        }
         return back()->withErrors([
-            'error' => "Veillez-vous connecter avant de valider un article",
+            'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
         ]);
     }
 
@@ -118,6 +127,10 @@ class PostController extends AdminController
             return back()->withErrors([
                 'error' => "L'article n'existe plus.",
             ]);
+        }
+
+        if ($post->checkInTrash()) {
+            abort(404);
         }
 
         if (!$this->check_role("admin") && !$this->check_office($post->office->code_name)) {
@@ -150,6 +163,10 @@ class PostController extends AdminController
             ]);
         }
 
+        if ($post->checkInTrash()) {
+            abort(404);
+        }
+
         if (!$this->check_role("admin") && !$this->check_office($post->office->code_name)) {
             return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
                 'error' => "Vous ne disposez pas des permissions nécessaires pour modifier cet article.",
@@ -162,15 +179,13 @@ class PostController extends AdminController
             'content' => 'required',
         ]);
 
-        // dd($request->content, $validator);
-
         $post->update([
             'title' => $request->title,
             'image_url' => $request->image_url,
             'content' => $request->content,
         ]);
 
-        return redirect("dashboard/{$post->office->code_name}")->with('success', "Article modifié avec succés !");
+        return redirect("dashboard/{$post->office->code_name}")->with(['success' => ["Article modifié avec succés !"]]);
     }
 
 
@@ -179,34 +194,40 @@ class PostController extends AdminController
      */
     public function delete($id_post)
     {
-        return back()->with([
-            'success' => ["L'article n'existe plus."],
-        ]);
-
-
-        $post = Post::find($id_post);
-
-        if (is_null($post)) {
-            return back()->withErrors(["L'article n'existe plus."]);
-        }
-
-
-
-        if (Auth::check()) {
-            if ($this->check_role("admin") || $this->check_office($post->office->code_name)) {
-
-                if (!is_null($post)) {
-                    return back()->with('success', "Article supprimé avec succés !");
-                }
-            }
-
+        if (!Auth::check()) {
             return back()->withErrors([
-                "Vous ne disposez pas des permissions nécessaires pour supprimer des articles."
+                'error' => "Veillez-vous connecter avant de supprimer un article.",
             ]);
         }
 
-        return back()->withErrors([
-            'error' => "Veillez-vous connecter avant de supprimer un article.",
-        ]);
+        $post = Post::find($id_post);
+        if (is_null($post)) {
+            return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
+                'error' => "L'article n'existe plus.",
+            ]);
+        }
+
+        /** 
+         * A: Est admin
+         * O: Appartient au même office
+         * P: Est publié
+         * 
+         * A + ( O . !P ) => A le droit de supprimer.
+         * !A . ( !O + P ) => N'a pas le droit de supprimer.
+         */
+
+        // dd(!$this->check_role("admin") && !$this->check_office($post->office->code_name));
+        // dd(!$this->check_role("admin") && $post->is_published);
+        // dd(!$this->check_role("admin") && !$this->check_office($post->office->code_name) || !$this->check_role("admin") && $post->is_published);
+        // dd(!$this->check_role("admin") && (!$this->check_office($post->office->code_name) || $post->is_published));
+        if (!$this->check_role("admin") && (!$this->check_office($post->office->code_name) || $post->is_published)) {
+            return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
+                'error' => "Vous ne disposez pas des permissions nécessaires pour supprimer cet article.",
+            ]);
+        }
+
+        $post->softDelete();
+
+        return redirect("dashboard/{$post->office->code_name}")->with(['success' => ["Article placé dans la corbeille !"]]);
     }
 }

@@ -21,7 +21,6 @@ class Alert extends Component
         $this->setSuccessElements($success);
     }
 
-
     private function setErrorElements($errors): void
     {
         if (is_null($errors)) {
@@ -29,18 +28,20 @@ class Alert extends Component
             return;
         }
 
-        foreach ($errors as $msg) {
+        foreach ($errors->all() as $msg) {
             array_push($this->elements, ['type' => 'error', 'message' => $msg]);
         }
     }
+
     private function setSuccessElements($success): void
     {
         if (is_null($success)) {
             array_push($this->elements, null);
             return;
         }
-        foreach ($success as $value) {
-            array_push($this->elements, ['type' => 'success', 'message' => $value]);
+
+        foreach ($success as $msg) {
+            array_push($this->elements, ['type' => 'success', 'message' => $msg]);
         }
     }
 
@@ -52,7 +53,6 @@ class Alert extends Component
      */
     public function render()
     {
-        // dd($this->elements);
         if (!is_null($this->elements[0]) || !is_null($this->elements[1]))
             return view('components.alert', $this->elements);
     }
