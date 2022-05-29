@@ -2,67 +2,51 @@
 
 
 namespace App\Http\Controllers;
+
 use App\Models\Office;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends BaseController
 {
-    public $office_id;
+    protected $office_id;
+    protected $user;
 
-
-    /**
-     * Méthode qui permet de vérifier si l'utilisateur est administrateur ou membre d'un des bureaux
-     * @return bool
-     */
-    public function check_role (){
-
-        switch (Auth::user()->role){
-            case "admin":
-            case "bda":
-            case "bdc":
-            case "bds":
-            case "pole_com":
-                return true;
-            default:
-                return false;
-        }
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = (is_null(User::find(Auth::user()))) ? null : User::find(Auth::user()->id);
+            return $next($request);
+        });
     }
 
 
     /**
-     * Méthode qui permet de vérifier si l'utilisateur a le droit d'effectuer une action
+     * Vérifie si l'utilisateur possède le rôle passé en paramètre
      * @return bool
      */
-    public function check_if_user_can (){
-
-        if (isset($this->office_id)) {
-
-            $office = Office::where('id', $this->office_id)->first();
-
-            if (Auth::user()->role === strtolower($office->name)) {
+    protected function check_role(string $checkedRole): int
+    {
+        foreach ($this->user->roles as $userRole) {
+            if ($userRole->name === $checkedRole) {
                 return true;
-            } else {
-                return false;
             }
-        }
+        };
+        return false;
     }
 
     /**
-     * Méthode qui permet de vérifier si l'utilisateur est administrateur est a le droit de valider un article
+     * Vérifie si l'utilisateur fait parti du bureau passé en paramètre
      * @return bool
      */
-    public function isAdmin (){
-
-        if (Auth::user()->role === 'admin') {
+    protected function check_office(string $checkedOffice = 'pole-com'): int
+    {
+        if ($this->user->office_id === Office::where('code_name', $checkedOffice)->first()->id) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
-
-
-
 }

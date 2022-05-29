@@ -54,11 +54,11 @@ Route::post('/reset_password_without_token', 'App\Http\Controllers\Auth\ResetPas
 $officePattern = '[a-z-]{3,8}';
 $slugPattern = '[a-z0-9\-]+';
 
-Route::get('/dashboard/{office_name}', 'App\Http\Controllers\Auth\DashboardController@index')->name('dashboard')->where('office_name', $officePattern);;
+Route::get('/dashboard/{office_code_name}', 'App\Http\Controllers\Auth\DashboardController@index')->name('dashboard')->where('office_code_name', $officePattern);;
 
 Route::get('/user/{id}', 'App\Http\Controllers\PostController@user')->name('posts.user')->where('id', '[0-9]+');
-Route::get('/{office_slug}', 'App\Http\Controllers\PostController@office')->name('posts.office')->where('office_slug', $slugPattern);
-Route::get('/{office_slug}/{post_slug}', 'App\Http\Controllers\PostController@show')->name('posts.show')->where(['office_slug' => $slugPattern, 'post_slug' => $slugPattern]);
+Route::get('/{office_code_name}', 'App\Http\Controllers\PostController@office')->name('posts.office')->where('office_code_name', $officePattern);
+Route::get('/{office_code_name}/{post_slug}', 'App\Http\Controllers\PostController@show')->name('posts.show')->where(['office_slug' => $officePattern, 'post_slug' => $slugPattern]);
 
 /*
  * Admin Route CRUD
@@ -68,7 +68,7 @@ Route::post('/admin/create/post', 'App\Http\Controllers\PostController@create_BD
 
 Route::get('/admin/{id}/validate', 'App\Http\Controllers\PostController@validate_post')->where('id', '[0-9]+');
 Route::get('/admin/{id}/edit', 'App\Http\Controllers\PostController@edit')->where('id', '[0-9]+');
-Route::post('/admin/{id}/edit', 'App\Http\Controllers\PostController@modify')->where('id', '[0-9]+');
+Route::post('/admin/{id}/update', 'App\Http\Controllers\PostController@store')->where('id', '[0-9]+');
 
 Route::get('/admin/{id}/delete', 'App\Http\Controllers\PostController@delete')->where('id', '[0-9]+');
 

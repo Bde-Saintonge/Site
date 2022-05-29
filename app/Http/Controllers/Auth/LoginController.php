@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-
 class LoginController extends BaseController
 {
     //
@@ -44,12 +43,10 @@ class LoginController extends BaseController
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard/bda');
+            return redirect()->intended("dashboard/" . User::find(Auth::user()->id)->office->code_name);
         }
 
-        return back()->withErrors([
-            'error' => "L'adresse e-mail et/ou le mot de passe ne correspondent pas !",
-        ]);
+        return back()->withErrors(["L'adresse e-mail et/ou le mot de passe ne correspondent pas !"]);
     }
 
 

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-use App\Http\Controllers\Auth\RegisterController;
+// use App\Http\Controllers\Auth\RegisterController;
 
 
 class RegisterController extends BaseController
@@ -44,7 +44,8 @@ class RegisterController extends BaseController
         $this->middleware('guest');
     }
 
-    protected function index(){
+    protected function index()
+    {
         return view('auth.register');
     }
 
@@ -67,15 +68,15 @@ class RegisterController extends BaseController
         ], array_merge(User::generate_error('lastname'), User::generate_error('name'), User::generate_error('email'), User::generate_error('password'), User::generate_error('agree')));
 
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
         return $this->insert_SQL_User($request);
-
     }
 
-    protected function insert_SQL_User(Request $request){
+    protected function insert_SQL_User(Request $request)
+    {
 
 
         User::create([

@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('content')
     @if (session('status'))
-    <div class="bg-zinc-100 w-min dark:bg-white flex items-center p-6 space-x-4 rounded-md bg-Gray-900 text-Gray-100">
+    <div class="bg-zinc-100 md:w-max flex items-center p-6 space-x-4 rounded-md dark:bg-gray-500 text-black dark:text-white">
         <div class="flex items-center self-stretch justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-10 h-10">
                 <path fill-rule="evenodd"
@@ -14,7 +14,7 @@
     @endif
 
     @if (session('error'))
-        <div class="bg-zinc-100 w-min dark:bg-white flex items-center p-6 space-x-4 rounded-md bg-Gray-900 text-Gray-100">
+        <div class="bg-zinc-100 md:w-max flex items-center p-6 space-x-4 rounded-md dark:bg-gray-500 text-black dark:text-white">
             <div class="flex items-center self-stretch justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-10 h-10">
                     <path fill-rule="evenodd"
