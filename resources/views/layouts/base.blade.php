@@ -74,7 +74,7 @@
                         class="flex items-center px-4 -mb-1 hover:border-b-2 border-transparent hover:text-blue-400 hover:border-blue-400">BDC</a>
                 </li>
                 <li class="flex">
-                    <a href="bds"
+                    <a href="/bds"
                         class="flex items-center px-4 -mb-1 hover:border-b-2 border-transparent hover:text-blue-400 hover:border-blue-400">BDS</a>
                 </li>
                 <li class="flex">
@@ -83,7 +83,7 @@
                         Com.</a>
                 </li>
             </ul>
-            <div class="justify-around w-32 hidden lg:flex">
+            <ul class="justify-around w-32 hidden lg:flex">
                 <li class="flex items-center">
                     <a href="mailto:contact@bde-saintonge.fr" alt="Mail contact famille saintonge">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@
                 <li class="flex items-center">
                     <a href="https://www.youtube.com/channel/UCavw3aPAmd220peMhn96kjg" target="_blank"
                         alt="Lien chaîne youtube famille saintonge">
-                        <svg class="h-8 zoom" viewBox="0 -38 256 256" version="1.1"
+                        <svg class="h-8 zoom" viewBox="0 -38 256 256"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             preserveAspectRatio="xMidYMid">
                             <g>
@@ -110,7 +110,7 @@
                         </svg>
                     </a>
                 </li>
-            </div>
+            </ul>
 
             @if (Auth::user())
                 <div class="items-center flex-shrink-0 hidden lg:flex">
@@ -171,7 +171,7 @@
                     <a href="https://www.youtube.com/channel/UCavw3aPAmd220peMhn96kjg" target="_blank"
                         alt="Lien chaîne youtube famille saintonge"
                         class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="mr-2 inline h-6" viewBox="0 -38 256 256" version="1.1"
+                        <svg class="mr-2 inline h-6" viewBox="0 -38 256 256"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             preserveAspectRatio="xMidYMid">
                             <g>
@@ -216,24 +216,24 @@
             <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Informations</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a class="hover:text-blue-400" rel="noopener noreferrer"
+                    <a class="hover:text-blue-400 text-blue-500 dark:text-blue-300" rel="noopener noreferrer"
                         href="https://goo.gl/maps/kLbFeMLv2B3DZ2cB6" target="_blank">12 rue
                         Saintonge 33000 Bordeaux</a>
-                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="tel:+33556993929">Tél : 05 56 99 39
+                    <a class="hover:text-blue-400 text-blue-500 dark:text-blue-300" rel="noopener noreferrer" href="tel:+33556993929">Tél : 05 56 99 39
                         29</a>
-                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="mailto:contact@bde-saintonge.fr">Nous
+                    <a class="hover:text-blue-400 text-blue-500 dark:text-blue-300" rel="noopener noreferrer" href="mailto:contact@bde-saintonge.fr">Nous
                         contacter par mail</a>
                 </div>
             </div>
             <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Liens Utiles</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a class="hover:text-blue-400" rel="noopener noreferrer"
+                    <a class="hover:text-blue-400 underline	text-blue-500 dark:text-blue-300" rel="noopener noreferrer"
                         href="https://lyceesaintefamille.com/lycee-general/" target="_blank">Lycée Général</a>
-                    <a class="hover:text-blue-400" rel="noopener noreferrer"
+                    <a class="hover:text-blue-400 underline text-blue-500 dark:text-blue-300" rel="noopener noreferrer"
                         href="https://lyceesaintefamille.com/lycee-technologique/" target="_blank">Lycée
                         Technologique</a>
-                    <a class="hover:text-blue-400" rel="noopener noreferrer"
+                    <a class="hover:text-blue-400 underline text-blue-500 dark:text-blue-300" rel="noopener noreferrer"
                         href="https://lyceesaintefamille.com/lycee-professionnel/" target="_blank">Lycée
                         Professionnel</a>
                 </div>
@@ -241,9 +241,9 @@
             <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Réglementation</h2>
                 <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="/mentions-legales">Mentions
+                    <a class="hover:text-blue-400 underline text-blue-500 dark:text-blue-300" rel="noopener noreferrer" href="/mentions-legales">Mentions
                         Légales</a>
-                    <a class="hover:text-blue-400" rel="noopener noreferrer" href="/rgpd">RGPD</a>
+                    <a class="hover:text-blue-400 underline text-blue-500 dark:text-blue-300" rel="noopener noreferrer" href="/rgpd">RGPD</a>
                 </div>
             </div>
         </div>
