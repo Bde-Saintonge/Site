@@ -20,7 +20,7 @@
                 <li>Editeur : Lycée Sainte Famille Saintonge, 12 rue de Saintonge, 33000 Bordeaux </li>
                 <li>Hébergeur : Lycée Sainte Famille Saintonge, 12 rue de Saintonge, 33000 Bordeaux</li>
                 <li>Concepteur graphique et responsable de la réalisation technique : Clément LO-CASCIO Responsable Pôle
-                    Communication, 12 rue de Saintonge, 33000 Bordeaux</li>
+                    Communication, 114 rue Lucien Faure, 33000 Bordeaux & Clément LAFON Responsable conception graphique et de la realisation technique, 114 rue Lucien Faure, 33300 Bordeaux</li>
             </ul>
 
 
