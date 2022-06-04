@@ -14,11 +14,11 @@ use function GuzzleHttp\Promise\is_settled;
 class PostController extends AdminController
 {
     /**
-     * Méthode qui permet de retourne la liste des articles d'un bureau
-     * @param String $office_slug : Nom du bureau
+     * Méthode qui permet de retourner la liste des articles d'un bureau
+     * @param string $office_code_name : Nom du bureau
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\View\View
      */
-    public function office(String $office_code_name)
+    public function office(string $office_code_name)
     {
         $office = Office::search($office_code_name);
 
@@ -26,33 +26,34 @@ class PostController extends AdminController
             abort(404);
         }
 
-        $posts = Post::select('title', 'image_url', 'slug', 'summary', 'created_at')->where([
-            ['office_id', $office->id],
-            ['is_published', true],
-            ['in_trash', false]
+        $posts = Post::select([
+            'title',
+            'image_url',
+            'slug',
+            'summary',
+            'created_at',
         ])
-            ->orderBy('created_at', 'desc')
+            ->where([['office_id', $office->id], ['is_published', true]])
+            ->latest()
             ->paginate(7);
 
         return view('posts.index', compact('posts', 'office'));
     }
 
     //@param String $office_slug : Url du bureau
+
     /**
-     * Méthode qui permet d'afficher le contenu d'un article 
+     * Méthode qui permet d'afficher le contenu d'un article
      *
      * @param String $post_slug : Url du post
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
-    public function show(String $office_code_name, String $post_slug) //
+    public function show(string $office_code_name, string $post_slug)
     {
+        //
         $post = Post::where('slug', $post_slug)->first();
 
-        if (is_null($post) || empty($post)) {
-            abort(404);
-        }
-
-        if ($post->checkInTrash()) {
+        if (empty($post)) {
             abort(404);
         }
 
@@ -63,27 +64,30 @@ class PostController extends AdminController
      * Méthode qui permet de retourner la vue de création d'un article
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function create_post()
+    public function create_post(string $office_code_name)
     {
-        //TODO: Faire un summary interne
-        // !$this->check_role("admin") && !$this->check_office($post->office->code_name)
-        if ($this->check_role('admin') && $this->check_role('bde')) {
-            return view('admin/create');
-        } else {
+        if (!Auth::check()) {
             return back()->withErrors([
-                'error' => "Veillez-vous connecter avant de créer un article",
+                'error' => 'Veillez-vous connecter avant de valider un article',
             ]);
         }
-    }
 
-    // /**
-    //  * Méthode qui permet d'enregister les données saisies
-    //  * @param Request $request
-    //  */
-    // public function create_BDD(Request $request)
-    // {
-    //     // TODO
-    // }
+        if (
+            !$this->check_role('admin') &&
+            !$this->check_office($office_code_name)
+        ) {
+            return redirect(
+                "dashboard/{$this->user->office->code_name}",
+            )->withErrors([
+                'error' =>
+                    'Vous ne disposez pas des permissions nécessaires pour créer un article.',
+            ]);
+        }
+
+        //TODO: Faire un summary interne
+
+        return view('posts.create');
+    }
 
     /**
      * Méthode qui permet de valider un article
@@ -94,19 +98,23 @@ class PostController extends AdminController
     {
         if (!Auth::check()) {
             return back()->withErrors([
-                'error' => "Veillez-vous connecter avant de valider un article",
+                'error' => 'Veillez-vous connecter avant de valider un article',
             ]);
         }
 
-        if ($this->check_role('admin') && $this->check_role('bde')) {
-            $post = Post::where('id', $id_post)->first();
-            $post->is_published = true;
-            $post->updated_at = new DateTime('now');
-            $post->save();
-            return back()->with(['success' => ["Article validé avec succés !"]]);
+        if (!$this->check_role('admin') && !$this->check_role('bde')) {
+            return back()->withErrors([
+                'error' =>
+                    'Vous ne disposez pas des permissions nécessaires pour valider des articles.',
+            ]);
         }
-        return back()->withErrors([
-            'error' => "Vous ne disposez pas des permissions nécessaires pour valider des articles.",
+
+        $post = Post::where('id', $id_post)->first();
+        $post->is_published = true;
+        $post->updated_at = new DateTime('now');
+        $post->save();
+        return back()->with([
+            'success' => ['Article validé avec succés !'],
         ]);
     }
 
@@ -117,7 +125,8 @@ class PostController extends AdminController
     {
         if (!Auth::check()) {
             return back()->withErrors([
-                'error' => "Veillez-vous connecter avant de modifier un article.",
+                'error' =>
+                    'Veillez-vous connecter avant de modifier un article.',
             ]);
         }
 
@@ -129,47 +138,52 @@ class PostController extends AdminController
             ]);
         }
 
-        if ($post->checkInTrash()) {
-            abort(404);
-        }
-
-        if (!$this->check_role("admin") && !$this->check_office($post->office->code_name)) {
+        if (
+            !$this->check_role('admin') &&
+            !$this->check_office($post->office->code_name)
+        ) {
             return back()->withErrors([
-                'error' => "Vous ne disposez pas des permissions nécessaires pour modifier cet article.",
+                'error' =>
+                    'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
             ]);
         }
 
         return view('posts.create', [
-            'post' => $post
+            'post' => $post,
         ]);
     }
 
     /**
-     * Méthode qui permet de mettre à jours un post en bdd
+     * Méthode qui permet de mettre à jour un post en bdd
      */
     public function store(int $id_post, Request $request)
     {
         if (!Auth::check()) {
             return back()->withErrors([
-                'error' => "Veillez-vous connecter avant de modifier un article.",
+                'error' =>
+                    'Veillez-vous connecter avant de modifier un article.',
             ]);
         }
 
         $post = Post::find($id_post);
 
         if (is_null($post)) {
-            return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
-                'error' => "L'article n'existe plus.",
-            ]);
+            return redirect()
+                ->route('dashboard')
+                ->withErrors([
+                    'error' => "L'article n'existe plus.",
+                ]);
         }
 
-        if ($post->checkInTrash()) {
-            abort(404);
-        }
-
-        if (!$this->check_role("admin") && !$this->check_office($post->office->code_name)) {
-            return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
-                'error' => "Vous ne disposez pas des permissions nécessaires pour modifier cet article.",
+        if (
+            !$this->check_role('admin') &&
+            !$this->check_office($post->office->code_name)
+        ) {
+            return redirect(
+                "dashboard/{$this->user->office->code_name}",
+            )->withErrors([
+                'error' =>
+                    'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
             ]);
         }
 
@@ -178,51 +192,64 @@ class PostController extends AdminController
             'image_url' => 'required',
             'content' => 'required',
         ]);
-
         $post->update([
-            'title' => $request->title,
-            'image_url' => $request->image_url,
-            'content' => $request->content,
+            'title' => $request->input('title'),
+            'image_url' => $request->input('image_url'),
+            'content' => $request->input('content'),
         ]);
 
-        return redirect("dashboard/{$post->office->code_name}")->with(['success' => ["Article modifié avec succés !"]]);
+        return redirect("dashboard/{$post->office->code_name}")->with([
+            'success' => ['Article modifié avec succès !'],
+        ]);
     }
 
-
-    /** 
+    /**
      * Méthode qui permet de supprimer un article
      */
     public function delete($id_post)
     {
         if (!Auth::check()) {
             return back()->withErrors([
-                'error' => "Veillez-vous connecter avant de supprimer un article.",
+                'error' =>
+                    'Veillez-vous connecter avant de supprimer un article.',
             ]);
         }
 
         $post = Post::find($id_post);
+
         if (is_null($post)) {
-            return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
+            return redirect(
+                "dashboard/{$this->user->office->code_name}",
+            )->withErrors([
                 'error' => "L'article n'existe plus.",
             ]);
         }
 
-        /** 
+        /**
          * A: Est admin
          * O: Appartient au même office
          * P: Est publié
-         * 
+         *
          * A + ( O . !P ) => A le droit de supprimer.
          * !A . ( !O + P ) => N'a pas le droit de supprimer.
          */
-        if (!$this->check_role("admin") && (!$this->check_office($post->office->code_name) || $post->is_published)) {
-            return redirect("dashboard/{$this->user->office->code_name}")->withErrors([
-                'error' => "Vous ne disposez pas des permissions nécessaires pour supprimer cet article.",
+        if (
+            !$this->check_role('admin') &&
+            (!$this->check_office($post->office->code_name) ||
+                $post->is_published)
+        ) {
+            return redirect(
+                "dashboard/{$this->user->office->code_name}",
+            )->withErrors([
+                'error' =>
+                    'Vous ne disposez pas des permissions nécessaires pour supprimer cet article.',
             ]);
         }
 
-        $post->softDelete();
+        $post->delete();
 
-        return redirect("dashboard/{$post->office->code_name}")->with(['success' => ["Article placé dans la corbeille !"]]);
+        return redirect("dashboard/{$post->office->code_name}")->with([
+            'success' => ['Article placé dans la corbeille !'],
+        ]);
     }
 }

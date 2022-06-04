@@ -58,36 +58,36 @@
 
 <body class="dark:bg-gray-700">
 
-    <header class="w-full p-4 bg-slate-50 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
-        <div class="container flex justify-between h-16 mx-auto">
+    <header class="w-full bg-slate-50 p-4 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
+        <div class="container mx-auto flex h-16 justify-between">
             <a href="/" aria-label="Retour à la racine" class="flex items-center">
-                <img class="dark:contrast-150 h-16" src="{{ asset('media/images/logo_saintonge.png') }}"
+                <img class="h-16 dark:contrast-150" src="{{ asset('media/images/logo_saintonge.png') }}"
                     alt="Logo famille Saintonge">
             </a>
-            <ul class="items-stretch hidden space-x-3 lg:flex">
+            <ul class="hidden items-stretch space-x-3 lg:flex">
                 <li class="flex">
                     <a href="/bda"
-                        class="flex items-center px-4 -mb-1 hover:border-b-2 border-transparent hover:text-blue-400 hover:border-blue-400">BDA</a>
+                        class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">BDA</a>
                 </li>
                 <li class="flex">
                     <a href="/bdc"
-                        class="flex items-center px-4 -mb-1 hover:border-b-2 border-transparent hover:text-blue-400 hover:border-blue-400">BDC</a>
+                        class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">BDC</a>
                 </li>
                 <li class="flex">
                     <a href="/bds"
-                        class="flex items-center px-4 -mb-1 hover:border-b-2 border-transparent hover:text-blue-400 hover:border-blue-400">BDS</a>
+                        class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">BDS</a>
                 </li>
                 <li class="flex">
                     <a href="/pole-com"
-                        class="flex items-center px-4 -mb-1 hover:border-b-2 border-transparent hover:text-blue-400 hover:border-blue-400">Pôle
+                        class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">Pôle
                         Com.</a>
                 </li>
             </ul>
-            <ul class="justify-around w-32 hidden lg:flex">
+            <ul class="hidden w-32 justify-around lg:flex">
                 <li class="flex items-center">
                     <a href="mailto:contact@bde-saintonge.fr" alt="Mail contact famille saintonge">
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-8 w-8 stroke-1 dark:stroke-white stroke-slate-900 zoom" fill="none"
+                            class="zoom h-8 w-8 stroke-slate-900 stroke-1 dark:stroke-white" fill="none"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -97,9 +97,8 @@
                 <li class="flex items-center">
                     <a href="https://www.youtube.com/channel/UCavw3aPAmd220peMhn96kjg" target="_blank"
                         alt="Lien chaîne youtube famille saintonge">
-                        <svg class="h-8 zoom" viewBox="0 -38 256 256"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            preserveAspectRatio="xMidYMid">
+                        <svg class="zoom h-8" viewBox="0 -38 256 256" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
                             <g>
                                 <path
                                     d="M250.346231,28.0746923 C247.358133,17.0320558 238.732098,8.40602109 227.689461,5.41792308 C207.823743,0 127.868333,0 127.868333,0 C127.868333,0 47.9129229,0.164179487 28.0472049,5.58210256 C17.0045684,8.57020058 8.37853373,17.1962353 5.39043571,28.2388718 C-0.618533519,63.5374615 -2.94988224,117.322662 5.5546152,151.209308 C8.54271322,162.251944 17.1687479,170.877979 28.2113844,173.866077 C48.0771024,179.284 128.032513,179.284 128.032513,179.284 C128.032513,179.284 207.987923,179.284 227.853641,173.866077 C238.896277,170.877979 247.522312,162.251944 250.51041,151.209308 C256.847738,115.861464 258.801474,62.1091 250.346231,28.0746923 Z"
@@ -113,25 +112,25 @@
             </ul>
 
             @if (Auth::user())
-                <div class="items-center flex-shrink-0 hidden lg:flex">
+                <div class="hidden flex-shrink-0 items-center lg:flex">
                     <a href="/dashboard/bda"
-                        class="mr-1 self-center px-8 py-3 font-semibold rounded bg-blue-400 text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">
+                        class="mr-1 self-center rounded bg-blue-400 px-8 py-3 font-semibold text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">
                         Dashboard</a>
                     <a href="/logout"
-                        class="ml-1 self-center px-3 py-1 font-medium rounded bg-red-400 text-white hover:bg-red-300 focus:outline-none focus:ring focus:ring-red-900">
+                        class="ml-1 self-center rounded bg-red-400 px-3 py-1 font-medium text-white hover:bg-red-300 focus:outline-none focus:ring focus:ring-red-900">
                         Déconnexion</a>
                 </div>
             @else
-                <div class="items-center flex-shrink-0 hidden lg:flex">
+                <div class="hidden flex-shrink-0 items-center lg:flex">
                     <a href="/login"
-                        class="self-center px-8 py-3 font-semibold rounded bg-blue-400 text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">Se
+                        class="self-center rounded bg-blue-400 px-8 py-3 font-semibold text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">Se
                         Connecter</a>
                 </div>
             @endif
-            <div class="relative block lg:hidden my-auto ">
+            <div class="relative my-auto block lg:hidden">
                 <!-- Dropdown toggle button -->
                 <button id="dropdown-toggle"
-                    class="relative group z-10 w-10 h-10 p-2 text-white bg-blue-400 border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-blue-400 focus:outline-none">
+                    class="group relative z-10 h-10 w-10 rounded-md border border-transparent bg-blue-400 p-2 text-white focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:bg-blue-400 dark:text-white dark:focus:ring-blue-400 dark:focus:ring-opacity-40">
                     <svg xmlns="http://www.w3.org/2000/svg" class="" viewBox="0 0 20 20"
                         fill="currentColor">
                         <path fill-rule="evenodd"
@@ -141,28 +140,28 @@
                 </button>
                 <!-- Dropdown menu -->
                 <div id="dropdown-menu"
-                    class="hidden absolute items-center right-0 py-2 z-20 w-48 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800">
+                    class="absolute right-0 z-20 mt-2 hidden w-48 items-center rounded-md bg-white py-2 shadow-xl dark:bg-gray-800">
                     <a href="/bda"
-                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                         BDA
                     </a>
                     <a href="/bdc"
-                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                         BDC
                     </a>
                     <a href="/bds"
-                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                         BDS
                     </a>
                     <a href="/pole-com"
-                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                         Pôle Com.
                     </a>
-                    <hr class="border-gray-200 dark:border-gray-700 ">
+                    <hr class="border-gray-200 dark:border-gray-700">
                     <a href="mailto:contact@bde-saintonge.fr" alt="Mail contact famille saintonge"
-                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            class="mr-2 inline h-6 stroke-1 dark:stroke-white stroke-slate-900" fill="none"
+                            class="mr-2 inline h-6 stroke-slate-900 stroke-1 dark:stroke-white" fill="none"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -170,10 +169,9 @@
                         Mail</a>
                     <a href="https://www.youtube.com/channel/UCavw3aPAmd220peMhn96kjg" target="_blank"
                         alt="Lien chaîne youtube famille saintonge"
-                        class="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="mr-2 inline h-6" viewBox="0 -38 256 256"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                            preserveAspectRatio="xMidYMid">
+                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <svg class="mr-2 inline h-6" viewBox="0 -38 256 256" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
                             <g>
                                 <path
                                     d="M250.346231,28.0746923 C247.358133,17.0320558 238.732098,8.40602109 227.689461,5.41792308 C207.823743,0 127.868333,0 127.868333,0 C127.868333,0 47.9129229,0.164179487 28.0472049,5.58210256 C17.0045684,8.57020058 8.37853373,17.1962353 5.39043571,28.2388718 C-0.618533519,63.5374615 -2.94988224,117.322662 5.5546152,151.209308 C8.54271322,162.251944 17.1687479,170.877979 28.2113844,173.866077 C48.0771024,179.284 128.032513,179.284 128.032513,179.284 C128.032513,179.284 207.987923,179.284 227.853641,173.866077 C238.896277,170.877979 247.522312,162.251944 250.51041,151.209308 C256.847738,115.861464 258.801474,62.1091 250.346231,28.0746923 Z"
@@ -184,66 +182,71 @@
                         </svg>
                         Youtube
                     </a>
-                    <hr class="border-gray-200 dark:border-gray-700 ">
+                    <hr class="border-gray-200 dark:border-gray-700">
                     @if (Auth::user())
                         <a href="/dashboard"
-                            class="block px-4 py-3 text-sm  text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                            class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                             Dashboard
                         </a>
                         <a href="/logout"
-                            class="block px-4 py-3 text-sm  text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                            class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                             Déconnexion
                         </a>
                     @else
                         <a href="/login"
-                            class="block px-4 py-3 text-sm  text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+                            class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                             Se Connecter
                         </a>
                     @endif
-
                 </div>
             </div>
-
         </div>
     </header>
     <main>
         @yield('content')
     </main>
-    <footer class="p-6 text-black bg-white dark:bg-gray-700 dark:text-white">
-        <hr class="w-3/4 rounded-lg border-2 mx-auto my-10">
+    <footer class="bg-white p-6 text-black dark:bg-gray-700 dark:text-white">
+        <hr class="mx-auto my-10 w-3/4 rounded-lg border-2">
         <div
-            class="container grid grid-cols-1 text-center sm:justify-items-center mx-auto gap-x-3 gap-y-8 sm:grid-cols-3">
+            class="container mx-auto grid grid-cols-1 gap-x-3 gap-y-8 text-center sm:grid-cols-3 sm:justify-items-center">
             <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Informations</h2>
-                <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a class="hover:text-blue-400 text-blue-500 dark:text-blue-300" rel="noopener noreferrer"
-                        href="https://goo.gl/maps/kLbFeMLv2B3DZ2cB6" target="_blank">12 rue
+                <div class="dark:text-coolGray-400 flex flex-col space-y-2 text-sm">
+                    <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
+                        rel="noopener noreferrer" href="https://goo.gl/maps/kLbFeMLv2B3DZ2cB6" target="_blank">12 rue
                         Saintonge 33000 Bordeaux</a>
-                    <a class="hover:text-blue-400 text-blue-500 dark:text-blue-300" rel="noopener noreferrer" href="tel:+33556993929">Tél : 05 56 99 39
+                    <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
+                        rel="noopener noreferrer" href="tel:+33556993929">Tél : 05 56 99 39
                         29</a>
-                    <a class="hover:text-blue-400 text-blue-500 dark:text-blue-300" rel="noopener noreferrer" href="mailto:contact@bde-saintonge.fr">Nous
+                    <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
+                        rel="noopener noreferrer" href="mailto:contact@bde-saintonge.fr">Nous
                         contacter par mail</a>
                 </div>
             </div>
             <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Liens Utiles</h2>
-                <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a class="hover:text-blue-400 underline	text-blue-500 dark:text-blue-300" rel="noopener noreferrer"
-                        href="https://lyceesaintefamille.com/lycee-general/" target="_blank">Lycée Général</a>
-                    <a class="hover:text-blue-400 underline text-blue-500 dark:text-blue-300" rel="noopener noreferrer"
-                        href="https://lyceesaintefamille.com/lycee-technologique/" target="_blank">Lycée
+                <div class="dark:text-coolGray-400 flex flex-col space-y-2 text-sm">
+                    <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
+                        rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-general/"
+                        target="_blank">Lycée Général</a>
+                    <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
+                        rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-technologique/"
+                        target="_blank">Lycée
                         Technologique</a>
-                    <a class="hover:text-blue-400 underline text-blue-500 dark:text-blue-300" rel="noopener noreferrer"
-                        href="https://lyceesaintefamille.com/lycee-professionnel/" target="_blank">Lycée
+                    <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
+                        rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-professionnel/"
+                        target="_blank">Lycée
                         Professionnel</a>
                 </div>
             </div>
             <div class="flex flex-col space-y-4 sm:w-max">
                 <h2 class="font-medium">Réglementation</h2>
-                <div class="flex flex-col space-y-2 text-sm dark:text-coolGray-400">
-                    <a class="hover:text-blue-400 underline text-blue-500 dark:text-blue-300" rel="noopener noreferrer" href="/mentions-legales">Mentions
+                <div class="dark:text-coolGray-400 flex flex-col space-y-2 text-sm">
+                    <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
+                        rel="noopener noreferrer" href="/mentions-legales">Mentions
                         Légales</a>
-                    <a class="hover:text-blue-400 underline text-blue-500 dark:text-blue-300" rel="noopener noreferrer" href="/rgpd">RGPD</a>
+                    <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
+                        rel="noopener noreferrer" href="/rgpd">RGPD</a>
                 </div>
             </div>
         </div>

@@ -79,8 +79,6 @@ class PostTableSeeder extends Seeder
             'updated_at' => $faker->dateTime,
         ]);
 
-
-
         $role_admin = DB::table('roles')->insertGetId([
             'name' => 'admin',
         ]);
@@ -89,33 +87,32 @@ class PostTableSeeder extends Seeder
         ]);
 
         $role_user_admin = DB::table('role_user')->insert([
-            'user_id' =>  $admin,
+            'user_id' => $admin,
             'role_id' => $role_admin,
         ]);
         $role_user_admin_2 = DB::table('role_user')->insert([
-            'user_id' =>  $admin,
+            'user_id' => $admin,
             'role_id' => $role_bde,
         ]);
         $role_user_bda = DB::table('role_user')->insert([
-            'user_id' =>  $bda,
+            'user_id' => $bda,
             'role_id' => $role_bde,
         ]);
         $role_user_bds = DB::table('role_user')->insert([
-            'user_id' =>  $bds,
+            'user_id' => $bds,
             'role_id' => $role_bde,
         ]);
 
-
         for ($i = 0; $i < 25; $i++) {
             DB::table('posts')->insert([
-                'title' => $faker->title,
+                'title' => $faker->sentence,
                 'image_url' => 'https://source.unsplash.com/random/480x360',
                 'slug' => $faker->slug,
                 'content' => $faker->text,
-                'is_published' => (bool)mt_rand(0, 1),
+                'is_published' => (bool) mt_rand(0, 1),
                 'office_id' => random_int(1, 3),
                 'created_at' => $faker->dateTime,
-                'updated_at' => $faker->dateTime
+                'updated_at' => $faker->dateTime,
             ]);
         }
     }

@@ -3,15 +3,15 @@
 @section('content')
     <section class="bg-cover bg-no-repeat" style="background-image: url( {{ asset('media/images/fond.jpg') }} )">
         <div
-            class="text-black container flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
+            class="container mx-auto flex flex-col justify-center p-6 text-black sm:py-12 lg:flex-row lg:justify-between lg:py-24">
             <div
-                class="bg-white/90 rounded-md flex flex-col justify-center p-6 text-center lg:max-w-md xl:max-w-xl lg:text-left">
+                class="flex flex-col justify-center rounded-md bg-white/90 p-6 text-center lg:max-w-md lg:text-left xl:max-w-xl">
                 <h1 class="text-4xl font-bold leading-none sm:text-6xl">
                     Bureau des
                     <span class="text-blue-400">élèves</span>
                     de Saintonge
                 </h1>
-                <p class="mt-6 text-lg text-justify ">
+                <p class="mt-6 text-justify text-lg">
                     Bienvenue sur le site du bureau des élèves du lycée Sainte Famille Saintonge.
                     <br class="hidden md:inline">
                     Créé en 2018, ce bureau regroupe trois entités détaillées ci-dessous : le <strong>Bureau Des
@@ -22,64 +22,71 @@
             </div>
         </div>
     </section>
-    <section class="dark:bg-gray-700 bg-white py-12 px-6 sm:p-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-12 justify-items-center">
+    <section class="bg-white py-12 px-6 dark:bg-gray-700 sm:p-16">
+        <div class="grid grid-cols-1 justify-items-center gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-4">
             <div
-                class="max-w-sm sm:max-w-md lg:max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
+                class="max-w-sm rounded-md bg-zinc-100 text-black shadow-xl shadow-gray-300 dark:bg-white dark:shadow-gray-600 sm:max-w-md lg:max-w-xs">
                 <img src="{{ asset('media/images/bda_logo.png') }}" alt=""
-                    class="object-contain object-center w-full rounded-t-md h-56 sm:h-72">
-                <div class="flex flex-col justify-between p-6 space-y-8">
+                    class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
+                <div class="flex flex-col justify-between space-y-8 p-6">
                     <div class="space-y-2">
-                        <h2 class="text-xl sm:text-3xl font-semibold tracking-wide xl:text-2xl 2xl:text-3xl">BUREAU DES ACTIONS (BDA)</h2>
+                        <h2 class="text-xl font-semibold tracking-wide sm:text-3xl xl:text-2xl 2xl:text-3xl">BUREAU DES
+                            ACTIONS (BDA)</h2>
                         <p class="h-12 text-justify">S'occupe du journal du lyc&eacute;e, l'atelier
                             th&eacute;&acirc;tre, etc.</p>
                     </div>
                     <a href="/bda"
-                        class="flex  items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">VOIR
+                        class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
                         LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             <div
-                class="max-w-sm sm:max-w-md lg:max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
+                class="max-w-sm rounded-md bg-zinc-100 text-black shadow-xl shadow-gray-300 dark:bg-white dark:shadow-gray-600 sm:max-w-md lg:max-w-xs">
                 <img src="{{ asset('media/images/bdc_logo.png') }}" alt=""
-                    class="object-contain object-center w-full rounded-t-md h-56 sm:h-72">
-                <div class="flex flex-col justify-between p-6 space-y-8">
+                    class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
+                <div class="flex flex-col justify-between space-y-8 p-6">
                     <div class="space-y-2">
-                        <h2 class="text-xl sm:text-3xl font-semibold tracking-wid xl:text-2xl 2xl:text-3xl">BUREAU DES CULTURES (BDC)</h2>
-                        <p class="h-12 text-justify">S'occupe d'organiser et d'animer les &eacute;v&eacute;nements cultuels du
+                        <h2 class="tracking-wid text-xl font-semibold sm:text-3xl xl:text-2xl 2xl:text-3xl">BUREAU DES
+                            CULTURES (BDC)</h2>
+                        <p class="h-12 text-justify">S'occupe d'organiser et d'animer les &eacute;v&eacute;nements
+                            cultuels du
                             lyc&eacute;e.</p>
                     </div>
                     <a href="/bdc"
-                        class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">VOIR
+                        class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
                         LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             <div
-                class="max-w-sm sm:max-w-md lg:max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
+                class="max-w-sm rounded-md bg-zinc-100 text-black shadow-xl shadow-gray-300 dark:bg-white dark:shadow-gray-600 sm:max-w-md lg:max-w-xs">
                 <img src="{{ asset('media/images/bds_logo.png') }}" alt=""
-                    class="object-contain object-center w-full rounded-t-md h-56 sm:h-72">
-                <div class="flex flex-col justify-between p-6 space-y-8">
+                    class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
+                <div class="flex flex-col justify-between space-y-8 p-6">
                     <div class="space-y-2">
-                        <h2 class="text-xl sm:text-3xl font-semibold tracking-wide xl:text-2xl 2xl:text-3xl">BUREAU DES SPORTS (BDS)</h2>
-                        <p class="h-12 text-justify">S'occupe d'organiser et d'animer les &eacute;v&eacute;nements sportifs.
+                        <h2 class="text-xl font-semibold tracking-wide sm:text-3xl xl:text-2xl 2xl:text-3xl">BUREAU DES
+                            SPORTS (BDS)</h2>
+                        <p class="h-12 text-justify">S'occupe d'organiser et d'animer les &eacute;v&eacute;nements
+                            sportifs.
                         </p>
                     </div>
                     <a href="/bds"
-                        class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">VOIR
+                        class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
                         LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             <div
-                class="max-w-sm sm:max-w-md lg:max-w-xs rounded-md shadow-xl shadow-gray-300 dark:shadow-gray-600 bg-zinc-100 dark:bg-white text-black ">
+                class="max-w-sm rounded-md bg-zinc-100 text-black shadow-xl shadow-gray-300 dark:bg-white dark:shadow-gray-600 sm:max-w-md lg:max-w-xs">
                 <img src="{{ asset('media/images/pole-com_logo.png') }}" alt=""
-                    class="object-contain object-center w-full rounded-t-md h-56 sm:h-72">
-                <div class="flex flex-col justify-between p-6 space-y-8">
+                    class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
+                <div class="flex flex-col justify-between space-y-8 p-6">
                     <div class="space-y-2">
-                        <h2 class="text-xl sm:text-3xl font-semibold tracking-wide xl:text-2xl 2xl:text-3xl xl:h-16 2xl:h-auto">BUREAU DU P&Ocirc;LE COM</h2>
+                        <h2
+                            class="text-xl font-semibold tracking-wide sm:text-3xl xl:h-16 xl:text-2xl 2xl:h-auto 2xl:text-3xl">
+                            BUREAU DU P&Ocirc;LE COM</h2>
                         <p class="h-12 text-justify">Assure principalement la gestion des articles de ce site web.</p>
                     </div>
                     <a href="/pole-com"
-                        class="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md bg-blue-400 text-white text-sm sm:text-base">VOIR
+                        class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
                         LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
