@@ -1,14 +1,14 @@
 @extends('layouts.base')
 @section('content')
-    <section class="p-6 dark:bg-gray-700 dark:text-gray-50">
+    <section class="p-2 dark:bg-gray-700 dark:text-gray-50 sm:p-6">
         @if (!isset($post))
             {{-- //TODO: Finir le if --}}
             <form action="/admin/create/post" method="POST"
-                class="container mx-auto flex flex-col justify-center space-y-12 rounded-md bg-zinc-100 text-black shadow-md shadow-gray-300 dark:bg-gray-800 dark:text-white dark:shadow-gray-600">
+                class="container mx-auto flex flex-col justify-center rounded-md bg-zinc-100 text-black shadow-md shadow-gray-300 dark:bg-gray-800 dark:text-white dark:shadow-gray-600">
 
                 @csrf
                 {{-- <input type="hidden" name="id" value="{{ $post->id }}"> --}}
-                <fieldset class="grid grid-cols-3 gap-6 rounded-md p-6 shadow-sm dark:bg-gray-800">
+                <fieldset class="grid grid-cols-3 gap-6 rounded-md p-4 shadow-sm dark:bg-gray-800 sm:p-6">
                     <div class="col-span-full grid grid-cols-6 gap-4 lg:col-span-3">
                         <div class="col-span-full sm:col-span-3">
 
