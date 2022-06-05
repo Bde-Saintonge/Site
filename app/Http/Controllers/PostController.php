@@ -50,7 +50,6 @@ class PostController extends AdminController
      */
     public function show(string $office_code_name, string $post_slug)
     {
-        //
         $post = Post::where('slug', $post_slug)->first();
 
         if (empty($post)) {
@@ -150,6 +149,50 @@ class PostController extends AdminController
 
         return view('posts.create', [
             'post' => $post,
+        ]);
+    }
+
+    public function register(Request $request)
+    {
+        if (!Auth::check()) {
+            return back()->withErrors([
+                'error' =>
+                    'Veillez-vous connecter avant de modifier un article.',
+            ]);
+        }
+
+        $url = explode('/', session('_previous')['url']);
+        $office_code_name = end($url);
+        $office = Office::search($office_code_name);
+
+        if (
+            !$this->check_role('admin') &&
+            !$this->check_office($office_code_name)
+        ) {
+            return redirect(
+                "dashboard/{$this->user->office->code_name}",
+            )->withErrors([
+                'error' =>
+                    'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
+            ]);
+        }
+
+        $validator = $request->validate([
+            'title' => 'required|max:255',
+            'image_url' => 'required',
+            'content' => 'required',
+        ]);
+        //        dd($office->id);
+        $post = Post::create([
+            'title' => $request->input('title'),
+            'image_url' => $request->input('image_url'),
+            'content' => $request->input('content'),
+            'slug' => strtolower($request->input('title')),
+            'office_id' => $office->id,
+        ]);
+
+        return redirect("dashboard/{$post->office->code_name}")->with([
+            'success' => ['Article modifié avec succès !'],
         ]);
     }
 

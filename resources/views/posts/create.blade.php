@@ -3,7 +3,7 @@
     <section class="p-6 dark:bg-gray-700 dark:text-gray-50">
         @if (!isset($post))
             {{-- //TODO: Finir le if --}}
-            <form action="" method="POST"
+            <form action="/admin/create/post" method="POST"
                 class="container mx-auto flex flex-col justify-center space-y-12 rounded-md bg-zinc-100 text-black shadow-md shadow-gray-300 dark:bg-gray-800 dark:text-white dark:shadow-gray-600">
 
                 @csrf

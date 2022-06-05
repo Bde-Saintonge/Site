@@ -72,9 +72,11 @@ Route::get(
 Route::get('/user/{id}', 'App\Http\Controllers\PostController@user')
     ->name('posts.user')
     ->where('id', '[0-9]+');
+
 Route::get('/{office_code_name}', 'App\Http\Controllers\PostController@office')
     ->name('posts.office')
     ->where('office_code_name', $officePattern);
+
 Route::get(
     '/{office_code_name}/{post_slug}',
     'App\Http\Controllers\PostController@show',
@@ -98,9 +100,10 @@ Route::get(
 )
     ->name('posts.create')
     ->where('office_code_name', $officePattern);
+
 Route::post(
     '/admin/create/post',
-    'App\Http\Controllers\PostController@create_BDD',
+    'App\Http\Controllers\PostController@register',
 );
 
 Route::get(
