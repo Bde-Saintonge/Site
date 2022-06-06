@@ -101,7 +101,7 @@ class PostController extends AdminController
             ]);
         }
 
-        if (!$this->check_role('admin') && !$this->check_role('bde')) {
+        if (!$this->check_role('admin')) {
             return back()->withErrors([
                 'error' =>
                     'Vous ne disposez pas des permissions nécessaires pour valider des articles.',
@@ -239,6 +239,8 @@ class PostController extends AdminController
             'title' => $request->input('title'),
             'image_url' => $request->input('image_url'),
             'content' => $request->input('content'),
+            'is_published' => false,
+            'updated_at' => new DateTime('now')
         ]);
 
         return redirect("dashboard/{$post->office->code_name}")->with([
@@ -277,9 +279,7 @@ class PostController extends AdminController
          * !A . ( !O + P ) => N'a pas le droit de supprimer.
          */
         if (
-            !$this->check_role('admin') &&
-            (!$this->check_office($post->office->code_name) ||
-                $post->is_published)
+            !$this->check_role('admin')
         ) {
             return redirect(
                 "dashboard/{$this->user->office->code_name}",

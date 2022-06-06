@@ -2,7 +2,6 @@
 @section('content')
     <section class="p-2 dark:bg-gray-700 dark:text-gray-50 sm:p-6">
         @if (!isset($post))
-            {{-- //TODO: Finir le if --}}
             <form action="/admin/create/post" method="POST"
                 class="container mx-auto flex flex-col justify-center rounded-md bg-zinc-100 text-black shadow-md shadow-gray-300 dark:bg-gray-800 dark:text-white dark:shadow-gray-600">
 

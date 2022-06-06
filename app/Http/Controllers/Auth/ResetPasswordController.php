@@ -20,28 +20,44 @@ class ResetPasswordController extends BaseController
 
     public function reset_password_without_token(Request $request)
     {
-
         if (!Auth::check()) {
-            $user = DB::table('users')->where('email', '=', $request->email)->first();
+            $user = DB::table('users')
+                ->where('email', '=', $request->email)
+                ->first();
 
             //Check if the user exists
             if (is_null($user)) {
-                return redirect()->back()->with('error', "L'utilisateur n'existe pas en base !");
+                return redirect()
+                    ->back()
+                    ->withErrors([
+                        'error' => "L'utilisateur n'existe pas en base !",
+                    ]);
             }
 
             //Change the password and send it to the user
             if ($this->resetPassword($user)) {
-                return redirect()->back()->with('status', "Un nouveau mot de passe a &eacute;t&eacute; envoy&eacute; à votre adresse électronique.");
+                return redirect()
+                    ->back()
+                    ->with([
+                        'success' => [
+                            'Un nouveau mot de passe a été envoyé à votre adresse électronique.',
+                        ],
+                    ]);
             } else {
-                return redirect()->back()->with('error', "Une erreur de r&eacute;seau s'est produite. Veuillez r&eacute;essayer.");
+                return redirect()
+                    ->back()
+                    ->withErrors([
+                        'error' =>
+                            'Une erreur de réseau s\'est produite. Veuillez réessayer.',
+                    ]);
             }
         } else {
             return back()->withErrors([
-                'error' => "Veillez-vous déconnecter avant de modifer votre mot de passe.",
+                'error' =>
+                    'Veillez-vous déconnecter avant de modifier votre mot de passe.',
             ]);
-        };
+        }
     }
-
 
     /**
      * Méthode qui permet d'enregistrer le nouveau mot de passe et envoyer l'email
@@ -52,10 +68,10 @@ class ResetPasswordController extends BaseController
         $new_password = $this->generate_password(20);
 
         User::find($user->id)->update([
-            'password' => Hash::make($new_password)
+            'password' => Hash::make($new_password),
         ]);
 
-        $temp = new \stdClass;
+        $temp = new \stdClass();
         $temp->user = $user;
         $temp->newPassword = $new_password;
 
@@ -66,11 +82,12 @@ class ResetPasswordController extends BaseController
 
     /**
      * Méthode qui permet de générer le nouveau mdp
-     * $n 
+     * $n
      */
     function generate_password(int $n)
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&;:<>=?!';
+        $characters =
+            '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&;:<>=?!';
         $randomString = '';
 
         for ($i = 0; $i < $n; $i++) {
