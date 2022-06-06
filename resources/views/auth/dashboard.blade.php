@@ -62,7 +62,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($posts->sortByDesc('updated_at') as $post)
+                        @foreach ($posts->sortBy('updated_at') as $post)
                             @if (!$post->is_published)
                                 <tr class="dark:border-Gray-700 dark:bg-Gray-900 border-b border-opacity-20">
                                     <td class="p-3">
@@ -133,7 +133,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($posts as $post)
+                        @foreach ($posts->sortByDesc('created_at') as $post)
                             @if ($post->is_published)
                                 <tr class="dark:border-Gray-700 dark:bg-Gray-900 border-b border-opacity-20">
                                     <td class="p-3">
