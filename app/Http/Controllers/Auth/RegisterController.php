@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-
+use App\Http\Controllers\AdminController;
 use App\Models\User;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -12,8 +13,7 @@ use Illuminate\Http\Request;
 
 // use App\Http\Controllers\Auth\RegisterController;
 
-
-class RegisterController extends BaseController
+class RegisterController extends AdminController
 {
     /*
     |--------------------------------------------------------------------------
@@ -26,13 +26,12 @@ class RegisterController extends BaseController
     |
     */
 
-
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard/bda';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -52,24 +51,40 @@ class RegisterController extends BaseController
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  Illuminate\Http\Request array  $request
+     * @param Illuminate\Http\Request array  $request
      * @return \Illuminate\Http\RedirectResponse
      */
 
     protected function validator(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'lastname' => ['required', 'string', 'max:255'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'agree' => ['required']
-        ], array_merge(User::generate_error('lastname'), User::generate_error('name'), User::generate_error('email'), User::generate_error('password'), User::generate_error('agree')));
-
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'lastname' => ['required', 'string', 'max:255'],
+                'name' => ['required', 'string', 'max:255'],
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    'unique:users',
+                ],
+                'password' => ['required', 'string', 'min:6', 'confirmed'],
+                'agree' => ['required'],
+            ],
+            array_merge(
+                User::generate_error('lastname'),
+                User::generate_error('name'),
+                User::generate_error('email'),
+                User::generate_error('password'),
+                User::generate_error('agree'),
+            ),
+        );
 
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+            return back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
         return $this->insert_SQL_User($request);
@@ -77,8 +92,6 @@ class RegisterController extends BaseController
 
     protected function insert_SQL_User(Request $request)
     {
-
-
         User::create([
             'name' => $request->name,
             'lastname' => $request->lastname,

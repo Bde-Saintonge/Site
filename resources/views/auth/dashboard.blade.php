@@ -55,14 +55,14 @@
                         <th class="p-3">Numéro d'article</th>
                         <th class="p-3">Titre</th>
                         <th class="p-3">Date de création</th>
-                        <th class="p-3">Date de mise à jour</th>
+                        <th class="p-3">Date de mise à jour <span class='text-lg'>↓</span></th>
                         <th class="p-3"></th>
                         <th class="p-3"></th>
                         <th class="p-3"></th>
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($posts->sortBy('updated_at') as $post)
+                        @foreach ($posts->sortByDesc('updated_at') as $post)
                             @if (!$post->is_published)
                                 <tr class="dark:border-Gray-700 dark:bg-Gray-900 border-b border-opacity-20">
                                     <td class="p-3">
@@ -125,7 +125,7 @@
                         <tr class="text-left">
                             <th class="p-3">Numéro d'article</th>
                             <th class="p-3">Titre</th>
-                            <th class="p-3">Date de création</th>
+                            <th class="p-3">Date de création <span class='text-lg'>↓</span></th>
                             <th class="p-3">Date de mise à jour</th>
                             <th class="p-3"></th>
                             <th class="p-3"></th>
