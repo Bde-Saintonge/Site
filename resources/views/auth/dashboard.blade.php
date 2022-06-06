@@ -45,22 +45,24 @@
                         <col>
                         <col>
                         <col>
+                        <col>
                         <col class="w-24">
                         <col class="w-24">
                         <col class="w-24">
                     </colgroup>
                     <thead class="dark:bg-Gray-700">
-                        <tr class="text-left">
-                            <th class="p-3">Numéro d'article</th>
-                            <th class="p-3">Titre</th>
-                            <th class="p-3">Date de mise à jour</th>
-                            <th class="p-3"></th>
-                            <th class="p-3"></th>
-                            <th class="p-3"></th>
-                        </tr>
+                    <tr class="text-left">
+                        <th class="p-3">Numéro d'article</th>
+                        <th class="p-3">Titre</th>
+                        <th class="p-3">Date de création</th>
+                        <th class="p-3">Date de mise à jour</th>
+                        <th class="p-3"></th>
+                        <th class="p-3"></th>
+                        <th class="p-3"></th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach ($posts->sortBy('created_at') as $post)
+                        @foreach ($posts->sortByDesc('updated_at') as $post)
                             @if (!$post->is_published)
                                 <tr class="dark:border-Gray-700 dark:bg-Gray-900 border-b border-opacity-20">
                                     <td class="p-3">
@@ -68,6 +70,10 @@
                                     </td>
                                     <td class="p-3">
                                         <p>{{ $post->title }}</p>
+                                    </td>
+                                    <td class="p-3">
+                                        <p>{{ $post->created_at }}</p>
+                                        {{-- <p class="dark:text-coolGray-400">Friday</p> --}}
                                     </td>
                                     <td class="p-3">
                                         <p>{{ $post->updated_at }}</p>
@@ -110,6 +116,8 @@
                         <col>
                         <col>
                         <col>
+                        <col>
+                        <col class="w-24">
                         <col class="w-24">
                         <col class="w-24">
                     </colgroup>
@@ -117,7 +125,9 @@
                         <tr class="text-left">
                             <th class="p-3">Numéro d'article</th>
                             <th class="p-3">Titre</th>
+                            <th class="p-3">Date de création</th>
                             <th class="p-3">Date de mise à jour</th>
+                            <th class="p-3"></th>
                             <th class="p-3"></th>
                             <th class="p-3"></th>
                         </tr>
@@ -133,8 +143,14 @@
                                         <p>{{ $post->title }}</p>
                                     </td>
                                     <td class="p-3">
+                                        <p>{{ $post->created_at }}</p>
+                                        {{-- <p class="dark:text-coolGray-400">Friday</p> --}}
+                                    </td>
+                                    <td class="p-3">
                                         <p>{{ $post->updated_at }}</p>
                                         {{-- <p class="dark:text-coolGray-400">Friday</p> --}}
+                                    </td>
+                                    <td>
                                     </td>
                                     <td>
                                         <span class="rounded-md bg-blue-500 px-3 py-1 font-semibold text-white">
