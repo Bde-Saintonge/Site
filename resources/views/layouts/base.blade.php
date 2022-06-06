@@ -57,7 +57,6 @@
 
 
 <body class="dark:bg-gray-700">
-
     <header class="w-full bg-slate-50 p-4 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
         <div class="container mx-auto flex h-16 justify-between">
             <a href="/" aria-label="Retour à la racine" class="flex items-center">
@@ -113,7 +112,7 @@
 
             @if (Auth::user())
                 <div class="hidden flex-shrink-0 items-center lg:flex">
-                    <a href="/dashboard/bda"
+                    <a href="/dashboard/{{Auth::user()->office->code_name}}"
                         class="mr-1 self-center rounded bg-blue-400 px-8 py-3 font-semibold text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">
                         Dashboard</a>
                     <a href="/logout"
@@ -183,8 +182,9 @@
                         Youtube
                     </a>
                     <hr class="border-gray-200 dark:border-gray-700">
+
                     @if (Auth::user())
-                        <a href="/dashboard"
+                        <a href="/dashboard/{{Auth::user()->office->code_name}}"
                             class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                             Dashboard
                         </a>
