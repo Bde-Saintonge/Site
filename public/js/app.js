@@ -2066,6 +2066,8 @@ __webpack_require__(/*! ./script */ "./resources/js/script.js");
 
 __webpack_require__(/*! ./navbar */ "./resources/js/navbar.js");
 
+__webpack_require__(/*! ./dropdown */ "./resources/js/dropdown.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -2099,6 +2101,27 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/dropdown.js":
+/*!**********************************!*\
+  !*** ./resources/js/dropdown.js ***!
+  \**********************************/
+/***/ (() => {
+
+// Close the dropdown if the user clicks outside
+// Permet de fermer le menu lorsqu'on clique ailleurs que sur le bouton d'ouverture
+window.onclick = function (event) {
+  if (!event.target.matches('#dropdown-toggle2, #dropdown-toggle2 button, #dropdown-toggle2 svg, #dropdown-toggle2 path')) {
+    document.getElementById('dropdown-menu2').classList.contains('hidden') ? null : document.getElementById('dropdown-menu2').classList.add('hidden');
+  }
+};
+
+document.querySelector('#dropdown-toggle2').addEventListener('click', function () {
+  console.log('hey');
+  document.getElementById('dropdown-menu2').classList.contains('hidden') ? document.getElementById('dropdown-menu2').classList.remove('hidden') : document.getElementById('dropdown-menu2').classList.add('hidden');
+});
+
+/***/ }),
+
 /***/ "./resources/js/navbar.js":
 /*!********************************!*\
   !*** ./resources/js/navbar.js ***!
@@ -2110,13 +2133,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // };
 // Close the dropdown if the user clicks outside of it
 window.onclick = function (event) {
-  if (!event.target.matches("#dropdown-toggle, #dropdown-toggle>svg, #dropdown-toggle>svg>path")) {
-    document.getElementById("dropdown-menu").classList.contains("hidden") ? null : document.getElementById("dropdown-menu").classList.add("hidden");
+  if (!event.target.matches('#dropdown-toggle, #dropdown-toggle>svg, #dropdown-toggle>svg>path')) {
+    document.getElementById('dropdown-menu').classList.contains('hidden') ? null : document.getElementById('dropdown-menu').classList.add('hidden');
   }
 };
 
-document.querySelector("#dropdown-toggle").addEventListener('click', function () {
-  document.getElementById("dropdown-menu").classList.contains("hidden") ? document.getElementById("dropdown-menu").classList.remove("hidden") : document.getElementById("dropdown-menu").classList.add("hidden");
+document.querySelector('#dropdown-toggle').addEventListener('click', function () {
+  document.getElementById('dropdown-menu').classList.contains('hidden') ? document.getElementById('dropdown-menu').classList.remove('hidden') : document.getElementById('dropdown-menu').classList.add('hidden');
 });
 
 /***/ }),

@@ -2,13 +2,13 @@
     @if (!is_null($element))
         @switch($element['type'])
             @case('error')
-                <div class="flex w-full justify-center" onclick="remove(this)">
+                <div class="flex w-full cursor-pointer justify-center" onclick="remove(this)">
                     <div
-                        class="w-max m-2 bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded flex text-center sm:text-left justify-center sm:space-between gap-4 flex-wrap sm:flex-nowrap">
+                        class="sm:space-between m-2 flex w-max flex-wrap justify-center gap-4 rounded border border-red-400 bg-red-200 px-4 py-3 text-center text-red-700 sm:flex-nowrap sm:text-left">
                         <strong class="font-bold">Erreur !</strong>
                         <span class="">{{ $element['message'] }}</span>
 
-                        <svg class="inline fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg"
+                        <svg class="inline h-6 w-6 fill-current text-red-500" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20">
                             <title>Fermer</title>
                             <path
@@ -19,13 +19,13 @@
             @break
 
             @case('success')
-                <div class="flex w-full justify-center" onclick="remove(this)">
+                <div class="flex w-full cursor-pointer justify-center" onclick="remove(this)">
                     <div
-                        class="w-max m-2 bg-green-200 border border-green-400 text-green-700 px-4 py-3 rounded flex text-center sm:text-left justify-center sm:space-between gap-4 flex-wrap sm:flex-nowrap">
+                        class="sm:space-between m-2 flex w-max flex-wrap justify-center gap-4 rounded border border-green-400 bg-green-200 px-4 py-3 text-center text-green-700 sm:flex-nowrap sm:text-left">
                         <strong class="font-bold">Succès !</strong>
                         <span class="">{{ $element['message'] }}</span>
 
-                        <svg class="inline fill-current h-6 w-6 text-red-500" xmlns="http://www.w3.org/2000/svg"
+                        <svg class="inline h-6 w-6 fill-current text-red-500" xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20">
                             <title>Fermer</title>
                             <path

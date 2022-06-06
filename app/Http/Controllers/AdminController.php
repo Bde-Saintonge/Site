@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
 use App\Models\Office;
@@ -18,11 +17,12 @@ class AdminController extends BaseController
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->user = (is_null(User::find(Auth::user()))) ? null : User::find(Auth::user()->id);
+            $this->user = is_null(User::find(Auth::user()))
+                ? null
+                : User::find(Auth::user()->id);
             return $next($request);
         });
     }
-
 
     /**
      * Vérifie si l'utilisateur possède le rôle passé en paramètre
@@ -34,7 +34,7 @@ class AdminController extends BaseController
             if ($userRole->name === $checkedRole) {
                 return true;
             }
-        };
+        }
         return false;
     }
 
@@ -42,9 +42,12 @@ class AdminController extends BaseController
      * Vérifie si l'utilisateur fait parti du bureau passé en paramètre
      * @return bool
      */
-    protected function check_office(string $checkedOffice = 'pole-com'): int
+    protected function check_office(string $checkedOffice = 'pole-com'): bool
     {
-        if ($this->user->office_id === Office::where('code_name', $checkedOffice)->first()->id) {
+        if (
+            $this->user->office_id ===
+            Office::where('code_name', $checkedOffice)->first()->id
+        ) {
             return true;
         }
         return false;

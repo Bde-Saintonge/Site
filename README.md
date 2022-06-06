@@ -8,14 +8,20 @@ Ce repository est là pour permettre à l'ensemble des personnes qui maintiennen
 -   les CGU (Conditions Générales d'utilisations)
 -   le règlement RGPD
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<div style='display: flex; justify-content: center'><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></div>
 
-<p align="center">
+<div style='display: flex; justify-content: center'>
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+</div>
+
+# To-Do
+
+-   https://w3codegenerator.com/code-snippets/laravel/how-to-add-script-on-specific-view-file-in-laravel-while-extending-layout
+
+---
 
 ## About Laravel
 
@@ -72,5 +78,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ---
+
+# Notes
 
 https://www.tiny.cloud/blog/tinymce-css-and-custom-styles/
