@@ -98,7 +98,7 @@ class RegisterController extends AdminController
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'class' => $request->class,
-            'profile_photo_path' => asset('media/images/LOGO-2020-1.jpg'),
+           // 'profile_photo_path' => asset('media/images/LOGO-2020-1.jpg'),
             'role' => 'eleve',
             'created_at' => now()->timestamp,
             'updated_at' => now()->timestamp,
