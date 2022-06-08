@@ -13,42 +13,39 @@
                 @csrf
                 <div class="space-y-4">
                     <div class="grid xl:grid-cols-2 xl:gap-6">
-                        <div class="group relative z-0 mb-6 w-full">
-                            <input type="text" name="first_name" id="first_name" required
+                        <div class="group relative z-0  w-full">
+                            <input type="text" name="first_name" id="first_name" placeholder=' ' required
                                 class="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:focus:border-blue-500" />
                             <label for="first_name"
                                 class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500">Prénom</label>
                         </div>
-                        <div class="group relative z-0 mb-6 w-full">
-                            <input type="text" name="last_name" id="last_name" required
+                        <div class="group relative z-0 w-full">
+                            <input type="text" name="last_name" id="last_name" placeholder=' ' required
                                 class="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:focus:border-blue-500" />
                             <label for="last_name"
                                 class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500">Nom</label>
                         </div>
                     </div>
-                    <hr>
                     <div class="group relative z-0 mb-6 w-full">
-                        <input type="email" name="email" id="email"
-                            class="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:focus:border-blue-500"
-                            required />
+                        <input type="email" name="email" id="email" placeholder=' ' required
+                            class="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:focus:border-blue-500" />
                         <label for="email"
                             class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500">Adresse
                             E-mail</label>
                     </div>
                     <div class="group relative z-0 mb-6 w-full">
-                        <input type="password" name="password" id="password"
-                            class="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:focus:border-blue-500"
-                            required />
+                        <input type="password" name="password" id="password" placeholder=' ' required
+                            class="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:focus:border-blue-500" />
                         <label for="password"
                             class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500">Password</label>
                     </div>
 
                     <hr>
                     <label for="offices"
-                        class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">Sélectionner
+                        class="mb-2 block text-sm font-normal text-gray-500 dark:text-gray-400">Sélectionner
                         le bureau</label>
                     <select required id="offices" name="office"
-                        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                        class="block w-1/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                         @foreach ($offices as $office)
                             <option>{{ $office->name }}</option>
                         @endforeach
@@ -57,16 +54,16 @@
 
 
                     <fieldset>
-                        <legend class="not-sr-only mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
-                            Choisir les rôles
+                        <legend class="not-sr-only mb-2 block text-sm font-normal text-gray-500 dark:text-gray-400">
+                            Choisir le/les rôles
                         </legend>
-{{--                        //TODO: Ajouter required quand les tests seront finis --}}
+                        {{-- //TODO: Ajouter required quand les tests seront finis --}}
                         @foreach ($roles as $role)
                             <div class="mb-4 flex items-center">
                                 <input id="checkbox-1" type="checkbox" name="roles[]" value="{{ $role->name }}"
                                     class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600">
                                 <label for="checkbox-1"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-500">{{ $role->name }}</label>
+                                    class="ml-2 text-sm text-gray-500 dark:text-gray-400">{{ $role->name }}</label>
                             </div>
                         @endforeach
                     </fieldset>
