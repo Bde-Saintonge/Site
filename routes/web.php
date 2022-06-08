@@ -124,6 +124,8 @@ Route::get(
     'App\Http\Controllers\PostController@delete',
 )->where('id', '[0-9]+');
 
+Route::get('/admin/user/create', 'App\Http\Controllers\UserController@registerView')->name('user.create');
+Route::post('/admin/user/create', 'App\Http\Controllers\UserController@register')->name('user.create');
 /*
  * Clear Cache Route
  */
