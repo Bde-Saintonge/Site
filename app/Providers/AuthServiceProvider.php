@@ -30,5 +30,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('verified-admin', function (User $user) {
+            return $user->roles === 'admin';
+        });
+
+        Gate::define('verified-bde', function (User $user) {
+            return $user->roles === 'bde';
+        });
     }
 }

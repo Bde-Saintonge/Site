@@ -48,8 +48,8 @@ class PostTableSeeder extends Seeder
         ]);
 
         $admin = DB::table('users')->insertGetId([
-            'name' => 'admin',
-            'lastname' => 'admin',
+            'first_name' => 'admin',
+            'last_name' => 'admin',
             'email' => 'admin@localhost.dev',
             'password' => Hash::make('admin123456'),
             'office_id' => 4,
@@ -58,23 +58,21 @@ class PostTableSeeder extends Seeder
         ]);
 
         $bda = DB::table('users')->insertGetId([
-            'name' => 'bda',
-            'lastname' => 'bda',
+            'first_name' => 'bda',
+            'last_name' => 'bda',
             'email' => 'bda@localhost.dev',
             'password' => Hash::make('bda123456'),
             'office_id' => 1,
-            'class' => 'Seconde GT A',
             'created_at' => $faker->dateTime,
             'updated_at' => $faker->dateTime,
         ]);
 
         $bds = DB::table('users')->insertGetId([
-            'name' => 'bds',
-            'lastname' => 'bds',
+            'first_name' => 'bds',
+            'last_name' => 'bds',
             'email' => 'bds@localhost.dev',
             'password' => Hash::make('bds123456'),
             'office_id' => 3,
-            'class' => 'Seconde GT A',
             'created_at' => $faker->dateTime,
             'updated_at' => $faker->dateTime,
         ]);
