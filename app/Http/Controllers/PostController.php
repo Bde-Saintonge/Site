@@ -113,7 +113,7 @@ class PostController extends AdminController
         $post->updated_at = new DateTime('now');
         $post->save();
         return back()->with([
-            'success' => ['Article validé avec succés !'],
+            'success' => ['Article validé avec succès !'],
         ]);
     }
 
