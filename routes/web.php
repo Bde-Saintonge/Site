@@ -87,12 +87,7 @@ Route::get(
 /*
  * Admin Route CRUD
  */
-Route::get(
-    '/admin/create/post/{office_code_name}',
-    'App\Http\Controllers\PostController@create_post',
-)
-    ->name('posts.create')
-    ->where('office_code_name', $officePattern);
+
 
 Route::get(
     '/admin/create/post/{office_code_name}',
@@ -100,11 +95,6 @@ Route::get(
 )
     ->name('posts.create')
     ->where('office_code_name', $officePattern);
-
-Route::post(
-    '/admin/create/post',
-    'App\Http\Controllers\PostController@register',
-);
 
 Route::get(
     '/admin/{id}/validate',
@@ -114,10 +104,7 @@ Route::get(
     '/admin/{id}/edit',
     'App\Http\Controllers\PostController@edit',
 )->where('id', '[0-9]+');
-Route::post(
-    '/admin/{id}/update',
-    'App\Http\Controllers\PostController@store',
-)->where('id', '[0-9]+');
+
 
 Route::get(
     '/admin/{id}/delete',
@@ -125,6 +112,14 @@ Route::get(
 )->where('id', '[0-9]+');
 
 Route::middleware(['auth'])->group(function() {
+    $officePattern = '[a-z-]{3,8}';
+
+    Route::get('/admin/create/post/{office_code_name}','App\Http\Controllers\PostController@create_post')
+        ->name('posts.create')
+        ->where('office_code_name', $officePattern);
+    Route::post('/admin/post/create', 'App\Http\Controllers\PostController@register')->name('post.register');
+    Route::post('/admin/{id}/update','App\Http\Controllers\PostController@store')->where('id', '[0-9]+');
+
     Route::get('/admin/user/create', 'App\Http\Controllers\UserController@registerView')->name('user.create');
     Route::post('/admin/user/create', 'App\Http\Controllers\UserController@register')->name('user.create');
 });
@@ -136,9 +131,3 @@ Route::get('/clean-all-cache', function () {
     \Artisan::call('view:clear');
     \Artisan::call('config:clear');
 });
-
-/*
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');*/

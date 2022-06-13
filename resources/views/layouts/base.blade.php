@@ -24,7 +24,7 @@
 
     <!-- Twitter Card meta -->
     <meta name='twitter:card' content='summary'>
-    <meta name="twitter:site" content="@Netinq" />
+    <meta name="twitter:site" content="@BDE Saintonge" />
     <meta name="twitter:title" content="Bureau des élèves - Saintonge Bordeaux" />
     <meta name='twitter:url' content='https://www.bde-saintonge.fr/' />
     <meta name='twitter:domain' content='bde-saintonge.fr' />

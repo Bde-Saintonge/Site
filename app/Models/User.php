@@ -71,9 +71,9 @@ class User extends Authenticatable
         'lastname',
         'email',
         'password',
-        'class',
-        'profile_photo_path',
-        'office_id'
+        'office_id',
+        'created_at',
+        'updated_at'
     ];
 
     /**

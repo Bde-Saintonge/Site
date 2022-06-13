@@ -16,7 +16,7 @@ class UserController extends BaseController
 {
     public function registerView()
     {
-        if (!Gate::allows('verified-admin')) {
+        if (!Gate::allows('verified-role', ['admin'])) {
             return redirect(
                 "dashboard/" . Auth::user()->office->code_name,
             )->withErrors([
@@ -32,7 +32,7 @@ class UserController extends BaseController
 
     public function register(Request $request)
     {
-        if (!Gate::allows('verified-admin')) {
+        if (!Gate::allows('verified-role', ['admin'])) {
             return redirect(
                 "dashboard/" . Auth::user()->office->code_name,
             )->withErrors([

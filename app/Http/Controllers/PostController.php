@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterPostRequest;
 use App\Models\Office;
 use App\Models\Post;
 use App\Models\User;
@@ -9,6 +10,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Gate;
 use function GuzzleHttp\Promise\is_settled;
 
 class PostController extends AdminController
@@ -65,15 +67,10 @@ class PostController extends AdminController
      */
     public function create_post(string $office_code_name)
     {
-        if (!Auth::check()) {
-            return back()->withErrors([
-                'error' => 'Veillez-vous connecter avant de valider un article',
-            ]);
-        }
-
+        abort(423, 'En refonte. Par les super chats 😺.');
         if (
-            !$this->check_role('admin') &&
-            !$this->check_office($office_code_name)
+            !Gate::allows('verified-role', ['admin']) &&
+            !Gate::allows('verified-office', [$office_code_name])
         ) {
             return redirect(
                 "dashboard/{$this->user->office->code_name}",
@@ -82,8 +79,6 @@ class PostController extends AdminController
                     'Vous ne disposez pas des permissions nécessaires pour créer un article.',
             ]);
         }
-
-        //TODO: Faire un summary interne
 
         return view('posts.create');
     }
@@ -95,12 +90,6 @@ class PostController extends AdminController
      */
     public function validate_post($id_post)
     {
-        if (!Auth::check()) {
-            return back()->withErrors([
-                'error' => 'Veillez-vous connecter avant de valider un article',
-            ]);
-        }
-
         if (!$this->check_role('admin')) {
             return back()->withErrors([
                 'error' =>
@@ -152,48 +141,42 @@ class PostController extends AdminController
         ]);
     }
 
-    public function register(Request $request)
+    public function register(RegisterPostRequest $request)
     {
-        if (!Auth::check()) {
-            return back()->withErrors([
-                'error' =>
-                    'Veillez-vous connecter avant de modifier un article.',
-            ]);
-        }
+//        //TODO: Revoir obtention last url
+//        $url = explode('/', session('_previous')['url']);
+//        $office_code_name = end($url);
+//        $office = Office::search($office_code_name);
 
-        $url = explode('/', session('_previous')['url']);
-        $office_code_name = end($url);
-        $office = Office::search($office_code_name);
+//        if (
+//            !$this->check_role('admin') &&
+//            !$this->check_office($office_code_name)
+//        ) {
+//            return redirect(
+//                "dashboard/{$this->user->office->code_name}",
+//            )->withErrors([
+//                'error' =>
+//                    'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
+//            ]);
+//        }
 
-        if (
-            !$this->check_role('admin') &&
-            !$this->check_office($office_code_name)
-        ) {
-            return redirect(
-                "dashboard/{$this->user->office->code_name}",
-            )->withErrors([
-                'error' =>
-                    'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
-            ]);
-        }
-
-        $validator = $request->validate([
-            'title' => 'required|max:255',
-            'image_url' => 'required',
-            'content' => 'required',
-        ]);
-        //        dd($office->id);
-        $post = Post::create([
-            'title' => $request->input('title'),
-            'image_url' => $request->input('image_url'),
-            'content' => $request->input('content'),
-            'slug' => strtolower($request->input('title')),
-            'office_id' => $office->id,
-        ]);
-
-        return redirect("dashboard/{$post->office->code_name}")->with([
-            'success' => ['Article modifié avec succès !'],
-        ]);
+//        $validator = $request->validate([
+//            'title' => 'required|max:255',
+//            'image_url' => 'required',
+//            'content' => 'required',
+//        ]);
+//        //        dd($office->id);
+//        $post = Post::create([
+//            'title' => $request->input('title'),
+//            'image_url' => $request->input('image_url'),
+//            'content' => $request->input('content'),
+//            'slug' => strtolower($request->input('title')),
+//            'office_id' => $office->id,
+//        ]);
+//
+//        return redirect("dashboard/{$post->office->code_name}")->with([
+//            'success' => ['Article modifié avec succès !'],
+//        ]);
     }
 
     /**
@@ -201,13 +184,6 @@ class PostController extends AdminController
      */
     public function store(int $id_post, Request $request)
     {
-        if (!Auth::check()) {
-            return back()->withErrors([
-                'error' =>
-                    'Veillez-vous connecter avant de modifier un article.',
-            ]);
-        }
-
         $post = Post::find($id_post);
 
         if (is_null($post)) {
@@ -240,7 +216,7 @@ class PostController extends AdminController
             'image_url' => $request->input('image_url'),
             'content' => $request->input('content'),
             'is_published' => false,
-            'updated_at' => new DateTime('now')
+            'updated_at' => new DateTime('now'),
         ]);
 
         return redirect("dashboard/{$post->office->code_name}")->with([
@@ -253,13 +229,6 @@ class PostController extends AdminController
      */
     public function delete($id_post)
     {
-        if (!Auth::check()) {
-            return back()->withErrors([
-                'error' =>
-                    'Veillez-vous connecter avant de supprimer un article.',
-            ]);
-        }
-
         $post = Post::find($id_post);
 
         if (is_null($post)) {
@@ -278,9 +247,7 @@ class PostController extends AdminController
          * A + ( O . !P ) => A le droit de supprimer.
          * !A . ( !O + P ) => N'a pas le droit de supprimer.
          */
-        if (
-            !$this->check_role('admin')
-        ) {
+        if (!$this->check_role('admin')) {
             return redirect(
                 "dashboard/{$this->user->office->code_name}",
             )->withErrors([
