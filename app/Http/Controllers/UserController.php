@@ -16,7 +16,7 @@ class UserController extends BaseController
 {
     public function registerView()
     {
-        if (!Gate::allows('verified-admin')) {
+        if (!Gate::allows('verified-role', ['admin'])) {
             return redirect(
                 "dashboard/" . Auth::user()->office->code_name,
             )->withErrors([
@@ -32,7 +32,7 @@ class UserController extends BaseController
 
     public function register(Request $request)
     {
-        if (!Gate::allows('verified-admin')) {
+        if (!Gate::allows('verified-role', ['admin'])) {
             return redirect(
                 "dashboard/" . Auth::user()->office->code_name,
             )->withErrors([
@@ -49,7 +49,8 @@ class UserController extends BaseController
             'office_code_name' => 'required|bail',
             'roles.*' => 'required|distinct|exists:roles,name|bail',
         ]);
-        //TODO: Error handling
+
+        //TODO: Error handling du insert
         $user_id = User::insertGetId([
             'first_name' => ucwords($request->input('first_name')),
             'last_name' => strtoupper($request->input('last_name')),

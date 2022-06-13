@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Office;
 use App\Models\Post;
 use App\Models\User;
 use App\Policies\AdminPostPolicy;
@@ -18,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Models\Model' => 'App\Policies\ModelPolicy',
-        Post::class => AdminPostPolicy::class
+        Post::class => AdminPostPolicy::class,
     ];
 
     /**
@@ -30,12 +31,35 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('verified-admin', function (User $user) {
-            return $user->roles === 'admin';
+        Gate::define('verified-role', function (
+            User $user,
+            string $checkedRole
+        ) {
+            foreach ($user->roles as $userRole) {
+                if ($userRole->name === $checkedRole) {
+                    return true;
+                }
+            }
+            return false;
         });
 
-        Gate::define('verified-bde', function (User $user) {
-            return $user->roles === 'bde';
+        //        Gate::define('verified-bde', function (User $user) {
+        //            foreach ($user->roles as $userRole) {
+        //                if ($userRole->name ==='bde') {
+        //                    return true;
+        //                }
+        //            }
+        //            return false;
+        //        });
+
+        Gate::define('verified-office', function (string $checkedOffice) {
+            if (
+                $this->user->office_id ===
+                Office::where('code_name', $checkedOffice)->first()->id
+            ) {
+                return true;
+            }
+            return false;
         });
     }
 }
