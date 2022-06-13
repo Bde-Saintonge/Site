@@ -12,7 +12,7 @@
             <form method="post" action="/admin/user/create" class="ng-untouched ng-pristine ng-valid space-y-6">
                 @csrf
                 <div class="space-y-4">
-                    <div class="grid xl:grid-cols-2 xl:gap-6">
+                    <div class="grid space-y-4 xl:grid-cols-2 xl:gap-6 xl:space-y-0">
                         <div class="group relative z-0 w-full">
                             <input type="text" name="first_name" id="first_name" placeholder=' ' required
                                 class="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:focus:border-blue-500" />
@@ -45,7 +45,7 @@
                         class="mb-2 block text-sm font-normal text-gray-500 dark:text-gray-400">Sélectionner
                         le bureau</label>
                     <select required id="offices" name="office_code_name"
-                        class="block w-1/6 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                        class="block min-w-min rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                         @foreach ($offices as $office)
                             <option value="{{ $office->code_name }}">{{ $office->name }}</option>
                         @endforeach
