@@ -49,7 +49,8 @@ class UserController extends BaseController
             'office_code_name' => 'required|bail',
             'roles.*' => 'required|distinct|exists:roles,name|bail',
         ]);
-        //TODO: Error handling
+
+        //TODO: Error handling du insert
         $user_id = User::insertGetId([
             'first_name' => ucwords($request->input('first_name')),
             'last_name' => strtoupper($request->input('last_name')),

@@ -11,7 +11,7 @@
     <meta name='subject' content="BDE Saintonge">
 
     <meta name='identifier-URL' content='https://www.bde-saintonge.fr/'>
-    <meta name="description" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux">
+    <meta name="description" content="Site du Bureau des élèves du lycée Sainte Famille Saintonge Bordeaux">
     <meta name='reply-to' content='contact@bde-saintonge.fr'>
 
     <meta name='language' content='FR'>
@@ -28,7 +28,7 @@
     <meta name="twitter:title" content="Bureau des élèves - Saintonge Bordeaux" />
     <meta name='twitter:url' content='https://www.bde-saintonge.fr/' />
     <meta name='twitter:domain' content='bde-saintonge.fr' />
-    <meta name="twitter:description" content="Site du Bureau des élèves Sainte Famille Saintonge Bordeaux" />
+    <meta name="twitter:description" content="Site du Bureau des élèves du lycée Sainte Famille Saintonge Bordeaux" />
     <meta name="twitter:image" content="{{ asset('media/images/logo_saintonge.png') }}" />
 
     <!-- Open Graph meta -->
@@ -52,7 +52,7 @@
     <!-- Librairie  Local CSS -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <title>BDE Saintonge</title>
+    <title>Bureau Des Élèves - Lycée Sainte Famille Saintonge</title>
 </head>
 
 

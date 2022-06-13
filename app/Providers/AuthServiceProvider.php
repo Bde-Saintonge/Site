@@ -31,11 +31,21 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('verified-admin', function (User $user) {
-            return $user->roles === 'admin';
+            foreach ($user->roles as $userRole) {
+                if ($userRole->name ==='admin') {
+                    return true;
+                }
+            }
+            return false;
         });
 
         Gate::define('verified-bde', function (User $user) {
-            return $user->roles === 'bde';
+            foreach ($user->roles as $userRole) {
+                if ($userRole->name ==='bde') {
+                    return true;
+                }
+            }
+            return false;
         });
     }
 }
