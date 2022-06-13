@@ -25,7 +25,7 @@
                             <label for="content"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Contenu de
                                 l'article *</label>
-                            <textarea id="content" name="content" placeholder=""
+                            <textarea id="content" name="content" required
                                 class="w-full rounded-md focus:ring focus:ring-blue-400 focus:ring-opacity-75 dark:border-gray-700 dark:text-gray-900"></textarea>
                         </div>
                     </div>
@@ -43,18 +43,18 @@
                     <div class="col-span-full grid grid-cols-6 gap-4 lg:col-span-3">
                         <div class="col-span-full mb-6 sm:col-span-3">
                             <label for="title" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Titre de l'article</label>
-                            <input type="title" id="title" value='{{ $post->title }}' placeholder="Mon super article" required
+                            <input type="title" id="title" value='{{ $post->title }}' placeholder="Mon super article"
                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-white dark:text-black dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                         </div>
                         <div class="col-span-full mb-6 sm:col-span-3">
                             <label for="title" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Lien vers l'image de l'article</label>
-                            <input type="title" id="title" value="{{ $post->image_url }}" placeholder="https://monimage.fr/est_ici" required
+                            <input type="title" id="title" value="{{ $post->image_url }}" placeholder="https://monimage.fr/est_ici"
                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-white dark:text-black dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                         </div>
                         <div class="col-span-full">
                             <label for="content"
                                    class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Contenu de l'article</label>
-                            <textarea id="content" name="content" placeholder=""
+                            <textarea id="content" name="content"
                                       class="w-full rounded-md focus:ring focus:ring-blue-400 focus:ring-opacity-75 dark:border-gray-700 dark:text-gray-900">{{ $post->content }}</textarea>
                         </div>
                     </div>
