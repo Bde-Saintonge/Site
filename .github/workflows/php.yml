@@ -18,7 +18,7 @@ jobs:
         
       - name: Install Prod dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: /usr/local/bin/composer install --no-dev --prefer-dist --no-progress --no-suggest
+        run: /usr/local/bin/composer install --no-dev
         
       - name: Maintenance Mode Up
         run: /usr/bin/php artisan down
