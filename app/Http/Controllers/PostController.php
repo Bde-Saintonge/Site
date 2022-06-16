@@ -61,7 +61,7 @@ class PostController extends AdminController
 
         return view('posts.show', compact('post'));
     }
- 
+
     /**
      * Méthode qui permet de retourner la vue de création d'un article
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
