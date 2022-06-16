@@ -27,7 +27,7 @@
                 <div id="dropdown-menu2"
                     class="absolute right-0 z-20 mt-5 hidden w-44 items-center rounded-md bg-white py-2 shadow-xl dark:bg-gray-800">
                     @foreach ($offices_typo as $office)
-                        <a href="{{ route('posts.create', ['office_code_name' => $office->code_name]) }}"
+                        <a href="{{ route('post.create', ['office' => $office->code_name]) }}"
                             class="block transform px-4 py-2 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
                             {{ $office->name }}
                         </a>

@@ -1,6 +1,10 @@
 <?php
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Auth\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 /*
  * Welcome Route
  */
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -38,96 +41,72 @@ Route::get('/rgpd', function () {
  * Auth & Dashboard Route
  */
 
-Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@index');
-Route::post(
-    '/register',
-    'App\Http\Controllers\Auth\RegisterController@validator',
-);
+Route::get('/login', [LoginController::class, 'index'])
+    ->name('login');
 
-Route::get('/login', 'App\Http\Controllers\Auth\LoginController@index')->name(
-    'login',
-);
-Route::post('/login', 'App\Http\Controllers\Auth\LoginController@validator');
+Route::post('/login', [LoginController::class, 'validator']);
 
-Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name(
-    'logout',
-);
+Route::get('/logout', [LoginController::class, 'logout'])
+    ->name('logout');
 
-Route::post(
-    '/reset_password_without_token',
-    'App\Http\Controllers\Auth\ResetPasswordController@reset_password_without_token',
-)->name('reset_password_without_token');
+Route::post('/reset_password_without_token', [ResetPasswordController::class, 'reset_password_without_token'])
+    ->name('reset_password_without_token');
+
 
 /*
  * Posts Route
  */
-$officePattern = '[a-z-]{3,8}';
+//FIXME: slugpattern attention, il va être changé
+
 $slugPattern = '[a-z0-9\-]+';
 
-Route::get(
-    '/dashboard/{office_code_name}',
-    'App\Http\Controllers\Auth\DashboardController@index',
-)->where('office_code_name', $officePattern);
+Route::get('/dashboard/{office_code_name}', [DashboardController::class, 'index']);
 
-Route::get('/user/{id}', 'App\Http\Controllers\PostController@user')
-    ->name('posts.user')
-    ->where('id', '[0-9]+');
+Route::get('/user/{id}', [PostController::class, 'user'])
+    ->name('posts.user');
 
-Route::get('/{office_code_name}', 'App\Http\Controllers\PostController@office')
-    ->name('posts.office')
-    ->where('office_code_name', $officePattern);
+Route::get('/{office_code_name}', [PostController::class, 'office'])
+    ->name('posts.office');
 
-Route::get(
-    '/{office_code_name}/{post_slug}',
-    'App\Http\Controllers\PostController@show',
-)
+Route::get('/{office_code_name}/{post_slug}',[PostController::class, 'show'])
     ->name('posts.show')
-    ->where(['office_slug' => $officePattern, 'post_slug' => $slugPattern]);
+    ->where(['post_slug' => $slugPattern]);
 
 /*
  * Admin Route CRUD
  */
+Route::get('/admin/create/post/{office_code_name}', [PostController::class, 'create_post'])
+    ->name('posts.create');
 
+Route::get('/admin/{id}/validate', [PostController::class, 'validate_post']);
 
-Route::get(
-    '/admin/create/post/{office_code_name}',
-    'App\Http\Controllers\PostController@create_post',
-)
-    ->name('posts.create')
-    ->where('office_code_name', $officePattern);
+Route::get('/admin/{id}/edit', [PostController::class, 'edit']);
 
-Route::get(
-    '/admin/{id}/validate',
-    'App\Http\Controllers\PostController@validate_post',
-)->where('id', '[0-9]+');
-Route::get(
-    '/admin/{id}/edit',
-    'App\Http\Controllers\PostController@edit',
-)->where('id', '[0-9]+');
-
-
-Route::get(
-    '/admin/{id}/delete',
-    'App\Http\Controllers\PostController@delete',
-)->where('id', '[0-9]+');
+Route::get('/admin/{id}/delete', [PostController::class, 'delete']);
 
 Route::middleware(['auth'])->group(function() {
-    $officePattern = '[a-z-]{3,8}';
+    Route::get('/admin/post/{office:code_name}/create', [PostController::class, 'create_post'])
+        ->name('post.create');
 
-    Route::get('/admin/create/post/{office_code_name}','App\Http\Controllers\PostController@create_post')
-        ->name('posts.create')
-        ->where('office_code_name', $officePattern);
-    Route::post('/admin/post/create', 'App\Http\Controllers\PostController@register')->name('post.register');
-    Route::post('/admin/{id}/update','App\Http\Controllers\PostController@store')->where('id', '[0-9]+');
+    Route::post('/admin/post/{office:code_name}/create', [PostController::class, 'register'])
+        ->name('post.create');
 
-    Route::get('/admin/user/create', 'App\Http\Controllers\UserController@registerView')->name('user.create');
-    Route::post('/admin/user/create', 'App\Http\Controllers\UserController@register')->name('user.create');
+    Route::post('/admin/{id}/update', [PostController::class, 'store']);
+
+    Route::get('/admin/user/create', [UserController::class, 'registerView'])
+        ->name('user.create');
+
+    Route::post('/admin/user/create', [UserController::class, 'register'])
+        ->name('user.create');
 });
+
+
 /*
  * Clear Cache Route
  */
 Route::get('/clean-all-cache', function () {
     \Artisan::call('route:clear');
+    \Artisan::call('cache:clear');
     \Artisan::call('view:clear');
     \Artisan::call('config:clear');
 });

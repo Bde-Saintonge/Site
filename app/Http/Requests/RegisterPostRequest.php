@@ -13,16 +13,11 @@ class RegisterPostRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        //TODO: Revoir obtention last url
-        $url = explode('/', session('_previous')['url']);
-        $office_code_name = end($url);
-        $office = Office::search($office_code_name);
-
         if (
             !Gate::allows('verified-role', ['admin']) &&
-            !Gate::allows('verified-office', [$office_code_name])
+            !Gate::allows('verified-office', [$this->route('office')->code_name])
         ) {
             return false;
         }
@@ -36,9 +31,14 @@ class RegisterPostRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-//        $this->merge([
-//            'slug' => Str::slug($this->slug),
-//        ]);
+        //TODO: do sanitization of text in priority with https://github.com/tgalopin/html-sanitizer
+
+        //dd($this->text);
+        $this->merge([
+            'title' => trim(filter_var($this->title,FILTER_SANITIZE_SPECIAL_CHARS)),
+            'image_url' => trim(filter_var($this->image_url, FILTER_SANITIZE_URL)),
+            'text' => $this->text,
+        ]);
     }
 
     /**
@@ -51,7 +51,7 @@ class RegisterPostRequest extends FormRequest
         return [
             'title' => 'sometimes|required|max:255',
             'image_url' => 'sometimes|required|url',
-            'content' => 'sometimes|required',
+            'text' => 'sometimes|required',
         ];
     }
 }

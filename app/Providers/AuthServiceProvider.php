@@ -43,15 +43,6 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
-        //        Gate::define('verified-bde', function (User $user) {
-        //            foreach ($user->roles as $userRole) {
-        //                if ($userRole->name ==='bde') {
-        //                    return true;
-        //                }
-        //            }
-        //            return false;
-        //        });
-
         Gate::define('verified-office', function (string $checkedOffice) {
             if (
                 $this->user->office_id ===
