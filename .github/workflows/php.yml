@@ -75,5 +75,8 @@ jobs:
       - name: Generate key
         run: /usr/bin/php artisan key:generate
         
+      - name: Route Caching
+        run: /usr/bin/php artisan route:cache && /usr/bin/php artisan route:clear
+        
       - name: Maintenance Mode Down
         run: /usr/bin/php artisan up
