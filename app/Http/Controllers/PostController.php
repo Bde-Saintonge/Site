@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
+//TODO: Remove Auth completely
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Gate;
@@ -60,27 +61,28 @@ class PostController extends AdminController
 
         return view('posts.show', compact('post'));
     }
-
+ 
     /**
      * Méthode qui permet de retourner la vue de création d'un article
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function create_post(string $office_code_name)
+    public function create_post(Office $office)
     {
-//        abort(423, 'En refonte. Par les super chats 😺.');
+        //TODO Remove when finished
+        abort(423, 'En refonte. Par les super chats 😺.');
         if (
             !Gate::allows('verified-role', ['admin']) &&
-            !Gate::allows('verified-office', [$office_code_name])
+            !Gate::allows('verified-office', [$office->code_name])
         ) {
             return redirect(
-                "dashboard/{$this->user->office->code_name}",
+                "dashboard/" . auth()->user()->office->code_name,
             )->withErrors([
                 'error' =>
                     'Vous ne disposez pas des permissions nécessaires pour créer un article.',
             ]);
         }
 
-        return view('posts.create');
+        return view('posts.create', ['office'=> $office]);
     }
 
     /**
@@ -141,34 +143,23 @@ class PostController extends AdminController
         ]);
     }
 
-    public function register(RegisterPostRequest $request)
+    public function register(Office $office, RegisterPostRequest $request)
     {
-        $validated = $request->validated();
-
-      //TODO: Revoir obtention last url
-
-//        $url = explode('/', session('_previous')['url']);
-//        $office_code_name = end($url);
-//        $office = Office::search($office_code_name);
-
+//        dd('hey');
 //        if (
 //            !$this->check_role('admin') &&
-//            !$this->check_office($office_code_name)
+//            !$this->check_office($office->code_name)
 //        ) {
 //            return redirect(
-//                "dashboard/{$this->user->office->code_name}",
+//                'dashboard/'. auth()->user()->office->code_name,
 //            )->withErrors([
 //                'error' =>
 //                    'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
 //            ]);
 //        }
 
-//        $validator = $request->validate([
-//            'title' => 'required|max:255',
-//            'image_url' => 'required',
-//            'content' => 'required',
-//        ]);
-//        //        dd($office->id);
+        $validated = $request->validated();
+        //TODO: generateSlug generateSummary
 //        $post = Post::create([
 //            'title' => $request->input('title'),
 //            'image_url' => $request->input('image_url'),
