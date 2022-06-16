@@ -88,7 +88,6 @@ Route::get(
  * Admin Route CRUD
  */
 
-
 Route::get(
     '/admin/create/post/{office_code_name}',
     'App\Http\Controllers\PostController@create_post',
@@ -128,6 +127,7 @@ Route::middleware(['auth'])->group(function() {
  */
 Route::get('/clean-all-cache', function () {
     \Artisan::call('route:clear');
+    \Artisan::call('cache:clear');
     \Artisan::call('view:clear');
     \Artisan::call('config:clear');
 });

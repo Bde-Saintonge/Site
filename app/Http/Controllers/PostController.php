@@ -67,7 +67,7 @@ class PostController extends AdminController
      */
     public function create_post(string $office_code_name)
     {
-        abort(423, 'En refonte. Par les super chats 😺.');
+//        abort(423, 'En refonte. Par les super chats 😺.');
         if (
             !Gate::allows('verified-role', ['admin']) &&
             !Gate::allows('verified-office', [$office_code_name])
@@ -143,7 +143,10 @@ class PostController extends AdminController
 
     public function register(RegisterPostRequest $request)
     {
-//        //TODO: Revoir obtention last url
+        $validated = $request->validated();
+
+      //TODO: Revoir obtention last url
+
 //        $url = explode('/', session('_previous')['url']);
 //        $office_code_name = end($url);
 //        $office = Office::search($office_code_name);
