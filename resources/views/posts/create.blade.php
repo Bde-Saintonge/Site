@@ -25,7 +25,7 @@
                             <label for="content"
                                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Contenu de
                                 l'article *</label>
-                            <textarea id="content" name="text" required
+                            <textarea id="content" name="text"
                                 class="w-full rounded-md focus:ring focus:ring-blue-400 focus:ring-opacity-75 dark:border-gray-700 dark:text-gray-900"></textarea>
                         </div>
                     </div>

@@ -20,11 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->string('image_url');
             $table->string('slug');
-            $table
-                ->string('summary')
-                ->virtualAs(
-                    new Expression("CONCAT(SUBSTRING(content, 1, 100), '...')"),
-                );
+            $table->string('summary', 100);
             $table->longText('content');
             $table->foreignId('office_id')->constrained();
             $table->boolean('is_published')->default('0');

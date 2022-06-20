@@ -75,8 +75,9 @@ Route::get('/{office_code_name}/{post_slug}',[PostController::class, 'show'])
 /*
  * Admin Route CRUD
  */
-Route::get('/admin/create/post/{office_code_name}', [PostController::class, 'create_post'])
-    ->name('posts.create');
+
+//Route::get('/admin/create/post/{office_code_name}', [PostController::class, 'create_post'])
+//    ->name('posts.create');
 
 Route::get('/admin/{id}/validate', [PostController::class, 'validate_post']);
 
