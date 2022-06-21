@@ -18,16 +18,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
- * Welcome Route
- */
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+//Route::redirect('/', '/index.html')->name('home');
 
 Route::get('/index.html', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/mentions-legales', function () {
     return view('regulation.mentions-legales');
@@ -41,17 +40,16 @@ Route::get('/rgpd', function () {
  * Auth & Dashboard Route
  */
 
-Route::get('/login', [LoginController::class, 'index'])
-    ->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::post('/login', [LoginController::class, 'validator']);
 
-Route::get('/logout', [LoginController::class, 'logout'])
-    ->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::post('/reset_password_without_token', [ResetPasswordController::class, 'reset_password_without_token'])
-    ->name('reset_password_without_token');
-
+Route::post('/reset_password_without_token', [
+    ResetPasswordController::class,
+    'reset_password_without_token',
+])->name('reset_password_without_token');
 
 /*
  * Posts Route
@@ -60,54 +58,69 @@ Route::post('/reset_password_without_token', [ResetPasswordController::class, 'r
 
 $slugPattern = '[a-z0-9\-]+';
 
-Route::get('/dashboard/{office_code_name}', [DashboardController::class, 'index']);
+Route::get('/dashboard/{office_code_name}', [
+    DashboardController::class,
+    'index',
+]);
 
-Route::get('/user/{id}', [PostController::class, 'user'])
-    ->name('posts.user');
+Route::get('/user/{id}', [PostController::class, 'user'])->name('posts.user');
 
-Route::get('/{office_code_name}', [PostController::class, 'office'])
-    ->name('posts.office');
+Route::get('/{office_code_name}', [PostController::class, 'office'])->name(
+    'posts.office',
+);
 
-Route::get('/{office_code_name}/{post_slug}',[PostController::class, 'show'])
+Route::get('/{office_code_name}/{post_slug}', [PostController::class, 'show'])
     ->name('posts.show')
     ->where(['post_slug' => $slugPattern]);
-
-/*
- * Admin Route CRUD
- */
 
 //Route::get('/admin/create/post/{office_code_name}', [PostController::class, 'create_post'])
 //    ->name('posts.create');
 
-Route::get('/admin/{id}/validate', [PostController::class, 'validate_post']);
+//Route::get('/admin/{id}/validate', [PostController::class, 'validate_post']);
+//
+//Route::get('/admin/{id}/edit', [PostController::class, 'edit']);
+//
+//Route::get('/admin/{id}/delete', [PostController::class, 'delete']);
 
-Route::get('/admin/{id}/edit', [PostController::class, 'edit']);
+Route::resource('posts', PostController::class)->only(['index', 'show']);
 
-Route::get('/admin/{id}/delete', [PostController::class, 'delete']);
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth'])
+    ->group(function () {
+        Route::resource('posts', PostController::class)->except([
+            'index',
+            'show',
+        ]);
 
-Route::middleware(['auth'])->group(function() {
-    Route::get('/admin/post/{office:code_name}/create', [PostController::class, 'create_post'])
-        ->name('post.create');
+        //    Route::get('/post/{office:code_name}/create', [
+        //        PostController::class,
+        //        'create_post',
+        //    ])->name('post.create');
+        //
+        //    Route::post('/post/{office:code_name}/create', [
+        //        PostController::class,
+        //        'register',
+        //    ])->name('post.create');
+        //
+        //    Route::post('/{id}/update', [PostController::class, 'store']);
+        //
 
-    Route::post('/admin/post/{office:code_name}/create', [PostController::class, 'register'])
-        ->name('post.create');
+        //        Route::controller(UserController::class)
+        //            ->prefix('user')
+        //            ->name('user.')
+        //            ->group(function () {
+        //                Route::get('/create', 'registerView')->name('create');
+        //
+        //                Route::post('/create', 'register')->name('create');
+        //            });
 
-    Route::post('/admin/{id}/update', [PostController::class, 'store']);
+        //TODO: Test routes livewire/fortify/sanctum bizarres
+        Route::get('/clean-all-cache', function () {
+            \Artisan::call('route:clear');
+            \Artisan::call('cache:clear');
+            \Artisan::call('view:clear');
+            \Artisan::call('config:clear');
+        })->name('clean-cache');
+    });
 
-    Route::get('/admin/user/create', [UserController::class, 'registerView'])
-        ->name('user.create');
-
-    Route::post('/admin/user/create', [UserController::class, 'register'])
-        ->name('user.create');
-});
-
-
-/*
- * Clear Cache Route
- */
-Route::get('/clean-all-cache', function () {
-    \Artisan::call('route:clear');
-    \Artisan::call('cache:clear');
-    \Artisan::call('view:clear');
-    \Artisan::call('config:clear');
-});
