@@ -105,6 +105,7 @@ class PostTableSeeder extends Seeder
             DB::table('posts')->insert([
                 'title' => $faker->sentence,
                 'image_url' => 'https://source.unsplash.com/random/480x360',
+                'summary'=> $faker->words(10, true) . "...",
                 'slug' => $faker->slug,
                 'content' => $faker->text,
                 'is_published' => (bool) mt_rand(0, 1),

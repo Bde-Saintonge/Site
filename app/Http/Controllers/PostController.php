@@ -7,6 +7,7 @@ use App\Models\Office;
 use App\Models\Post;
 use App\Models\User;
 use DateTime;
+use Illuminate\Database\Eloquent\Concerns\HasEvents;
 use Illuminate\Http\Request;
 //TODO: Remove Auth completely
 use Illuminate\Support\Facades\Auth;
@@ -61,7 +62,7 @@ class PostController extends AdminController
 
         return view('posts.show', compact('post'));
     }
- 
+
     /**
      * Méthode qui permet de retourner la vue de création d'un article
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
@@ -69,7 +70,7 @@ class PostController extends AdminController
     public function create_post(Office $office)
     {
         //TODO Remove when finished
-        abort(423, 'En refonte. Par les super chats 😺.');
+//        abort(423, 'En refonte. Par les super chats 😺.');
         if (
             !Gate::allows('verified-role', ['admin']) &&
             !Gate::allows('verified-office', [$office->code_name])
@@ -83,6 +84,24 @@ class PostController extends AdminController
         }
 
         return view('posts.create', ['office'=> $office]);
+    }
+
+    public function register(Office $office, RegisterPostRequest $request)
+    {
+//        dd(HasEvents::observe());
+        $validated = $request->validated();
+        //TODO: generateSlug generateSummary
+
+        $post = Post::create([
+            'title' => $request->input('title'),
+            'image_url' => $request->input('image_url'),
+            'content' => $request->input('content'),
+            'office_id' => $office->id,
+        ]);
+
+        return redirect("dashboard/{$post->office->code_name}")->with([
+            'success' => ['Article créer avec succès !'],
+        ]);
     }
 
     /**
@@ -143,35 +162,7 @@ class PostController extends AdminController
         ]);
     }
 
-    public function register(Office $office, RegisterPostRequest $request)
-    {
-//        dd('hey');
-//        if (
-//            !$this->check_role('admin') &&
-//            !$this->check_office($office->code_name)
-//        ) {
-//            return redirect(
-//                'dashboard/'. auth()->user()->office->code_name,
-//            )->withErrors([
-//                'error' =>
-//                    'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
-//            ]);
-//        }
 
-        $validated = $request->validated();
-        //TODO: generateSlug generateSummary
-//        $post = Post::create([
-//            'title' => $request->input('title'),
-//            'image_url' => $request->input('image_url'),
-//            'content' => $request->input('content'),
-//            'slug' => strtolower($request->input('title')),
-//            'office_id' => $office->id,
-//        ]);
-//
-//        return redirect("dashboard/{$post->office->code_name}")->with([
-//            'success' => ['Article modifié avec succès !'],
-//        ]);
-    }
 
     /**
      * Méthode qui permet de mettre à jour un post en bdd

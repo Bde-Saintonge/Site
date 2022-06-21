@@ -17,7 +17,9 @@ class RegisterPostRequest extends FormRequest
     {
         if (
             !Gate::allows('verified-role', ['admin']) &&
-            !Gate::allows('verified-office', [$this->route('office')->code_name])
+            !Gate::allows('verified-office', [
+                $this->route('office')->code_name,
+            ])
         ) {
             return false;
         }
@@ -32,12 +34,21 @@ class RegisterPostRequest extends FormRequest
     protected function prepareForValidation()
     {
         //TODO: do sanitization of text in priority with https://github.com/tgalopin/html-sanitizer
+        //TODO: Verif strip tags et verif transfo en html entitites
 
         //dd($this->text);
         $this->merge([
-            'title' => trim(filter_var($this->title,FILTER_SANITIZE_SPECIAL_CHARS)),
-            'image_url' => trim(filter_var($this->image_url, FILTER_SANITIZE_URL)),
-            'text' => $this->text,
+            'title' => trim(
+                filter_var($this->title, FILTER_SANITIZE_STRING, [
+                    FILTER_FLAG_ENCODE_AMP,
+                    FILTER_FLAG_STRIP_LOW,
+                    FILTER_FLAG_STRIP_HIGH,
+                ]),
+            ),
+            'image_url' => trim(
+                filter_var($this->image_url, FILTER_SANITIZE_URL),
+            ),
+            'content' => $this->text,
         ]);
     }
 
@@ -51,7 +62,7 @@ class RegisterPostRequest extends FormRequest
         return [
             'title' => 'sometimes|required|max:255',
             'image_url' => 'sometimes|required|url',
-            'text' => 'sometimes|required',
+            'content' => 'sometimes|required',
         ];
     }
 }
