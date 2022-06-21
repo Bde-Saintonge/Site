@@ -10,24 +10,18 @@ jobs:
       - name: Push code to server
         uses: actions/checkout@v2.3.4
         
-      - name: Validate composer.json and composer.lock
-        run: /usr/local/bin/composer validate
+      - name: Clear composer cache
+        run: /usr/local/bin/composer clear-cache
         
-      - name: Update & Install dependencies
+      - name: Install Prod dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
-        run: /usr/local/bin/composer install --prefer-dist --no-progress --no-suggest
+        run: /usr/local/bin/composer install --no-dev
         
       - name: Maintenance Mode Up
         run: /usr/bin/php artisan down
         
-      - name: Install Node JS Dependencies
-        run: /usr/bin/npm install
-        
-      - name: Update Composer Dependencies
-        run: /usr/local/bin/composer update
-        
-      - name: Update Node JS Dependencies
-        run: /usr/bin/npm update
+      - name: Update & Install Node JS Dependencies
+        run: /usr/bin/npm update && /usr/bin/npm install
         
       - name: Set Up .env file
         run: echo -e '#Début du remplissage auto par github\r\n
@@ -74,6 +68,9 @@ jobs:
         
       - name: Generate key
         run: /usr/bin/php artisan key:generate
+        
+#       - name: Route Caching
+#         run: /usr/bin/php artisan route:cache && /usr/bin/php artisan route:clear
         
       - name: Maintenance Mode Down
         run: /usr/bin/php artisan up
