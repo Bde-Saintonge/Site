@@ -9,7 +9,7 @@ class PostService
     }
 
     //TODO : Verif strip tags et verif transfo en html entities
-    public function GenerateSlug(string $text)
+    public static function GenerateSlug(string $text)
     {
         $text = html_entity_decode($text);
         // Strip html tags
@@ -35,7 +35,7 @@ class PostService
         return $text;
     }
 
-    public function GenerateSummary(string $text)
+    public static function GenerateSummary(string $text)
     {
         $text = html_entity_decode($text);
         $text = strip_tags($text);

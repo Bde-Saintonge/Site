@@ -15,8 +15,8 @@ class PostObserver
      */
     public function creating(Post $post, PostService $postService)
     {
-        $post->slug = $postService->GenerateSlug($post->title);
-        $post->summary = $postService->GenerateSummary($post->content);
+        $post->slug = $postService::GenerateSlug($post->title);
+        $post->summary = $postService::GenerateSummary($post->content);
     }
 
     /**
