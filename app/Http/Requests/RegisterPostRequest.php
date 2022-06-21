@@ -34,6 +34,7 @@ class RegisterPostRequest extends FormRequest
     protected function prepareForValidation()
     {
         //TODO: do sanitization of text in priority with https://github.com/tgalopin/html-sanitizer
+        //TODO: Verif strip tags et verif transfo en html entitites
 
         //dd($this->text);
         $this->merge([

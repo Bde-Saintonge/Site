@@ -1,8 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Start Work" type="CompoundRunConfigurationType">
-    <toRun name="build" type="js.build_tools.npm" />
-    <toRun name="watch" type="js.build_tools.npm" />
-    <toRun name="serve" type="PhpLocalRunConfigurationType" />
-    <method v="2" />
-  </configuration>
-</component>
