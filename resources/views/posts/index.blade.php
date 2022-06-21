@@ -11,7 +11,7 @@
     {{-- dark:bg-coolGray-800 dark:text-coolGray-100 --}}
     <section class="dark:bg-gray-700 bg-white dark:text-white">
         <div
-            class="container mx-auto flex flex-col items-center px-4 py-16 text-center md:pt-32 md:px-10 lg:px-32 xl:max-w-3xl">
+            class="container mx-auto flex flex-col items-center px-4 pt-16 text-center md:pt-32 md:px-10 lg:px-32 xl:max-w-3xl">
             <h1 class="text-4xl font-bold leading-none sm:text-5xl">Articles du <span
                     class="dark:text-blue-400">{{ $office->complete_name }}</span>.</h1>
             <p class="px-8 mt-8 mb-12 text-lg">Vous êtes sur la page d'articles du
