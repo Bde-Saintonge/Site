@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('content')
     <div class="md:min-h-[60rem] lg:min-h-[49rem] p-3 mx-auto sm:p-10 md:p-16 dark:bg-gray-700">
-        <div class="flex flex-col max-w-5xl mx-auto overflow-hidden rounded">
+        <div class="flex flex-col max-w-6xl mx-auto overflow-hidden rounded">
             {{-- <img src="{{ $post->image_url }}" alt="" class="block w-auto h-60 sm:h-96 dark:bg-coolGray-500"> --}}
             <div class="w-auto h-60 sm:h-96 bg-cover bg-center bg-no-repeat"
                 style="background-image: url( {{ $post->image_url }} )"></div>
