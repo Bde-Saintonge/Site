@@ -1856,16 +1856,16 @@
         }
     };
 
-    const cached = f => {
-      let called = false;
-      let r;
-      return (...args) => {
-        if (!called) {
-          called = true;
-          r = f.apply(null, args);
-        }
-        return r;
-      };
+    const cached = (f) => {
+        let called = false;
+        let r;
+        return (...args) => {
+            if (!called) {
+                called = true;
+                r = f.apply(null, args);
+            }
+            return r;
+        };
     };
 
     const findInWarehouse = (warehouse, element) => findMap(warehouse.all, r => find(r.cells, e => eq(element, e.element)));
