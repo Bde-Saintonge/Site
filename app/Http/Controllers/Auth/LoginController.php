@@ -19,7 +19,7 @@ class LoginController extends BaseController
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function index()
+    public function login()
     {
         if (Auth::check()) {
             return redirect('/dashboard/bda');
@@ -34,7 +34,7 @@ class LoginController extends BaseController
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function validator(Request $request)
+    public function validate(Request $request)
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
