@@ -48,7 +48,7 @@ class UserController extends BaseController
             'email' => ['required', 'email', 'unique:users', 'email', 'bail'], //|unique:users,email
             'password' => [
                 'required',
-                'regex:^(\w|[@#\$%&;:=\^\?\*!-]){8,}$',
+                'regex:^(\w|[@#\$%&;:=^\?\*!-]){8,}$',
                 Password::min(8)->mixedCase()->numbers()->symbols(),
                 'bail',
             ],
