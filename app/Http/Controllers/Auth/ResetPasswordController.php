@@ -18,7 +18,7 @@ class ResetPasswordController extends BaseController
      * @var $request Request
      */
 
-    public function reset_password_without_token(Request $request)
+    public function reset(Request $request)
     {
         if (!Auth::check()) {
             $user = DB::table('users')
