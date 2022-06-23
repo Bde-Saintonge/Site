@@ -14,8 +14,9 @@ class DashboardController extends AdminController
      * Méthode qui permet de retourner les articles d'un bureau vers le dashboard
      */
 
-    public function index($office_code_name)
+    public function index(Office $office)
     {
+        //TODO: redo with or without office as parameter
         if (Auth::check()) {
             if ($this->check_role('admin') || $this->check_role('bde')) {
                 $office_id = Office::where([
