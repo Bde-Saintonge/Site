@@ -15,7 +15,7 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends BaseController
 {
-    public function registerView()
+    public function create()
     {
         if (!Gate::allows('verified-role', ['admin'])) {
             return redirect(
@@ -31,7 +31,7 @@ class UserController extends BaseController
         return view('user.create', compact('offices', 'roles'));
     }
 
-    public function register(Request $request)
+    public function store(Request $request)
     {
         if (!Gate::allows('verified-role', ['admin'])) {
             return redirect(
