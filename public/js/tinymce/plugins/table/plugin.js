@@ -1868,13 +1868,18 @@
         };
     };
 
-    const findInWarehouse = (warehouse, element) => findMap(warehouse.all, r => find(r.cells, e => eq(element, e.element)));
+    const findInWarehouse = (warehouse, element) =>
+        findMap(warehouse.all, (r) =>
+            find(r.cells, (e) => eq(element, e.element))
+        );
     const extractCells = (warehouse, target, predicate) => {
-      const details = map(target.selection, cell$1 => {
-        return cell(cell$1).bind(lc => findInWarehouse(warehouse, lc)).filter(predicate);
-      });
-      const cells = cat(details);
-      return someIf(cells.length > 0, cells);
+        const details = map(target.selection, (cell$1) => {
+            return cell(cell$1)
+                .bind((lc) => findInWarehouse(warehouse, lc))
+                .filter(predicate);
+        });
+        const cells = cat(details);
+        return someIf(cells.length > 0, cells);
     };
     const onMergable = (_warehouse, target) => target.mergable;
     const onUnmergable = (_warehouse, target) => target.unmergable;
@@ -2069,10 +2074,13 @@
       };
       return data;
     };
-    const getRowType = elm => table(SugarElement.fromDom(elm)).map(table => {
-      const target = { selection: fromDom(elm.cells) };
-      return getRowsType(table, target);
-    }).getOr('');
+    const getRowType = (elm) =>
+        table(SugarElement.fromDom(elm))
+            .map((table) => {
+                const target = { selection: fromDom(elm.cells) };
+                return getRowsType(table, target);
+            })
+            .getOr('');
     const extractDataFromTableElement = (editor, elm, hasAdvTableTab) => {
         const getBorder = (dom, elm) => {
             const optBorderWidth = getRaw(
