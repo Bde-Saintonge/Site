@@ -19,16 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 /**
- * Entry routes
+ * Home routes
  */
 Route::name('home.')->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('home');
-
-    Route::get('/index.html', function () {
-        return view('welcome');
-    })->name('welcome');
+    Route::view('/', 'home.welcome')->name('home');
+    Route::view('/index.html', 'home.welcome')->name('welcome');
 });
 
 /**
@@ -37,13 +32,8 @@ Route::name('home.')->group(function () {
 Route::prefix('legal')
     ->name('legal.')
     ->group(function () {
-        Route::get('/gdpr', function () {
-            return view('regulation.rgpd');
-        });
-
-        Route::get('/mentions', function () {
-            return view('regulation.mentions-legales');
-        });
+        Route::view('/gdpr', 'legal.gdpr')->name('gdpr');
+        Route::view('/mentions', 'legal.mentions')->name('mentions');
     });
 
 /**
@@ -71,7 +61,7 @@ Route::controller(PostController::class)
     ->name('office.')
     ->group(function () {
         Route::get('/{office:code_name}', 'index')->name('index');
-        Route::get('/{office:code_name}/{post:slug}', 'show')->name('name');
+        Route::get('/{office:code_name}/{post:slug}', 'show')->name('post');
     });
 
 /**
@@ -81,9 +71,10 @@ Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth'])
     ->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name(
-            'dashboard',
-        );
+        Route::get('/dashboard/{office?:code_name}', [
+            DashboardController::class,
+            'index',
+        ])->name('dashboard');
 
         /**
          * Posts routes
@@ -94,7 +85,6 @@ Route::prefix('admin')
             ->group(function () {
                 Route::post('/{post}/validate', 'validate')->name('validate');
                 Route::get('/{post:slug}/edit', 'edit')->name('edit');
-                c
             });
 
         Route::resource('posts', PostController::class)->except([
@@ -119,10 +109,10 @@ Route::prefix('admin')
          * Clean all caches routes
          */
         //TODO: Test routes livewire/fortify/sanctum bizarres
-        Route::get('/clean-cache', function () {
+        Route::get('/clear-cache', function () {
             \Artisan::call('route:clear');
             \Artisan::call('cache:clear');
             \Artisan::call('view:clear');
             \Artisan::call('config:clear');
-        })->name('clean-cache');
+        })->name('clear-cache');
     });
