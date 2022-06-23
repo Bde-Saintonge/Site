@@ -3467,220 +3467,265 @@
     };
 
     const Styles = (settings, schema) => {
-      const urlOrStrRegExp = /(?:url(?:(?:\(\s*\"([^\"]+)\"\s*\))|(?:\(\s*\'([^\']+)\'\s*\))|(?:\(\s*([^)\s]+)\s*\))))|(?:\'([^\']+)\')|(?:\"([^\"]+)\")/gi;
-      const styleRegExp = /\s*([^:]+):\s*([^;]+);?/g;
-      const trimRightRegExp = /\s+$/;
-      let i;
-      const encodingLookup = {};
-      let validStyles;
-      let invalidStyles;
-      const invisibleChar = zeroWidth;
-      settings = settings || {};
-      if (schema) {
-        validStyles = schema.getValidStyles();
-        invalidStyles = schema.getInvalidStyles();
-      }
-      const encodingItems = (`\\" \\' \\; \\: ; : ` + invisibleChar).split(' ');
-      for (i = 0; i < encodingItems.length; i++) {
-        encodingLookup[encodingItems[i]] = invisibleChar + i;
-        encodingLookup[invisibleChar + i] = encodingItems[i];
-      }
-      const self = {
-        parse: css => {
-          const styles = {};
-          let matches, name, value, isEncoded;
-          const urlConverter = settings.url_converter;
-          const urlConverterScope = settings.url_converter_scope || self;
-          const compress = (prefix, suffix, noJoin) => {
-            const top = styles[prefix + '-top' + suffix];
-            if (!top) {
-              return;
-            }
-            const right = styles[prefix + '-right' + suffix];
-            if (!right) {
-              return;
-            }
-            const bottom = styles[prefix + '-bottom' + suffix];
-            if (!bottom) {
-              return;
-            }
-            const left = styles[prefix + '-left' + suffix];
-            if (!left) {
-              return;
-            }
-            const box = [
-              top,
-              right,
-              bottom,
-              left
-            ];
-            i = box.length - 1;
-            while (i--) {
-              if (box[i] !== box[i + 1]) {
-                break;
-              }
-            }
-            if (i > -1 && noJoin) {
-              return;
-            }
-            styles[prefix + suffix] = i === -1 ? box[0] : box.join(' ');
-            delete styles[prefix + '-top' + suffix];
-            delete styles[prefix + '-right' + suffix];
-            delete styles[prefix + '-bottom' + suffix];
-            delete styles[prefix + '-left' + suffix];
-          };
-          const canCompress = key => {
-            let value = styles[key], i;
-            if (!value) {
-              return;
-            }
-            value = value.split(' ');
-            i = value.length;
-            while (i--) {
-              if (value[i] !== value[0]) {
-                return false;
-              }
-            }
-            styles[key] = value[0];
-            return true;
-          };
-          const compress2 = (target, a, b, c) => {
-            if (!canCompress(a)) {
-              return;
-            }
-            if (!canCompress(b)) {
-              return;
-            }
-            if (!canCompress(c)) {
-              return;
-            }
-            styles[target] = styles[a] + ' ' + styles[b] + ' ' + styles[c];
-            delete styles[a];
-            delete styles[b];
-            delete styles[c];
-          };
-          const encode = str => {
-            isEncoded = true;
-            return encodingLookup[str];
-          };
-          const decode = (str, keepSlashes) => {
-            if (isEncoded) {
-              str = str.replace(/\uFEFF[0-9]/g, str => {
-                return encodingLookup[str];
-              });
-            }
-            if (!keepSlashes) {
-              str = str.replace(/\\([\'\";:])/g, '$1');
-            }
-            return str;
-          };
-          const decodeSingleHexSequence = escSeq => {
-            return String.fromCharCode(parseInt(escSeq.slice(1), 16));
-          };
-          const decodeHexSequences = value => {
-            return value.replace(/\\[0-9a-f]+/gi, decodeSingleHexSequence);
-          };
-          const processUrl = (match, url, url2, url3, str, str2) => {
-            str = str || str2;
-            if (str) {
-              str = decode(str);
-              return `'` + str.replace(/\'/g, `\\'`) + `'`;
-            }
-            url = decode(url || url2 || url3);
-            if (!settings.allow_script_urls) {
-              const scriptUrl = url.replace(/[\s\r\n]+/g, '');
-              if (/(java|vb)script:/i.test(scriptUrl)) {
-                return '';
-              }
-              if (!settings.allow_svg_data_urls && /^data:image\/svg/i.test(scriptUrl)) {
-                return '';
-              }
-            }
-            if (urlConverter) {
-              url = urlConverter.call(urlConverterScope, url, 'style');
-            }
-            return `url('` + url.replace(/\'/g, `\\'`) + `')`;
-          };
-          if (css) {
-            css = css.replace(/[\u0000-\u001F]/g, '');
-            css = css.replace(/\\[\"\';:\uFEFF]/g, encode).replace(/\"[^\"]+\"|\'[^\']+\'/g, str => {
-              return str.replace(/[;:]/g, encode);
-            });
-            while (matches = styleRegExp.exec(css)) {
-              styleRegExp.lastIndex = matches.index + matches[0].length;
-              name = matches[1].replace(trimRightRegExp, '').toLowerCase();
-              value = matches[2].replace(trimRightRegExp, '');
-              if (name && value) {
-                name = decodeHexSequences(name);
-                value = decodeHexSequences(value);
-                if (name.indexOf(invisibleChar) !== -1 || name.indexOf('"') !== -1) {
-                  continue;
-                }
-                if (!settings.allow_script_urls && (name === 'behavior' || /expression\s*\(|\/\*|\*\//.test(value))) {
-                  continue;
-                }
-                if (name === 'font-weight' && value === '700') {
-                  value = 'bold';
-                } else if (name === 'color' || name === 'background-color') {
-                  value = value.toLowerCase();
-                }
-                value = value.replace(urlOrStrRegExp, processUrl);
-                styles[name] = isEncoded ? decode(value, true) : value;
-              }
-            }
-            compress('border', '', true);
-            compress('border', '-width');
-            compress('border', '-color');
-            compress('border', '-style');
-            compress('padding', '');
-            compress('margin', '');
-            compress2('border', 'border-width', 'border-style', 'border-color');
-            if (styles.border === 'medium none') {
-              delete styles.border;
-            }
-            if (styles['border-image'] === 'none') {
-              delete styles['border-image'];
-            }
-          }
-          return styles;
-        },
-        serialize: (styles, elementName) => {
-          let css = '';
-          const serializeStyles = name => {
-            let value;
-            const styleList = validStyles[name];
-            if (styleList) {
-              for (let i = 0, l = styleList.length; i < l; i++) {
-                name = styleList[i];
-                value = styles[name];
-                if (value) {
-                  css += (css.length > 0 ? ' ' : '') + name + ': ' + value + ';';
-                }
-              }
-            }
-          };
-          const isValid = (name, elementName) => {
-            let styleMap = invalidStyles['*'];
-            if (styleMap && styleMap[name]) {
-              return false;
-            }
-            styleMap = invalidStyles[elementName];
-            return !(styleMap && styleMap[name]);
-          };
-          if (elementName && validStyles) {
-            serializeStyles('*');
-            serializeStyles(elementName);
-          } else {
-            each$f(styles, (value, name) => {
-              if (value && (!invalidStyles || isValid(name, elementName))) {
-                css += (css.length > 0 ? ' ' : '') + name + ': ' + value + ';';
-              }
-            });
-          }
-          return css;
+        const urlOrStrRegExp =
+            /(?:url(?:(?:\(\s*\"([^\"]+)\"\s*\))|(?:\(\s*\'([^\']+)\'\s*\))|(?:\(\s*([^)\s]+)\s*\))))|(?:\'([^\']+)\')|(?:\"([^\"]+)\")/gi;
+        const styleRegExp = /\s*([^:]+):\s*([^;]+);?/g;
+        const trimRightRegExp = /\s+$/;
+        let i;
+        const encodingLookup = {};
+        let validStyles;
+        let invalidStyles;
+        const invisibleChar = zeroWidth;
+        settings = settings || {};
+        if (schema) {
+            validStyles = schema.getValidStyles();
+            invalidStyles = schema.getInvalidStyles();
         }
-      };
-      return self;
+        const encodingItems = (`\\" \\' \\; \\: ; : ` + invisibleChar).split(
+            ' '
+        );
+        for (i = 0; i < encodingItems.length; i++) {
+            encodingLookup[encodingItems[i]] = invisibleChar + i;
+            encodingLookup[invisibleChar + i] = encodingItems[i];
+        }
+        const self = {
+            parse: (css) => {
+                const styles = {};
+                let matches, name, value, isEncoded;
+                const urlConverter = settings.url_converter;
+                const urlConverterScope = settings.url_converter_scope || self;
+                const compress = (prefix, suffix, noJoin) => {
+                    const top = styles[prefix + '-top' + suffix];
+                    if (!top) {
+                        return;
+                    }
+                    const right = styles[prefix + '-right' + suffix];
+                    if (!right) {
+                        return;
+                    }
+                    const bottom = styles[prefix + '-bottom' + suffix];
+                    if (!bottom) {
+                        return;
+                    }
+                    const left = styles[prefix + '-left' + suffix];
+                    if (!left) {
+                        return;
+                    }
+                    const box = [top, right, bottom, left];
+                    i = box.length - 1;
+                    while (i--) {
+                        if (box[i] !== box[i + 1]) {
+                            break;
+                        }
+                    }
+                    if (i > -1 && noJoin) {
+                        return;
+                    }
+                    styles[prefix + suffix] = i === -1 ? box[0] : box.join(' ');
+                    delete styles[prefix + '-top' + suffix];
+                    delete styles[prefix + '-right' + suffix];
+                    delete styles[prefix + '-bottom' + suffix];
+                    delete styles[prefix + '-left' + suffix];
+                };
+                const canCompress = (key) => {
+                    let value = styles[key],
+                        i;
+                    if (!value) {
+                        return;
+                    }
+                    value = value.split(' ');
+                    i = value.length;
+                    while (i--) {
+                        if (value[i] !== value[0]) {
+                            return false;
+                        }
+                    }
+                    styles[key] = value[0];
+                    return true;
+                };
+                const compress2 = (target, a, b, c) => {
+                    if (!canCompress(a)) {
+                        return;
+                    }
+                    if (!canCompress(b)) {
+                        return;
+                    }
+                    if (!canCompress(c)) {
+                        return;
+                    }
+                    styles[target] =
+                        styles[a] + ' ' + styles[b] + ' ' + styles[c];
+                    delete styles[a];
+                    delete styles[b];
+                    delete styles[c];
+                };
+                const encode = (str) => {
+                    isEncoded = true;
+                    return encodingLookup[str];
+                };
+                const decode = (str, keepSlashes) => {
+                    if (isEncoded) {
+                        str = str.replace(/\uFEFF[0-9]/g, (str) => {
+                            return encodingLookup[str];
+                        });
+                    }
+                    if (!keepSlashes) {
+                        str = str.replace(/\\([\'\";:])/g, '$1');
+                    }
+                    return str;
+                };
+                const decodeSingleHexSequence = (escSeq) => {
+                    return String.fromCharCode(parseInt(escSeq.slice(1), 16));
+                };
+                const decodeHexSequences = (value) => {
+                    return value.replace(
+                        /\\[0-9a-f]+/gi,
+                        decodeSingleHexSequence
+                    );
+                };
+                const processUrl = (match, url, url2, url3, str, str2) => {
+                    str = str || str2;
+                    if (str) {
+                        str = decode(str);
+                        return `'` + str.replace(/\'/g, `\\'`) + `'`;
+                    }
+                    url = decode(url || url2 || url3);
+                    if (!settings.allow_script_urls) {
+                        const scriptUrl = url.replace(/[\s\r\n]+/g, '');
+                        if (/(java|vb)script:/i.test(scriptUrl)) {
+                            return '';
+                        }
+                        if (
+                            !settings.allow_svg_data_urls &&
+                            /^data:image\/svg/i.test(scriptUrl)
+                        ) {
+                            return '';
+                        }
+                    }
+                    if (urlConverter) {
+                        url = urlConverter.call(
+                            urlConverterScope,
+                            url,
+                            'style'
+                        );
+                    }
+                    return `url('` + url.replace(/\'/g, `\\'`) + `')`;
+                };
+                if (css) {
+                    css = css.replace(/[\u0000-\u001F]/g, '');
+                    css = css
+                        .replace(/\\[\"\';:\uFEFF]/g, encode)
+                        .replace(/\"[^\"]+\"|\'[^\']+\'/g, (str) => {
+                            return str.replace(/[;:]/g, encode);
+                        });
+                    while ((matches = styleRegExp.exec(css))) {
+                        styleRegExp.lastIndex =
+                            matches.index + matches[0].length;
+                        name = matches[1]
+                            .replace(trimRightRegExp, '')
+                            .toLowerCase();
+                        value = matches[2].replace(trimRightRegExp, '');
+                        if (name && value) {
+                            name = decodeHexSequences(name);
+                            value = decodeHexSequences(value);
+                            if (
+                                name.indexOf(invisibleChar) !== -1 ||
+                                name.indexOf('"') !== -1
+                            ) {
+                                continue;
+                            }
+                            if (
+                                !settings.allow_script_urls &&
+                                (name === 'behavior' ||
+                                    /expression\s*\(|\/\*|\*\//.test(value))
+                            ) {
+                                continue;
+                            }
+                            if (name === 'font-weight' && value === '700') {
+                                value = 'bold';
+                            } else if (
+                                name === 'color' ||
+                                name === 'background-color'
+                            ) {
+                                value = value.toLowerCase();
+                            }
+                            value = value.replace(urlOrStrRegExp, processUrl);
+                            styles[name] = isEncoded
+                                ? decode(value, true)
+                                : value;
+                        }
+                    }
+                    compress('border', '', true);
+                    compress('border', '-width');
+                    compress('border', '-color');
+                    compress('border', '-style');
+                    compress('padding', '');
+                    compress('margin', '');
+                    compress2(
+                        'border',
+                        'border-width',
+                        'border-style',
+                        'border-color'
+                    );
+                    if (styles.border === 'medium none') {
+                        delete styles.border;
+                    }
+                    if (styles['border-image'] === 'none') {
+                        delete styles['border-image'];
+                    }
+                }
+                return styles;
+            },
+            serialize: (styles, elementName) => {
+                let css = '';
+                const serializeStyles = (name) => {
+                    let value;
+                    const styleList = validStyles[name];
+                    if (styleList) {
+                        for (let i = 0, l = styleList.length; i < l; i++) {
+                            name = styleList[i];
+                            value = styles[name];
+                            if (value) {
+                                css +=
+                                    (css.length > 0 ? ' ' : '') +
+                                    name +
+                                    ': ' +
+                                    value +
+                                    ';';
+                            }
+                        }
+                    }
+                };
+                const isValid = (name, elementName) => {
+                    let styleMap = invalidStyles['*'];
+                    if (styleMap && styleMap[name]) {
+                        return false;
+                    }
+                    styleMap = invalidStyles[elementName];
+                    return !(styleMap && styleMap[name]);
+                };
+                if (elementName && validStyles) {
+                    serializeStyles('*');
+                    serializeStyles(elementName);
+                } else {
+                    each$f(styles, (value, name) => {
+                        if (
+                            value &&
+                            (!invalidStyles || isValid(name, elementName))
+                        ) {
+                            css +=
+                                (css.length > 0 ? ' ' : '') +
+                                name +
+                                ': ' +
+                                value +
+                                ';';
+                        }
+                    });
+                }
+                return css;
+            },
+        };
+        return self;
     };
 
     const deprecated = {
@@ -12991,149 +13036,219 @@
       dom.remove(node, true);
     };
     const removeFormatInternal = (ed, format, vars, node, compareNode) => {
-      let stylesModified;
-      const dom = ed.dom;
-      if (!matchName(dom, node, format) && !isColorFormatAndAnchor(node, format)) {
-        return removeResult.keep();
-      }
-      const elm = node;
-      if (isInlineFormat(format) && format.remove === 'all' && isArray$1(format.preserve_attributes)) {
-        const attrsToPreserve = filter$6(dom.getAttribs(elm), attr => contains$2(format.preserve_attributes, attr.name.toLowerCase()));
-        dom.removeAllAttribs(elm);
-        each$g(attrsToPreserve, attr => dom.setAttrib(elm, attr.name, attr.value));
-        if (attrsToPreserve.length > 0) {
-          return removeResult.rename('span');
-        }
-      }
-      if (format.remove !== 'all') {
-        each$8(format.styles, (value, name) => {
-          value = normalizeStyleValue(replaceVars(value, vars), name + '');
-          if (isNumber(name)) {
-            name = value;
-            compareNode = null;
-          }
-          if (format.remove_similar || (!compareNode || isEq$2(getStyle(dom, compareNode, name), value))) {
-            dom.setStyle(elm, name, '');
-          }
-          stylesModified = true;
-        });
-        if (stylesModified && dom.getAttrib(elm, 'style') === '') {
-          elm.removeAttribute('style');
-          elm.removeAttribute('data-mce-style');
-        }
-        each$8(format.attributes, (value, name) => {
-          let valueOut;
-          value = replaceVars(value, vars);
-          if (isNumber(name)) {
-            name = value;
-            compareNode = null;
-          }
-          if (format.remove_similar || (!compareNode || isEq$2(dom.getAttrib(compareNode, name), value))) {
-            if (name === 'class') {
-              value = dom.getAttrib(elm, name);
-              if (value) {
-                valueOut = '';
-                each$g(value.split(/\s+/), cls => {
-                  if (/mce\-\w+/.test(cls)) {
-                    valueOut += (valueOut ? ' ' : '') + cls;
-                  }
-                });
-                if (valueOut) {
-                  dom.setAttrib(elm, name, valueOut);
-                  return;
-                }
-              }
-            }
-            if (MCE_ATTR_RE.test(name)) {
-              elm.removeAttribute('data-mce-' + name);
-            }
-            if (name === 'style' && matchNodeNames(['li'])(elm) && dom.getStyle(elm, 'list-style-type') === 'none') {
-              elm.removeAttribute(name);
-              dom.setStyle(elm, 'list-style-type', 'none');
-              return;
-            }
-            if (name === 'class') {
-              elm.removeAttribute('className');
-            }
-            elm.removeAttribute(name);
-          }
-        });
-        each$8(format.classes, value => {
-          value = replaceVars(value, vars);
-          if (!compareNode || dom.hasClass(compareNode, value)) {
-            dom.removeClass(elm, value);
-          }
-        });
-        const attrs = dom.getAttribs(elm);
-        for (let i = 0; i < attrs.length; i++) {
-          const attrName = attrs[i].nodeName;
-          if (attrName.indexOf('_') !== 0 && attrName.indexOf('data-') !== 0) {
+        let stylesModified;
+        const dom = ed.dom;
+        if (
+            !matchName(dom, node, format) &&
+            !isColorFormatAndAnchor(node, format)
+        ) {
             return removeResult.keep();
-          }
         }
-      }
-      if (format.remove !== 'none') {
-        removeNode(ed, elm, format);
-        return removeResult.removed();
-      }
-      return removeResult.keep();
+        const elm = node;
+        if (
+            isInlineFormat(format) &&
+            format.remove === 'all' &&
+            isArray$1(format.preserve_attributes)
+        ) {
+            const attrsToPreserve = filter$6(dom.getAttribs(elm), (attr) =>
+                contains$2(format.preserve_attributes, attr.name.toLowerCase())
+            );
+            dom.removeAllAttribs(elm);
+            each$g(attrsToPreserve, (attr) =>
+                dom.setAttrib(elm, attr.name, attr.value)
+            );
+            if (attrsToPreserve.length > 0) {
+                return removeResult.rename('span');
+            }
+        }
+        if (format.remove !== 'all') {
+            each$8(format.styles, (value, name) => {
+                value = normalizeStyleValue(
+                    replaceVars(value, vars),
+                    name + ''
+                );
+                if (isNumber(name)) {
+                    name = value;
+                    compareNode = null;
+                }
+                if (
+                    format.remove_similar ||
+                    !compareNode ||
+                    isEq$2(getStyle(dom, compareNode, name), value)
+                ) {
+                    dom.setStyle(elm, name, '');
+                }
+                stylesModified = true;
+            });
+            if (stylesModified && dom.getAttrib(elm, 'style') === '') {
+                elm.removeAttribute('style');
+                elm.removeAttribute('data-mce-style');
+            }
+            each$8(format.attributes, (value, name) => {
+                let valueOut;
+                value = replaceVars(value, vars);
+                if (isNumber(name)) {
+                    name = value;
+                    compareNode = null;
+                }
+                if (
+                    format.remove_similar ||
+                    !compareNode ||
+                    isEq$2(dom.getAttrib(compareNode, name), value)
+                ) {
+                    if (name === 'class') {
+                        value = dom.getAttrib(elm, name);
+                        if (value) {
+                            valueOut = '';
+                            each$g(value.split(/\s+/), (cls) => {
+                                if (/mce\-\w+/.test(cls)) {
+                                    valueOut += (valueOut ? ' ' : '') + cls;
+                                }
+                            });
+                            if (valueOut) {
+                                dom.setAttrib(elm, name, valueOut);
+                                return;
+                            }
+                        }
+                    }
+                    if (MCE_ATTR_RE.test(name)) {
+                        elm.removeAttribute('data-mce-' + name);
+                    }
+                    if (
+                        name === 'style' &&
+                        matchNodeNames(['li'])(elm) &&
+                        dom.getStyle(elm, 'list-style-type') === 'none'
+                    ) {
+                        elm.removeAttribute(name);
+                        dom.setStyle(elm, 'list-style-type', 'none');
+                        return;
+                    }
+                    if (name === 'class') {
+                        elm.removeAttribute('className');
+                    }
+                    elm.removeAttribute(name);
+                }
+            });
+            each$8(format.classes, (value) => {
+                value = replaceVars(value, vars);
+                if (!compareNode || dom.hasClass(compareNode, value)) {
+                    dom.removeClass(elm, value);
+                }
+            });
+            const attrs = dom.getAttribs(elm);
+            for (let i = 0; i < attrs.length; i++) {
+                const attrName = attrs[i].nodeName;
+                if (
+                    attrName.indexOf('_') !== 0 &&
+                    attrName.indexOf('data-') !== 0
+                ) {
+                    return removeResult.keep();
+                }
+            }
+        }
+        if (format.remove !== 'none') {
+            removeNode(ed, elm, format);
+            return removeResult.removed();
+        }
+        return removeResult.keep();
     };
-    const removeFormat$1 = (ed, format, vars, node, compareNode) => removeFormatInternal(ed, format, vars, node, compareNode).fold(never, newName => {
-      ed.dom.rename(node, newName);
-      return true;
-    }, always);
+    const removeFormat$1 = (ed, format, vars, node, compareNode) =>
+        removeFormatInternal(ed, format, vars, node, compareNode).fold(
+            never,
+            (newName) => {
+                ed.dom.rename(node, newName);
+                return true;
+            },
+            always
+        );
     const findFormatRoot = (editor, container, name, vars, similar) => {
-      let formatRoot;
-      each$g(getParents$2(editor.dom, container.parentNode).reverse(), parent => {
-        if (!formatRoot && parent.id !== '_start' && parent.id !== '_end') {
-          const format = matchNode(editor, parent, name, vars, similar);
-          if (format && format.split !== false) {
-            formatRoot = parent;
-          }
-        }
-      });
-      return formatRoot;
+        let formatRoot;
+        each$g(
+            getParents$2(editor.dom, container.parentNode).reverse(),
+            (parent) => {
+                if (
+                    !formatRoot &&
+                    parent.id !== '_start' &&
+                    parent.id !== '_end'
+                ) {
+                    const format = matchNode(
+                        editor,
+                        parent,
+                        name,
+                        vars,
+                        similar
+                    );
+                    if (format && format.split !== false) {
+                        formatRoot = parent;
+                    }
+                }
+            }
+        );
+        return formatRoot;
     };
-    const removeFormatFromClone = (editor, format, vars, clone) => removeFormatInternal(editor, format, vars, clone, clone).fold(constant(clone), newName => {
-      const fragment = editor.dom.createFragment();
-      fragment.appendChild(clone);
-      return editor.dom.rename(clone, newName);
-    }, constant(null));
-    const wrapAndSplit = (editor, formatList, formatRoot, container, target, split, format, vars) => {
-      let clone, lastClone, firstClone;
-      const dom = editor.dom;
-      if (formatRoot) {
-        const formatRootParent = formatRoot.parentNode;
-        for (let parent = container.parentNode; parent && parent !== formatRootParent; parent = parent.parentNode) {
-          clone = dom.clone(parent, false);
-          for (let i = 0; i < formatList.length; i++) {
-            clone = removeFormatFromClone(editor, formatList[i], vars, clone);
-            if (clone === null) {
-              break;
+    const removeFormatFromClone = (editor, format, vars, clone) =>
+        removeFormatInternal(editor, format, vars, clone, clone).fold(
+            constant(clone),
+            (newName) => {
+                const fragment = editor.dom.createFragment();
+                fragment.appendChild(clone);
+                return editor.dom.rename(clone, newName);
+            },
+            constant(null)
+        );
+    const wrapAndSplit = (
+        editor,
+        formatList,
+        formatRoot,
+        container,
+        target,
+        split,
+        format,
+        vars
+    ) => {
+        let clone, lastClone, firstClone;
+        const dom = editor.dom;
+        if (formatRoot) {
+            const formatRootParent = formatRoot.parentNode;
+            for (
+                let parent = container.parentNode;
+                parent && parent !== formatRootParent;
+                parent = parent.parentNode
+            ) {
+                clone = dom.clone(parent, false);
+                for (let i = 0; i < formatList.length; i++) {
+                    clone = removeFormatFromClone(
+                        editor,
+                        formatList[i],
+                        vars,
+                        clone
+                    );
+                    if (clone === null) {
+                        break;
+                    }
+                }
+                if (clone) {
+                    if (lastClone) {
+                        clone.appendChild(lastClone);
+                    }
+                    if (!firstClone) {
+                        firstClone = clone;
+                    }
+                    lastClone = clone;
+                }
             }
-          }
-          if (clone) {
+            if (split && (!format.mixed || !dom.isBlock(formatRoot))) {
+                container = dom.split(formatRoot, container);
+            }
             if (lastClone) {
-              clone.appendChild(lastClone);
+                target.parentNode.insertBefore(lastClone, target);
+                firstClone.appendChild(target);
+                if (isInlineFormat(format)) {
+                    mergeSiblings(dom, format, vars, lastClone);
+                }
             }
-            if (!firstClone) {
-              firstClone = clone;
-            }
-            lastClone = clone;
-          }
         }
-        if (split && (!format.mixed || !dom.isBlock(formatRoot))) {
-          container = dom.split(formatRoot, container);
-        }
-        if (lastClone) {
-          target.parentNode.insertBefore(lastClone, target);
-          firstClone.appendChild(target);
-          if (isInlineFormat(format)) {
-            mergeSiblings(dom, format, vars, lastClone);
-          }
-        }
-      }
-      return container;
+        return container;
     };
     const remove$2 = (ed, name, vars, node, similar) => {
       const formatList = ed.formatter.get(name);
@@ -13266,10 +13381,8 @@
           } else {
               startContainer = endContainer = splitToFormatRoot(startContainer);
           }
-          expandedRng.startContainer = startContainer.parentNode
-              ? startContainer.parentNode
-              : startContainer;
-          expandedRng.startOffset = dom.nodeIndex(startContainer);
+            expandedRng.startContainer = startContainer.parentNode ? startContainer.parentNode : startContainer;
+            expandedRng.startOffset = dom.nodeIndex(startContainer);
           expandedRng.endContainer = endContainer.parentNode ? endContainer.parentNode : endContainer;
           expandedRng.endOffset = dom.nodeIndex(endContainer) + 1;
         }
@@ -13343,7 +13456,15 @@
     };
     const mergeBackgroundColorAndFontSize = (dom, format, vars, node) => {
         if (format.styles && format.styles.backgroundColor) {
-            processChildElements(node, hasStyle(dom, 'fontSize'), applyStyle(dom, 'backgroundColor', replaceVars(format.styles.backgroundColor, vars)));
+            processChildElements(
+                node,
+                hasStyle(dom, 'fontSize'),
+                applyStyle(
+                    dom,
+                    'backgroundColor',
+                    replaceVars(format.styles.backgroundColor, vars)
+                )
+            );
         }
     };
     const mergeSubSup = (dom, format, vars, node) => {
@@ -13366,19 +13487,19 @@
       });
     };
     const mergeWithParents = (editor, format, name, vars, node) => {
-      if (matchNode(editor, node.parentNode, name, vars)) {
-        if (removeFormat$1(editor, format, vars, node)) {
-          return;
+        if (matchNode(editor, node.parentNode, name, vars)) {
+            if (removeFormat$1(editor, format, vars, node)) {
+                return;
+            }
         }
-      }
-      if (format.merge_with_parents) {
-        editor.dom.getParent(node.parentNode, parent => {
-          if (matchNode(editor, parent, name, vars)) {
-            removeFormat$1(editor, format, vars, node);
-            return true;
-          }
-        });
-      }
+        if (format.merge_with_parents) {
+            editor.dom.getParent(node.parentNode, (parent) => {
+                if (matchNode(editor, parent, name, vars)) {
+                    removeFormat$1(editor, format, vars, node);
+                    return true;
+                }
+            });
+        }
     };
 
     const each$6 = Tools.each;
@@ -15996,78 +16117,127 @@
       return config;
     };
     const setupPurify = (settings, schema) => {
-      const purify$1 = purify();
-      const validate = settings.validate;
-      let uid = 0;
-      purify$1.addHook('uponSanitizeElement', (ele, evt) => {
-        var _a, _b;
-        if (ele.nodeType === COMMENT && !settings.allow_conditional_comments && /^\[if/i.test(ele.nodeValue)) {
-          ele.nodeValue = ' ' + ele.nodeValue;
-        }
-        const tagName = evt.tagName;
-        if (ele.nodeType !== ELEMENT || tagName === 'body') {
-          return;
-        }
-        const element = SugarElement.fromDom(ele);
-        const isInternalElement = has$1(element, internalElementAttr);
-        const bogus = get$9(element, 'data-mce-bogus');
-        if (!isInternalElement && isString(bogus)) {
-          if (bogus === 'all') {
-            remove$5(element);
-          } else {
-            unwrap(element);
-          }
-          return;
-        }
-        const rule = schema.getElementRule(tagName.toLowerCase());
-        if (validate && !rule) {
-          unwrap(element);
-          return;
-        } else {
-          evt.allowedTags[tagName] = true;
-        }
-        if (validate && !isInternalElement) {
-          each$g((_a = rule.attributesForced) !== null && _a !== void 0 ? _a : [], attr => {
-            set$2(element, attr.name, attr.value === '{$uid}' ? `mce_${ uid++ }` : attr.value);
-          });
-          each$g((_b = rule.attributesDefault) !== null && _b !== void 0 ? _b : [], attr => {
-            if (!has$1(element, attr.name)) {
-              set$2(element, attr.name, attr.value === '{$uid}' ? `mce_${ uid++ }` : attr.value);
+        const purify$1 = purify();
+        const validate = settings.validate;
+        let uid = 0;
+        purify$1.addHook('uponSanitizeElement', (ele, evt) => {
+            var _a, _b;
+            if (
+                ele.nodeType === COMMENT &&
+                !settings.allow_conditional_comments &&
+                /^\[if/i.test(ele.nodeValue)
+            ) {
+                ele.nodeValue = ' ' + ele.nodeValue;
             }
-          });
-          if (rule.attributesRequired && !exists(rule.attributesRequired, attr => has$1(element, attr))) {
-            unwrap(element);
-            return;
-          }
-          if (rule.removeEmptyAttrs && hasNone(element)) {
-            unwrap(element);
-            return;
-          }
-          if (rule.outputName && rule.outputName !== tagName.toLowerCase()) {
-            mutate(element, rule.outputName);
-          }
-        }
-      });
-      purify$1.addHook('uponSanitizeAttribute', (ele, evt) => {
-        const tagName = ele.tagName.toLowerCase();
-        const {attrName, attrValue} = evt;
-        evt.keepAttr = !validate || schema.isValid(tagName, attrName) || startsWith(attrName, 'data-') || startsWith(attrName, 'aria-');
-        if (attrName in filteredUrlAttrs && isInvalidUri(settings, attrValue, tagName)) {
-          evt.keepAttr = false;
-        }
-        if (evt.keepAttr) {
-          evt.allowedAttributes[attrName] = true;
-          if (attrName in schema.getBoolAttrs()) {
-            evt.attrValue = attrName;
-          }
-          if (settings.allow_svg_data_urls && startsWith(attrValue, 'data:image/svg+xml')) {
-            evt.forceKeepAttr = true;
-          }
-        } else if (ele.hasAttribute(internalElementAttr) && (attrName === 'id' || attrName === 'class' || attrName === 'style')) {
-          evt.forceKeepAttr = true;
-        }
-      });
-      return purify$1;
+            const tagName = evt.tagName;
+            if (ele.nodeType !== ELEMENT || tagName === 'body') {
+                return;
+            }
+            const element = SugarElement.fromDom(ele);
+            const isInternalElement = has$1(element, internalElementAttr);
+            const bogus = get$9(element, 'data-mce-bogus');
+            if (!isInternalElement && isString(bogus)) {
+                if (bogus === 'all') {
+                    remove$5(element);
+                } else {
+                    unwrap(element);
+                }
+                return;
+            }
+            const rule = schema.getElementRule(tagName.toLowerCase());
+            if (validate && !rule) {
+                unwrap(element);
+                return;
+            } else {
+                evt.allowedTags[tagName] = true;
+            }
+            if (validate && !isInternalElement) {
+                each$g(
+                    (_a = rule.attributesForced) !== null && _a !== void 0
+                        ? _a
+                        : [],
+                    (attr) => {
+                        set$2(
+                            element,
+                            attr.name,
+                            attr.value === '{$uid}'
+                                ? `mce_${uid++}`
+                                : attr.value
+                        );
+                    }
+                );
+                each$g(
+                    (_b = rule.attributesDefault) !== null && _b !== void 0
+                        ? _b
+                        : [],
+                    (attr) => {
+                        if (!has$1(element, attr.name)) {
+                            set$2(
+                                element,
+                                attr.name,
+                                attr.value === '{$uid}'
+                                    ? `mce_${uid++}`
+                                    : attr.value
+                            );
+                        }
+                    }
+                );
+                if (
+                    rule.attributesRequired &&
+                    !exists(rule.attributesRequired, (attr) =>
+                        has$1(element, attr)
+                    )
+                ) {
+                    unwrap(element);
+                    return;
+                }
+                if (rule.removeEmptyAttrs && hasNone(element)) {
+                    unwrap(element);
+                    return;
+                }
+                if (
+                    rule.outputName &&
+                    rule.outputName !== tagName.toLowerCase()
+                ) {
+                    mutate(element, rule.outputName);
+                }
+            }
+        });
+        purify$1.addHook('uponSanitizeAttribute', (ele, evt) => {
+            const tagName = ele.tagName.toLowerCase();
+            const { attrName, attrValue } = evt;
+            evt.keepAttr =
+                !validate ||
+                schema.isValid(tagName, attrName) ||
+                startsWith(attrName, 'data-') ||
+                startsWith(attrName, 'aria-');
+            if (
+                attrName in filteredUrlAttrs &&
+                isInvalidUri(settings, attrValue, tagName)
+            ) {
+                evt.keepAttr = false;
+            }
+            if (evt.keepAttr) {
+                evt.allowedAttributes[attrName] = true;
+                if (attrName in schema.getBoolAttrs()) {
+                    evt.attrValue = attrName;
+                }
+                if (
+                    settings.allow_svg_data_urls &&
+                    startsWith(attrValue, 'data:image/svg+xml')
+                ) {
+                    evt.forceKeepAttr = true;
+                }
+            } else if (
+                ele.hasAttribute(internalElementAttr) &&
+                (attrName === 'id' ||
+                    attrName === 'class' ||
+                    attrName === 'style')
+            ) {
+                evt.forceKeepAttr = true;
+            }
+        });
+        return purify$1;
     };
     const transferChildren = (parent, nativeParent, specialElements) => {
         const parentName = parent.name;
@@ -16106,12 +16276,8 @@
     };
     const walkTree = (root, preprocessors, postprocessors) => {
         const traverseOrder = [];
-        for (
-            let node = root, lastNode = node;
-            isNonNullable(node);
-            lastNode = node, node = node.walk()
-        ) {
-            each$g(preprocessors, (preprocess) => preprocess(node));
+        for (let node = root, lastNode = node; isNonNullable(node); lastNode = node, node = node.walk()) {
+            each$g(preprocessors, preprocess => preprocess(node));
             if (isNullable(node.parent) && node !== root) {
                 node = lastNode;
             } else {
@@ -16120,7 +16286,7 @@
         }
         for (let i = traverseOrder.length - 1; i >= 0; i--) {
             const node = traverseOrder[i];
-            each$g(postprocessors, (postprocess) => postprocess(node));
+            each$g(postprocessors, postprocess => postprocess(node));
         }
     };
     const whitespaceCleaner = (root, schema, settings, args) => {
@@ -25612,58 +25778,77 @@
 
     const hasPatterns = patternSet => patternSet.inlinePatterns.length > 0 || patternSet.blockPatterns.length > 0;
     const handleEnter = (editor, patternSet) => {
-      if (!editor.selection.isCollapsed() || !hasPatterns(patternSet)) {
+        if (!editor.selection.isCollapsed() || !hasPatterns(patternSet)) {
+            return false;
+        }
+        const inlineMatches = findPatterns(
+            editor,
+            patternSet.inlinePatterns,
+            false
+        );
+        const blockMatches = findPatterns$1(editor, patternSet.blockPatterns);
+        if (blockMatches.length > 0 || inlineMatches.length > 0) {
+            editor.undoManager.add();
+            editor.undoManager.extra(
+                () => {
+                    editor.execCommand('mceInsertNewLine');
+                },
+                () => {
+                    editor.insertContent(zeroWidth);
+                    applyMatches(editor, inlineMatches);
+                    applyMatches$1(editor, blockMatches);
+                    const range = editor.selection.getRng();
+                    const spot = textBefore(
+                        range.startContainer,
+                        range.startOffset,
+                        editor.dom.getRoot()
+                    );
+                    editor.execCommand('mceInsertNewLine');
+                    spot.each((s) => {
+                        const node = s.container;
+                        if (node.data.charAt(s.offset - 1) === zeroWidth) {
+                            node.deleteData(s.offset - 1, 1);
+                            cleanEmptyNodes(
+                                editor.dom,
+                                node.parentNode,
+                                (e) => e === editor.dom.getRoot()
+                            );
+                        }
+                    });
+                }
+            );
+            return true;
+        }
         return false;
-      }
-      const inlineMatches = findPatterns(editor, patternSet.inlinePatterns, false);
-      const blockMatches = findPatterns$1(editor, patternSet.blockPatterns);
-      if (blockMatches.length > 0 || inlineMatches.length > 0) {
-        editor.undoManager.add();
-        editor.undoManager.extra(() => {
-          editor.execCommand('mceInsertNewLine');
-        }, () => {
-          editor.insertContent(zeroWidth);
-          applyMatches(editor, inlineMatches);
-          applyMatches$1(editor, blockMatches);
-          const range = editor.selection.getRng();
-          const spot = textBefore(range.startContainer, range.startOffset, editor.dom.getRoot());
-          editor.execCommand('mceInsertNewLine');
-          spot.each(s => {
-            const node = s.container;
-            if (node.data.charAt(s.offset - 1) === zeroWidth) {
-              node.deleteData(s.offset - 1, 1);
-              cleanEmptyNodes(editor.dom, node.parentNode, e => e === editor.dom.getRoot());
-            }
-          });
-        });
-        return true;
-      }
-      return false;
     };
     const handleInlineKey = (editor, inlinePatterns) => {
-      if (inlinePatterns.length > 0) {
-        const inlineMatches = findPatterns(editor, inlinePatterns, true);
-        if (inlineMatches.length > 0) {
-          editor.undoManager.transact(() => {
-            applyMatches(editor, inlineMatches);
-          });
+        if (inlinePatterns.length > 0) {
+            const inlineMatches = findPatterns(editor, inlinePatterns, true);
+            if (inlineMatches.length > 0) {
+                editor.undoManager.transact(() => {
+                    applyMatches(editor, inlineMatches);
+                });
+            }
         }
-      }
     };
     const checkKeyEvent = (codes, event, predicate) => {
-      for (let i = 0; i < codes.length; i++) {
-        if (predicate(codes[i], event)) {
-          return true;
+        for (let i = 0; i < codes.length; i++) {
+            if (predicate(codes[i], event)) {
+                return true;
+            }
         }
-      }
-      return false;
+        return false;
     };
-    const checkKeyCode = (codes, event) => checkKeyEvent(codes, event, (code, event) => {
-      return code === event.keyCode && VK.modifierPressed(event) === false;
-    });
-    const checkCharCode = (chars, event) => checkKeyEvent(chars, event, (chr, event) => {
-      return chr.charCodeAt(0) === event.charCode;
-    });
+    const checkKeyCode = (codes, event) =>
+        checkKeyEvent(codes, event, (code, event) => {
+            return (
+                code === event.keyCode && VK.modifierPressed(event) === false
+            );
+        });
+    const checkCharCode = (chars, event) =>
+        checkKeyEvent(chars, event, (chr, event) => {
+            return chr.charCodeAt(0) === event.charCode;
+        });
 
     const setup$2 = (editor) => {
         const charCodes = [',', '.', ';', ':', '!', '?'];
@@ -26313,14 +26498,14 @@
         return parser;
     };
     const autoFocus = editor => {
-      const autoFocus = getAutoFocus(editor);
-      if (autoFocus) {
-        Delay.setEditorTimeout(editor, () => {
-          let focusEditor;
-          if (autoFocus === true) {
-            focusEditor = editor;
-          } else {
-            focusEditor = editor.editorManager.get(autoFocus);
+        const autoFocus = getAutoFocus(editor);
+        if (autoFocus) {
+            Delay.setEditorTimeout(editor, () => {
+                let focusEditor;
+                if (autoFocus === true) {
+                    focusEditor = editor;
+                } else {
+                    focusEditor = editor.editorManager.get(autoFocus);
           }
           if (!focusEditor.destroyed) {
             focusEditor.focus();
@@ -28141,109 +28326,119 @@
       }
     };
     const registerMode = (availableModes, mode, api) => {
-      if (contains$2(defaultModes, mode)) {
-        throw new Error(`Cannot override default mode ${ mode }`);
-      }
-      return {
-        ...availableModes,
-        [mode]: {
-          ...api,
-          deactivate: () => {
-            try {
-              api.deactivate();
-            } catch (e) {
-              console.error(`problem while deactivating editor mode ${ mode }:`, e);
-            }
-          }
+        if (contains$2(defaultModes, mode)) {
+            throw new Error(`Cannot override default mode ${mode}`);
         }
-      };
+        return {
+            ...availableModes,
+            [mode]: {
+                ...api,
+                deactivate: () => {
+                    try {
+                        api.deactivate();
+                    } catch (e) {
+                        console.error(
+                            `problem while deactivating editor mode ${mode}:`,
+                            e
+                        );
+                    }
+                },
+            },
+        };
     };
 
-    const create$4 = editor => {
-      const activeMode = Cell('design');
-      const availableModes = Cell({
-        design: {
-          activate: noop,
-          deactivate: noop,
-          editorReadOnly: false
-        },
-        readonly: {
-          activate: noop,
-          deactivate: noop,
-          editorReadOnly: true
-        }
-      });
-      registerReadOnlyContentFilters(editor);
-      registerReadOnlySelectionBlockers(editor);
-      return {
-        isReadOnly: () => isReadOnly(editor),
-        set: mode => setMode(editor, availableModes.get(), activeMode, mode),
-        get: () => activeMode.get(),
-        register: (mode, api) => {
-          availableModes.set(registerMode(availableModes.get(), mode, api));
-        }
-      };
+    const create$4 = (editor) => {
+        const activeMode = Cell('design');
+        const availableModes = Cell({
+            design: {
+                activate: noop,
+                deactivate: noop,
+                editorReadOnly: false,
+            },
+            readonly: {
+                activate: noop,
+                deactivate: noop,
+                editorReadOnly: true,
+            },
+        });
+        registerReadOnlyContentFilters(editor);
+        registerReadOnlySelectionBlockers(editor);
+        return {
+            isReadOnly: () => isReadOnly(editor),
+            set: (mode) =>
+                setMode(editor, availableModes.get(), activeMode, mode),
+            get: () => activeMode.get(),
+            register: (mode, api) => {
+                availableModes.set(
+                    registerMode(availableModes.get(), mode, api)
+                );
+            },
+        };
     };
 
-    const each$2 = Tools.each, explode = Tools.explode;
+    const each$2 = Tools.each,
+        explode = Tools.explode;
     const keyCodeLookup = {
-      f1: 112,
-      f2: 113,
-      f3: 114,
-      f4: 115,
-      f5: 116,
-      f6: 117,
-      f7: 118,
-      f8: 119,
-      f9: 120,
-      f10: 121,
-      f11: 122,
-      f12: 123
+        f1: 112,
+        f2: 113,
+        f3: 114,
+        f4: 115,
+        f5: 116,
+        f6: 117,
+        f7: 118,
+        f8: 119,
+        f9: 120,
+        f10: 121,
+        f11: 122,
+        f12: 123,
     };
     const modifierNames = Tools.makeMap('alt,ctrl,shift,meta,access');
-    const parseShortcut = pattern => {
-      let key;
-      const shortcut = {};
-      const isMac = Env.os.isMacOS() || Env.os.isiOS();
-      each$2(explode(pattern.toLowerCase(), '+'), value => {
-        if (value in modifierNames) {
-          shortcut[value] = true;
-        } else {
-          if (/^[0-9]{2,}$/.test(value)) {
-            shortcut.keyCode = parseInt(value, 10);
-          } else {
-            shortcut.charCode = value.charCodeAt(0);
-            shortcut.keyCode = keyCodeLookup[value] || value.toUpperCase().charCodeAt(0);
-          }
+    const parseShortcut = (pattern) => {
+        let key;
+        const shortcut = {};
+        const isMac = Env.os.isMacOS() || Env.os.isiOS();
+        each$2(explode(pattern.toLowerCase(), '+'), (value) => {
+            if (value in modifierNames) {
+                shortcut[value] = true;
+            } else {
+                if (/^[0-9]{2,}$/.test(value)) {
+                    shortcut.keyCode = parseInt(value, 10);
+                } else {
+                    shortcut.charCode = value.charCodeAt(0);
+                    shortcut.keyCode =
+                        keyCodeLookup[value] ||
+                        value.toUpperCase().charCodeAt(0);
+                }
+            }
+        });
+        const id = [shortcut.keyCode];
+        for (key in modifierNames) {
+            if (shortcut[key]) {
+                id.push(key);
+            } else {
+                shortcut[key] = false;
+            }
         }
-      });
-      const id = [shortcut.keyCode];
-      for (key in modifierNames) {
-        if (shortcut[key]) {
-          id.push(key);
-        } else {
-          shortcut[key] = false;
+        shortcut.id = id.join(',');
+        if (shortcut.access) {
+            shortcut.alt = true;
+            if (isMac) {
+                shortcut.ctrl = true;
+            } else {
+                shortcut.shift = true;
+            }
         }
-      }
-      shortcut.id = id.join(',');
-      if (shortcut.access) {
-        shortcut.alt = true;
-        if (isMac) {
-          shortcut.ctrl = true;
-        } else {
-          shortcut.shift = true;
+        if (shortcut.meta) {
+            if (isMac) {
+                shortcut.meta = true;
+            } else {
+                shortcut.ctrl = true;
+                shortcut.meta = false;
+            }
         }
-      }
-      if (shortcut.meta) {
-        if (isMac) {
-          shortcut.meta = true;
-        } else {
-          shortcut.ctrl = true;
-          shortcut.meta = false;
-        }
-      }
-      return shortcut;
+        return shortcut;
     };
+
     class Shortcuts {
         constructor(editor) {
             this.shortcuts = {};
@@ -28278,6 +28473,7 @@
                 }
             });
         }
+
         add(pattern, desc, cmdFunc, scope) {
             const self = this;
             const func = self.normalizeCommandFunc(cmdFunc);
@@ -28292,6 +28488,7 @@
             });
             return true;
         }
+
         remove(pattern) {
             const shortcut = this.createShortcut(pattern);
             if (this.shortcuts[shortcut.id]) {
@@ -28300,6 +28497,7 @@
             }
             return false;
         }
+
         normalizeCommandFunc(cmdFunc) {
             const self = this;
             const cmd = cmdFunc;
@@ -28315,6 +28513,7 @@
                 return cmd;
             }
         }
+
         createShortcut(pattern, desc, cmdFunc, scope) {
             const shortcuts = Tools.map(explode(pattern, '>'), parseShortcut);
             shortcuts[shortcuts.length - 1] = Tools.extend(
@@ -28329,12 +28528,15 @@
                 subpatterns: shortcuts.slice(1),
             });
         }
+
         hasModifier(e) {
             return e.altKey || e.ctrlKey || e.metaKey;
         }
+
         isFunctionKey(e) {
             return e.type === 'keydown' && e.keyCode >= 112 && e.keyCode <= 123;
         }
+
         matchShortcut(e, shortcut) {
             if (!shortcut) {
                 return false;
@@ -28354,6 +28556,7 @@
             }
             return false;
         }
+
         executeShortcutAction(shortcut) {
             return shortcut.func ? shortcut.func.call(shortcut.scope) : null;
         }

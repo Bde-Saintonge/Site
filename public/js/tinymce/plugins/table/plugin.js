@@ -1838,22 +1838,22 @@
             return Optional.none();
         }
     };
-    const findCommonRowType = rows => {
-      const rowTypes = map(rows, row => getRowType$1(row).type);
-      const hasHeader = contains(rowTypes, 'header');
-      const hasFooter = contains(rowTypes, 'footer');
-      if (!hasHeader && !hasFooter) {
-        return Optional.some('body');
-      } else {
-        const hasBody = contains(rowTypes, 'body');
-        if (hasHeader && !hasBody && !hasFooter) {
-          return Optional.some('header');
-        } else if (!hasHeader && !hasBody && hasFooter) {
-          return Optional.some('footer');
+    const findCommonRowType = (rows) => {
+        const rowTypes = map(rows, (row) => getRowType$1(row).type);
+        const hasHeader = contains(rowTypes, 'header');
+        const hasFooter = contains(rowTypes, 'footer');
+        if (!hasHeader && !hasFooter) {
+            return Optional.some('body');
         } else {
-          return Optional.none();
+            const hasBody = contains(rowTypes, 'body');
+            if (hasHeader && !hasBody && !hasFooter) {
+                return Optional.some('header');
+            } else if (!hasHeader && !hasBody && hasFooter) {
+                return Optional.some('footer');
+            } else {
+                return Optional.none();
+            }
         }
-      }
     };
 
     const cached = f => {
