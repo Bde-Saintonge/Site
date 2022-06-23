@@ -9,7 +9,8 @@
                 <h1 class="my-3 text-4xl font-bold">Créer un utilisateur</h1>
                 <p class="dark:text-coolGray-400 text-sm">Remplissez le formulaire de création d'utilisateur.</p>
             </div>
-            <form method="post" action="/admin/user/create" class="ng-untouched ng-pristine ng-valid space-y-6">
+            <form method="post" action="{{ route('admin.user.store') }}"
+                  class="ng-untouched ng-pristine ng-valid space-y-6">
                 @csrf
                 <div class="space-y-4">
                     <div class="grid space-y-4 xl:grid-cols-2 xl:gap-6 xl:space-y-0">
