@@ -6,7 +6,6 @@
 
         <div class="flex flex-wrap items-center justify-center">
             <div class="bg-Gray-800 text-Gray-100 my-8 flex w-full flex-wrap items-center justify-center gap-2">
-                {{-- overflow-x-auto overflow-y-hidden  flex-nowrap --}}
                 @foreach ($offices_typo as $office)
                     <a href="/dashboard/{{ $office->code_name }}"
                         class="@if ($active_office == $office->code_name) border-blue-400 @endif dark:text-Gray-400 flex-shrink-0 border-b-4 px-5 py-2 hover:border-blue-300">{{ $office->name }}</a>
