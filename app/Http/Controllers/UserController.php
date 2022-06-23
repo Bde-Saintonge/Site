@@ -56,8 +56,7 @@ class UserController extends BaseController
             'roles.*' => [
                 'required',
                 'distinct',
-                'exists:roles',
-                'name',
+                'exists:roles,name',
                 'bail',
             ],
         ]);
