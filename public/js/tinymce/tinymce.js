@@ -2995,12 +2995,13 @@
         }
         return styles;
     };
-    const Schema = settings => {
-      var _a;
-      const elements = {};
-      const children = {};
+    const Schema = (settings) => {
+        var _a;
+        const elements = {};
+        const children = {};
         let patternElements = [];
-        const customElementsMap = {}, specialElements = {};
+        const customElementsMap = {},
+            specialElements = {};
         const createLookupTable = (option, defaultValue, extendWith) => {
             let value = settings[option];
             if (!value) {
@@ -3384,83 +3385,85 @@
                 }
             }
         );
-      if (settings.invalid_elements) {
-        each$d(explode$2(settings.invalid_elements), item => {
-          if (elements[item]) {
-            delete elements[item];
-          }
-        });
-      }
-      if (!getElementRule('span')) {
-        addValidElements('span[!data-mce-type|*]');
-      }
-      const getValidStyles = constant(validStyles);
-      const getInvalidStyles = constant(invalidStyles);
-      const getValidClasses = constant(validClasses);
-      const getBoolAttrs = constant(boolAttrMap);
-      const getBlockElements = constant(blockElementsMap);
-      const getTextBlockElements = constant(textBlockElementsMap);
-      const getTextInlineElements = constant(textInlineElementsMap);
-      const getVoidElements = constant(Object.seal(voidElementsMap));
-      const getSelfClosingElements = constant(selfClosingElementsMap);
-      const getNonEmptyElements = constant(nonEmptyElementsMap);
-      const getMoveCaretBeforeOnEnterElements = constant(moveCaretBeforeOnEnterElementsMap);
-      const getWhitespaceElements = constant(whitespaceElementsMap);
-      const getSpecialElements = constant(Object.seal(specialElements));
-      const isValidChild = (name, child) => {
-        const parent = children[name.toLowerCase()];
-        return !!(parent && parent[child.toLowerCase()]);
-      };
-      const isValid = (name, attr) => {
-        let attrPatterns, i;
-        const rule = getElementRule(name);
-        if (rule) {
-          if (attr) {
-            if (rule.attributes[attr]) {
-              return true;
-            }
-            attrPatterns = rule.attributePatterns;
-            if (attrPatterns) {
-              i = attrPatterns.length;
-              while (i--) {
-                if (attrPatterns[i].pattern.test(attr)) {
-                  return true;
+        if (settings.invalid_elements) {
+            each$d(explode$2(settings.invalid_elements), (item) => {
+                if (elements[item]) {
+                    delete elements[item];
                 }
-              }
-            }
-          } else {
-            return true;
-          }
+            });
         }
-        return false;
-      };
-      const getCustomElements = constant(customElementsMap);
-      return {
-        type: schemaType,
-        children,
-        elements,
-        getValidStyles,
-        getValidClasses,
-        getBlockElements,
-        getInvalidStyles,
-        getVoidElements,
-        getTextBlockElements,
-        getTextInlineElements,
-        getBoolAttrs,
-        getElementRule,
-        getSelfClosingElements,
-        getNonEmptyElements,
-        getMoveCaretBeforeOnEnterElements,
-        getWhitespaceElements,
-        getSpecialElements,
-        isValidChild,
-        isValid,
-        getCustomElements,
-        addValidElements,
-        setValidElements,
-        addCustomElements,
-        addValidChildren
-      };
+        if (!getElementRule('span')) {
+            addValidElements('span[!data-mce-type|*]');
+        }
+        const getValidStyles = constant(validStyles);
+        const getInvalidStyles = constant(invalidStyles);
+        const getValidClasses = constant(validClasses);
+        const getBoolAttrs = constant(boolAttrMap);
+        const getBlockElements = constant(blockElementsMap);
+        const getTextBlockElements = constant(textBlockElementsMap);
+        const getTextInlineElements = constant(textInlineElementsMap);
+        const getVoidElements = constant(Object.seal(voidElementsMap));
+        const getSelfClosingElements = constant(selfClosingElementsMap);
+        const getNonEmptyElements = constant(nonEmptyElementsMap);
+        const getMoveCaretBeforeOnEnterElements = constant(
+            moveCaretBeforeOnEnterElementsMap
+        );
+        const getWhitespaceElements = constant(whitespaceElementsMap);
+        const getSpecialElements = constant(Object.seal(specialElements));
+        const isValidChild = (name, child) => {
+            const parent = children[name.toLowerCase()];
+            return !!(parent && parent[child.toLowerCase()]);
+        };
+        const isValid = (name, attr) => {
+            let attrPatterns, i;
+            const rule = getElementRule(name);
+            if (rule) {
+                if (attr) {
+                    if (rule.attributes[attr]) {
+                        return true;
+                    }
+                    attrPatterns = rule.attributePatterns;
+                    if (attrPatterns) {
+                        i = attrPatterns.length;
+                        while (i--) {
+                            if (attrPatterns[i].pattern.test(attr)) {
+                                return true;
+                            }
+                        }
+                    }
+                } else {
+                    return true;
+                }
+            }
+            return false;
+        };
+        const getCustomElements = constant(customElementsMap);
+        return {
+            type: schemaType,
+            children,
+            elements,
+            getValidStyles,
+            getValidClasses,
+            getBlockElements,
+            getInvalidStyles,
+            getVoidElements,
+            getTextBlockElements,
+            getTextInlineElements,
+            getBoolAttrs,
+            getElementRule,
+            getSelfClosingElements,
+            getNonEmptyElements,
+            getMoveCaretBeforeOnEnterElements,
+            getWhitespaceElements,
+            getSpecialElements,
+            isValidChild,
+            isValid,
+            getCustomElements,
+            addValidElements,
+            setValidElements,
+            addCustomElements,
+            addValidChildren,
+        };
     };
 
     const Styles = (settings, schema) => {
@@ -13207,52 +13210,65 @@
           startContainer = getContainer(ed, expandedRng, true);
           endContainer = getContainer(ed, expandedRng);
           if (startContainer !== endContainer) {
-            startContainer = normalizeTableSelection(startContainer, true);
-            endContainer = normalizeTableSelection(endContainer, false);
-            if (isChildOfInlineParent(dom, startContainer, endContainer)) {
-              const marker = Optional.from(startContainer.firstChild).getOr(startContainer);
-              splitToFormatRoot(wrapWithSiblings(dom, marker, true, 'span', {
-                'id': '_start',
-                'data-mce-type': 'bookmark'
-              }));
-              unwrap(true);
-              return;
-            }
-            if (isChildOfInlineParent(dom, endContainer, startContainer)) {
-              const marker = Optional.from(endContainer.lastChild).getOr(endContainer);
-              splitToFormatRoot(wrapWithSiblings(dom, marker, false, 'span', {
-                'id': '_end',
-                'data-mce-type': 'bookmark'
-              }));
-              unwrap(false);
-              return;
-            }
-            startContainer = wrap$1(dom, startContainer, 'span', {
-              'id': '_start',
-              'data-mce-type': 'bookmark'
-            });
-            endContainer = wrap$1(dom, endContainer, 'span', {
-              'id': '_end',
-              'data-mce-type': 'bookmark'
-            });
-            const newRng = dom.createRng();
-            newRng.setStartAfter(startContainer);
-            newRng.setEndBefore(endContainer);
-            walk$3(dom, newRng, nodes => {
-              each$g(nodes, n => {
-                if (!isBookmarkNode$1(n) && !isBookmarkNode$1(n.parentNode)) {
-                  splitToFormatRoot(n);
-                }
+              startContainer = normalizeTableSelection(startContainer, true);
+              endContainer = normalizeTableSelection(endContainer, false);
+              if (isChildOfInlineParent(dom, startContainer, endContainer)) {
+                  const marker = Optional.from(startContainer.firstChild).getOr(
+                      startContainer
+                  );
+                  splitToFormatRoot(
+                      wrapWithSiblings(dom, marker, true, 'span', {
+                          id: '_start',
+                          'data-mce-type': 'bookmark',
+                      })
+                  );
+                  unwrap(true);
+                  return;
+              }
+              if (isChildOfInlineParent(dom, endContainer, startContainer)) {
+                  const marker = Optional.from(endContainer.lastChild).getOr(
+                      endContainer
+                  );
+                  splitToFormatRoot(
+                      wrapWithSiblings(dom, marker, false, 'span', {
+                          id: '_end',
+                          'data-mce-type': 'bookmark',
+                      })
+                  );
+                  unwrap(false);
+                  return;
+              }
+              startContainer = wrap$1(dom, startContainer, 'span', {
+                  id: '_start',
+                  'data-mce-type': 'bookmark',
               });
-            });
-            splitToFormatRoot(startContainer);
-            splitToFormatRoot(endContainer);
-            startContainer = unwrap(true);
-            endContainer = unwrap();
+              endContainer = wrap$1(dom, endContainer, 'span', {
+                  id: '_end',
+                  'data-mce-type': 'bookmark',
+              });
+              const newRng = dom.createRng();
+              newRng.setStartAfter(startContainer);
+              newRng.setEndBefore(endContainer);
+              walk$3(dom, newRng, (nodes) => {
+                  each$g(nodes, (n) => {
+                      if (
+                          !isBookmarkNode$1(n) &&
+                          !isBookmarkNode$1(n.parentNode)
+                      ) {
+                          splitToFormatRoot(n);
+                      }
+                  });
+              });
+              splitToFormatRoot(startContainer);
+              splitToFormatRoot(endContainer);
+              startContainer = unwrap(true);
+              endContainer = unwrap();
           } else {
-            startContainer = endContainer = splitToFormatRoot(startContainer);
+              startContainer = endContainer = splitToFormatRoot(startContainer);
           }
-          expandedRng.startContainer = startContainer.parentNode ? startContainer.parentNode : startContainer;
+          expandedRng.startContainer = startContainer.parentNode
+              ? startContainer.parentNode
+              : startContainer;
           expandedRng.startOffset = dom.nodeIndex(startContainer);
           expandedRng.endContainer = endContainer.parentNode ? endContainer.parentNode : endContainer;
           expandedRng.endOffset = dom.nodeIndex(endContainer) + 1;
@@ -13327,15 +13343,7 @@
     };
     const mergeBackgroundColorAndFontSize = (dom, format, vars, node) => {
         if (format.styles && format.styles.backgroundColor) {
-            processChildElements(
-                node,
-                hasStyle(dom, 'fontSize'),
-                applyStyle(
-                    dom,
-                    'backgroundColor',
-                    replaceVars(format.styles.backgroundColor, vars)
-                )
-            );
+            processChildElements(node, hasStyle(dom, 'fontSize'), applyStyle(dom, 'backgroundColor', replaceVars(format.styles.backgroundColor, vars)));
         }
     };
     const mergeSubSup = (dom, format, vars, node) => {
@@ -13374,14 +13382,28 @@
     };
 
     const each$6 = Tools.each;
-    const isElementNode = node => {
-      return isElement$6(node) && !isBookmarkNode$1(node) && !isCaretNode(node) && !isBogus$2(node);
+    const isElementNode = (node) => {
+        return (
+            isElement$6(node) &&
+            !isBookmarkNode$1(node) &&
+            !isCaretNode(node) &&
+            !isBogus$2(node)
+        );
     };
     const canFormatBR = (editor, format, node, parentName) => {
         if (canFormatEmptyLines(editor) && isInlineFormat(format)) {
-            const validBRParentElements = getTextRootBlockElements(editor.schema);
-            const hasCaretNodeSibling = sibling(SugarElement.fromDom(node), sibling => isCaretNode(sibling.dom));
-            return hasNonNullableKey(validBRParentElements, parentName) && isEmpty$2(SugarElement.fromDom(node.parentNode), false) && !hasCaretNodeSibling;
+            const validBRParentElements = getTextRootBlockElements(
+                editor.schema
+            );
+            const hasCaretNodeSibling = sibling(
+                SugarElement.fromDom(node),
+                (sibling) => isCaretNode(sibling.dom)
+            );
+            return (
+                hasNonNullableKey(validBRParentElements, parentName) &&
+                isEmpty$2(SugarElement.fromDom(node.parentNode), false) &&
+                !hasCaretNodeSibling
+            );
         } else {
             return false;
         }
@@ -16048,29 +16070,39 @@
       return purify$1;
     };
     const transferChildren = (parent, nativeParent, specialElements) => {
-      const parentName = parent.name;
-      const isSpecial = parentName in specialElements && parentName !== 'title' && parentName !== 'textarea';
-      const childNodes = nativeParent.childNodes;
-      for (let ni = 0, nl = childNodes.length; ni < nl; ni++) {
-        const nativeChild = childNodes[ni];
-        const child = new AstNode(nativeChild.nodeName.toLowerCase(), nativeChild.nodeType);
-        if (isElement$6(nativeChild)) {
-          const attributes = nativeChild.attributes;
-          for (let ai = 0, al = attributes.length; ai < al; ai++) {
-            const attr = attributes[ai];
-            child.attr(attr.name, attr.value);
-          }
-        } else if (isText$8(nativeChild)) {
-          child.value = nativeChild.data;
-          if (isSpecial) {
-            child.raw = true;
-          }
-        } else if (isComment(nativeChild) || isCData(nativeChild) || isPi(nativeChild)) {
-          child.value = nativeChild.data;
+        const parentName = parent.name;
+        const isSpecial =
+            parentName in specialElements &&
+            parentName !== 'title' &&
+            parentName !== 'textarea';
+        const childNodes = nativeParent.childNodes;
+        for (let ni = 0, nl = childNodes.length; ni < nl; ni++) {
+            const nativeChild = childNodes[ni];
+            const child = new AstNode(
+                nativeChild.nodeName.toLowerCase(),
+                nativeChild.nodeType
+            );
+            if (isElement$6(nativeChild)) {
+                const attributes = nativeChild.attributes;
+                for (let ai = 0, al = attributes.length; ai < al; ai++) {
+                    const attr = attributes[ai];
+                    child.attr(attr.name, attr.value);
+                }
+            } else if (isText$8(nativeChild)) {
+                child.value = nativeChild.data;
+                if (isSpecial) {
+                    child.raw = true;
+                }
+            } else if (
+                isComment(nativeChild) ||
+                isCData(nativeChild) ||
+                isPi(nativeChild)
+            ) {
+                child.value = nativeChild.data;
+            }
+            transferChildren(child, nativeChild, specialElements);
+            parent.append(child);
         }
-        transferChildren(child, nativeChild, specialElements);
-        parent.append(child);
-      }
     };
     const walkTree = (root, preprocessors, postprocessors) => {
         const traverseOrder = [];
@@ -25633,41 +25665,39 @@
       return chr.charCodeAt(0) === event.charCode;
     });
 
-    const setup$2 = editor => {
-      const charCodes = [
-        ',',
-        '.',
-        ';',
-        ':',
-        '!',
-        '?'
-      ];
-      const keyCodes = [32];
-      const getPatternSet = () => createPatternSet(getTextPatterns(editor));
-      const getInlinePatterns$1 = () => getInlinePatterns(getTextPatterns(editor));
-      editor.on('keydown', e => {
-        if (e.keyCode === 13 && !VK.modifierPressed(e)) {
-          if (handleEnter(editor, getPatternSet())) {
-            e.preventDefault();
-          }
-        }
-      }, true);
-      editor.on('keyup', e => {
-        if (checkKeyCode(keyCodes, e)) {
-          handleInlineKey(editor, getInlinePatterns$1());
-        }
-      });
-      editor.on('keypress', e => {
-        if (checkCharCode(charCodes, e)) {
-          Delay.setEditorTimeout(editor, () => {
-            handleInlineKey(editor, getInlinePatterns$1());
-          });
-        }
-      });
+    const setup$2 = (editor) => {
+        const charCodes = [',', '.', ';', ':', '!', '?'];
+        const keyCodes = [32];
+        const getPatternSet = () => createPatternSet(getTextPatterns(editor));
+        const getInlinePatterns$1 = () =>
+            getInlinePatterns(getTextPatterns(editor));
+        editor.on(
+            'keydown',
+            (e) => {
+                if (e.keyCode === 13 && !VK.modifierPressed(e)) {
+                    if (handleEnter(editor, getPatternSet())) {
+                        e.preventDefault();
+                    }
+                }
+            },
+            true
+        );
+        editor.on('keyup', (e) => {
+            if (checkKeyCode(keyCodes, e)) {
+                handleInlineKey(editor, getInlinePatterns$1());
+            }
+        });
+        editor.on('keypress', (e) => {
+            if (checkCharCode(charCodes, e)) {
+                Delay.setEditorTimeout(editor, () => {
+                    handleInlineKey(editor, getInlinePatterns$1());
+                });
+            }
+        });
     };
 
-    const setup$1 = editor => {
-      setup$2(editor);
+    const setup$1 = (editor) => {
+        setup$2(editor);
     };
 
     const Quirks = (editor) => {
@@ -26205,67 +26235,82 @@
             }),
         };
     };
-    const createParser = editor => {
+    const createParser = (editor) => {
         const parser = DomParser(mkParserSettings(editor), editor.schema);
         parser.addAttributeFilter('src,href,style,tabindex', (nodes, name) => {
-            let i = nodes.length, node, value;
+            let i = nodes.length,
+                node,
+                value;
             const dom = editor.dom;
             const internalName = 'data-mce-' + name;
             while (i--) {
                 node = nodes[i];
                 value = node.attr(name);
-          if (value && !node.attr(internalName)) {
-            if (value.indexOf('data:') === 0 || value.indexOf('blob:') === 0) {
-              continue;
+                if (value && !node.attr(internalName)) {
+                    if (
+                        value.indexOf('data:') === 0 ||
+                        value.indexOf('blob:') === 0
+                    ) {
+                        continue;
+                    }
+                    if (name === 'style') {
+                        value = dom.serializeStyle(
+                            dom.parseStyle(value),
+                            node.name
+                        );
+                        if (!value.length) {
+                            value = null;
+                        }
+                        node.attr(internalName, value);
+                        node.attr(name, value);
+                    } else if (name === 'tabindex') {
+                        node.attr(internalName, value);
+                        node.attr(name, null);
+                    } else {
+                        node.attr(
+                            internalName,
+                            editor.convertURL(value, name, node.name)
+                        );
+                    }
+                }
             }
-            if (name === 'style') {
-              value = dom.serializeStyle(dom.parseStyle(value), node.name);
-              if (!value.length) {
-                value = null;
-              }
-              node.attr(internalName, value);
-              node.attr(name, value);
-            } else if (name === 'tabindex') {
-              node.attr(internalName, value);
-              node.attr(name, null);
-            } else {
-              node.attr(internalName, editor.convertURL(value, name, node.name));
-            }
-          }
-        }
-      });
-      parser.addNodeFilter('script', nodes => {
-        let i = nodes.length;
-        while (i--) {
-          const node = nodes[i];
-          const type = node.attr('type') || 'no/type';
-          if (type.indexOf('mce-') !== 0) {
-            node.attr('type', 'mce-' + type);
-          }
-        }
-      });
-      if (editor.options.get('preserve_cdata')) {
-        parser.addNodeFilter('#cdata', nodes => {
-          let i = nodes.length;
-          while (i--) {
-            const node = nodes[i];
-            node.type = 8;
-            node.name = '#comment';
-            node.value = '[CDATA[' + editor.dom.encode(node.value) + ']]';
-          }
         });
-      }
-      parser.addNodeFilter('p,h1,h2,h3,h4,h5,h6,div', nodes => {
-        let i = nodes.length;
-        const nonEmptyElements = editor.schema.getNonEmptyElements();
-        while (i--) {
-          const node = nodes[i];
-          if (node.isEmpty(nonEmptyElements) && node.getAll('br').length === 0) {
-            node.append(new AstNode('br', 1));
-          }
+        parser.addNodeFilter('script', (nodes) => {
+            let i = nodes.length;
+            while (i--) {
+                const node = nodes[i];
+                const type = node.attr('type') || 'no/type';
+                if (type.indexOf('mce-') !== 0) {
+                    node.attr('type', 'mce-' + type);
+                }
+            }
+        });
+        if (editor.options.get('preserve_cdata')) {
+            parser.addNodeFilter('#cdata', (nodes) => {
+                let i = nodes.length;
+                while (i--) {
+                    const node = nodes[i];
+                    node.type = 8;
+                    node.name = '#comment';
+                    node.value =
+                        '[CDATA[' + editor.dom.encode(node.value) + ']]';
+                }
+            });
         }
-      });
-      return parser;
+        parser.addNodeFilter('p,h1,h2,h3,h4,h5,h6,div', (nodes) => {
+            let i = nodes.length;
+            const nonEmptyElements = editor.schema.getNonEmptyElements();
+            while (i--) {
+                const node = nodes[i];
+                if (
+                    node.isEmpty(nonEmptyElements) &&
+                    node.getAll('br').length === 0
+                ) {
+                    node.append(new AstNode('br', 1));
+                }
+            }
+        });
+        return parser;
     };
     const autoFocus = editor => {
       const autoFocus = getAutoFocus(editor);
@@ -28200,166 +28245,187 @@
       return shortcut;
     };
     class Shortcuts {
-      constructor(editor) {
-        this.shortcuts = {};
-        this.pendingPatterns = [];
-        this.editor = editor;
-        const self = this;
-        editor.on('keyup keypress keydown', e => {
-          if ((self.hasModifier(e) || self.isFunctionKey(e)) && !e.isDefaultPrevented()) {
-            each$2(self.shortcuts, shortcut => {
-              if (self.matchShortcut(e, shortcut)) {
-                self.pendingPatterns = shortcut.subpatterns.slice(0);
-                if (e.type === 'keydown') {
-                  self.executeShortcutAction(shortcut);
+        constructor(editor) {
+            this.shortcuts = {};
+            this.pendingPatterns = [];
+            this.editor = editor;
+            const self = this;
+            editor.on('keyup keypress keydown', (e) => {
+                if (
+                    (self.hasModifier(e) || self.isFunctionKey(e)) &&
+                    !e.isDefaultPrevented()
+                ) {
+                    each$2(self.shortcuts, (shortcut) => {
+                        if (self.matchShortcut(e, shortcut)) {
+                            self.pendingPatterns =
+                                shortcut.subpatterns.slice(0);
+                            if (e.type === 'keydown') {
+                                self.executeShortcutAction(shortcut);
+                            }
+                            return true;
+                        }
+                    });
+                    if (self.matchShortcut(e, self.pendingPatterns[0])) {
+                        if (self.pendingPatterns.length === 1) {
+                            if (e.type === 'keydown') {
+                                self.executeShortcutAction(
+                                    self.pendingPatterns[0]
+                                );
+                            }
+                        }
+                        self.pendingPatterns.shift();
+                    }
                 }
-                return true;
-              }
             });
-            if (self.matchShortcut(e, self.pendingPatterns[0])) {
-              if (self.pendingPatterns.length === 1) {
-                if (e.type === 'keydown') {
-                  self.executeShortcutAction(self.pendingPatterns[0]);
-                }
-              }
-              self.pendingPatterns.shift();
+        }
+        add(pattern, desc, cmdFunc, scope) {
+            const self = this;
+            const func = self.normalizeCommandFunc(cmdFunc);
+            each$2(explode(Tools.trim(pattern)), (pattern) => {
+                const shortcut = self.createShortcut(
+                    pattern,
+                    desc,
+                    func,
+                    scope
+                );
+                self.shortcuts[shortcut.id] = shortcut;
+            });
+            return true;
+        }
+        remove(pattern) {
+            const shortcut = this.createShortcut(pattern);
+            if (this.shortcuts[shortcut.id]) {
+                delete this.shortcuts[shortcut.id];
+                return true;
             }
-          }
-        });
-      }
-      add(pattern, desc, cmdFunc, scope) {
-        const self = this;
-        const func = self.normalizeCommandFunc(cmdFunc);
-        each$2(explode(Tools.trim(pattern)), pattern => {
-          const shortcut = self.createShortcut(pattern, desc, func, scope);
-          self.shortcuts[shortcut.id] = shortcut;
-        });
-        return true;
-      }
-      remove(pattern) {
-        const shortcut = this.createShortcut(pattern);
-        if (this.shortcuts[shortcut.id]) {
-          delete this.shortcuts[shortcut.id];
-          return true;
+            return false;
         }
-        return false;
-      }
-      normalizeCommandFunc(cmdFunc) {
-        const self = this;
-        const cmd = cmdFunc;
-        if (typeof cmd === 'string') {
-          return () => {
-            self.editor.execCommand(cmd, false, null);
-          };
-        } else if (Tools.isArray(cmd)) {
-          return () => {
-            self.editor.execCommand(cmd[0], cmd[1], cmd[2]);
-          };
-        } else {
-          return cmd;
+        normalizeCommandFunc(cmdFunc) {
+            const self = this;
+            const cmd = cmdFunc;
+            if (typeof cmd === 'string') {
+                return () => {
+                    self.editor.execCommand(cmd, false, null);
+                };
+            } else if (Tools.isArray(cmd)) {
+                return () => {
+                    self.editor.execCommand(cmd[0], cmd[1], cmd[2]);
+                };
+            } else {
+                return cmd;
+            }
         }
-      }
-      createShortcut(pattern, desc, cmdFunc, scope) {
-        const shortcuts = Tools.map(explode(pattern, '>'), parseShortcut);
-        shortcuts[shortcuts.length - 1] = Tools.extend(shortcuts[shortcuts.length - 1], {
-          func: cmdFunc,
-          scope: scope || this.editor
-        });
-        return Tools.extend(shortcuts[0], {
-          desc: this.editor.translate(desc),
-          subpatterns: shortcuts.slice(1)
-        });
-      }
-      hasModifier(e) {
-        return e.altKey || e.ctrlKey || e.metaKey;
-      }
-      isFunctionKey(e) {
-        return e.type === 'keydown' && e.keyCode >= 112 && e.keyCode <= 123;
-      }
-      matchShortcut(e, shortcut) {
-        if (!shortcut) {
-          return false;
+        createShortcut(pattern, desc, cmdFunc, scope) {
+            const shortcuts = Tools.map(explode(pattern, '>'), parseShortcut);
+            shortcuts[shortcuts.length - 1] = Tools.extend(
+                shortcuts[shortcuts.length - 1],
+                {
+                    func: cmdFunc,
+                    scope: scope || this.editor,
+                }
+            );
+            return Tools.extend(shortcuts[0], {
+                desc: this.editor.translate(desc),
+                subpatterns: shortcuts.slice(1),
+            });
         }
-        if (shortcut.ctrl !== e.ctrlKey || shortcut.meta !== e.metaKey) {
-          return false;
+        hasModifier(e) {
+            return e.altKey || e.ctrlKey || e.metaKey;
         }
-        if (shortcut.alt !== e.altKey || shortcut.shift !== e.shiftKey) {
-          return false;
+        isFunctionKey(e) {
+            return e.type === 'keydown' && e.keyCode >= 112 && e.keyCode <= 123;
         }
-        if (e.keyCode === shortcut.keyCode || e.charCode && e.charCode === shortcut.charCode) {
-          e.preventDefault();
-          return true;
+        matchShortcut(e, shortcut) {
+            if (!shortcut) {
+                return false;
+            }
+            if (shortcut.ctrl !== e.ctrlKey || shortcut.meta !== e.metaKey) {
+                return false;
+            }
+            if (shortcut.alt !== e.altKey || shortcut.shift !== e.shiftKey) {
+                return false;
+            }
+            if (
+                e.keyCode === shortcut.keyCode ||
+                (e.charCode && e.charCode === shortcut.charCode)
+            ) {
+                e.preventDefault();
+                return true;
+            }
+            return false;
         }
-        return false;
-      }
-      executeShortcutAction(shortcut) {
-        return shortcut.func ? shortcut.func.call(shortcut.scope) : null;
-      }
+        executeShortcutAction(shortcut) {
+            return shortcut.func ? shortcut.func.call(shortcut.scope) : null;
+        }
     }
 
     const create$3 = () => {
-      const buttons = {};
-      const menuItems = {};
-      const popups = {};
-      const icons = {};
-      const contextMenus = {};
-      const contextToolbars = {};
-      const sidebars = {};
-      const add = (collection, type) => (name, spec) => collection[name.toLowerCase()] = {
-        ...spec,
-        type
-      };
-      const addIcon = (name, svgData) => icons[name.toLowerCase()] = svgData;
-      return {
-        addButton: add(buttons, 'button'),
-        addGroupToolbarButton: add(buttons, 'grouptoolbarbutton'),
-        addToggleButton: add(buttons, 'togglebutton'),
-        addMenuButton: add(buttons, 'menubutton'),
-        addSplitButton: add(buttons, 'splitbutton'),
-        addMenuItem: add(menuItems, 'menuitem'),
-        addNestedMenuItem: add(menuItems, 'nestedmenuitem'),
-        addToggleMenuItem: add(menuItems, 'togglemenuitem'),
-        addAutocompleter: add(popups, 'autocompleter'),
-        addContextMenu: add(contextMenus, 'contextmenu'),
-        addContextToolbar: add(contextToolbars, 'contexttoolbar'),
-        addContextForm: add(contextToolbars, 'contextform'),
-        addSidebar: add(sidebars, 'sidebar'),
-        addIcon,
-        getAll: () => ({
-          buttons,
-          menuItems,
-          icons,
-          popups,
-          contextMenus,
-          contextToolbars,
-          sidebars
-        })
-      };
+        const buttons = {};
+        const menuItems = {};
+        const popups = {};
+        const icons = {};
+        const contextMenus = {};
+        const contextToolbars = {};
+        const sidebars = {};
+        const add = (collection, type) => (name, spec) =>
+            (collection[name.toLowerCase()] = {
+                ...spec,
+                type,
+            });
+        const addIcon = (name, svgData) =>
+            (icons[name.toLowerCase()] = svgData);
+        return {
+            addButton: add(buttons, 'button'),
+            addGroupToolbarButton: add(buttons, 'grouptoolbarbutton'),
+            addToggleButton: add(buttons, 'togglebutton'),
+            addMenuButton: add(buttons, 'menubutton'),
+            addSplitButton: add(buttons, 'splitbutton'),
+            addMenuItem: add(menuItems, 'menuitem'),
+            addNestedMenuItem: add(menuItems, 'nestedmenuitem'),
+            addToggleMenuItem: add(menuItems, 'togglemenuitem'),
+            addAutocompleter: add(popups, 'autocompleter'),
+            addContextMenu: add(contextMenus, 'contextmenu'),
+            addContextToolbar: add(contextToolbars, 'contexttoolbar'),
+            addContextForm: add(contextToolbars, 'contextform'),
+            addSidebar: add(sidebars, 'sidebar'),
+            addIcon,
+            getAll: () => ({
+                buttons,
+                menuItems,
+                icons,
+                popups,
+                contextMenus,
+                contextToolbars,
+                sidebars,
+            }),
+        };
     };
 
     const registry = () => {
-      const bridge = create$3();
-      return {
-        addAutocompleter: bridge.addAutocompleter,
-        addButton: bridge.addButton,
-        addContextForm: bridge.addContextForm,
-        addContextMenu: bridge.addContextMenu,
-        addContextToolbar: bridge.addContextToolbar,
-        addIcon: bridge.addIcon,
-        addMenuButton: bridge.addMenuButton,
-        addMenuItem: bridge.addMenuItem,
-        addNestedMenuItem: bridge.addNestedMenuItem,
-        addSidebar: bridge.addSidebar,
-        addSplitButton: bridge.addSplitButton,
-        addToggleButton: bridge.addToggleButton,
-        addGroupToolbarButton: bridge.addGroupToolbarButton,
-        addToggleMenuItem: bridge.addToggleMenuItem,
-        getAll: bridge.getAll
-      };
+        const bridge = create$3();
+        return {
+            addAutocompleter: bridge.addAutocompleter,
+            addButton: bridge.addButton,
+            addContextForm: bridge.addContextForm,
+            addContextMenu: bridge.addContextMenu,
+            addContextToolbar: bridge.addContextToolbar,
+            addIcon: bridge.addIcon,
+            addMenuButton: bridge.addMenuButton,
+            addMenuItem: bridge.addMenuItem,
+            addNestedMenuItem: bridge.addNestedMenuItem,
+            addSidebar: bridge.addSidebar,
+            addSplitButton: bridge.addSplitButton,
+            addToggleButton: bridge.addToggleButton,
+            addGroupToolbarButton: bridge.addGroupToolbarButton,
+            addToggleMenuItem: bridge.addToggleMenuItem,
+            getAll: bridge.getAll,
+        };
     };
 
     const DOM$1 = DOMUtils.DOM;
-    const extend = Tools.extend, each$1 = Tools.each;
+    const extend = Tools.extend,
+        each$1 = Tools.each;
+
     class Editor {
         constructor(id, options, editorManager) {
             this.plugins = {};
@@ -28430,18 +28496,23 @@
                 setupCallback.call(self, self);
             }
         }
+
         render() {
             render(this);
         }
+
         focus(skipFocus) {
             this.execCommand('mceFocus', false, skipFocus);
         }
+
         hasFocus() {
             return hasFocus(this);
         }
+
         translate(text) {
             return I18n.translate(text);
         }
+
         getParam(name, defaultVal, type) {
             const options = this.options;
             if (!options.isRegistered(name)) {
@@ -28461,6 +28532,7 @@
                 ? defaultVal
                 : options.get(name);
         }
+
         hasPlugin(name, loaded) {
             const hasPlugin = contains$2(getPlugins(this), name);
             if (hasPlugin) {
@@ -28469,33 +28541,43 @@
                 return false;
             }
         }
+
         nodeChanged(args) {
             this._nodeChangeDispatcher.nodeChanged(args);
         }
+
         addCommand(name, callback, scope) {
             this.editorCommands.addCommand(name, callback, scope);
         }
+
         addQueryStateHandler(name, callback, scope) {
             this.editorCommands.addQueryStateHandler(name, callback, scope);
         }
+
         addQueryValueHandler(name, callback, scope) {
             this.editorCommands.addQueryValueHandler(name, callback, scope);
         }
+
         addShortcut(pattern, desc, cmdFunc, scope) {
             this.shortcuts.add(pattern, desc, cmdFunc, scope);
         }
+
         execCommand(cmd, ui, value, args) {
             return this.editorCommands.execCommand(cmd, ui, value, args);
         }
+
         queryCommandState(cmd) {
             return this.editorCommands.queryCommandState(cmd);
         }
+
         queryCommandValue(cmd) {
             return this.editorCommands.queryCommandValue(cmd);
         }
+
         queryCommandSupported(cmd) {
             return this.editorCommands.queryCommandSupported(cmd);
         }
+
         show() {
             const self = this;
             if (self.hidden) {
@@ -28510,6 +28592,7 @@
                 self.dispatch('show');
             }
         }
+
         hide() {
             const self = this;
             if (!self.hidden) {
@@ -28527,15 +28610,18 @@
                 self.dispatch('hide');
             }
         }
+
         isHidden() {
             return this.hidden;
         }
+
         setProgressState(state, time) {
             this.dispatch('ProgressState', {
                 state,
                 time,
             });
         }
+
         load(args) {
             const self = this;
             let elm = self.getElement(),
@@ -28558,6 +28644,7 @@
                 return html;
             }
         }
+
         save(args) {
             const self = this;
             let elm = self.getElement(),
@@ -28598,18 +28685,22 @@
             }
             return html;
         }
+
         setContent(content, args) {
             return setContent(this, content, args);
         }
+
         getContent(args) {
             return getContent(this, args);
         }
+
         insertContent(content, args) {
             if (args) {
                 content = extend({ content }, args);
             }
             this.execCommand('mceInsertContent', false, content);
         }
+
         resetContent(initialContent) {
             if (initialContent === undefined) {
                 setContent(this, this.startContent, { format: 'raw' });
@@ -28620,9 +28711,11 @@
             this.setDirty(false);
             this.nodeChanged();
         }
+
         isDirty() {
             return !this.isNotDirty;
         }
+
         setDirty(state) {
             const oldState = !this.isNotDirty;
             this.isNotDirty = !state;
@@ -28630,6 +28723,7 @@
                 this.dispatch('dirty');
             }
         }
+
         getContainer() {
             const self = this;
             if (!self.container) {
@@ -28639,15 +28733,18 @@
             }
             return self.container;
         }
+
         getContentAreaContainer() {
             return this.contentAreaContainer;
         }
+
         getElement() {
             if (!this.targetElm) {
                 this.targetElm = DOM$1.get(this.id);
             }
             return this.targetElm;
         }
+
         getWin() {
             const self = this;
             let elm;
@@ -28659,6 +28756,7 @@
             }
             return self.contentWindow;
         }
+
         getDoc() {
             const self = this;
             let win;
@@ -28670,10 +28768,12 @@
             }
             return self.contentDocument;
         }
+
         getBody() {
             const doc = this.getDoc();
             return this.bodyElement || (doc ? doc.body : null);
         }
+
         convertURL(url, name, elm) {
             const self = this,
                 getOption = self.options.get;
@@ -28698,18 +28798,23 @@
             );
             return url;
         }
+
         addVisual(elm) {
             addVisual(this, elm);
         }
+
         remove() {
             remove$1(this);
         }
+
         destroy(automatic) {
             destroy(this, automatic);
         }
+
         uploadImages() {
             return this.editorUpload.uploadImages();
         }
+
         _scanForImages() {
             return this.editorUpload.scanForImages();
         }

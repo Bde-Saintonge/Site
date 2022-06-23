@@ -1828,15 +1828,15 @@
             return { type: 'body' };
         }
     };
-    const findCommonCellType = cells => {
-      const headerCells = filter(cells, cell => isHeaderCell(cell.element));
-      if (headerCells.length === 0) {
-        return Optional.some('td');
-      } else if (headerCells.length === cells.length) {
-        return Optional.some('th');
-      } else {
-        return Optional.none();
-      }
+    const findCommonCellType = (cells) => {
+        const headerCells = filter(cells, (cell) => isHeaderCell(cell.element));
+        if (headerCells.length === 0) {
+            return Optional.some('td');
+        } else if (headerCells.length === cells.length) {
+            return Optional.some('th');
+        } else {
+            return Optional.none();
+        }
     };
     const findCommonRowType = rows => {
       const rowTypes = map(rows, row => getRowType$1(row).type);
@@ -2225,7 +2225,7 @@
     const applyStructureData$1 = (editor, data) => {
         editor.execCommand('mceTableCellType', false, {
             type: data.celltype,
-            no_events: true,
+            no_events: true
         });
     };
     const applyCellData = (editor, cells, oldData, data) => {
@@ -2437,7 +2437,10 @@
         });
     };
     const applyRowData = (editor, rows, oldData, data) => {
-        const modifiedData = filter$1(data, (value, key) => oldData[key] !== value);
+        const modifiedData = filter$1(
+            data,
+            (value, key) => oldData[key] !== value
+        );
         if (size(modifiedData) > 0) {
             const typeModified = has(modifiedData, 'type');
             const styleModified = typeModified ? size(modifiedData) > 1 : true;
@@ -2447,10 +2450,12 @@
             if (typeModified) {
                 applyStructureData(editor, data);
             }
-            table(SugarElement.fromDom(rows[0])).each(table => fireTableModified(editor, table.dom, {
-                structure: typeModified,
-                style: styleModified
-            }));
+            table(SugarElement.fromDom(rows[0])).each((table) =>
+                fireTableModified(editor, table.dom, {
+                    structure: typeModified,
+                    style: styleModified,
+                })
+            );
         }
     };
     const onSubmitRowForm = (editor, rows, oldData, api) => {
@@ -2462,7 +2467,10 @@
         });
     };
     const open$1 = editor => {
-        const rows = getRowsFromSelection(getSelectionStart(editor), ephemera.selected);
+        const rows = getRowsFromSelection(
+            getSelectionStart(editor),
+            ephemera.selected
+        );
       if (rows.length === 0) {
         return;
       }
@@ -2664,42 +2672,44 @@
         delete data.class;
       }
       editor.undoManager.transact(() => {
-        if (!tableElm) {
-            const cols = parseInt(data.cols, 10) || 1;
-            const rows = parseInt(data.rows, 10) || 1;
-            editor.execCommand('mceInsertTable', false, {
-                rows,
-                columns: cols,
-            });
-            tableElm = getSelectionCell(
-                getSelectionStart(editor),
-                getIsRoot(editor)
-            )
-                .bind((cell) => table(cell, getIsRoot(editor)))
-                .map((table) => table.dom)
-                .getOrUndefined();
-        }
-        if (size(modifiedData) > 0) {
-            applyDataToElement(editor, tableElm, data);
-            const captionElm = dom.select('caption', tableElm)[0];
-            if (
-                (captionElm && !data.caption) ||
-                (!captionElm && data.caption)
-            ) {
-                editor.execCommand('mceTableToggleCaption');
-            }
-            setAlign(editor, tableElm, data.align);
-        }
-        editor.focus();
-        editor.addVisual();
-        if (size(modifiedData) > 0) {
-          const captionModified = has(modifiedData, 'caption');
-          const styleModified = captionModified ? size(modifiedData) > 1 : true;
-          fireTableModified(editor, tableElm, {
-            structure: captionModified,
-            style: styleModified
-          });
-        }
+          if (!tableElm) {
+              const cols = parseInt(data.cols, 10) || 1;
+              const rows = parseInt(data.rows, 10) || 1;
+              editor.execCommand('mceInsertTable', false, {
+                  rows,
+                  columns: cols,
+              });
+              tableElm = getSelectionCell(
+                  getSelectionStart(editor),
+                  getIsRoot(editor)
+              )
+                  .bind((cell) => table(cell, getIsRoot(editor)))
+                  .map((table) => table.dom)
+                  .getOrUndefined();
+          }
+          if (size(modifiedData) > 0) {
+              applyDataToElement(editor, tableElm, data);
+              const captionElm = dom.select('caption', tableElm)[0];
+              if (
+                  (captionElm && !data.caption) ||
+                  (!captionElm && data.caption)
+              ) {
+                  editor.execCommand('mceTableToggleCaption');
+              }
+              setAlign(editor, tableElm, data.align);
+          }
+          editor.focus();
+          editor.addVisual();
+          if (size(modifiedData) > 0) {
+              const captionModified = has(modifiedData, 'caption');
+              const styleModified = captionModified
+                  ? size(modifiedData) > 1
+                  : true;
+              fireTableModified(editor, tableElm, {
+                  structure: captionModified,
+                  style: styleModified,
+              });
+          }
       });
     };
     const open = (editor, insertNewTable) => {
