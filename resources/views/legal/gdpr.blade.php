@@ -1,4 +1,3 @@
-<!-- Initialisation du contenu HTML   -->
 @extends('layouts.base')
 @section('content')
     <section class="max-w-7xl px-6 py-24 mx-auto space-y-12 dark:bg-coolGray-800 dark:text-white dark:text-coolGray-50">
