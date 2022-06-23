@@ -50,6 +50,8 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::pattern('id', '[0-9]+');
         Route::pattern('office', '[a-z-]{3,8}');
+        //FIXME: slugpattern attention, il va être changé
+        Route::pattern('slug', '[a-z0-9\-]+');
     }
 
     /**
