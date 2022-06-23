@@ -5,24 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterPostRequest;
 use App\Models\Office;
 use App\Models\Post;
-use App\Models\User;
-use DateTime;
-use Illuminate\Database\Eloquent\Concerns\HasEvents;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-//TODO: Remove Auth completely
-use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Gate;
-use function GuzzleHttp\Promise\is_settled;
 
-class PostController extends AdminController
+class PostController extends Controller
 {
     /**
-     * Méthode qui permet de retourner la liste des articles d'un bureau
-     * @param string $office_code_name : Nom du bureau
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\View\View
+     * Display a listing of the resource.
+     *
+     * @param Office $office
+     * @return Application|Factory|View
      */
-    public function office(string $office_code_name)
+    public function index(Office $office)
     {
         $office = Office::search($office_code_name);
 
@@ -44,33 +44,14 @@ class PostController extends AdminController
         return view('posts.index', compact('posts', 'office'));
     }
 
-    //@param String $office_slug : Url du bureau
-
     /**
-     * Méthode qui permet d'afficher le contenu d'un article
+     * Show the form for creating a new resource.
      *
-     * @param String $post_slug : Url du post
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
+     * @return Application|Factory|View|Redirector|RedirectResponse
      */
-    public function show(string $office_code_name, string $post_slug)
-    {
-        $post = Post::where('slug', $post_slug)->first();
-
-        if (empty($post)) {
-            abort(404);
-        }
-
-        return view('posts.show', compact('post'));
-    }
-
-    /**
-     * Méthode qui permet de retourner la vue de création d'un article
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function create_post(Office $office)
+    public function create()
     {
         //TODO Remove when finished
-//        abort(423, 'En refonte. Par les super chats 😺.');
         if (
             !Gate::allows('verified-role', ['admin']) &&
             !Gate::allows('verified-office', [$office->code_name])
@@ -83,12 +64,18 @@ class PostController extends AdminController
             ]);
         }
 
-        return view('posts.create', ['office'=> $office]);
+        return view('posts.create', ['office' => $office]);
     }
 
-    public function register(Office $office, RegisterPostRequest $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param RegisterPostRequest $request
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function store(RegisterPostRequest $request)
     {
-//        dd(HasEvents::observe());
+        //        dd(HasEvents::observe());
         $validated = $request->validated();
         //TODO: generateSlug generateSummary
 
@@ -105,40 +92,31 @@ class PostController extends AdminController
     }
 
     /**
-     * Méthode qui permet de valider un article
-     * @param $id_post
-     * @return \Illuminate\Http\RedirectResponse
+     * Display the specified resource.
+     *
+     * @param Office $office
+     * @param Post $post
+     * @return Response
      */
-    public function validate_post($id_post)
+    public function show(Office $office, Post $post)
     {
-        if (!$this->check_role('admin')) {
-            return back()->withErrors([
-                'error' =>
-                    'Vous ne disposez pas des permissions nécessaires pour valider des articles.',
-            ]);
+        $post = Post::where('slug', $post_slug)->first();
+
+        if (empty($post)) {
+            abort(404);
         }
 
-        $post = Post::where('id', $id_post)->first();
-        $post->is_published = true;
-        $post->updated_at = new DateTime('now');
-        $post->save();
-        return back()->with([
-            'success' => ['Article validé avec succès !'],
-        ]);
+        return view('posts.show', compact('post'));
     }
 
     /**
-     * Méthode qui permet de modifier un article
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return Application|Factory|RedirectResponse|View
      */
-    public function edit(int $id_post)
+    public function edit(Post $post)
     {
-        if (!Auth::check()) {
-            return back()->withErrors([
-                'error' =>
-                    'Veillez-vous connecter avant de modifier un article.',
-            ]);
-        }
-
         $post = Post::find($id_post);
 
         if (is_null($post)) {
@@ -162,12 +140,13 @@ class PostController extends AdminController
         ]);
     }
 
-
-
     /**
-     * Méthode qui permet de mettre à jour un post en bdd
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     * @return Application|Redirector|RedirectResponse
      */
-    public function store(int $id_post, Request $request)
+    public function update($id)
     {
         $post = Post::find($id_post);
 
@@ -210,9 +189,12 @@ class PostController extends AdminController
     }
 
     /**
-     * Méthode qui permet de supprimer un article
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return Application|Redirector|RedirectResponse
      */
-    public function delete($id_post)
+    public function destroy($id)
     {
         $post = Post::find($id_post);
 
@@ -245,6 +227,29 @@ class PostController extends AdminController
 
         return redirect("dashboard/{$post->office->code_name}")->with([
             'success' => ['Article placé dans la corbeille !'],
+        ]);
+    }
+
+    /**
+     * Méthode qui permet de valider un article
+     * @param $id_post
+     * @return RedirectResponse
+     */
+    public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
+    {
+        if (!$this->check_role('admin')) {
+            return back()->withErrors([
+                'error' =>
+                    'Vous ne disposez pas des permissions nécessaires pour valider des articles.',
+            ]);
+        }
+
+        $post = Post::where('id', $id_post)->first();
+        $post->is_published = true;
+        $post->updated_at = new DateTime('now');
+        $post->save();
+        return back()->with([
+            'success' => ['Article validé avec succès !'],
         ]);
     }
 }
