@@ -18,109 +18,111 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+/**
+ * Entry routes
+ */
+Route::name('home.')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    })->name('home');
 
-//Route::redirect('/', '/index.html')->name('home');
-
-Route::get('/index.html', function () {
-    return view('welcome');
-})->name('welcome');
-
-Route::get('/mentions-legales', function () {
-    return view('regulation.mentions-legales');
+    Route::get('/index.html', function () {
+        return view('welcome');
+    })->name('welcome');
 });
 
-Route::get('/rgpd', function () {
-    return view('regulation.rgpd');
-});
-
-/*
- * Auth & Dashboard Route
+/**
+ * Legal routes
  */
+Route::prefix('legal')
+    ->name('legal.')
+    ->group(function () {
+        Route::get('/gdpr', function () {
+            return view('regulation.rgpd');
+        });
 
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+        Route::get('/mentions', function () {
+            return view('regulation.mentions-legales');
+        });
+    });
 
-Route::post('/login', [LoginController::class, 'validator']);
-
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
-Route::post('/reset_password_without_token', [
-    ResetPasswordController::class,
-    'reset_password_without_token',
-])->name('reset_password_without_token');
-
-/*
- * Posts Route
+/**
+ * Authentication routes
  */
-//FIXME: slugpattern attention, il va être changé
+Route::controller(LoginController::class)
+    ->prefix('auth')
+    ->name('auth.')
+    ->group(function () {
+        Route::controller(LoginController::class)->group(function () {
+            Route::get('/login', 'login')->name('login');
+            Route::post('/validate', 'validate')->name('validate');
+            Route::get('/logout', 'logout')->name('logout');
+        });
 
-$slugPattern = '[a-z0-9\-]+';
+        Route::post('/reset', [ResetPasswordController::class, 'reset'])->name(
+            'reset',
+        );
+    });
 
-Route::get('/dashboard/{office_code_name}', [
-    DashboardController::class,
-    'index',
-]);
+/**
+ * Office posts routes
+ */
+Route::controller(PostController::class)
+    ->name('office.')
+    ->group(function () {
+        Route::get('/{office:code_name}', 'index')->name('index');
+        Route::get('/{office:code_name}/{post:slug}', 'show')->name('name');
+    });
 
-Route::get('/user/{id}', [PostController::class, 'user'])->name('posts.user');
-
-Route::get('/{office_code_name}', [PostController::class, 'office'])->name(
-    'posts.office',
-);
-
-Route::get('/{office_code_name}/{post_slug}', [PostController::class, 'show'])
-    ->name('posts.show')
-    ->where(['post_slug' => $slugPattern]);
-
-//Route::get('/admin/create/post/{office_code_name}', [PostController::class, 'create_post'])
-//    ->name('posts.create');
-
-//Route::get('/admin/{id}/validate', [PostController::class, 'validate_post']);
-//
-//Route::get('/admin/{id}/edit', [PostController::class, 'edit']);
-//
-//Route::get('/admin/{id}/delete', [PostController::class, 'delete']);
-
-Route::resource('posts', PostController::class)->only(['index', 'show']);
-
+/**
+ * Administration routes
+ */
 Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth'])
     ->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name(
+            'dashboard',
+        );
+
+        /**
+         * Posts routes
+         */
+        Route::controller(PostController::class)
+            ->prefix('posts')
+            ->name('posts.')
+            ->group(function () {
+                Route::post('/{post}/validate', 'validate')->name('validate');
+                Route::get('/{post:slug}/edit', 'edit')->name('edit');
+                c
+            });
+
         Route::resource('posts', PostController::class)->except([
             'index',
             'show',
+            'edit',
         ]);
 
-        //    Route::get('/post/{office:code_name}/create', [
-        //        PostController::class,
-        //        'create_post',
-        //    ])->name('post.create');
-        //
-        //    Route::post('/post/{office:code_name}/create', [
-        //        PostController::class,
-        //        'register',
-        //    ])->name('post.create');
-        //
-        //    Route::post('/{id}/update', [PostController::class, 'store']);
-        //
-
+        /**
+         * Users routes
+         */
         Route::controller(UserController::class)
             ->prefix('user')
             ->name('user.')
             ->group(function () {
-                Route::get('/create', 'registerView')->name('create');
+                Route::get('/create', 'create')->name('create');
 
-                Route::post('/create', 'register')->name('create');
+                Route::post('', 'store')->name('store');
             });
 
+        /**
+         * Clean all caches routes
+         */
         //TODO: Test routes livewire/fortify/sanctum bizarres
-        Route::get('/clean-all-cache', function () {
+        Route::get('/clean-cache', function () {
             \Artisan::call('route:clear');
             \Artisan::call('cache:clear');
             \Artisan::call('view:clear');
             \Artisan::call('config:clear');
         })->name('clean-cache');
     });
-
