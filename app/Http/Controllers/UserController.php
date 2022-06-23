@@ -11,6 +11,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends BaseController
 {
@@ -18,7 +19,7 @@ class UserController extends BaseController
     {
         if (!Gate::allows('verified-role', ['admin'])) {
             return redirect(
-                "dashboard/" . Auth::user()->office->code_name,
+                'dashboard/' . Auth::user()->office->code_name,
             )->withErrors([
                 'error' =>
                     'Vous ne disposez pas des permissions nécessaires pour créer un utilisateur.',
@@ -34,7 +35,7 @@ class UserController extends BaseController
     {
         if (!Gate::allows('verified-role', ['admin'])) {
             return redirect(
-                "dashboard/" . Auth::user()->office->code_name,
+                'dashboard/' . Auth::user()->office->code_name,
             )->withErrors([
                 'error' =>
                     'Vous ne disposez pas des permissions nécessaires pour créer un utilisateur.',
@@ -42,12 +43,23 @@ class UserController extends BaseController
         }
 
         $request->validate([
-            'first_name' => 'required|bail',
-            'last_name' => 'required|bail',
-            'email' => 'required|email|unique:users,email|bail', //|unique:users,email
-            'password' => 'required|alpha_dash|min:8|bail',
-            'office_code_name' => 'required|bail',
-            'roles.*' => 'required|distinct|exists:roles,name|bail',
+            'first_name' => ['required', 'bail'],
+            'last_name' => ['required', 'bail'],
+            'email' => ['required', 'email', 'unique:users', 'email', 'bail'], //|unique:users,email
+            'password' => [
+                'required',
+                'regex:^(\w|[@#\$%&;:=\^\?\*!-]){8,}$',
+                Password::min(8)->mixedCase()->numbers()->symbols(),
+                'bail',
+            ],
+            'office_code_name' => ['required', 'bail'],
+            'roles.*' => [
+                'required',
+                'distinct',
+                'exists:roles',
+                'name',
+                'bail',
+            ],
         ]);
 
         //TODO: Error handling du insert

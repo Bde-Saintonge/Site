@@ -106,14 +106,14 @@ Route::prefix('admin')
         //    Route::post('/{id}/update', [PostController::class, 'store']);
         //
 
-        //        Route::controller(UserController::class)
-        //            ->prefix('user')
-        //            ->name('user.')
-        //            ->group(function () {
-        //                Route::get('/create', 'registerView')->name('create');
-        //
-        //                Route::post('/create', 'register')->name('create');
-        //            });
+        Route::controller(UserController::class)
+            ->prefix('user')
+            ->name('user.')
+            ->group(function () {
+                Route::get('/create', 'registerView')->name('create');
+
+                Route::post('/create', 'register')->name('create');
+            });
 
         //TODO: Test routes livewire/fortify/sanctum bizarres
         Route::get('/clean-all-cache', function () {
