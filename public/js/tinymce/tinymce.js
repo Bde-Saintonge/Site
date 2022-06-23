@@ -2613,36 +2613,43 @@
       });
     };
     const getEncodeFunc = (name, entities) => {
-      const entitiesMap = buildEntitiesLookup(entities) || namedEntities;
-      const encodeNamedAndNumeric = (text, attr) => text.replace(attr ? attrsCharsRegExp : textCharsRegExp, chr => {
-        if (baseEntities[chr] !== undefined) {
-          return baseEntities[chr];
+        const entitiesMap = buildEntitiesLookup(entities) || namedEntities;
+        const encodeNamedAndNumeric = (text, attr) =>
+            text.replace(attr ? attrsCharsRegExp : textCharsRegExp, (chr) => {
+                if (baseEntities[chr] !== undefined) {
+                    return baseEntities[chr];
+                }
+                if (entitiesMap[chr] !== undefined) {
+                    return entitiesMap[chr];
+                }
+                if (chr.length > 1) {
+                    return (
+                        '&#' +
+                        ((chr.charCodeAt(0) - 55296) * 1024 +
+                            (chr.charCodeAt(1) - 56320) +
+                            65536) +
+                        ';'
+                    );
+                }
+                return '&#' + chr.charCodeAt(0) + ';';
+            });
+        const encodeCustomNamed = (text, attr) => {
+            return encodeNamed(text, attr, entitiesMap);
+        };
+        const nameMap = makeMap$3(name.replace(/\+/g, ','));
+        if (nameMap.named && nameMap.numeric) {
+            return encodeNamedAndNumeric;
         }
-        if (entitiesMap[chr] !== undefined) {
-          return entitiesMap[chr];
+        if (nameMap.named) {
+            if (entities) {
+                return encodeCustomNamed;
+            }
+            return encodeNamed;
         }
-        if (chr.length > 1) {
-          return '&#' + ((chr.charCodeAt(0) - 55296) * 1024 + (chr.charCodeAt(1) - 56320) + 65536) + ';';
+        if (nameMap.numeric) {
+            return encodeNumeric;
         }
-        return '&#' + chr.charCodeAt(0) + ';';
-      });
-      const encodeCustomNamed = (text, attr) => {
-        return encodeNamed(text, attr, entitiesMap);
-      };
-      const nameMap = makeMap$3(name.replace(/\+/g, ','));
-      if (nameMap.named && nameMap.numeric) {
-        return encodeNamedAndNumeric;
-      }
-      if (nameMap.named) {
-        if (entities) {
-          return encodeCustomNamed;
-        }
-        return encodeNamed;
-      }
-      if (nameMap.numeric) {
-        return encodeNumeric;
-      }
-      return encodeRaw;
+        return encodeRaw;
     };
     const decode = (text) =>
         text.replace(entityRegExp, (all, numeric) => {
@@ -2992,302 +2999,315 @@
       var _a;
       const elements = {};
       const children = {};
-      let patternElements = [];
-      const customElementsMap = {},
-          specialElements = {};
-      const createLookupTable = (option, defaultValue, extendWith) => {
-        let value = settings[option];
-        if (!value) {
-          value = mapCache[option];
-          if (!value) {
-              value = createMap(defaultValue, extendWith);
-              mapCache[option] = value;
-          }
-        } else {
-          value = makeMap$2(value, /[, ]/, makeMap$2(value.toUpperCase(), /[, ]/));
+        let patternElements = [];
+        const customElementsMap = {}, specialElements = {};
+        const createLookupTable = (option, defaultValue, extendWith) => {
+            let value = settings[option];
+            if (!value) {
+                value = mapCache[option];
+                if (!value) {
+                    value = createMap(defaultValue, extendWith);
+                    mapCache[option] = value;
+                }
+            } else {
+                value = makeMap$2(
+                    value,
+                    /[, ]/,
+                    makeMap$2(value.toUpperCase(), /[, ]/)
+                );
+            }
+            return value;
+        };
+        settings = settings || {};
+        const schemaType =
+            (_a = settings.schema) !== null && _a !== void 0 ? _a : 'html5';
+        const schemaItems = compileSchema(schemaType);
+        if (settings.verify_html === false) {
+            settings.valid_elements = '*[*]';
         }
-        return value;
-      };
-      settings = settings || {};
-      const schemaType = (_a = settings.schema) !== null && _a !== void 0 ? _a : 'html5';
-      const schemaItems = compileSchema(schemaType);
-      if (settings.verify_html === false) {
-        settings.valid_elements = '*[*]';
-      }
-      const validStyles = compileElementMap(settings.valid_styles);
-      const invalidStyles = compileElementMap(settings.invalid_styles, 'map');
-      const validClasses = compileElementMap(settings.valid_classes, 'map');
-      const whitespaceElementsMap = createLookupTable(
-          'whitespace_elements',
-          'pre script noscript style textarea video audio iframe object code'
-      );
-      const selfClosingElementsMap = createLookupTable(
-          'self_closing_elements',
-          'colgroup dd dt li option p td tfoot th thead tr'
-      );
-      const voidElementsMap = createLookupTable(
-          'void_elements',
-          'area base basefont br col frame hr img input isindex link ' +
-              'meta param embed source wbr track'
-      );
-      const boolAttrMap = createLookupTable(
-          'boolean_attributes',
-          'checked compact declare defer disabled ismap multiple nohref noresize ' +
-              'noshade nowrap readonly selected autoplay loop controls allowfullscreen'
-      );
-      const nonEmptyOrMoveCaretBeforeOnEnter =
-          'td th iframe video audio object script code';
-      const nonEmptyElementsMap = createLookupTable(
-          'non_empty_elements',
-          nonEmptyOrMoveCaretBeforeOnEnter + ' pre',
-          voidElementsMap
-      );
-      const moveCaretBeforeOnEnterElementsMap = createLookupTable(
-          'move_caret_before_on_enter_elements',
-          nonEmptyOrMoveCaretBeforeOnEnter + ' table',
-          voidElementsMap
-      );
-      const textBlockElementsMap = createLookupTable(
-          'text_block_elements',
-          'h1 h2 h3 h4 h5 h6 p div address pre form ' +
-              'blockquote center dir fieldset header footer article section hgroup aside main nav figure'
-      );
-      const blockElementsMap = createLookupTable(
-          'block_elements',
-          'hr table tbody thead tfoot ' +
-              'th tr td li ol ul caption dl dt dd noscript menu isindex option ' +
-              'datalist select optgroup figcaption details summary',
-          textBlockElementsMap
-      );
-      const textInlineElementsMap = createLookupTable(
-          'text_inline_elements',
-          'span strong b em i font s strike u var cite ' +
-              'dfn code mark q sup sub samp'
-      );
-      each$d(
-          'script noscript iframe noframes noembed title style textarea xmp plaintext'.split(
-              ' '
-          ),
-          (name) => {
-              specialElements[name] = new RegExp('</' + name + '[^>]*>', 'gi');
-          }
-      );
-      const patternToRegExp = (str) =>
-          new RegExp('^' + str.replace(/([?+*])/g, '.$1') + '$');
-      const addValidElements = (validElements) => {
-          let ei,
-              el,
-              ai,
-              al,
-              matches,
-              element,
-              attr,
-              attrData,
-              elementName,
-              attrName,
-              attrType,
-              attributes,
-              attributesOrder,
-              prefix,
-              outputName,
-              globalAttributes,
-              globalAttributesOrder,
-              value;
-          const elementRuleRegExp =
-                  /^([#+\-])?([^\[!\/]+)(?:\/([^\[!]+))?(?:(!?)\[([^\]]+)])?$/,
-              attrRuleRegExp =
-                  /^([!\-])?(\w+[\\:]:\w+|[^=~<]+)?(?:([=~<])(.*))?$/,
-              hasPatternsRegExp = /[*?+]/;
-          if (validElements) {
-              const validElementsArr = split$1(validElements, ',');
-              if (elements['@']) {
-                  globalAttributes = elements['@'].attributes;
-                  globalAttributesOrder = elements['@'].attributesOrder;
-              }
-              for (ei = 0, el = validElementsArr.length; ei < el; ei++) {
-                  matches = elementRuleRegExp.exec(validElementsArr[ei]);
-                  if (matches) {
-                      prefix = matches[1];
-                      elementName = matches[2];
-                      outputName = matches[3];
-                      attrData = matches[5];
-                      attributes = {};
-                      attributesOrder = [];
-                      element = {
-                          attributes,
-                          attributesOrder,
-                      };
-                      if (prefix === '#') {
-                          element.paddEmpty = true;
-                      }
-                      if (prefix === '-') {
-                          element.removeEmpty = true;
-                      }
-                      if (matches[4] === '!') {
-                          element.removeEmptyAttrs = true;
-                      }
-                      if (globalAttributes) {
-                          each$f(globalAttributes, (value, key) => {
-                              attributes[key] = value;
-                          });
-                          attributesOrder.push.apply(
-                              attributesOrder,
-                              globalAttributesOrder
-                          );
-                      }
-                      if (attrData) {
-                          attrData = split$1(attrData, '|');
-                          for (ai = 0, al = attrData.length; ai < al; ai++) {
-                              matches = attrRuleRegExp.exec(attrData[ai]);
-                              if (matches) {
-                                  attr = {};
-                                  attrType = matches[1];
-                                  attrName = matches[2].replace(/[\\:]:/g, ':');
-                                  prefix = matches[3];
-                                  value = matches[4];
-                                  if (attrType === '!') {
-                                      element.attributesRequired =
-                                          element.attributesRequired || [];
-                                      element.attributesRequired.push(attrName);
-                                      attr.required = true;
-                                  }
-                                  if (attrType === '-') {
-                                      delete attributes[attrName];
-                                      attributesOrder.splice(
-                                          inArray(attributesOrder, attrName),
-                                          1
-                                      );
-                                      continue;
-                                  }
-                                  if (prefix) {
-                                      if (prefix === '=') {
-                                          element.attributesDefault =
-                                              element.attributesDefault || [];
-                                          element.attributesDefault.push({
-                                              name: attrName,
-                                              value,
-                                          });
-                                          attr.defaultValue = value;
-                                      }
-                                      if (prefix === '~') {
-                                          element.attributesForced =
-                                              element.attributesForced || [];
-                                          element.attributesForced.push({
-                                              name: attrName,
-                                              value,
-                                          });
-                                          attr.forcedValue = value;
-                                      }
-                                      if (prefix === '<') {
-                                          attr.validValues = makeMap$2(
-                                              value,
-                                              '?'
-                                          );
-                                      }
-                                  }
-                                  if (hasPatternsRegExp.test(attrName)) {
-                                      element.attributePatterns =
-                                          element.attributePatterns || [];
-                                      attr.pattern = patternToRegExp(attrName);
-                                      element.attributePatterns.push(attr);
-                                  } else {
-                                      if (!attributes[attrName]) {
-                                          attributesOrder.push(attrName);
-                                      }
-                                      attributes[attrName] = attr;
-                                  }
-                              }
-                          }
-                      }
-                      if (!globalAttributes && elementName === '@') {
-                          globalAttributes = attributes;
-                          globalAttributesOrder = attributesOrder;
-                      }
-                      if (outputName) {
-                          element.outputName = elementName;
-                          elements[outputName] = element;
-                      }
-                      if (hasPatternsRegExp.test(elementName)) {
-                          element.pattern = patternToRegExp(elementName);
-                          patternElements.push(element);
-                      } else {
-                          elements[elementName] = element;
-                      }
-                  }
-              }
-          }
-      };
-      const setValidElements = (validElements) => {
-          patternElements = [];
-          each$g(keys(elements), (name) => {
-              delete elements[name];
-          });
-          addValidElements(validElements);
-          each$d(schemaItems, (element, name) => {
-              children[name] = element.children;
-          });
-      };
-      const addCustomElements = (customElements) => {
-          const customElementRegExp = /^(~)?(.+)$/;
-          if (customElements) {
-              mapCache.text_block_elements = mapCache.block_elements = null;
-              each$d(split$1(customElements, ','), (rule) => {
-                  const matches = customElementRegExp.exec(rule),
-                      inline = matches[1] === '~',
-                      cloneName = inline ? 'span' : 'div',
-                      name = matches[2];
-                  children[name] = children[cloneName];
-                  customElementsMap[name] = cloneName;
-                  if (!inline) {
-                      blockElementsMap[name.toUpperCase()] = {};
-                      blockElementsMap[name] = {};
-                  }
-                  if (!elements[name]) {
-                      let customRule = elements[cloneName];
-                      customRule = extend$2({}, customRule);
-                      delete customRule.removeEmptyAttrs;
-                      delete customRule.removeEmpty;
-                      elements[name] = customRule;
-                  }
-                  each$d(children, (element, elmName) => {
-                      if (element[cloneName]) {
-                          children[elmName] = element = extend$2(
-                              {},
-                              children[elmName]
-                          );
-                          element[name] = element[cloneName];
-                      }
-                  });
-              });
-          }
-      };
-      const addValidChildren = (validChildren) => {
-          const childRuleRegExp =
-              /^([+\-]?)([A-Za-z0-9_\-.\u00b7\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u037d\u037f-\u1fff\u200c-\u200d\u203f-\u2040\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]+)\[([^\]]+)]$/;
-          mapCache[schemaType] = null;
-          if (validChildren) {
-              each$d(split$1(validChildren, ','), (rule) => {
-                  const matches = childRuleRegExp.exec(rule);
-                  let parent, prefix;
-                  if (matches) {
-                      prefix = matches[1];
-                      if (prefix) {
-                          parent = children[matches[2]];
-                      } else {
-                          parent = children[matches[2]] = { '#comment': {} };
-                      }
-                      parent = children[matches[2]];
-                      each$d(split$1(matches[3], '|'), (child) => {
-                          if (prefix === '-') {
-                              delete parent[child];
-                          } else {
-                              parent[child] = {};
-                          }
-                      });
-                  }
-              });
-          }
-      };
+        const validStyles = compileElementMap(settings.valid_styles);
+        const invalidStyles = compileElementMap(settings.invalid_styles, 'map');
+        const validClasses = compileElementMap(settings.valid_classes, 'map');
+        const whitespaceElementsMap = createLookupTable(
+            'whitespace_elements',
+            'pre script noscript style textarea video audio iframe object code'
+        );
+        const selfClosingElementsMap = createLookupTable(
+            'self_closing_elements',
+            'colgroup dd dt li option p td tfoot th thead tr'
+        );
+        const voidElementsMap = createLookupTable(
+            'void_elements',
+            'area base basefont br col frame hr img input isindex link ' +
+                'meta param embed source wbr track'
+        );
+        const boolAttrMap = createLookupTable(
+            'boolean_attributes',
+            'checked compact declare defer disabled ismap multiple nohref noresize ' +
+                'noshade nowrap readonly selected autoplay loop controls allowfullscreen'
+        );
+        const nonEmptyOrMoveCaretBeforeOnEnter =
+            'td th iframe video audio object script code';
+        const nonEmptyElementsMap = createLookupTable(
+            'non_empty_elements',
+            nonEmptyOrMoveCaretBeforeOnEnter + ' pre',
+            voidElementsMap
+        );
+        const moveCaretBeforeOnEnterElementsMap = createLookupTable(
+            'move_caret_before_on_enter_elements',
+            nonEmptyOrMoveCaretBeforeOnEnter + ' table',
+            voidElementsMap
+        );
+        const textBlockElementsMap = createLookupTable(
+            'text_block_elements',
+            'h1 h2 h3 h4 h5 h6 p div address pre form ' +
+                'blockquote center dir fieldset header footer article section hgroup aside main nav figure'
+        );
+        const blockElementsMap = createLookupTable(
+            'block_elements',
+            'hr table tbody thead tfoot ' +
+                'th tr td li ol ul caption dl dt dd noscript menu isindex option ' +
+                'datalist select optgroup figcaption details summary',
+            textBlockElementsMap
+        );
+        const textInlineElementsMap = createLookupTable(
+            'text_inline_elements',
+            'span strong b em i font s strike u var cite ' +
+                'dfn code mark q sup sub samp'
+        );
+        each$d(
+            'script noscript iframe noframes noembed title style textarea xmp plaintext'.split(
+                ' '
+            ),
+            (name) => {
+                specialElements[name] = new RegExp(
+                    '</' + name + '[^>]*>',
+                    'gi'
+                );
+            }
+        );
+        const patternToRegExp = (str) =>
+            new RegExp('^' + str.replace(/([?+*])/g, '.$1') + '$');
+        const addValidElements = (validElements) => {
+            let ei,
+                el,
+                ai,
+                al,
+                matches,
+                element,
+                attr,
+                attrData,
+                elementName,
+                attrName,
+                attrType,
+                attributes,
+                attributesOrder,
+                prefix,
+                outputName,
+                globalAttributes,
+                globalAttributesOrder,
+                value;
+            const elementRuleRegExp =
+                    /^([#+\-])?([^\[!\/]+)(?:\/([^\[!]+))?(?:(!?)\[([^\]]+)])?$/,
+                attrRuleRegExp =
+                    /^([!\-])?(\w+[\\:]:\w+|[^=~<]+)?(?:([=~<])(.*))?$/,
+                hasPatternsRegExp = /[*?+]/;
+            if (validElements) {
+                const validElementsArr = split$1(validElements, ',');
+                if (elements['@']) {
+                    globalAttributes = elements['@'].attributes;
+                    globalAttributesOrder = elements['@'].attributesOrder;
+                }
+                for (ei = 0, el = validElementsArr.length; ei < el; ei++) {
+                    matches = elementRuleRegExp.exec(validElementsArr[ei]);
+                    if (matches) {
+                        prefix = matches[1];
+                        elementName = matches[2];
+                        outputName = matches[3];
+                        attrData = matches[5];
+                        attributes = {};
+                        attributesOrder = [];
+                        element = {
+                            attributes,
+                            attributesOrder,
+                        };
+                        if (prefix === '#') {
+                            element.paddEmpty = true;
+                        }
+                        if (prefix === '-') {
+                            element.removeEmpty = true;
+                        }
+                        if (matches[4] === '!') {
+                            element.removeEmptyAttrs = true;
+                        }
+                        if (globalAttributes) {
+                            each$f(globalAttributes, (value, key) => {
+                                attributes[key] = value;
+                            });
+                            attributesOrder.push.apply(
+                                attributesOrder,
+                                globalAttributesOrder
+                            );
+                        }
+                        if (attrData) {
+                            attrData = split$1(attrData, '|');
+                            for (ai = 0, al = attrData.length; ai < al; ai++) {
+                                matches = attrRuleRegExp.exec(attrData[ai]);
+                                if (matches) {
+                                    attr = {};
+                                    attrType = matches[1];
+                                    attrName = matches[2].replace(
+                                        /[\\:]:/g,
+                                        ':'
+                                    );
+                                    prefix = matches[3];
+                                    value = matches[4];
+                                    if (attrType === '!') {
+                                        element.attributesRequired =
+                                            element.attributesRequired || [];
+                                        element.attributesRequired.push(
+                                            attrName
+                                        );
+                                        attr.required = true;
+                                    }
+                                    if (attrType === '-') {
+                                        delete attributes[attrName];
+                                        attributesOrder.splice(
+                                            inArray(attributesOrder, attrName),
+                                            1
+                                        );
+                                        continue;
+                                    }
+                                    if (prefix) {
+                                        if (prefix === '=') {
+                                            element.attributesDefault =
+                                                element.attributesDefault || [];
+                                            element.attributesDefault.push({
+                                                name: attrName,
+                                                value,
+                                            });
+                                            attr.defaultValue = value;
+                                        }
+                                        if (prefix === '~') {
+                                            element.attributesForced =
+                                                element.attributesForced || [];
+                                            element.attributesForced.push({
+                                                name: attrName,
+                                                value,
+                                            });
+                                            attr.forcedValue = value;
+                                        }
+                                        if (prefix === '<') {
+                                            attr.validValues = makeMap$2(
+                                                value,
+                                                '?'
+                                            );
+                                        }
+                                    }
+                                    if (hasPatternsRegExp.test(attrName)) {
+                                        element.attributePatterns =
+                                            element.attributePatterns || [];
+                                        attr.pattern =
+                                            patternToRegExp(attrName);
+                                        element.attributePatterns.push(attr);
+                                    } else {
+                                        if (!attributes[attrName]) {
+                                            attributesOrder.push(attrName);
+                                        }
+                                        attributes[attrName] = attr;
+                                    }
+                                }
+                            }
+                        }
+                        if (!globalAttributes && elementName === '@') {
+                            globalAttributes = attributes;
+                            globalAttributesOrder = attributesOrder;
+                        }
+                        if (outputName) {
+                            element.outputName = elementName;
+                            elements[outputName] = element;
+                        }
+                        if (hasPatternsRegExp.test(elementName)) {
+                            element.pattern = patternToRegExp(elementName);
+                            patternElements.push(element);
+                        } else {
+                            elements[elementName] = element;
+                        }
+                    }
+                }
+            }
+        };
+        const setValidElements = (validElements) => {
+            patternElements = [];
+            each$g(keys(elements), (name) => {
+                delete elements[name];
+            });
+            addValidElements(validElements);
+            each$d(schemaItems, (element, name) => {
+                children[name] = element.children;
+            });
+        };
+        const addCustomElements = (customElements) => {
+            const customElementRegExp = /^(~)?(.+)$/;
+            if (customElements) {
+                mapCache.text_block_elements = mapCache.block_elements = null;
+                each$d(split$1(customElements, ','), (rule) => {
+                    const matches = customElementRegExp.exec(rule),
+                        inline = matches[1] === '~',
+                        cloneName = inline ? 'span' : 'div',
+                        name = matches[2];
+                    children[name] = children[cloneName];
+                    customElementsMap[name] = cloneName;
+                    if (!inline) {
+                        blockElementsMap[name.toUpperCase()] = {};
+                        blockElementsMap[name] = {};
+                    }
+                    if (!elements[name]) {
+                        let customRule = elements[cloneName];
+                        customRule = extend$2({}, customRule);
+                        delete customRule.removeEmptyAttrs;
+                        delete customRule.removeEmpty;
+                        elements[name] = customRule;
+                    }
+                    each$d(children, (element, elmName) => {
+                        if (element[cloneName]) {
+                            children[elmName] = element = extend$2(
+                                {},
+                                children[elmName]
+                            );
+                            element[name] = element[cloneName];
+                        }
+                    });
+                });
+            }
+        };
+        const addValidChildren = (validChildren) => {
+            const childRuleRegExp =
+                /^([+\-]?)([A-Za-z0-9_\-.\u00b7\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u037d\u037f-\u1fff\u200c-\u200d\u203f-\u2040\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]+)\[([^\]]+)]$/;
+            mapCache[schemaType] = null;
+            if (validChildren) {
+                each$d(split$1(validChildren, ','), (rule) => {
+                    const matches = childRuleRegExp.exec(rule);
+                    let parent, prefix;
+                    if (matches) {
+                        prefix = matches[1];
+                        if (prefix) {
+                            parent = children[matches[2]];
+                        } else {
+                            parent = children[matches[2]] = { '#comment': {} };
+                        }
+                        parent = children[matches[2]];
+                        each$d(split$1(matches[3], '|'), (child) => {
+                            if (prefix === '-') {
+                                delete parent[child];
+                            } else {
+                                parent[child] = {};
+                            }
+                        });
+                    }
+                });
+            }
+        };
         const getElementRule = (name) => {
             let element = elements[name],
                 i;
@@ -3338,29 +3358,32 @@
             });
         } else {
             setValidElements(settings.valid_elements);
-      }
-      addCustomElements(settings.custom_elements);
-      addValidChildren(settings.valid_children);
-      addValidElements(settings.extended_valid_elements);
-      addValidChildren('+ol[ul|ol],+ul[ul|ol]');
-      each$d({
-        dd: 'dl',
-        dt: 'dl',
-        li: 'ul ol',
-        td: 'tr',
-        th: 'tr',
-        tr: 'tbody thead tfoot',
-        tbody: 'table',
-        thead: 'table',
-        tfoot: 'table',
-        legend: 'fieldset',
-        area: 'map',
-        param: 'video audio object'
-      }, (parents, item) => {
-        if (elements[item]) {
-          elements[item].parentsRequired = split$1(parents);
         }
-      });
+        addCustomElements(settings.custom_elements);
+        addValidChildren(settings.valid_children);
+        addValidElements(settings.extended_valid_elements);
+        addValidChildren('+ol[ul|ol],+ul[ul|ol]');
+        each$d(
+            {
+                dd: 'dl',
+                dt: 'dl',
+                li: 'ul ol',
+                td: 'tr',
+                th: 'tr',
+                tr: 'tbody thead tfoot',
+                tbody: 'table',
+                thead: 'table',
+                tfoot: 'table',
+                legend: 'fieldset',
+                area: 'map',
+                param: 'video audio object',
+            },
+            (parents, item) => {
+                if (elements[item]) {
+                    elements[item].parentsRequired = split$1(parents);
+                }
+            }
+        );
       if (settings.invalid_elements) {
         each$d(explode$2(settings.invalid_elements), item => {
           if (elements[item]) {
@@ -13278,25 +13301,42 @@
 
     const each$7 = Tools.each;
     const mergeTextDecorationsAndColor = (dom, format, vars, node) => {
-      const processTextDecorationsAndColor = n => {
-        if (n.nodeType === 1 && n.parentNode && n.parentNode.nodeType === 1) {
-          const textDecoration = getTextDecoration(dom, n.parentNode);
-          if (dom.getStyle(n, 'color') && textDecoration) {
-            dom.setStyle(n, 'text-decoration', textDecoration);
-          } else if (dom.getStyle(n, 'text-decoration') === textDecoration) {
-            dom.setStyle(n, 'text-decoration', null);
-          }
+        const processTextDecorationsAndColor = (n) => {
+            if (
+                n.nodeType === 1 &&
+                n.parentNode &&
+                n.parentNode.nodeType === 1
+            ) {
+                const textDecoration = getTextDecoration(dom, n.parentNode);
+                if (dom.getStyle(n, 'color') && textDecoration) {
+                    dom.setStyle(n, 'text-decoration', textDecoration);
+                } else if (
+                    dom.getStyle(n, 'text-decoration') === textDecoration
+                ) {
+                    dom.setStyle(n, 'text-decoration', null);
+                }
+            }
+        };
+        if (
+            format.styles &&
+            (format.styles.color || format.styles.textDecoration)
+        ) {
+            Tools.walk(node, processTextDecorationsAndColor, 'childNodes');
+            processTextDecorationsAndColor(node);
         }
-      };
-      if (format.styles && (format.styles.color || format.styles.textDecoration)) {
-        Tools.walk(node, processTextDecorationsAndColor, 'childNodes');
-        processTextDecorationsAndColor(node);
-      }
     };
     const mergeBackgroundColorAndFontSize = (dom, format, vars, node) => {
-      if (format.styles && format.styles.backgroundColor) {
-        processChildElements(node, hasStyle(dom, 'fontSize'), applyStyle(dom, 'backgroundColor', replaceVars(format.styles.backgroundColor, vars)));
-      }
+        if (format.styles && format.styles.backgroundColor) {
+            processChildElements(
+                node,
+                hasStyle(dom, 'fontSize'),
+                applyStyle(
+                    dom,
+                    'backgroundColor',
+                    replaceVars(format.styles.backgroundColor, vars)
+                )
+            );
+        }
     };
     const mergeSubSup = (dom, format, vars, node) => {
       if (isInlineFormat(format) && (format.inline === 'sub' || format.inline === 'sup')) {
@@ -13339,18 +13379,9 @@
     };
     const canFormatBR = (editor, format, node, parentName) => {
         if (canFormatEmptyLines(editor) && isInlineFormat(format)) {
-            const validBRParentElements = getTextRootBlockElements(
-                editor.schema
-            );
-            const hasCaretNodeSibling = sibling(
-                SugarElement.fromDom(node),
-                (sibling) => isCaretNode(sibling.dom)
-            );
-            return (
-                hasNonNullableKey(validBRParentElements, parentName) &&
-                isEmpty$2(SugarElement.fromDom(node.parentNode), false) &&
-                !hasCaretNodeSibling
-            );
+            const validBRParentElements = getTextRootBlockElements(editor.schema);
+            const hasCaretNodeSibling = sibling(SugarElement.fromDom(node), sibling => isCaretNode(sibling.dom));
+            return hasNonNullableKey(validBRParentElements, parentName) && isEmpty$2(SugarElement.fromDom(node.parentNode), false) && !hasCaretNodeSibling;
         } else {
             return false;
         }
@@ -16042,19 +16073,23 @@
       }
     };
     const walkTree = (root, preprocessors, postprocessors) => {
-      const traverseOrder = [];
-      for (let node = root, lastNode = node; isNonNullable(node); lastNode = node, node = node.walk()) {
-        each$g(preprocessors, preprocess => preprocess(node));
-        if (isNullable(node.parent) && node !== root) {
-          node = lastNode;
-        } else {
-          traverseOrder.push(node);
+        const traverseOrder = [];
+        for (
+            let node = root, lastNode = node;
+            isNonNullable(node);
+            lastNode = node, node = node.walk()
+        ) {
+            each$g(preprocessors, (preprocess) => preprocess(node));
+            if (isNullable(node.parent) && node !== root) {
+                node = lastNode;
+            } else {
+                traverseOrder.push(node);
+            }
         }
-      }
-      for (let i = traverseOrder.length - 1; i >= 0; i--) {
-        const node = traverseOrder[i];
-        each$g(postprocessors, postprocess => postprocess(node));
-      }
+        for (let i = traverseOrder.length - 1; i >= 0; i--) {
+            const node = traverseOrder[i];
+            each$g(postprocessors, (postprocess) => postprocess(node));
+        }
     };
     const whitespaceCleaner = (root, schema, settings, args) => {
         const validate = settings.validate;
@@ -25635,388 +25670,466 @@
       setup$2(editor);
     };
 
-    const Quirks = editor => {
-      const each = Tools.each;
-      const BACKSPACE = VK.BACKSPACE, DELETE = VK.DELETE, dom = editor.dom, selection = editor.selection, parser = editor.parser;
-      const browser = Env.browser;
-      const isGecko = browser.isFirefox();
-      const isWebKit = browser.isChromium() || browser.isSafari();
-      const isiOS = Env.deviceType.isiPhone() || Env.deviceType.isiPad();
-      const isMac = Env.os.isMacOS() || Env.os.isiOS();
-      const setEditorCommandState = (cmd, state) => {
-        try {
-          editor.getDoc().execCommand(cmd, false, state);
-        } catch (ex) {
-        }
-      };
-      const isDefaultPrevented = e => {
-        return e.isDefaultPrevented();
-      };
-      const emptyEditorWhenDeleting = () => {
-        const serializeRng = rng => {
-          const body = dom.create('body');
-          const contents = rng.cloneContents();
-          body.appendChild(contents);
-          return selection.serializer.serialize(body, { format: 'html' });
+    const Quirks = (editor) => {
+        const each = Tools.each;
+        const BACKSPACE = VK.BACKSPACE,
+            DELETE = VK.DELETE,
+            dom = editor.dom,
+            selection = editor.selection,
+            parser = editor.parser;
+        const browser = Env.browser;
+        const isGecko = browser.isFirefox();
+        const isWebKit = browser.isChromium() || browser.isSafari();
+        const isiOS = Env.deviceType.isiPhone() || Env.deviceType.isiPad();
+        const isMac = Env.os.isMacOS() || Env.os.isiOS();
+        const setEditorCommandState = (cmd, state) => {
+            try {
+                editor.getDoc().execCommand(cmd, false, state);
+            } catch (ex) {}
         };
-        const allContentsSelected = rng => {
-          const selection = serializeRng(rng);
-          const allRng = dom.createRng();
-          allRng.selectNode(editor.getBody());
-          const allSelection = serializeRng(allRng);
-          return selection === allSelection;
+        const isDefaultPrevented = (e) => {
+            return e.isDefaultPrevented();
         };
-        editor.on('keydown', e => {
-          const keyCode = e.keyCode;
-          let isCollapsed, body;
-          if (!isDefaultPrevented(e) && (keyCode === DELETE || keyCode === BACKSPACE)) {
-            isCollapsed = editor.selection.isCollapsed();
-            body = editor.getBody();
-            if (isCollapsed && !dom.isEmpty(body)) {
-              return;
-            }
-            if (!isCollapsed && !allContentsSelected(editor.selection.getRng())) {
-              return;
-            }
-            e.preventDefault();
-            editor.setContent('');
-            if (body.firstChild && dom.isBlock(body.firstChild)) {
-              editor.selection.setCursorLocation(body.firstChild, 0);
-            } else {
-              editor.selection.setCursorLocation(body, 0);
-            }
-            editor.nodeChanged();
-          }
-        });
-      };
-      const selectAll = () => {
-        editor.shortcuts.add('meta+a', null, 'SelectAll');
-      };
-      const documentElementEditingFocus = () => {
-        if (!editor.inline) {
-          dom.bind(editor.getDoc(), 'mousedown mouseup', e => {
-            let rng;
-            if (e.target === editor.getDoc().documentElement) {
-              rng = selection.getRng();
-              editor.getBody().focus();
-              if (e.type === 'mousedown') {
-                if (isCaretContainer$2(rng.startContainer)) {
-                  return;
+        const emptyEditorWhenDeleting = () => {
+            const serializeRng = (rng) => {
+                const body = dom.create('body');
+                const contents = rng.cloneContents();
+                body.appendChild(contents);
+                return selection.serializer.serialize(body, { format: 'html' });
+            };
+            const allContentsSelected = (rng) => {
+                const selection = serializeRng(rng);
+                const allRng = dom.createRng();
+                allRng.selectNode(editor.getBody());
+                const allSelection = serializeRng(allRng);
+                return selection === allSelection;
+            };
+            editor.on('keydown', (e) => {
+                const keyCode = e.keyCode;
+                let isCollapsed, body;
+                if (
+                    !isDefaultPrevented(e) &&
+                    (keyCode === DELETE || keyCode === BACKSPACE)
+                ) {
+                    isCollapsed = editor.selection.isCollapsed();
+                    body = editor.getBody();
+                    if (isCollapsed && !dom.isEmpty(body)) {
+                        return;
+                    }
+                    if (
+                        !isCollapsed &&
+                        !allContentsSelected(editor.selection.getRng())
+                    ) {
+                        return;
+                    }
+                    e.preventDefault();
+                    editor.setContent('');
+                    if (body.firstChild && dom.isBlock(body.firstChild)) {
+                        editor.selection.setCursorLocation(body.firstChild, 0);
+                    } else {
+                        editor.selection.setCursorLocation(body, 0);
+                    }
+                    editor.nodeChanged();
                 }
-                selection.placeCaretAt(e.clientX, e.clientY);
-              } else {
-                selection.setRng(rng);
-              }
-            }
-          });
-        }
-      };
-      const removeHrOnBackspace = () => {
-        editor.on('keydown', e => {
-          if (!isDefaultPrevented(e) && e.keyCode === BACKSPACE) {
-            if (!editor.getBody().getElementsByTagName('hr').length) {
-              return;
-            }
-            if (selection.isCollapsed() && selection.getRng().startOffset === 0) {
-              const node = selection.getNode();
-              const previousSibling = node.previousSibling;
-              if (node.nodeName === 'HR') {
-                dom.remove(node);
-                e.preventDefault();
-                return;
-              }
-              if (previousSibling && previousSibling.nodeName && previousSibling.nodeName.toLowerCase() === 'hr') {
-                dom.remove(previousSibling);
-                e.preventDefault();
-              }
-            }
-          }
-        });
-      };
-      const focusBody = () => {
-        if (!Range.prototype.getClientRects) {
-          editor.on('mousedown', e => {
-            if (!isDefaultPrevented(e) && e.target.nodeName === 'HTML') {
-              const body = editor.getBody();
-              body.blur();
-              Delay.setEditorTimeout(editor, () => {
-                body.focus();
-              });
-            }
-          });
-        }
-      };
-      const selectControlElements = () => {
-        const visualAidsAnchorClass = getVisualAidsAnchorClass(editor);
-        editor.on('click', e => {
-          const target = e.target;
-          if (/^(IMG|HR)$/.test(target.nodeName) && dom.getContentEditableParent(target) !== 'false') {
-            e.preventDefault();
-            editor.selection.select(target);
-            editor.nodeChanged();
-          }
-          if (target.nodeName === 'A' && dom.hasClass(target, visualAidsAnchorClass) && target.childNodes.length === 0) {
-            e.preventDefault();
-            selection.select(target);
-          }
-        });
-      };
-      const removeStylesWhenDeletingAcrossBlockElements = () => {
-        const getAttributeApplyFunction = () => {
-          const template = dom.getAttribs(selection.getStart().cloneNode(false));
-          return () => {
-            const target = selection.getStart();
-            if (target !== editor.getBody()) {
-              dom.setAttrib(target, 'style', null);
-              each(template, attr => {
-                target.setAttributeNode(attr.cloneNode(true));
-              });
-            }
-          };
-        };
-        const isSelectionAcrossElements = () => {
-          return !selection.isCollapsed() && dom.getParent(selection.getStart(), dom.isBlock) !== dom.getParent(selection.getEnd(), dom.isBlock);
-        };
-        editor.on('keypress', e => {
-          let applyAttributes;
-          if (!isDefaultPrevented(e) && (e.keyCode === 8 || e.keyCode === 46) && isSelectionAcrossElements()) {
-            applyAttributes = getAttributeApplyFunction();
-            editor.getDoc().execCommand('delete', false, null);
-            applyAttributes();
-            e.preventDefault();
-            return false;
-          }
-        });
-        dom.bind(editor.getDoc(), 'cut', e => {
-          let applyAttributes;
-          if (!isDefaultPrevented(e) && isSelectionAcrossElements()) {
-            applyAttributes = getAttributeApplyFunction();
-            Delay.setEditorTimeout(editor, () => {
-              applyAttributes();
             });
-          }
-        });
-      };
-      const disableBackspaceIntoATable = () => {
-        editor.on('keydown', e => {
-          if (!isDefaultPrevented(e) && e.keyCode === BACKSPACE) {
-            if (selection.isCollapsed() && selection.getRng().startOffset === 0) {
-              const previousSibling = selection.getNode().previousSibling;
-              if (previousSibling && previousSibling.nodeName && previousSibling.nodeName.toLowerCase() === 'table') {
-                e.preventDefault();
-                return false;
-              }
-            }
-          }
-        });
-      };
-      const removeBlockQuoteOnBackSpace = () => {
-        editor.on('keydown', e => {
-          let rng, parent;
-          if (isDefaultPrevented(e) || e.keyCode !== VK.BACKSPACE) {
-            return;
-          }
-          rng = selection.getRng();
-          const container = rng.startContainer;
-          const offset = rng.startOffset;
-          const root = dom.getRoot();
-          parent = container;
-          if (!rng.collapsed || offset !== 0) {
-            return;
-          }
-          while (parent && parent.parentNode && parent.parentNode.firstChild === parent && parent.parentNode !== root) {
-            parent = parent.parentNode;
-          }
-          if (parent.tagName === 'BLOCKQUOTE') {
-            editor.formatter.toggle('blockquote', null, parent);
-            rng = dom.createRng();
-            rng.setStart(container, 0);
-            rng.setEnd(container, 0);
-            selection.setRng(rng);
-          }
-        });
-      };
-      const setGeckoEditingOptions = () => {
-        const setOpts = () => {
-          setEditorCommandState('StyleWithCSS', false);
-          setEditorCommandState('enableInlineTableEditing', false);
-          if (!getObjectResizing(editor)) {
-            setEditorCommandState('enableObjectResizing', false);
-          }
         };
-        if (!isReadOnly$1(editor)) {
-          editor.on('BeforeExecCommand mousedown', setOpts);
-        }
-      };
-      const addBrAfterLastLinks = () => {
-        const fixLinks = () => {
-          each(dom.select('a'), node => {
-            let parentNode = node.parentNode;
-            const root = dom.getRoot();
-            if (parentNode.lastChild === node) {
-              while (parentNode && !dom.isBlock(parentNode)) {
-                if (parentNode.parentNode.lastChild !== parentNode || parentNode === root) {
-                  return;
+        const selectAll = () => {
+            editor.shortcuts.add('meta+a', null, 'SelectAll');
+        };
+        const documentElementEditingFocus = () => {
+            if (!editor.inline) {
+                dom.bind(editor.getDoc(), 'mousedown mouseup', (e) => {
+                    let rng;
+                    if (e.target === editor.getDoc().documentElement) {
+                        rng = selection.getRng();
+                        editor.getBody().focus();
+                        if (e.type === 'mousedown') {
+                            if (isCaretContainer$2(rng.startContainer)) {
+                                return;
+                            }
+                            selection.placeCaretAt(e.clientX, e.clientY);
+                        } else {
+                            selection.setRng(rng);
+                        }
+                    }
+                });
+            }
+        };
+        const removeHrOnBackspace = () => {
+            editor.on('keydown', (e) => {
+                if (!isDefaultPrevented(e) && e.keyCode === BACKSPACE) {
+                    if (!editor.getBody().getElementsByTagName('hr').length) {
+                        return;
+                    }
+                    if (
+                        selection.isCollapsed() &&
+                        selection.getRng().startOffset === 0
+                    ) {
+                        const node = selection.getNode();
+                        const previousSibling = node.previousSibling;
+                        if (node.nodeName === 'HR') {
+                            dom.remove(node);
+                            e.preventDefault();
+                            return;
+                        }
+                        if (
+                            previousSibling &&
+                            previousSibling.nodeName &&
+                            previousSibling.nodeName.toLowerCase() === 'hr'
+                        ) {
+                            dom.remove(previousSibling);
+                            e.preventDefault();
+                        }
+                    }
                 }
-                parentNode = parentNode.parentNode;
-              }
-              dom.add(parentNode, 'br', { 'data-mce-bogus': 1 });
-            }
-          });
+            });
         };
-        editor.on('SetContent ExecCommand', e => {
-          if (e.type === 'setcontent' || e.command === 'mceInsertLink') {
-            fixLinks();
-          }
-        });
-      };
-      const setDefaultBlockType = () => {
-        editor.on('init', () => {
-          setEditorCommandState('DefaultParagraphSeparator', getForcedRootBlock(editor));
-        });
-      };
-      const normalizeSelection = () => {
-        editor.on('keyup focusin mouseup', e => {
-          if (!VK.modifierPressed(e)) {
-            selection.normalize();
-          }
-        }, true);
-      };
-      const showBrokenImageIcon = () => {
-        editor.contentStyles.push('img:-moz-broken {' + '-moz-force-broken-image-icon:1;' + 'min-width:24px;' + 'min-height:24px' + '}');
-      };
-      const restoreFocusOnKeyDown = () => {
-        if (!editor.inline) {
-          editor.on('keydown', () => {
-            if (document.activeElement === document.body) {
-              editor.getWin().focus();
+        const focusBody = () => {
+            if (!Range.prototype.getClientRects) {
+                editor.on('mousedown', (e) => {
+                    if (
+                        !isDefaultPrevented(e) &&
+                        e.target.nodeName === 'HTML'
+                    ) {
+                        const body = editor.getBody();
+                        body.blur();
+                        Delay.setEditorTimeout(editor, () => {
+                            body.focus();
+                        });
+                    }
+                });
             }
-          });
-        }
-      };
-      const bodyHeight = () => {
-        if (!editor.inline) {
-          editor.contentStyles.push('body {min-height: 150px}');
-          editor.on('click', e => {
-            let rng;
-            if (e.target.nodeName === 'HTML') {
-              rng = editor.selection.getRng();
-              editor.getBody().focus();
-              editor.selection.setRng(rng);
-              editor.selection.normalize();
-              editor.nodeChanged();
+        };
+        const selectControlElements = () => {
+            const visualAidsAnchorClass = getVisualAidsAnchorClass(editor);
+            editor.on('click', (e) => {
+                const target = e.target;
+                if (
+                    /^(IMG|HR)$/.test(target.nodeName) &&
+                    dom.getContentEditableParent(target) !== 'false'
+                ) {
+                    e.preventDefault();
+                    editor.selection.select(target);
+                    editor.nodeChanged();
+                }
+                if (
+                    target.nodeName === 'A' &&
+                    dom.hasClass(target, visualAidsAnchorClass) &&
+                    target.childNodes.length === 0
+                ) {
+                    e.preventDefault();
+                    selection.select(target);
+                }
+            });
+        };
+        const removeStylesWhenDeletingAcrossBlockElements = () => {
+            const getAttributeApplyFunction = () => {
+                const template = dom.getAttribs(
+                    selection.getStart().cloneNode(false)
+                );
+                return () => {
+                    const target = selection.getStart();
+                    if (target !== editor.getBody()) {
+                        dom.setAttrib(target, 'style', null);
+                        each(template, (attr) => {
+                            target.setAttributeNode(attr.cloneNode(true));
+                        });
+                    }
+                };
+            };
+            const isSelectionAcrossElements = () => {
+                return (
+                    !selection.isCollapsed() &&
+                    dom.getParent(selection.getStart(), dom.isBlock) !==
+                        dom.getParent(selection.getEnd(), dom.isBlock)
+                );
+            };
+            editor.on('keypress', (e) => {
+                let applyAttributes;
+                if (
+                    !isDefaultPrevented(e) &&
+                    (e.keyCode === 8 || e.keyCode === 46) &&
+                    isSelectionAcrossElements()
+                ) {
+                    applyAttributes = getAttributeApplyFunction();
+                    editor.getDoc().execCommand('delete', false, null);
+                    applyAttributes();
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            dom.bind(editor.getDoc(), 'cut', (e) => {
+                let applyAttributes;
+                if (!isDefaultPrevented(e) && isSelectionAcrossElements()) {
+                    applyAttributes = getAttributeApplyFunction();
+                    Delay.setEditorTimeout(editor, () => {
+                        applyAttributes();
+                    });
+                }
+            });
+        };
+        const disableBackspaceIntoATable = () => {
+            editor.on('keydown', (e) => {
+                if (!isDefaultPrevented(e) && e.keyCode === BACKSPACE) {
+                    if (
+                        selection.isCollapsed() &&
+                        selection.getRng().startOffset === 0
+                    ) {
+                        const previousSibling =
+                            selection.getNode().previousSibling;
+                        if (
+                            previousSibling &&
+                            previousSibling.nodeName &&
+                            previousSibling.nodeName.toLowerCase() === 'table'
+                        ) {
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                }
+            });
+        };
+        const removeBlockQuoteOnBackSpace = () => {
+            editor.on('keydown', (e) => {
+                let rng, parent;
+                if (isDefaultPrevented(e) || e.keyCode !== VK.BACKSPACE) {
+                    return;
+                }
+                rng = selection.getRng();
+                const container = rng.startContainer;
+                const offset = rng.startOffset;
+                const root = dom.getRoot();
+                parent = container;
+                if (!rng.collapsed || offset !== 0) {
+                    return;
+                }
+                while (
+                    parent &&
+                    parent.parentNode &&
+                    parent.parentNode.firstChild === parent &&
+                    parent.parentNode !== root
+                ) {
+                    parent = parent.parentNode;
+                }
+                if (parent.tagName === 'BLOCKQUOTE') {
+                    editor.formatter.toggle('blockquote', null, parent);
+                    rng = dom.createRng();
+                    rng.setStart(container, 0);
+                    rng.setEnd(container, 0);
+                    selection.setRng(rng);
+                }
+            });
+        };
+        const setGeckoEditingOptions = () => {
+            const setOpts = () => {
+                setEditorCommandState('StyleWithCSS', false);
+                setEditorCommandState('enableInlineTableEditing', false);
+                if (!getObjectResizing(editor)) {
+                    setEditorCommandState('enableObjectResizing', false);
+                }
+            };
+            if (!isReadOnly$1(editor)) {
+                editor.on('BeforeExecCommand mousedown', setOpts);
             }
-          });
-        }
-      };
-      const blockCmdArrowNavigation = () => {
-        if (isMac) {
-          editor.on('keydown', e => {
-            if (VK.metaKeyPressed(e) && !e.shiftKey && (e.keyCode === 37 || e.keyCode === 39)) {
-              e.preventDefault();
-              const selection = editor.selection.getSel();
-              selection.modify('move', e.keyCode === 37 ? 'backward' : 'forward', 'lineboundary');
+        };
+        const addBrAfterLastLinks = () => {
+            const fixLinks = () => {
+                each(dom.select('a'), (node) => {
+                    let parentNode = node.parentNode;
+                    const root = dom.getRoot();
+                    if (parentNode.lastChild === node) {
+                        while (parentNode && !dom.isBlock(parentNode)) {
+                            if (
+                                parentNode.parentNode.lastChild !==
+                                    parentNode ||
+                                parentNode === root
+                            ) {
+                                return;
+                            }
+                            parentNode = parentNode.parentNode;
+                        }
+                        dom.add(parentNode, 'br', { 'data-mce-bogus': 1 });
+                    }
+                });
+            };
+            editor.on('SetContent ExecCommand', (e) => {
+                if (e.type === 'setcontent' || e.command === 'mceInsertLink') {
+                    fixLinks();
+                }
+            });
+        };
+        const setDefaultBlockType = () => {
+            editor.on('init', () => {
+                setEditorCommandState(
+                    'DefaultParagraphSeparator',
+                    getForcedRootBlock(editor)
+                );
+            });
+        };
+        const normalizeSelection = () => {
+            editor.on(
+                'keyup focusin mouseup',
+                (e) => {
+                    if (!VK.modifierPressed(e)) {
+                        selection.normalize();
+                    }
+                },
+                true
+            );
+        };
+        const showBrokenImageIcon = () => {
+            editor.contentStyles.push(
+                'img:-moz-broken {' +
+                    '-moz-force-broken-image-icon:1;' +
+                    'min-width:24px;' +
+                    'min-height:24px' +
+                    '}'
+            );
+        };
+        const restoreFocusOnKeyDown = () => {
+            if (!editor.inline) {
+                editor.on('keydown', () => {
+                    if (document.activeElement === document.body) {
+                        editor.getWin().focus();
+                    }
+                });
             }
-          });
-        }
-      };
-      const tapLinksAndImages = () => {
-        editor.on('click', e => {
-          let elm = e.target;
-          do {
-            if (elm.tagName === 'A') {
-              e.preventDefault();
-              return;
+        };
+        const bodyHeight = () => {
+            if (!editor.inline) {
+                editor.contentStyles.push('body {min-height: 150px}');
+                editor.on('click', (e) => {
+                    let rng;
+                    if (e.target.nodeName === 'HTML') {
+                        rng = editor.selection.getRng();
+                        editor.getBody().focus();
+                        editor.selection.setRng(rng);
+                        editor.selection.normalize();
+                        editor.nodeChanged();
+                    }
+                });
             }
-          } while (elm = elm.parentNode);
-        });
-        editor.contentStyles.push('.mce-content-body {-webkit-touch-callout: none}');
-      };
-      const blockFormSubmitInsideEditor = () => {
-        editor.on('init', () => {
-          editor.dom.bind(editor.getBody(), 'submit', e => {
-            e.preventDefault();
-          });
-        });
-      };
-      const removeAppleInterchangeBrs = () => {
-        parser.addNodeFilter('br', nodes => {
-          let i = nodes.length;
-          while (i--) {
-            if (nodes[i].attr('class') === 'Apple-interchange-newline') {
-              nodes[i].remove();
+        };
+        const blockCmdArrowNavigation = () => {
+            if (isMac) {
+                editor.on('keydown', (e) => {
+                    if (
+                        VK.metaKeyPressed(e) &&
+                        !e.shiftKey &&
+                        (e.keyCode === 37 || e.keyCode === 39)
+                    ) {
+                        e.preventDefault();
+                        const selection = editor.selection.getSel();
+                        selection.modify(
+                            'move',
+                            e.keyCode === 37 ? 'backward' : 'forward',
+                            'lineboundary'
+                        );
+                    }
+                });
             }
-          }
-        });
-      };
-      const refreshContentEditable = noop;
-      const isHidden = () => {
-        if (!isGecko || editor.removed) {
-          return false;
+        };
+        const tapLinksAndImages = () => {
+            editor.on('click', (e) => {
+                let elm = e.target;
+                do {
+                    if (elm.tagName === 'A') {
+                        e.preventDefault();
+                        return;
+                    }
+                } while ((elm = elm.parentNode));
+            });
+            editor.contentStyles.push(
+                '.mce-content-body {-webkit-touch-callout: none}'
+            );
+        };
+        const blockFormSubmitInsideEditor = () => {
+            editor.on('init', () => {
+                editor.dom.bind(editor.getBody(), 'submit', (e) => {
+                    e.preventDefault();
+                });
+            });
+        };
+        const removeAppleInterchangeBrs = () => {
+            parser.addNodeFilter('br', (nodes) => {
+                let i = nodes.length;
+                while (i--) {
+                    if (
+                        nodes[i].attr('class') === 'Apple-interchange-newline'
+                    ) {
+                        nodes[i].remove();
+                    }
+                }
+            });
+        };
+        const refreshContentEditable = noop;
+        const isHidden = () => {
+            if (!isGecko || editor.removed) {
+                return false;
+            }
+            const sel = editor.selection.getSel();
+            return !sel || !sel.rangeCount || sel.rangeCount === 0;
+        };
+        const setupRtc = () => {
+            if (isWebKit) {
+                documentElementEditingFocus();
+                selectControlElements();
+                blockFormSubmitInsideEditor();
+                selectAll();
+                if (isiOS) {
+                    restoreFocusOnKeyDown();
+                    bodyHeight();
+                    tapLinksAndImages();
+                }
+            }
+            if (isGecko) {
+                focusBody();
+                setGeckoEditingOptions();
+                showBrokenImageIcon();
+                blockCmdArrowNavigation();
+            }
+        };
+        const setup = () => {
+            removeBlockQuoteOnBackSpace();
+            emptyEditorWhenDeleting();
+            if (!Env.windowsPhone) {
+                normalizeSelection();
+            }
+            if (isWebKit) {
+                documentElementEditingFocus();
+                selectControlElements();
+                setDefaultBlockType();
+                blockFormSubmitInsideEditor();
+                disableBackspaceIntoATable();
+                removeAppleInterchangeBrs();
+                if (isiOS) {
+                    restoreFocusOnKeyDown();
+                    bodyHeight();
+                    tapLinksAndImages();
+                } else {
+                    selectAll();
+                }
+            }
+            if (isGecko) {
+                removeHrOnBackspace();
+                focusBody();
+                removeStylesWhenDeletingAcrossBlockElements();
+                setGeckoEditingOptions();
+                addBrAfterLastLinks();
+                showBrokenImageIcon();
+                blockCmdArrowNavigation();
+                disableBackspaceIntoATable();
+            }
+        };
+        if (isRtc(editor)) {
+            setupRtc();
+        } else {
+            setup();
         }
-        const sel = editor.selection.getSel();
-        return !sel || !sel.rangeCount || sel.rangeCount === 0;
-      };
-      const setupRtc = () => {
-        if (isWebKit) {
-          documentElementEditingFocus();
-          selectControlElements();
-          blockFormSubmitInsideEditor();
-          selectAll();
-          if (isiOS) {
-            restoreFocusOnKeyDown();
-            bodyHeight();
-            tapLinksAndImages();
-          }
-        }
-        if (isGecko) {
-          focusBody();
-          setGeckoEditingOptions();
-          showBrokenImageIcon();
-          blockCmdArrowNavigation();
-        }
-      };
-      const setup = () => {
-        removeBlockQuoteOnBackSpace();
-        emptyEditorWhenDeleting();
-        if (!Env.windowsPhone) {
-          normalizeSelection();
-        }
-        if (isWebKit) {
-          documentElementEditingFocus();
-          selectControlElements();
-          setDefaultBlockType();
-          blockFormSubmitInsideEditor();
-          disableBackspaceIntoATable();
-          removeAppleInterchangeBrs();
-          if (isiOS) {
-            restoreFocusOnKeyDown();
-            bodyHeight();
-            tapLinksAndImages();
-          } else {
-            selectAll();
-          }
-        }
-        if (isGecko) {
-          removeHrOnBackspace();
-          focusBody();
-          removeStylesWhenDeletingAcrossBlockElements();
-          setGeckoEditingOptions();
-          addBrAfterLastLinks();
-          showBrokenImageIcon();
-          blockCmdArrowNavigation();
-          disableBackspaceIntoATable();
-        }
-      };
-      if (isRtc(editor)) {
-        setupRtc();
-      } else {
-        setup();
-      }
-      return {
-        refreshContentEditable,
-        isHidden
-      };
+        return {
+            refreshContentEditable,
+            isHidden,
+        };
     };
 
     const DOM$6 = DOMUtils.DOM;
@@ -26059,7 +26172,7 @@
             document: editor.getDoc(),
         });
     };
-    const mkSchemSettings = (editor) => {
+    const mkSchemaSettings = (editor) => {
         const getOption = editor.options.get;
         return removeUndefined({
             custom_elements: getOption('custom_elements'),
@@ -26075,7 +26188,7 @@
             padd_empty_block_inline_children: getOption('format_empty_lines'),
         });
     };
-    const mkSeriaizerSettings = (editor) => {
+    const mkSerializerSettings = (editor) => {
         const getOption = editor.options.get;
         return {
             ...mkParserSettings(editor),
@@ -26093,14 +26206,14 @@
         };
     };
     const createParser = editor => {
-      const parser = DomParser(mkParserSettings(editor), editor.schema);
-      parser.addAttributeFilter('src,href,style,tabindex', (nodes, name) => {
-        let i = nodes.length, node, value;
-        const dom = editor.dom;
-        const internalName = 'data-mce-' + name;
-        while (i--) {
-          node = nodes[i];
-          value = node.attr(name);
+        const parser = DomParser(mkParserSettings(editor), editor.schema);
+        parser.addAttributeFilter('src,href,style,tabindex', (nodes, name) => {
+            let i = nodes.length, node, value;
+            const dom = editor.dom;
+            const internalName = 'data-mce-' + name;
+            while (i--) {
+                node = nodes[i];
+                value = node.attr(name);
           if (value && !node.attr(internalName)) {
             if (value.indexOf('data:') === 0 || value.indexOf('blob:') === 0) {
               continue;
@@ -28248,333 +28361,358 @@
     const DOM$1 = DOMUtils.DOM;
     const extend = Tools.extend, each$1 = Tools.each;
     class Editor {
-      constructor(id, options, editorManager) {
-        this.plugins = {};
-        this.contentCSS = [];
-        this.contentStyles = [];
-        this.loadedCSS = {};
-        this.isNotDirty = false;
-        this.editorManager = editorManager;
-        this.documentBaseUrl = editorManager.documentBaseURL;
-        extend(this, EditorObservable);
-        const self = this;
-        this.id = id;
-        this.hidden = false;
-        const normalizedOptions = normalizeOptions(editorManager.defaultOptions, options);
-        this.options = create$5(self, normalizedOptions);
-        register$7(self);
-        const getOption = this.options.get;
-        if (getOption('deprecation_warnings')) {
-          logWarnings(options, normalizedOptions);
-        }
-        const suffix = getOption('suffix');
-        if (suffix) {
-          editorManager.suffix = suffix;
-        }
-        this.suffix = editorManager.suffix;
-        const baseUrl = getOption('base_url');
-        if (baseUrl) {
-          editorManager._setBaseUrl(baseUrl);
-        }
-        this.baseUri = editorManager.baseURI;
-        const referrerPolicy = getReferrerPolicy(self);
-        if (referrerPolicy) {
-          ScriptLoader.ScriptLoader._setReferrerPolicy(referrerPolicy);
-          DOMUtils.DOM.styleSheetLoader._setReferrerPolicy(referrerPolicy);
-        }
-        AddOnManager.languageLoad = getOption('language_load');
-        AddOnManager.baseURL = editorManager.baseURL;
-        this.setDirty(false);
-        this.documentBaseURI = new URI(getDocumentBaseUrl(self), { base_uri: this.baseUri });
-        this.baseURI = this.baseUri;
-        this.inline = isInline(self);
-        this.shortcuts = new Shortcuts(this);
-        this.editorCommands = new EditorCommands(this);
-        registerCommands(this);
-        const cacheSuffix = getOption('cache_suffix');
-        if (cacheSuffix) {
-          Env.cacheSuffix = cacheSuffix.replace(/^[\?\&]+/, '');
-        }
-        this.ui = {
-          registry: registry(),
-          styleSheetLoader: undefined,
-          show: noop,
-          hide: noop,
-          setEnabled: noop,
-          isEnabled: always
-        };
-        this.mode = create$4(self);
-        editorManager.dispatch('SetupEditor', { editor: this });
-        const setupCallback = getSetupCallback(self);
-        if (isFunction(setupCallback)) {
-          setupCallback.call(self, self);
-        }
-      }
-      render() {
-        render(this);
-      }
-      focus(skipFocus) {
-        this.execCommand('mceFocus', false, skipFocus);
-      }
-      hasFocus() {
-        return hasFocus(this);
-      }
-      translate(text) {
-        return I18n.translate(text);
-      }
-      getParam(name, defaultVal, type) {
-        const options = this.options;
-        if (!options.isRegistered(name)) {
-          if (isNonNullable(type)) {
-            options.register(name, {
-              processor: type,
-              default: defaultVal
-            });
-          } else {
-            options.register(name, {
-              processor: always,
-              default: defaultVal
-            });
-          }
-        }
-        return !options.isSet(name) && !isUndefined(defaultVal) ? defaultVal : options.get(name);
-      }
-      hasPlugin(name, loaded) {
-        const hasPlugin = contains$2(getPlugins(this), name);
-        if (hasPlugin) {
-          return loaded ? PluginManager.get(name) !== undefined : true;
-        } else {
-          return false;
-        }
-      }
-      nodeChanged(args) {
-        this._nodeChangeDispatcher.nodeChanged(args);
-      }
-      addCommand(name, callback, scope) {
-        this.editorCommands.addCommand(name, callback, scope);
-      }
-      addQueryStateHandler(name, callback, scope) {
-        this.editorCommands.addQueryStateHandler(name, callback, scope);
-      }
-      addQueryValueHandler(name, callback, scope) {
-        this.editorCommands.addQueryValueHandler(name, callback, scope);
-      }
-      addShortcut(pattern, desc, cmdFunc, scope) {
-        this.shortcuts.add(pattern, desc, cmdFunc, scope);
-      }
-      execCommand(cmd, ui, value, args) {
-        return this.editorCommands.execCommand(cmd, ui, value, args);
-      }
-      queryCommandState(cmd) {
-        return this.editorCommands.queryCommandState(cmd);
-      }
-      queryCommandValue(cmd) {
-        return this.editorCommands.queryCommandValue(cmd);
-      }
-      queryCommandSupported(cmd) {
-        return this.editorCommands.queryCommandSupported(cmd);
-      }
-      show() {
-        const self = this;
-        if (self.hidden) {
-          self.hidden = false;
-          if (self.inline) {
-            self.getBody().contentEditable = 'true';
-          } else {
-            DOM$1.show(self.getContainer());
-            DOM$1.hide(self.id);
-          }
-          self.load();
-          self.dispatch('show');
-        }
-      }
-      hide() {
-        const self = this;
-        if (!self.hidden) {
-          self.save();
-          if (self.inline) {
-            self.getBody().contentEditable = 'false';
-            if (self === self.editorManager.focusedEditor) {
-              self.editorManager.focusedEditor = null;
+        constructor(id, options, editorManager) {
+            this.plugins = {};
+            this.contentCSS = [];
+            this.contentStyles = [];
+            this.loadedCSS = {};
+            this.isNotDirty = false;
+            this.editorManager = editorManager;
+            this.documentBaseUrl = editorManager.documentBaseURL;
+            extend(this, EditorObservable);
+            const self = this;
+            this.id = id;
+            this.hidden = false;
+            const normalizedOptions = normalizeOptions(
+                editorManager.defaultOptions,
+                options
+            );
+            this.options = create$5(self, normalizedOptions);
+            register$7(self);
+            const getOption = this.options.get;
+            if (getOption('deprecation_warnings')) {
+                logWarnings(options, normalizedOptions);
             }
-          } else {
-            DOM$1.hide(self.getContainer());
-            DOM$1.setStyle(self.id, 'display', self.orgDisplay);
-          }
-          self.hidden = true;
-          self.dispatch('hide');
-        }
-      }
-      isHidden() {
-        return this.hidden;
-      }
-      setProgressState(state, time) {
-        this.dispatch('ProgressState', {
-          state,
-          time
-        });
-      }
-      load(args) {
-        const self = this;
-        let elm = self.getElement(), html;
-        if (self.removed) {
-          return '';
-        }
-        if (elm) {
-          args = args || {};
-          args.load = true;
-          const value = isTextareaOrInput(elm) ? elm.value : elm.innerHTML;
-          html = self.setContent(value, args);
-          args.element = elm;
-          if (!args.no_events) {
-            self.dispatch('LoadContent', args);
-          }
-          args.element = elm = null;
-          return html;
-        }
-      }
-      save(args) {
-        const self = this;
-        let elm = self.getElement(), html, form;
-        if (!elm || !self.initialized || self.removed) {
-          return;
-        }
-        args = args || {};
-        args.save = true;
-        args.element = elm;
-        html = args.content = self.getContent(args);
-        if (!args.no_events) {
-          self.dispatch('SaveContent', args);
-        }
-        if (args.format === 'raw') {
-          self.dispatch('RawSaveContent', args);
-        }
-        html = args.content;
-        if (!isTextareaOrInput(elm)) {
-          if (args.is_removing || !self.inline) {
-            elm.innerHTML = html;
-          }
-          if (form = DOM$1.getParent(self.id, 'form')) {
-            each$1(form.elements, elm => {
-              if (elm.name === self.id) {
-                elm.value = html;
-                return false;
-              }
+            const suffix = getOption('suffix');
+            if (suffix) {
+                editorManager.suffix = suffix;
+            }
+            this.suffix = editorManager.suffix;
+            const baseUrl = getOption('base_url');
+            if (baseUrl) {
+                editorManager._setBaseUrl(baseUrl);
+            }
+            this.baseUri = editorManager.baseURI;
+            const referrerPolicy = getReferrerPolicy(self);
+            if (referrerPolicy) {
+                ScriptLoader.ScriptLoader._setReferrerPolicy(referrerPolicy);
+                DOMUtils.DOM.styleSheetLoader._setReferrerPolicy(
+                    referrerPolicy
+                );
+            }
+            AddOnManager.languageLoad = getOption('language_load');
+            AddOnManager.baseURL = editorManager.baseURL;
+            this.setDirty(false);
+            this.documentBaseURI = new URI(getDocumentBaseUrl(self), {
+                base_uri: this.baseUri,
             });
-          }
-        } else {
-          elm.value = html;
+            this.baseURI = this.baseUri;
+            this.inline = isInline(self);
+            this.shortcuts = new Shortcuts(this);
+            this.editorCommands = new EditorCommands(this);
+            registerCommands(this);
+            const cacheSuffix = getOption('cache_suffix');
+            if (cacheSuffix) {
+                Env.cacheSuffix = cacheSuffix.replace(/^[\?\&]+/, '');
+            }
+            this.ui = {
+                registry: registry(),
+                styleSheetLoader: undefined,
+                show: noop,
+                hide: noop,
+                setEnabled: noop,
+                isEnabled: always,
+            };
+            this.mode = create$4(self);
+            editorManager.dispatch('SetupEditor', { editor: this });
+            const setupCallback = getSetupCallback(self);
+            if (isFunction(setupCallback)) {
+                setupCallback.call(self, self);
+            }
         }
-        args.element = elm = null;
-        if (args.set_dirty !== false) {
-          self.setDirty(false);
+        render() {
+            render(this);
         }
-        return html;
-      }
-      setContent(content, args) {
-        return setContent(this, content, args);
-      }
-      getContent(args) {
-        return getContent(this, args);
-      }
-      insertContent(content, args) {
-        if (args) {
-          content = extend({ content }, args);
+        focus(skipFocus) {
+            this.execCommand('mceFocus', false, skipFocus);
         }
-        this.execCommand('mceInsertContent', false, content);
-      }
-      resetContent(initialContent) {
-        if (initialContent === undefined) {
-          setContent(this, this.startContent, { format: 'raw' });
-        } else {
-          setContent(this, initialContent);
+        hasFocus() {
+            return hasFocus(this);
         }
-        this.undoManager.reset();
-        this.setDirty(false);
-        this.nodeChanged();
-      }
-      isDirty() {
-        return !this.isNotDirty;
-      }
-      setDirty(state) {
-        const oldState = !this.isNotDirty;
-        this.isNotDirty = !state;
-        if (state && state !== oldState) {
-          this.dispatch('dirty');
+        translate(text) {
+            return I18n.translate(text);
         }
-      }
-      getContainer() {
-        const self = this;
-        if (!self.container) {
-          self.container = DOM$1.get(self.editorContainer || self.id + '_parent');
+        getParam(name, defaultVal, type) {
+            const options = this.options;
+            if (!options.isRegistered(name)) {
+                if (isNonNullable(type)) {
+                    options.register(name, {
+                        processor: type,
+                        default: defaultVal,
+                    });
+                } else {
+                    options.register(name, {
+                        processor: always,
+                        default: defaultVal,
+                    });
+                }
+            }
+            return !options.isSet(name) && !isUndefined(defaultVal)
+                ? defaultVal
+                : options.get(name);
         }
-        return self.container;
-      }
-      getContentAreaContainer() {
-        return this.contentAreaContainer;
-      }
-      getElement() {
-        if (!this.targetElm) {
-          this.targetElm = DOM$1.get(this.id);
+        hasPlugin(name, loaded) {
+            const hasPlugin = contains$2(getPlugins(this), name);
+            if (hasPlugin) {
+                return loaded ? PluginManager.get(name) !== undefined : true;
+            } else {
+                return false;
+            }
         }
-        return this.targetElm;
-      }
-      getWin() {
-        const self = this;
-        let elm;
-        if (!self.contentWindow) {
-          elm = self.iframeElement;
-          if (elm) {
-            self.contentWindow = elm.contentWindow;
-          }
+        nodeChanged(args) {
+            this._nodeChangeDispatcher.nodeChanged(args);
         }
-        return self.contentWindow;
-      }
-      getDoc() {
-        const self = this;
-        let win;
-        if (!self.contentDocument) {
-          win = self.getWin();
-          if (win) {
-            self.contentDocument = win.document;
-          }
+        addCommand(name, callback, scope) {
+            this.editorCommands.addCommand(name, callback, scope);
         }
-        return self.contentDocument;
-      }
-      getBody() {
-        const doc = this.getDoc();
-        return this.bodyElement || (doc ? doc.body : null);
-      }
-      convertURL(url, name, elm) {
-        const self = this, getOption = self.options.get;
-        const urlConverterCallback = getUrlConverterCallback(self);
-        if (isFunction(urlConverterCallback)) {
-          return urlConverterCallback.call(self, url, elm, true, name);
+        addQueryStateHandler(name, callback, scope) {
+            this.editorCommands.addQueryStateHandler(name, callback, scope);
         }
-        if (!getOption('convert_urls') || elm && elm.nodeName === 'LINK' || url.indexOf('file:') === 0 || url.length === 0) {
-          return url;
+        addQueryValueHandler(name, callback, scope) {
+            this.editorCommands.addQueryValueHandler(name, callback, scope);
         }
-        if (getOption('relative_urls')) {
-          return self.documentBaseURI.toRelative(url);
+        addShortcut(pattern, desc, cmdFunc, scope) {
+            this.shortcuts.add(pattern, desc, cmdFunc, scope);
         }
-        url = self.documentBaseURI.toAbsolute(url, getOption('remove_script_host'));
-        return url;
-      }
-      addVisual(elm) {
-        addVisual(this, elm);
-      }
-      remove() {
-        remove$1(this);
-      }
-      destroy(automatic) {
-        destroy(this, automatic);
-      }
-      uploadImages() {
-        return this.editorUpload.uploadImages();
-      }
-      _scanForImages() {
-        return this.editorUpload.scanForImages();
-      }
+        execCommand(cmd, ui, value, args) {
+            return this.editorCommands.execCommand(cmd, ui, value, args);
+        }
+        queryCommandState(cmd) {
+            return this.editorCommands.queryCommandState(cmd);
+        }
+        queryCommandValue(cmd) {
+            return this.editorCommands.queryCommandValue(cmd);
+        }
+        queryCommandSupported(cmd) {
+            return this.editorCommands.queryCommandSupported(cmd);
+        }
+        show() {
+            const self = this;
+            if (self.hidden) {
+                self.hidden = false;
+                if (self.inline) {
+                    self.getBody().contentEditable = 'true';
+                } else {
+                    DOM$1.show(self.getContainer());
+                    DOM$1.hide(self.id);
+                }
+                self.load();
+                self.dispatch('show');
+            }
+        }
+        hide() {
+            const self = this;
+            if (!self.hidden) {
+                self.save();
+                if (self.inline) {
+                    self.getBody().contentEditable = 'false';
+                    if (self === self.editorManager.focusedEditor) {
+                        self.editorManager.focusedEditor = null;
+                    }
+                } else {
+                    DOM$1.hide(self.getContainer());
+                    DOM$1.setStyle(self.id, 'display', self.orgDisplay);
+                }
+                self.hidden = true;
+                self.dispatch('hide');
+            }
+        }
+        isHidden() {
+            return this.hidden;
+        }
+        setProgressState(state, time) {
+            this.dispatch('ProgressState', {
+                state,
+                time,
+            });
+        }
+        load(args) {
+            const self = this;
+            let elm = self.getElement(),
+                html;
+            if (self.removed) {
+                return '';
+            }
+            if (elm) {
+                args = args || {};
+                args.load = true;
+                const value = isTextareaOrInput(elm)
+                    ? elm.value
+                    : elm.innerHTML;
+                html = self.setContent(value, args);
+                args.element = elm;
+                if (!args.no_events) {
+                    self.dispatch('LoadContent', args);
+                }
+                args.element = elm = null;
+                return html;
+            }
+        }
+        save(args) {
+            const self = this;
+            let elm = self.getElement(),
+                html,
+                form;
+            if (!elm || !self.initialized || self.removed) {
+                return;
+            }
+            args = args || {};
+            args.save = true;
+            args.element = elm;
+            html = args.content = self.getContent(args);
+            if (!args.no_events) {
+                self.dispatch('SaveContent', args);
+            }
+            if (args.format === 'raw') {
+                self.dispatch('RawSaveContent', args);
+            }
+            html = args.content;
+            if (!isTextareaOrInput(elm)) {
+                if (args.is_removing || !self.inline) {
+                    elm.innerHTML = html;
+                }
+                if ((form = DOM$1.getParent(self.id, 'form'))) {
+                    each$1(form.elements, (elm) => {
+                        if (elm.name === self.id) {
+                            elm.value = html;
+                            return false;
+                        }
+                    });
+                }
+            } else {
+                elm.value = html;
+            }
+            args.element = elm = null;
+            if (args.set_dirty !== false) {
+                self.setDirty(false);
+            }
+            return html;
+        }
+        setContent(content, args) {
+            return setContent(this, content, args);
+        }
+        getContent(args) {
+            return getContent(this, args);
+        }
+        insertContent(content, args) {
+            if (args) {
+                content = extend({ content }, args);
+            }
+            this.execCommand('mceInsertContent', false, content);
+        }
+        resetContent(initialContent) {
+            if (initialContent === undefined) {
+                setContent(this, this.startContent, { format: 'raw' });
+            } else {
+                setContent(this, initialContent);
+            }
+            this.undoManager.reset();
+            this.setDirty(false);
+            this.nodeChanged();
+        }
+        isDirty() {
+            return !this.isNotDirty;
+        }
+        setDirty(state) {
+            const oldState = !this.isNotDirty;
+            this.isNotDirty = !state;
+            if (state && state !== oldState) {
+                this.dispatch('dirty');
+            }
+        }
+        getContainer() {
+            const self = this;
+            if (!self.container) {
+                self.container = DOM$1.get(
+                    self.editorContainer || self.id + '_parent'
+                );
+            }
+            return self.container;
+        }
+        getContentAreaContainer() {
+            return this.contentAreaContainer;
+        }
+        getElement() {
+            if (!this.targetElm) {
+                this.targetElm = DOM$1.get(this.id);
+            }
+            return this.targetElm;
+        }
+        getWin() {
+            const self = this;
+            let elm;
+            if (!self.contentWindow) {
+                elm = self.iframeElement;
+                if (elm) {
+                    self.contentWindow = elm.contentWindow;
+                }
+            }
+            return self.contentWindow;
+        }
+        getDoc() {
+            const self = this;
+            let win;
+            if (!self.contentDocument) {
+                win = self.getWin();
+                if (win) {
+                    self.contentDocument = win.document;
+                }
+            }
+            return self.contentDocument;
+        }
+        getBody() {
+            const doc = this.getDoc();
+            return this.bodyElement || (doc ? doc.body : null);
+        }
+        convertURL(url, name, elm) {
+            const self = this,
+                getOption = self.options.get;
+            const urlConverterCallback = getUrlConverterCallback(self);
+            if (isFunction(urlConverterCallback)) {
+                return urlConverterCallback.call(self, url, elm, true, name);
+            }
+            if (
+                !getOption('convert_urls') ||
+                (elm && elm.nodeName === 'LINK') ||
+                url.indexOf('file:') === 0 ||
+                url.length === 0
+            ) {
+                return url;
+            }
+            if (getOption('relative_urls')) {
+                return self.documentBaseURI.toRelative(url);
+            }
+            url = self.documentBaseURI.toAbsolute(
+                url,
+                getOption('remove_script_host')
+            );
+            return url;
+        }
+        addVisual(elm) {
+            addVisual(this, elm);
+        }
+        remove() {
+            remove$1(this);
+        }
+        destroy(automatic) {
+            destroy(this, automatic);
+        }
+        uploadImages() {
+            return this.editorUpload.uploadImages();
+        }
+        _scanForImages() {
+            return this.editorUpload.scanForImages();
+        }
     }
 
     const DOM = DOMUtils.DOM;
@@ -28582,31 +28720,31 @@
     let boundGlobalEvents = false;
     let beforeUnloadDelegate;
     let editors = [];
-    const globalEventDelegate = e => {
-      const type = e.type;
-      each(EditorManager.get(), editor => {
-        switch (type) {
-        case 'scroll':
-          editor.dispatch('ScrollWindow', e);
-          break;
-        case 'resize':
-          editor.dispatch('ResizeWindow', e);
-          break;
-        }
-      });
+    const globalEventDelegate = (e) => {
+        const type = e.type;
+        each(EditorManager.get(), (editor) => {
+            switch (type) {
+                case 'scroll':
+                    editor.dispatch('ScrollWindow', e);
+                    break;
+                case 'resize':
+                    editor.dispatch('ResizeWindow', e);
+                    break;
+            }
+        });
     };
-    const toggleGlobalEvents = state => {
-      if (state !== boundGlobalEvents) {
-        const DOM = DOMUtils.DOM;
-        if (state) {
-          DOM.bind(window, 'resize', globalEventDelegate);
-          DOM.bind(window, 'scroll', globalEventDelegate);
-        } else {
-          DOM.unbind(window, 'resize', globalEventDelegate);
-          DOM.unbind(window, 'scroll', globalEventDelegate);
+    const toggleGlobalEvents = (state) => {
+        if (state !== boundGlobalEvents) {
+            const DOM = DOMUtils.DOM;
+            if (state) {
+                DOM.bind(window, 'resize', globalEventDelegate);
+                DOM.bind(window, 'scroll', globalEventDelegate);
+            } else {
+                DOM.unbind(window, 'resize', globalEventDelegate);
+                DOM.unbind(window, 'scroll', globalEventDelegate);
+            }
+            boundGlobalEvents = state;
         }
-        boundGlobalEvents = state;
-      }
     };
     const removeEditorFromList = (targetEditor) => {
         const oldEditors = editors;
@@ -28951,7 +29089,7 @@
             const activeEditor = this.activeEditor;
             if (this.activeEditor !== editor) {
                 if (activeEditor) {
-                    activeEditor.disptch('deactivate', {
+                    activeEditor.dispatch('deactivate', {
                         relatedTarget: editor,
                     });
                 }

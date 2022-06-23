@@ -1,5 +1,4 @@
 # Changelog
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -10,7 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 6.0.3 - 2022-05-25
 
 ### Fixed
-
 - Could not remove values when multiple cells were selected with the cell properties dialog #TINY-8625
 - Could not remove values when multiple rows were selected with the row properties dialog #TINY-8625
 - Empty lines that were formatted in a ranged selection using the `format_empty_lines` option were not kept in the
@@ -21,7 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 6.0.2 - 2022-04-27
 
 ### Fixed
-
 - Some media elements wouldn't update when changing the source URL #TINY-8660
 - Inline toolbars flickered when switching between editors #TINY-8594
 - Multiple inline toolbars were shown if focused too quickly #TINY-8503
