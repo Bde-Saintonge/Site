@@ -57,37 +57,37 @@
 
 
 <body class="dark:bg-gray-700">
-    <header class="w-full bg-slate-50 p-4 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
-        <div class="container mx-auto flex h-16 justify-between">
-            <a href="/" aria-label="Retour à la racine" class="flex items-center">
-                <img class="h-16 dark:contrast-150" src="{{ asset('media/images/logo_saintonge.png') }}"
-                    alt="Logo famille Saintonge">
-            </a>
-            <ul class="hidden items-stretch space-x-3 lg:flex">
-                <li class="flex">
-                    <a href="/bda"
-                        class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">BDA</a>
-                </li>
-                <li class="flex">
-                    <a href="/bdc"
-                        class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">BDC</a>
-                </li>
-                <li class="flex">
-                    <a href="/bds"
-                        class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">BDS</a>
-                </li>
-                <li class="flex">
-                    <a href="/pole-com"
-                        class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">Pôle
-                        Com.</a>
-                </li>
-            </ul>
-            <ul class="hidden w-32 justify-around lg:flex">
-                <li class="flex items-center">
-                    <a href="mailto:contact@bde-saintonge.fr" alt="Mail contact famille saintonge">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="zoom h-8 w-8 stroke-slate-900 stroke-1 dark:stroke-white" fill="none"
-                            viewBox="0 0 24 24">
+<header class="w-full bg-slate-50 p-4 text-gray-800 dark:bg-gray-700 dark:text-gray-100">
+    <div class="container mx-auto flex h-16 justify-between">
+        <a href="/" aria-label="Retour à la racine" class="flex items-center">
+            <img class="h-16 dark:contrast-150" src="{{ asset('media/images/logo_saintonge.png') }}"
+                 alt="Logo famille Saintonge">
+        </a>
+        <ul class="hidden items-stretch space-x-3 lg:flex">
+            <li class="flex">
+                <a href="{{ route('office.index', ['office' => 'bda']) }}"
+                   class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">BDA</a>
+            </li>
+            <li class="flex">
+                <a href="{{ route('office.index', ['office' => 'bdc']) }}"
+                   class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">BDC</a>
+            </li>
+            <li class="flex">
+                <a href="{{ route('office.index', ['office' => 'bds']) }}"
+                   class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">BDS</a>
+            </li>
+            <li class="flex">
+                <a href="{{ route('office.index', ['office' => 'pole-com']) }}"
+                   class="-mb-1 flex items-center border-transparent px-4 hover:border-b-2 hover:border-blue-400 hover:text-blue-400">Pôle
+                    Com.</a>
+            </li>
+        </ul>
+        <ul class="hidden w-32 justify-around lg:flex">
+            <li class="flex items-center">
+                <a href="mailto:contact@bde-saintonge.fr" alt="Mail contact famille saintonge">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="zoom h-8 w-8 stroke-slate-900 stroke-1 dark:stroke-white" fill="none"
+                         viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
@@ -108,61 +108,61 @@
                         </svg>
                     </a>
                 </li>
-            </ul>
+        </ul>
 
-            @if (Auth::user())
-                <div class="hidden flex-shrink-0 items-center lg:flex">
-                    <a href="/dashboard/{{Auth::user()->office->code_name}}"
-                        class="mr-1 self-center rounded bg-blue-400 px-8 py-3 font-semibold text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">
-                        Dashboard</a>
-                    <a href="/logout"
-                        class="ml-1 self-center rounded bg-red-400 px-3 py-1 font-medium text-white hover:bg-red-300 focus:outline-none focus:ring focus:ring-red-900">
-                        Déconnexion</a>
-                </div>
-            @else
-                <div class="hidden flex-shrink-0 items-center lg:flex">
-                    <a href="/login"
-                        class="self-center rounded bg-blue-400 px-8 py-3 font-semibold text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">Se
-                        Connecter</a>
-                </div>
-            @endif
-            <div class="relative my-auto block lg:hidden">
-                <!-- Dropdown toggle button -->
-                <button id="dropdown-toggle"
+        @auth
+            <div class="hidden flex-shrink-0 items-center lg:flex">
+                <a href="{{ route('admin.dashboard') }}"
+                   class="mr-1 self-center rounded bg-blue-400 px-8 py-3 font-semibold text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">
+                    Dashboard</a>
+                <a href="{{ route('auth.logout') }}"
+                   class="ml-1 self-center rounded bg-red-400 px-3 py-1 font-medium text-white hover:bg-red-300 focus:outline-none focus:ring focus:ring-red-900">
+                    Déconnexion</a>
+            </div>
+        @elseguest
+            <div class="hidden flex-shrink-0 items-center lg:flex">
+                <a href="{{ route('auth.login') }}"
+                   class="self-center rounded bg-blue-400 px-8 py-3 font-semibold text-white hover:bg-blue-300 focus:outline-none focus:ring focus:ring-blue-500">Se
+                    Connecter</a>
+            </div>
+        @endauth
+        <div class="relative my-auto block lg:hidden">
+            <!-- Dropdown toggle button -->
+            <button id="dropdown-toggle"
                     class="group relative z-10 h-10 w-10 rounded-md border border-transparent bg-blue-400 p-2 text-white focus:border-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:bg-blue-400 dark:text-white dark:focus:ring-blue-400 dark:focus:ring-opacity-40">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </button>
-                <!-- Dropdown menu -->
-                <div id="dropdown-menu"
-                    class="absolute right-0 z-20 mt-2 hidden w-48 items-center rounded-md bg-white py-2 shadow-xl dark:bg-gray-800">
-                    <a href="/bda"
-                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                        BDA
-                    </a>
-                    <a href="/bdc"
-                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                        BDC
-                    </a>
-                    <a href="/bds"
-                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                        BDS
-                    </a>
-                    <a href="/pole-com"
-                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                        Pôle Com.
-                    </a>
-                    <hr class="border-gray-200 dark:border-gray-700">
-                    <a href="mailto:contact@bde-saintonge.fr" alt="Mail contact famille saintonge"
-                        class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="mr-2 inline h-6 stroke-slate-900 stroke-1 dark:stroke-white" fill="none"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
+                <svg xmlns="http://www.w3.org/2000/svg" class="" viewBox="0 0 20 20"
+                     fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                          clip-rule="evenodd" />
+                </svg>
+            </button>
+            <!-- Dropdown menu -->
+            <div id="dropdown-menu"
+                 class="absolute right-0 z-20 mt-2 hidden w-48 items-center rounded-md bg-white py-2 shadow-xl dark:bg-gray-800">
+                <a href="{{ route('office.index', ['office' => 'bda']) }}"
+                   class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+                    BDA
+                </a>
+                <a href="{{ route('office.index', ['office' => 'bdc']) }}"
+                   class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+                    BDC
+                </a>
+                <a href="{{ route('office.index', ['office' => 'bds']) }}"
+                   class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+                    BDS
+                </a>
+                <a href="{{ route('office.index', ['office' => 'pole-com']) }}"
+                   class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+                    Pôle Com.
+                </a>
+                <hr class="border-gray-200 dark:border-gray-700">
+                <a href="mailto:contact@bde-saintonge.fr" alt="Mail contact famille saintonge"
+                   class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="mr-2 inline h-6 stroke-slate-900 stroke-1 dark:stroke-white" fill="none"
+                         viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                         Mail</a>
@@ -181,29 +181,29 @@
                         </svg>
                         Youtube
                     </a>
-                    <hr class="border-gray-200 dark:border-gray-700">
+                <hr class="border-gray-200 dark:border-gray-700">
 
-                    @if (Auth::user())
-                        <a href="/dashboard/{{Auth::user()->office->code_name}}"
-                            class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Dashboard
-                        </a>
-                        <a href="/logout"
-                            class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Déconnexion
-                        </a>
-                    @else
-                        <a href="/login"
-                            class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
-                            Se Connecter
-                        </a>
-                    @endif
-                </div>
+                @auth
+                    <a href="{{ route('admin.dashboard') }}"
+                       class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Dashboard
+                    </a>
+                    <a href="{{ route('auth.logout') }}"
+                       class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Déconnexion
+                    </a>
+                @elseguest
+                    <a href="{{ route('auth.login') }}"
+                       class="block transform px-4 py-3 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Se Connecter
+                    </a>
+                @endauth
             </div>
         </div>
-    </header>
-    <main>
-        @yield('content')
+    </div>
+</header>
+<main>
+    @yield('content')
     </main>
     <footer class="bg-white p-6 text-black dark:bg-gray-700 dark:text-white">
         <hr class="mx-auto my-10 w-3/4 rounded-lg border-2">
@@ -234,8 +234,8 @@
                         target="_blank">Lycée
                         Technologique</a>
                     <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
-                        rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-professionnel/"
-                        target="_blank">Lycée
+                       rel="noopener noreferrer" href="https://lyceesaintefamille.com/lycee-professionnel/"
+                       target="_blank">Lycée
                         Professionnel</a>
                 </div>
             </div>
@@ -243,10 +243,10 @@
                 <h2 class="font-medium">Réglementation</h2>
                 <div class="dark:text-coolGray-400 flex flex-col space-y-2 text-sm">
                     <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
-                        rel="noopener noreferrer" href="/mentions-legales">Mentions
+                       rel="noopener noreferrer" href="{{ route('legal.mentions') }}">Mentions
                         Légales</a>
                     <a class="text-blue-500 hover:text-blue-400 hover:underline dark:text-blue-300"
-                        rel="noopener noreferrer" href="/rgpd">RGPD</a>
+                       rel="noopener noreferrer" href="{{ route('legal.gdpr') }}">RGPD</a>
                 </div>
             </div>
         </div>
@@ -255,5 +255,5 @@
                 réservés.</span>
         </div>
     </footer>
-    <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
