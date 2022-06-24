@@ -6,7 +6,6 @@ use App\Models\Office;
 use App\Models\Post;
 use App\Models\User;
 use App\Policies\AdminPostPolicy;
-use App\Policies\PostPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,8 +23,6 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -40,6 +37,7 @@ class AuthServiceProvider extends ServiceProvider
                     return true;
                 }
             }
+
             return false;
         });
 
@@ -50,6 +48,7 @@ class AuthServiceProvider extends ServiceProvider
             ) {
                 return true;
             }
+
             return false;
         });
     }
