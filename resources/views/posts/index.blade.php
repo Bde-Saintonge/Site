@@ -17,10 +17,6 @@
         </div>
     </section>
 
-    {{-- @php
-    dd($posts);
-    @endphp --}}
-
     <section class="bg-white dark:bg-gray-700 dark:text-white">
         <div class="container mx-auto max-w-6xl space-y-6 p-6 sm:space-y-12">
             @if (count($posts) < 1)
@@ -31,7 +27,7 @@
             @foreach ($posts as $key => $post)
                 @if ($key === 0)
                     <a rel="noopener noreferrer"
-                       href="{{ route('office.post', ['office' => $office->code_name, 'post' => $post->slug]) }}"
+                       href="{{ route('office.show', ['office' => $office->code_name, 'post' => $post->slug]) }}"
                        class="group dark:bg-coolGray-900 mx-auto block max-w-sm gap-3 hover:no-underline focus:no-underline sm:max-w-full lg:grid lg:grid-cols-12">
                         <img src="{{ $post->image_url }}" alt=""
                              class="dark:bg-coolGray-500 h-64 w-full rounded object-cover sm:h-96 lg:col-span-7">
@@ -51,7 +47,7 @@
                 @foreach ($posts as $key => $post)
                     @if ($key != 0)
                         <a rel="noopener noreferrer"
-                           href="{{ route('office.post', ['office' => $office->code_name, 'post' => $post->slug]) }}"
+                           href="{{ route('office.show', ['office' => $office->code_name, 'post' => $post->slug]) }}"
                            class="group dark:bg-coolGray-900 mx-auto max-w-sm hover:no-underline focus:no-underline">
                             <img class="dark:bg-coolGray-500 h-44 w-full rounded object-cover"
                                  src="{{ $post->image_url }}" alt="">

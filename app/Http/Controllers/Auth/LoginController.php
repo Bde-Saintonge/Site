@@ -3,57 +3,62 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class LoginController extends BaseController
 {
-    //
     /**
-     * Endpoint GET qui retourne la vue de connexion
+     * Endpoint GET qui retourne la vue de connexion.
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return RedirectResponse|View
      */
     public function login()
     {
         if (Auth::check()) {
-            return redirect('/dashboard/bda');
-        } else {
-            return view("auth.login");
+            return redirect()->route('admin.dashboard');
         }
+
+        return view('authentication.login');
     }
 
     /**
-     * Méthode qui permet de vérifier les informations envoyés au formulaire
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * Méthode qui permet de vérifier les informations envoyées au formulaire.
+     *
+     * @return RedirectResponse
      */
-
     public function validate(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ], array_merge(User::generate_error('email'), User::generate_error('password')));
+        $credentials = $request->validate(
+            [
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ],
+            array_merge(
+                User::generate_error('email'),
+                User::generate_error('password'),
+            ),
+        );
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended("dashboard/" . User::find(Auth::user()->id)->office->code_name);
+
+            return redirect()->route('admin.dashboard');
         }
 
-        return back()->withErrors(["L'adresse e-mail et/ou le mot de passe ne correspondent pas !"]);
+        return back()->withErrors([
+            "L'adresse e-mail et/ou le mot de passe ne correspondent pas !",
+        ]);
     }
 
-
     /**
-     * Méthode qui permet de déconnecter un utilisateur
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * Méthode qui permet de déconnecter un utilisateur.
+     * @return Application|Redirector|RedirectResponse
      */
     public function logout(Request $request)
     {
@@ -61,6 +66,6 @@ class LoginController extends BaseController
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('home.home');
     }
 }

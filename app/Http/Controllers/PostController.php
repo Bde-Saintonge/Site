@@ -10,26 +10,16 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param Office $office
-     * @return Application|Factory|View
+     * Method to obtain the office posts view.
      */
-    public function index(Office $office)
+    public function index(Office $office): Factory|View|Application
     {
-        $office = Office::search($office_code_name);
-
-        if (is_null($office)) {
-            abort(404);
-        }
-
         $posts = Post::select([
             'title',
             'image_url',
@@ -44,40 +34,22 @@ class PostController extends Controller
         return view('posts.index', compact('posts', 'office'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Application|Factory|View|Redirector|RedirectResponse
-     */
-    public function create()
+    public function create(): Factory|View|Redirector|RedirectResponse|Application
     {
-        //TODO Remove when finished
-        if (
-            !Gate::allows('verified-role', ['admin']) &&
-            !Gate::allows('verified-office', [$office->code_name])
-        ) {
-            return redirect(
-                "dashboard/" . auth()->user()->office->code_name,
-            )->withErrors([
-                'error' =>
-                    'Vous ne disposez pas des permissions nécessaires pour créer un article.',
-            ]);
-        }
+        // TODO Remove when finished
+        $office = Gate::allows('verified-role', ['admin'])
+            ? Office::all()
+            : auth()->user()->office;
 
         return view('posts.create', ['office' => $office]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param RegisterPostRequest $request
-     * @return Application|RedirectResponse|Redirector
-     */
-    public function store(RegisterPostRequest $request)
+    public function store(
+        RegisterPostRequest $request
+    ): Redirector|RedirectResponse|Application
     {
-        //        dd(HasEvents::observe());
         $validated = $request->validated();
-        //TODO: generateSlug generateSummary
+        // TODO: generateSlug generateSummary
 
         $post = Post::create([
             'title' => $request->input('title'),
@@ -91,16 +63,9 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Office $office
-     * @param Post $post
-     * @return Response
-     */
-    public function show(Office $office, Post $post)
+    public function show(Office $office, Post $post): Factory|View|Application
     {
-        $post = Post::where('slug', $post_slug)->first();
+//        $post = Post::where('slug', $post_slug)->first();
 
         if (empty($post)) {
             abort(404);
@@ -109,13 +74,7 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Application|Factory|RedirectResponse|View
-     */
-    public function edit(Post $post)
+    public function edit(Post $post): Factory|View|Application|RedirectResponse
     {
         $post = Post::find($id_post);
 
@@ -126,12 +85,11 @@ class PostController extends Controller
         }
 
         if (
-            !$this->check_role('admin') &&
-            !$this->check_office($post->office->code_name)
+            !$this->check_role('admin')
+            && !$this->check_office($post->office->code_name)
         ) {
             return back()->withErrors([
-                'error' =>
-                    'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
+                'error' => 'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
             ]);
         }
 
@@ -141,12 +99,9 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param int $id
-     * @return Application|Redirector|RedirectResponse
+     * @param $id
      */
-    public function update($id)
+    public function update($id): Redirector|RedirectResponse|Application
     {
         $post = Post::find($id_post);
 
@@ -159,14 +114,13 @@ class PostController extends Controller
         }
 
         if (
-            !$this->check_role('admin') &&
-            !$this->check_office($post->office->code_name)
+            !$this->check_role('admin')
+            && !$this->check_office($post->office->code_name)
         ) {
             return redirect(
                 "dashboard/{$this->user->office->code_name}",
             )->withErrors([
-                'error' =>
-                    'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
+                'error' => 'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
             ]);
         }
 
@@ -189,12 +143,9 @@ class PostController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Application|Redirector|RedirectResponse
+     * @param $id
      */
-    public function destroy($id)
+    public function destroy($id): Redirector|Application|RedirectResponse
     {
         $post = Post::find($id_post);
 
@@ -206,7 +157,7 @@ class PostController extends Controller
             ]);
         }
 
-        /**
+        /*
          * A: Est admin
          * O: Appartient au même office
          * P: Est publié
@@ -218,8 +169,7 @@ class PostController extends Controller
             return redirect(
                 "dashboard/{$this->user->office->code_name}",
             )->withErrors([
-                'error' =>
-                    'Vous ne disposez pas des permissions nécessaires pour supprimer cet article.',
+                'error' => 'Vous ne disposez pas des permissions nécessaires pour supprimer cet article.',
             ]);
         }
 
@@ -230,17 +180,16 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * Méthode qui permet de valider un article
-     * @param $id_post
-     * @return RedirectResponse
-     */
-    public function validate(Request $request, array $rules, array $messages = [], array $customAttributes = [])
+    public function validate(
+        Request $request,
+        array   $rules,
+        array   $messages = [],
+        array   $customAttributes = []
+    ): array|RedirectResponse
     {
         if (!$this->check_role('admin')) {
             return back()->withErrors([
-                'error' =>
-                    'Vous ne disposez pas des permissions nécessaires pour valider des articles.',
+                'error' => 'Vous ne disposez pas des permissions nécessaires pour valider des articles.',
             ]);
         }
 
@@ -248,6 +197,7 @@ class PostController extends Controller
         $post->is_published = true;
         $post->updated_at = new DateTime('now');
         $post->save();
+
         return back()->with([
             'success' => ['Article validé avec succès !'],
         ]);

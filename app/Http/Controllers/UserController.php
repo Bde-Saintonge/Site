@@ -13,7 +13,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -26,9 +25,7 @@ class UserController extends BaseController
     public function create(): Factory|View|Redirector|RedirectResponse|Application
     {
         if (!Gate::allows('verified-role', ['admin'])) {
-            return redirect(
-                'dashboard/' . Auth::user()->office->code_name,
-            )->withErrors([
+            return redirect()->route('admin.dashboard')->withErrors([
                 'error' => 'Vous ne disposez pas des permissions nécessaires pour créer un utilisateur.',
             ]);
         }
@@ -47,9 +44,7 @@ class UserController extends BaseController
     ): Redirector|RedirectResponse|Application
     {
         if (!Gate::allows('verified-role', ['admin'])) {
-            return redirect(
-                'dashboard/' . Auth::user()->office->code_name,
-            )->withErrors([
+            return redirect()->route('admin.dashboard')->withErrors([
                 'error' => 'Vous ne disposez pas des permissions nécessaires pour créer un utilisateur.',
             ]);
         }
@@ -95,6 +90,7 @@ class UserController extends BaseController
             foreach ($roles as $role) {
                 $id[] = $role->id;
             }
+
             return $id;
         }
 

@@ -18,17 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/**
- * Home routes
- */
+// Home routes
 Route::name('home.')->group(function () {
     Route::view('/', 'home.welcome')->name('home');
     Route::view('/index.html', 'home.welcome')->name('welcome');
 });
 
-/**
- * Legal routes
- */
+// Legal routes
 Route::prefix('legal')
     ->name('legal.')
     ->group(function () {
@@ -36,9 +32,7 @@ Route::prefix('legal')
         Route::view('/mentions', 'legal.mentions')->name('mentions');
     });
 
-/**
- * Authentication routes
- */
+// Authentication routes
 Route::controller(LoginController::class)
     ->prefix('auth')
     ->name('auth.')
@@ -54,31 +48,24 @@ Route::controller(LoginController::class)
         );
     });
 
-/**
- * Office posts routes
- */
+// Office posts routes
 Route::controller(PostController::class)
     ->name('office.')
     ->group(function () {
         Route::get('/{office:code_name}', 'index')->name('index');
-        Route::get('/{office:code_name}/{post:slug}', 'show')->name('post');
+        Route::get('/{office:code_name}/{post:slug}', 'show')->name('show');
     });
 
-/**
- * Administration routes
- */
+// Administration routes
+Route::get('/dashboard/{office:code_name?}', [
+    DashboardController::class,
+    'index',
+])->name('admin.dashboard')->middleware(['auth']);
 Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth'])
     ->group(function () {
-        Route::get('/dashboard/{office?:code_name}', [
-            DashboardController::class,
-            'index',
-        ])->name('dashboard');
-
-        /**
-         * Posts routes
-         */
+        // Posts routes
         Route::controller(PostController::class)
             ->prefix('posts')
             ->name('posts.')
@@ -93,9 +80,7 @@ Route::prefix('admin')
             'edit',
         ]);
 
-        /**
-         * Users routes
-         */
+        // Users routes
         Route::controller(UserController::class)
             ->prefix('user')
             ->name('user.')
@@ -105,14 +90,15 @@ Route::prefix('admin')
                 Route::post('', 'store')->name('store');
             });
 
-        /**
-         * Clean all caches routes
-         */
-        //TODO: Test routes livewire/fortify/sanctum bizarres
+        // Clean all caches routes
+        // TODO: Test routes livewire/fortify/sanctum bizarres
         Route::get('/clear-cache', function () {
             \Artisan::call('route:clear');
             \Artisan::call('cache:clear');
             \Artisan::call('view:clear');
             \Artisan::call('config:clear');
         })->name('clear-cache');
+
+        // TODO: Route maintenance
     });
+
