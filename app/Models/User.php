@@ -45,6 +45,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $first_name
+ * @property string $last_name
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereFirstName($value)
  */
 class User extends Authenticatable
 {
