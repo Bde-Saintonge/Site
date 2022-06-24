@@ -18,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Models\Model' => 'App\Policies\ModelPolicy',
+        // FIXME: La policy n'existe pas.
         Post::class => AdminPostPolicy::class,
     ];
 
