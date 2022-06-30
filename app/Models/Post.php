@@ -4,27 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Mail\Markdown;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\HtmlString;
 
 /**
- * App\Models\Post
+ * App\Models\Post.
  *
- * @property int $id
- * @property string $title
- * @property string $image_url
- * @property string $slug
- * @property string|null $summary
- * @property string $content
- * @property int $office_id
- * @property int $is_published
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read mixed $html
- * @property-read \App\Models\Office $office
- * @property-read \App\Models\User|null $user
+ * @property int         $id
+ * @property string      $title
+ * @property string      $image_url
+ * @property string      $slug
+ * @property null|string $summary
+ * @property string      $content
+ * @property int         $office_id
+ * @property int         $is_published
+ * @property null|Carbon $deleted_at
+ * @property null|Carbon $created_at
+ * @property null|Carbon $updated_at
+ * @property mixed       $html
+ * @property Office      $office
+ * @property null|User   $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
  * @method static \Illuminate\Database\Query\Builder|Post onlyTrashed()
@@ -46,7 +49,8 @@ use Illuminate\Support\Facades\DB;
  */
 class Post extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
 
     /**
      * The database table used by the model.
@@ -76,29 +80,18 @@ class Post extends Model
         'is_published',
     ];
 
-    public function office()
+    public function office(): BelongsTo
     {
         return $this->belongsTo(Office::class);
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function getHtmlAttribute()
+    public function getHtmlAttribute(): HtmlString
     {
         return Markdown::parse($this->content);
     }
-
-    // TODO: Récupérer uniquement les in_trash false.
-    // public function getExcerpt($max_words = 100, $ending = "...")
-    // {
-    //     $text = strip_tags($this->html);
-    //     $words = explode(' ', $text);
-    //     if (count($words) > $max_words) {
-    //         return implode(' ', array_slice($words, 0, $max_words)) . $ending;
-    //     }
-    //     return $text;
-    // }
 }

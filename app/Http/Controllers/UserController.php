@@ -41,8 +41,7 @@ class UserController extends BaseController
      */
     public function store(
         Request $request
-    ): Redirector|RedirectResponse|Application
-    {
+    ): Redirector|RedirectResponse|Application {
         if (!Gate::allows('verified-role', ['admin'])) {
             return redirect()->route('admin.dashboard')->withErrors([
                 'error' => 'Vous ne disposez pas des permissions nécessaires pour créer un utilisateur.',

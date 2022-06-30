@@ -17,8 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Models\Model' => 'App\Policies\ModelPolicy',
-        // FIXME: La policy n'existe pas.
-        // Post::class => AdminPostPolicy::class,
+        // TODO: Policy.
     ];
 
     /**
@@ -42,7 +41,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('verified-office', function (
-            User   $user,
+            User $user,
             string $checkedOffice
         ) {
             if (

@@ -15,14 +15,10 @@ class DashboardController extends Controller
 {
     /**
      * Method to return the dashboard view in based on the office of the user.
-     *
-     * @param Office|null $office
-     * @return Factory|View|RedirectResponse|Application
      */
     public function index(
         Office $office = null
-    ): Factory|View|RedirectResponse|Application
-    {
+    ): Factory|View|RedirectResponse|Application {
         if (is_null($office)) {
             $office = auth()->user()->office;
         }
@@ -37,14 +33,16 @@ class DashboardController extends Controller
         ])
             ->where([['office_id', $office->id]])
             ->latest('updated_at')
-            ->get();
+            ->get()
+        ;
 
         if (Gate::allows('verified-role', ['admin'])) {
             $office_typo = Office::select(['code_name', 'name'])->get();
         } else {
             $office_typo = Office::select(['code_name', 'name'])
                 ->where([['code_name', $office->code_name]])
-                ->get();
+                ->get()
+            ;
         }
 
         return view('administration.dashboard', [

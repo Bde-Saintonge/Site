@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,8 @@ Route::prefix('legal')
     ->group(function () {
         Route::view('/gdpr', 'legal.gdpr')->name('gdpr');
         Route::view('/mentions', 'legal.mentions')->name('mentions');
-    });
+    })
+;
 
 // Authentication routes
 Route::controller(LoginController::class)
@@ -46,7 +48,8 @@ Route::controller(LoginController::class)
         Route::post('/reset', [ResetPasswordController::class, 'reset'])->name(
             'reset',
         );
-    });
+    })
+;
 
 // Office posts routes
 Route::controller(PostController::class)
@@ -54,7 +57,8 @@ Route::controller(PostController::class)
     ->group(function () {
         Route::get('/{office:code_name}', 'index')->name('index');
         Route::get('/{office:code_name}/{post:slug}', 'show')->name('show');
-    });
+    })
+;
 
 // Administration routes
 Route::get('/dashboard/{office:code_name?}', [
@@ -70,25 +74,25 @@ Route::prefix('admin')
             ->prefix('posts')
             ->name('posts.')
             ->group(function () {
-                Route::post('/{post}/validate', 'validate')->name('validate');
-                Route::get('/{post:slug}/edit', 'edit')->name('edit');
-            });
+                Route::post('/{post}/accept', 'accept')->name('accept');
+            })
+        ;
 
         Route::resource('posts', PostController::class)->except([
             'index',
             'show',
-            'edit',
         ]);
 
         // Users routes
         Route::controller(UserController::class)
-            ->prefix('user')
-            ->name('user.')
+            ->prefix('users')
+            ->name('users.')
             ->group(function () {
                 Route::get('/create', 'create')->name('create');
 
                 Route::post('', 'store')->name('store');
-            });
+            })
+        ;
 
         // Clean all caches routes
         // TODO: Test routes livewire/fortify/sanctum bizarres
@@ -99,6 +103,19 @@ Route::prefix('admin')
             \Artisan::call('config:clear');
         })->name('clear-cache');
 
-        // TODO: Route maintenance
-    });
+        Route::get('/maintenance/{mode}/{secret?}', function (string $mode, string $secret = 'null') {
+            if (!Gate::allows('verified-role', ['admin'])) {
+                return route('home.home');
+            }
 
+            if ('null' === $secret) {
+                \Artisan::call("{$mode}");
+            }
+
+            \Artisan::call("{$mode} --secret={$secret}");
+
+            return route('home.home');
+        })->name('maintenance');
+        // TODO: Route maintenance
+    })
+;

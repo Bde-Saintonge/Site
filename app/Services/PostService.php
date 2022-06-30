@@ -8,8 +8,13 @@ class PostService
     {
     }
 
-    //TODO : Verif strip tags et verif transfo en html entities
-    public static function GenerateSlug(string $text)
+    // TODO : Verif strip tags et verif transfo en html entities
+
+    /**
+     * @param string $text
+     * @return string
+     */
+    public static function GenerateSlug(string $text): string
     {
         $text = html_entity_decode($text);
         // Strip html tags
@@ -35,13 +40,18 @@ class PostService
         return $text;
     }
 
-    public static function GenerateSummary(string $text)
+    /**
+     * @param string $text
+     * @return string
+     */
+    public static function GenerateSummary(string $text): string
     {
         $text = html_entity_decode($text);
         $text = strip_tags($text);
         $text = str_replace(["\r", "\n"], ' ', $text);
+
         return strlen($text) > 100
-            ? substr($text, 0, 97) . '...'
-            : substr($text, 0, strlen($text)) . '...';
+            ? substr($text, 0, 97).'...'
+            : substr($text, 0, strlen($text)).'...';
     }
 }

@@ -13,26 +13,8 @@
             </div>
 
             <div id="dropdown-toggle2" class="inline-flex divide-x divide-gray-600 rounded bg-blue-400 text-white">
-                <button type="button" class="px-4 py-2 font-semibold">Nouvel Article</button>
-                <button type="button" title="Toggle dropdown" class="p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                         class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
+                <a href='{{ route('admin.posts.create') }}' class="px-4 py-2 font-semibold">Nouvel Article</a>
             </div>
-            <!-- Dropdown menu -->
-            {{-- <div class="relative my-auto block"> --}}
-            {{-- <div id="dropdown-menu2" --}}
-            {{-- class="absolute right-0 z-20 mt-5 hidden w-44 items-center rounded-md bg-white py-2 shadow-xl dark:bg-gray-800"> --}}
-            {{-- @foreach ($offices_typo as $office) --}}
-            {{-- <a href="{{ route('post.create', ['office' => $office->code_name]) }}" --}}
-            {{-- class="block transform px-4 py-2 text-sm capitalize text-gray-600 transition-colors duration-200 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"> --}}
-            {{-- {{ $office->name }} --}}
-            {{-- </a> --}}
-            {{-- @endforeach --}}
-            {{-- </div> --}}
-            {{-- </div> --}}
         </div>
 
         <div
@@ -47,7 +29,7 @@
                         <col>
                         <col class="w-24">
                         <col class="w-24">
-                        <col class="w-16">
+                        <col class="w-24">
                     </colgroup>
                     <thead class="dark:bg-Gray-700">
                     <tr class="text-left">
@@ -66,35 +48,36 @@
                             <tr class="dark:border-Gray-700 dark:bg-Gray-900 group border-b border-opacity-20">
                                 <td class="p-3 group-hover:bg-blue-200">
                                     <a
-                                        href="{{ route('office.show', ['office' => $office->code_name, 'post' => $post->slug]) }}">{{ $post->id }}</a>
+                                        href="{{ route('office.show', ['office' => $active_office, 'post' => $post->slug]) }}">{{ $post->id }}</a>
                                 </td>
                                 <td class="p-3 group-hover:bg-blue-200">
                                     <a
-                                        href="{{ route('office.show', ['office' => $office->code_name, 'post' => $post->slug]) }}">{{ $post->title }}</a>
+                                        href="{{ route('office.show', ['office' => $active_office, 'post' => $post->slug]) }}">{{ $post->title }}</a>
                                 </td>
                                 <td class="p-3 group-hover:bg-blue-200">
                                     <a
-                                        href="{{ route('office.show', ['office' => $office->code_name, 'post' => $post->slug]) }}">{{ $post->created_at }}</a>
+                                        href="{{ route('office.show', ['office' => $active_office, 'post' => $post->slug]) }}">{{ $post->created_at }}</a>
                                 </td>
                                 <td class="p-3 group-hover:bg-blue-200">
                                     <a
-                                        href="{{ route('office.show', ['office' => $office->code_name, 'post' => $post->slug]) }}">{{ $post->updated_at }}</a>
+                                        href="{{ route('office.show', ['office' => $active_office, 'post' => $post->slug]) }}">{{ $post->updated_at }}</a>
                                 </td>
-                                <td>
-                                        <span class="rounded-md bg-green-500 px-3 py-1 font-semibold text-white">
-                                            <a href="{{ route('admin.posts.validate', ['post' => $post->id]) }}">
-                                                <span>Accepter</span>
-                                            </a>
-                                        </span>
+                                <td class='px-3 py-1'>
+                                    <form method="POST"
+                                          action="{{ route('admin.posts.accept', ['post' => $post->id]) }}"
+                                          class="rounded-md bg-green-500 px-3 py-1 font-semibold text-white">
+                                        @csrf
+                                        <button type='submit'>Accepter</button>
+                                    </form>
                                 </td>
-                                <td>
+                                <td class='px-3 py-1'>
                                         <span class="rounded-md bg-blue-500 px-3 py-1 font-semibold text-white">
                                             <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}">
                                                 <span>Modifier</span>
                                             </a>
                                         </span>
                                 </td>
-                                <td>
+                                <td class='px-3 py-1'>
                                     <form method="POST"
                                           action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}"
                                           class="rounded-md bg-red-500 px-3 py-1 font-semibold text-white">
@@ -121,7 +104,7 @@
                         <col>
                         <col class="w-24">
                         <col class="w-24">
-                        <col class="w-16">
+                        <col class="w-24">
                     </colgroup>
                     <thead class="dark:bg-Gray-700">
                     <tr class="text-left">
@@ -132,46 +115,44 @@
                         <th class="p-3"></th>
                         <th class="p-3"></th>
                         <th class="p-3"></th>
-                        </tr>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach ($posts->sortByDesc('created_at') as $post)
-                            @if ($post->is_published)
-                                <tr class="dark:border-Gray-700 dark:bg-Gray-900 border-b border-opacity-20">
-                                    <td class="p-3">
-                                        <p>{{ $post->id }}</p>
-                                    </td>
-                                    <td class="p-3">
-                                        <p>{{ $post->title }}</p>
-                                    </td>
-                                    <td class="p-3">
-                                        <p>{{ $post->created_at }}</p>
-                                        {{-- <p class="dark:text-coolGray-400">Friday</p> --}}
-                                    </td>
-                                    <td class="p-3">
-                                        <p>{{ $post->updated_at }}</p>
-                                        {{-- <p class="dark:text-coolGray-400">Friday</p> --}}
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
+                    @foreach ($posts->sortByDesc('created_at') as $post)
+                        @if ($post->is_published)
+                            <tr class="dark:border-Gray-700 dark:bg-Gray-900 group border-b border-opacity-20">
+                                <td class="p-3 group-hover:bg-blue-200">
+                                    <a href="{{ route('office.show', ['office' => $active_office, 'post' => $post->slug]) }}">{{ $post->id }}</a>
+                                </td>
+                                <td class="p-3 group-hover:bg-blue-200">
+                                    <a href="{{ route('office.show', ['office' => $active_office, 'post' => $post->slug]) }}">{{ $post->title }}</a>
+                                </td>
+                                <td class="p-3 group-hover:bg-blue-200">
+                                    <a href="{{ route('office.show', ['office' => $active_office, 'post' => $post->slug]) }}">{{ $post->created_at }}</a>
+                                </td>
+                                <td class="p-3 group-hover:bg-blue-200">
+                                    <a href="{{ route('office.show', ['office' => $active_office, 'post' => $post->slug]) }}">{{ $post->updated_at }}</a>
+                                </td>
+                                <td>
+                                </td>
+                                <td class='px-3 py-1'>
                                         <span class="rounded-md bg-blue-500 px-3 py-1 font-semibold text-white">
                                             <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}">
                                                 <span>Modifier</span>
                                             </a>
                                         </span>
-                                    </td>
-                                    <td>
-                                        <form method="POST"
-                                              action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}"
-                                              class="rounded-md bg-red-500 px-3 py-1 font-semibold text-white">
-                                            @method('DELETE') @csrf
-                                            <button type='submit'>Corbeille</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endif
-                        @endforeach
+                                </td>
+                                <td class='px-3 py-1'>
+                                    <form method="POST"
+                                          action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}"
+                                          class="rounded-md bg-red-500 px-3 py-1 font-semibold text-white">
+                                        @method('DELETE') @csrf
+                                        <button type='submit'>Corbeille</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
                     </tbody>
                 </table>
             </div>

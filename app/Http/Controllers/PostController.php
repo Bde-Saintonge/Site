@@ -5,18 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterPostRequest;
 use App\Models\Office;
 use App\Models\Post;
+use DateTime;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
     /**
-     * Method to obtain the office posts view.
+     * @param Office $office
+     * @return Factory|View|Application
      */
     public function index(Office $office): Factory|View|Application
     {
@@ -29,106 +32,97 @@ class PostController extends Controller
         ])
             ->where([['office_id', $office->id], ['is_published', true]])
             ->latest()
-            ->paginate(7);
+            ->paginate(7)
+        ;
 
         return view('posts.index', compact('posts', 'office'));
     }
 
     public function create(): Factory|View|Redirector|RedirectResponse|Application
     {
-        // TODO Remove when finished
         $office = Gate::allows('verified-role', ['admin'])
             ? Office::all()
             : auth()->user()->office;
 
-        return view('posts.create', ['office' => $office]);
+        return view('posts.create', ['offices' => $office]);
     }
 
+    /**
+     * @param RegisterPostRequest $request
+     * @return Redirector|RedirectResponse|Application
+     */
     public function store(
         RegisterPostRequest $request
-    ): Redirector|RedirectResponse|Application
-    {
-        $validated = $request->validated();
-        // TODO: generateSlug generateSummary
+    ): Redirector|RedirectResponse|Application {
+        $validated = $request->safe()->all();
+        // TODO: Mutator on post model.
 
         $post = Post::create([
-            'title' => $request->input('title'),
-            'image_url' => $request->input('image_url'),
-            'content' => $request->input('content'),
-            'office_id' => $office->id,
+            'title' => $validated['title'],
+            'image_url' => $validated['image_url'],
+            'content' => $validated['content'],
+            'office_id' => Office::where('code_name', $validated['office'])->first()->id,
         ]);
 
-        return redirect("dashboard/{$post->office->code_name}")->with([
+        return redirect()->route('admin.dashboard')->with([
             'success' => ['Article créer avec succès !'],
         ]);
     }
 
-    public function show(Office $office, Post $post): Factory|View|Application
+    /**
+     * @param Office $office
+     * @param Post $post
+     * @return RedirectResponse|Application|Factory|View
+     */
+    public function show(Office $office, Post $post): RedirectResponse|Application|Factory|View
     {
-//        $post = Post::where('slug', $post_slug)->first();
-
-        if (empty($post)) {
-            abort(404);
+        if (!$post->is_published && !Auth::check()) {
+            return redirect()->route('auth.login')->withErrors([
+                'error' => 'Vous ne disposez pas des permissions nécessaires pour voir cet article.',
+            ]);
         }
 
         return view('posts.show', compact('post'));
     }
 
+    /**
+     * @param Post $post
+     * @return Factory|View|Application|RedirectResponse
+     */
     public function edit(Post $post): Factory|View|Application|RedirectResponse
     {
-        $post = Post::find($id_post);
-
-        if (is_null($post)) {
-            return back()->withErrors([
-                'error' => "L'article n'existe plus.",
-            ]);
-        }
-
-        if (
-            !$this->check_role('admin')
-            && !$this->check_office($post->office->code_name)
+        if (!Gate::allows('verified-role', ['admin']) && !Gate::allows('verified-office', [$post->office->code_name])
         ) {
             return back()->withErrors([
                 'error' => 'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
             ]);
         }
 
-        return view('posts.create', [
+        return view('posts.update', [
             'post' => $post,
         ]);
     }
 
     /**
-     * @param $id
+     * @param RegisterPostRequest $request
+     * @return Redirector|RedirectResponse|Application
      */
-    public function update($id): Redirector|RedirectResponse|Application
+    public function update(RegisterPostRequest $request): Redirector|RedirectResponse|Application
     {
-        $post = Post::find($id_post);
-
-        if (is_null($post)) {
-            return redirect()
-                ->route('dashboard')
-                ->withErrors([
-                    'error' => "L'article n'existe plus.",
-                ]);
-        }
-
-        if (
-            !$this->check_role('admin')
-            && !$this->check_office($post->office->code_name)
+        if (!Gate::allows('verified-role', ['admin']) && !Gate::allows('verified-office', [$post->office->code_name])
         ) {
-            return redirect(
-                "dashboard/{$this->user->office->code_name}",
-            )->withErrors([
+            return back()->withErrors([
                 'error' => 'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
             ]);
         }
 
+        $validated = $request->safe()->all();
         $validator = $request->validate([
             'title' => 'required|max:255',
             'image_url' => 'required',
             'content' => 'required',
         ]);
+
         $post->update([
             'title' => $request->input('title'),
             'image_url' => $request->input('image_url'),
@@ -180,20 +174,14 @@ class PostController extends Controller
         ]);
     }
 
-    public function validate(
-        Request $request,
-        array   $rules,
-        array   $messages = [],
-        array   $customAttributes = []
-    ): array|RedirectResponse
+    public function accept(Post $post): array|RedirectResponse
     {
-        if (!$this->check_role('admin')) {
-            return back()->withErrors([
-                'error' => 'Vous ne disposez pas des permissions nécessaires pour valider des articles.',
-            ]);
+        if (
+            !Gate::allows('verified-role', ['admin'])
+        ) {
+            return redirect()->route('admin.dashboard')->withErrors(['error' => 'Vous ne disposez pas des permissions nécessaires pour valider des articles.']);
         }
 
-        $post = Post::where('id', $id_post)->first();
         $post->is_published = true;
         $post->updated_at = new DateTime('now');
         $post->save();

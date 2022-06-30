@@ -21,7 +21,7 @@
                     <div>
                         <div class="mb-2 flex justify-between">
                             <label for="password" class="text-sm">Mot de passe</label>
-                            <a rel="noopener noreferrer" href="/forgot-password"
+                            <a rel="noopener noreferrer" href="{{ route('password.request') }}"
                                class="dark:text-coolGray-400 text-xs hover:underline">Mot de passe oublié ?</a>
                         </div>
                         <input type="password" name="password" value="{{ old('password') }}" id="password"

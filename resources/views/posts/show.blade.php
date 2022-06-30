@@ -9,8 +9,7 @@
                 <div class="space-y-2">
                     <h1 class="text-2xl font-semibold sm:text-6xl">{{ $post->title }}</h1>
                     <p class="dark:text-coolGray-400 text-sm">Par
-                        {{-- TODO: Normal office ? --}}
-                        <a href="{{ route('office.index', ['office' => $office->code_name]}}"
+                        <a href="{{ route('office.index', ['office' => $post->office->code_name]) }}"
                            class="text-xs hover:underline">{{ $post->office->name }}</a>
                     </p>
                 </div>

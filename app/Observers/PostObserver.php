@@ -10,23 +10,23 @@ class PostObserver
     /**
      * Handle the Post "creating" event.
      *
-     * @param \App\Models\Post $post
+     * @param Post $post
      * @return void
      */
-    public function creating(Post $post, PostService $postService)
+    public function creating(Post $post): void
     {
-        $post->slug = $postService::GenerateSlug($post->title);
-        $post->summary = $postService::GenerateSummary($post->content);
+        $post->slug = PostService::GenerateSlug($post->title);
+        $post->summary = PostService::GenerateSummary($post->content);
     }
 
     /**
      * Handle the Post "updating" event.
      *
-     * @param \App\Models\Post $post
+     * @param Post $post
      * @return void
      */
-    public function updating(Post $post)
+    public function updating(Post $post): void
     {
-        //
+        $post->summary = PostService::GenerateSummary($post->content);
     }
 }
