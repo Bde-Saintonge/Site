@@ -13,10 +13,9 @@ class RegisterPostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        dd($this);
         if (
             !Gate::allows('verified-role', ['admin'])
-            && ($this->user()->office->code_name !== $this->office_code_name)
+            && ($this->user()->office->code_name !== $this->office || $this->user()->office->code_name !== $this->route('post')->office->code_name)
         ) {
             return false;
         }

@@ -87,28 +87,14 @@ class PostController extends Controller
 
     // TODO
 
-    public function update(RegisterPostRequest $request): Redirector|RedirectResponse|Application
+    public function update(RegisterPostRequest $request, Post $post): Redirector|RedirectResponse|Application
     {
-        if (!Gate::allows('verified-role', ['admin']) && !Gate::allows('verified-office', [$post->office->code_name])
-        ) {
-            return back()->withErrors([
-                'error' => 'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
-            ]);
-        }
-
         $validated = $request->safe()->all();
-        $validator = $request->validate([
-            'title' => 'required|max:255',
-            'image_url' => 'required',
-            'content' => 'required',
-        ]);
 
         $post->update([
-            'title' => $request->input('title'),
-            'image_url' => $request->input('image_url'),
-            'content' => $request->input('content'),
-            'is_published' => false,
-            'updated_at' => new DateTime('now'),
+            'title' => $validated['title'],
+            'image_url' => $validated['image_url'],
+            'content' => $validated['content'],
         ]);
 
         return redirect()->route('admin.dashboard')->with([
