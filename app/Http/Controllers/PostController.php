@@ -10,17 +10,12 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
-    /**
-     * @param Office $office
-     * @return Factory|View|Application
-     */
     public function index(Office $office): Factory|View|Application
     {
         $posts = Post::select([
@@ -47,10 +42,6 @@ class PostController extends Controller
         return view('posts.create', ['offices' => $office]);
     }
 
-    /**
-     * @param RegisterPostRequest $request
-     * @return Redirector|RedirectResponse|Application
-     */
     public function store(
         RegisterPostRequest $request
     ): Redirector|RedirectResponse|Application {
@@ -69,11 +60,6 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * @param Office $office
-     * @param Post $post
-     * @return RedirectResponse|Application|Factory|View
-     */
     public function show(Office $office, Post $post): RedirectResponse|Application|Factory|View
     {
         if (!$post->is_published && !Auth::check()) {
@@ -85,10 +71,6 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
-    /**
-     * @param Post $post
-     * @return Factory|View|Application|RedirectResponse
-     */
     public function edit(Post $post): Factory|View|Application|RedirectResponse
     {
         if (!Gate::allows('verified-role', ['admin']) && !Gate::allows('verified-office', [$post->office->code_name])
@@ -103,10 +85,8 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * @param RegisterPostRequest $request
-     * @return Redirector|RedirectResponse|Application
-     */
+    // TODO
+
     public function update(RegisterPostRequest $request): Redirector|RedirectResponse|Application
     {
         if (!Gate::allows('verified-role', ['admin']) && !Gate::allows('verified-office', [$post->office->code_name])
@@ -136,10 +116,6 @@ class PostController extends Controller
         ]);
     }
 
-    /**
-     * @param Post $post
-     * @return Redirector|Application|RedirectResponse
-     */
     public function destroy(Post $post): Redirector|Application|RedirectResponse
     {
         if (!Gate::allows('verified-role', ['admin'])) {
