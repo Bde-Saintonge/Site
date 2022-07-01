@@ -4,17 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
- * App\Models\Office
+ * App\Models\Office.
  *
- * @property int $id
- * @property string $name
- * @property string $complete_name
- * @property string $code_name
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int         $id
+ * @property string      $name
+ * @property string      $complete_name
+ * @property string      $code_name
+ * @property null|Carbon $created_at
+ * @property null|Carbon $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Office newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Office newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Office query()
@@ -44,9 +48,8 @@ class Office extends Model
      */
     protected $primaryKey = 'id';
 
-    static function search(string $officeCodeName)
+    public function posts(): HasMany
     {
-        $office = DB::table('offices')->where('code_name', $officeCodeName);
-        return $office->exists() ? $office->first() : null;
+        return $this->hasMany(Post::class);
     }
 }

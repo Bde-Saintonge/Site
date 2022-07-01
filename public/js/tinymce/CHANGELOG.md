@@ -11,8 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Could not remove values when multiple cells were selected with the cell properties dialog #TINY-8625
 - Could not remove values when multiple rows were selected with the row properties dialog #TINY-8625
-- Empty lines that were formatted in a ranged selection using the `format_empty_lines` option were not kept in the
-  serialized content #TINY-8639
+- Empty lines that were formatted in a ranged selection using the `format_empty_lines` option were not kept in the serialized content #TINY-8639
 - The `s` element was missing from the default schema text inline elements #TINY-8639
 - Some text inline elements specified via the schema were not removed when empty by default #TINY-8639
 
@@ -22,8 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Some media elements wouldn't update when changing the source URL #TINY-8660
 - Inline toolbars flickered when switching between editors #TINY-8594
 - Multiple inline toolbars were shown if focused too quickly #TINY-8503
-- Added background and additional spacing for the text labeled buttons in the toolbar to improve visual clarity
-  #TINY-8617
+- Added background and additional spacing for the text labeled buttons in the toolbar to improve visual clarity #TINY-8617
 - Toolbar split buttons with text used an incorrect width on touch devices #TINY-8647
 
 ## 6.0.1 - 2022-03-23

@@ -1,4 +1,3 @@
-<!-- Initialisation du contenu du document HTML   -->
 @extends('layouts.base')
 @section('content')
     <section class="bg-cover bg-no-repeat" style="background-image: url( {{ asset('media/images/fond.jpg') }} )">
@@ -27,7 +26,7 @@
             <div
                 class="max-w-sm rounded-md bg-zinc-100 text-black shadow-xl shadow-gray-300 dark:bg-white dark:shadow-gray-600 sm:max-w-md lg:max-w-xs">
                 <img src="{{ asset('media/images/bda_logo.png') }}" alt=""
-                    class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
+                     class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
                 <div class="flex flex-col justify-between space-y-8 p-6">
                     <div class="space-y-2">
                         <h2 class="text-xl font-semibold tracking-wide sm:text-3xl xl:text-2xl 2xl:text-3xl">BUREAU DES
@@ -35,15 +34,15 @@
                         <p class="h-12 text-justify">S'occupe du journal du lyc&eacute;e, l'atelier
                             th&eacute;&acirc;tre, etc.</p>
                     </div>
-                    <a href="/bda"
-                        class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
+                    <a href="{{ route('office.index', ['office' => 'bda']) }}"
+                       class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
                         LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             <div
                 class="max-w-sm rounded-md bg-zinc-100 text-black shadow-xl shadow-gray-300 dark:bg-white dark:shadow-gray-600 sm:max-w-md lg:max-w-xs">
                 <img src="{{ asset('media/images/bdc_logo.png') }}" alt=""
-                    class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
+                     class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
                 <div class="flex flex-col justify-between space-y-8 p-6">
                     <div class="space-y-2">
                         <h2 class="tracking-wid text-xl font-semibold sm:text-3xl xl:text-2xl 2xl:text-3xl">BUREAU DES
@@ -52,15 +51,15 @@
                             cultuels du
                             lyc&eacute;e.</p>
                     </div>
-                    <a href="/bdc"
-                        class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
+                    <a href="{{ route('office.index', ['office' => 'bdc']) }}"
+                       class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
                         LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             <div
                 class="max-w-sm rounded-md bg-zinc-100 text-black shadow-xl shadow-gray-300 dark:bg-white dark:shadow-gray-600 sm:max-w-md lg:max-w-xs">
                 <img src="{{ asset('media/images/bds_logo.png') }}" alt=""
-                    class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
+                     class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
                 <div class="flex flex-col justify-between space-y-8 p-6">
                     <div class="space-y-2">
                         <h2 class="text-xl font-semibold tracking-wide sm:text-3xl xl:text-2xl 2xl:text-3xl">BUREAU DES
@@ -69,15 +68,15 @@
                             sportifs.
                         </p>
                     </div>
-                    <a href="/bds"
-                        class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
+                    <a href="{{ route('office.index', ['office' => 'bds']) }}"
+                       class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
                         LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>
             <div
                 class="max-w-sm rounded-md bg-zinc-100 text-black shadow-xl shadow-gray-300 dark:bg-white dark:shadow-gray-600 sm:max-w-md lg:max-w-xs">
                 <img src="{{ asset('media/images/pole-com_logo.png') }}" alt=""
-                    class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
+                     class="h-56 w-full rounded-t-md object-contain object-center sm:h-72">
                 <div class="flex flex-col justify-between space-y-8 p-6">
                     <div class="space-y-2">
                         <h2
@@ -85,8 +84,8 @@
                             BUREAU DU P&Ocirc;LE COM</h2>
                         <p class="h-12 text-justify">Assure principalement la gestion des articles de ce site web.</p>
                     </div>
-                    <a href="/pole-com"
-                        class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
+                    <a href="{{ route('office.index', ['office' => 'pole-com']) }}"
+                       class="flex w-full items-center justify-center rounded-md bg-blue-400 p-3 text-sm font-semibold tracking-wide text-white sm:text-base">VOIR
                         LES ACTUALIT&Eacute;S</a>
                 </div>
             </div>

@@ -10,3 +10,5 @@ npm-debug.log
 yarn-error.log
 public/css/app.css
 .env*
+/tools/php-cs-fixer/vendor/**
+/.php-cs-fixer.cache

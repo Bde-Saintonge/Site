@@ -850,48 +850,48 @@
     var global$2 = tinymce.util.Tools.resolve('tinymce.util.Tools');
 
     const getTDTHOverallStyle = (dom, elm, name) => {
-        const cells = dom.select('td,th', elm);
-        let firstChildStyle;
-        const checkChildren = (firstChildStyle, elms) => {
-            for (let i = 0; i < elms.length; i++) {
-                const currentStyle = dom.getStyle(elms[i], name);
-                if (typeof firstChildStyle === 'undefined') {
-                    firstChildStyle = currentStyle;
-                }
-                if (firstChildStyle !== currentStyle) {
-                    return '';
-                }
-            }
-            return firstChildStyle;
-        };
-        return checkChildren(firstChildStyle, cells);
+      const cells = dom.select('td,th', elm);
+      let firstChildStyle;
+      const checkChildren = (firstChildStyle, elms) => {
+        for (let i = 0; i < elms.length; i++) {
+          const currentStyle = dom.getStyle(elms[i], name);
+          if (typeof firstChildStyle === 'undefined') {
+            firstChildStyle = currentStyle;
+          }
+          if (firstChildStyle !== currentStyle) {
+            return '';
+          }
+        }
+        return firstChildStyle;
+      };
+      return checkChildren(firstChildStyle, cells);
     };
     const setAlign = (editor, elm, name) => {
-        global$2.each('left center right'.split(' '), (align) => {
-            if (align !== name) {
-                editor.formatter.remove('align' + align, {}, elm);
-            }
-        });
-        if (name) {
-            editor.formatter.apply('align' + name, {}, elm);
+      global$2.each('left center right'.split(' '), align => {
+        if (align !== name) {
+          editor.formatter.remove('align' + align, {}, elm);
         }
+      });
+      if (name) {
+        editor.formatter.apply('align' + name, {}, elm);
+      }
     };
     const setVAlign = (editor, elm, name) => {
-        global$2.each('top middle bottom'.split(' '), (align) => {
-            if (align !== name) {
-                editor.formatter.remove('valign' + align, {}, elm);
-            }
-        });
-        if (name) {
-            editor.formatter.apply('valign' + name, {}, elm);
+      global$2.each('top middle bottom'.split(' '), align => {
+        if (align !== name) {
+          editor.formatter.remove('valign' + align, {}, elm);
         }
+      });
+      if (name) {
+        editor.formatter.apply('valign' + name, {}, elm);
+      }
     };
 
     const fireTableModified = (editor, table, data) => {
-        editor.dispatch('TableModified', {
-            ...data,
-            table,
-        });
+      editor.dispatch('TableModified', {
+        ...data,
+        table
+      });
     };
 
     const toNumber = (px, fallback) => toFloat(px).getOr(fallback);
@@ -1734,99 +1734,87 @@
     const getItems$2 = editor => children.concat(getClassList$1(editor).toArray());
 
     const getAdvancedTab = (editor, dialogName) => {
-        const emptyBorderStyle = [
-            {
-                text: 'Select...',
-                value: '',
-            },
-        ];
-        const advTabItems = [
-            {
-                name: 'borderstyle',
-                type: 'listbox',
-                label: 'Border style',
-                items: emptyBorderStyle.concat(
-                    buildListItems(getTableBorderStyles(editor))
-                ),
-            },
-            {
-                name: 'bordercolor',
-                type: 'colorinput',
-                label: 'Border color',
-            },
-            {
-                name: 'backgroundcolor',
-                type: 'colorinput',
-                label: 'Background color',
-            },
-        ];
-        const borderWidth = {
-            name: 'borderwidth',
-            type: 'input',
-            label: 'Border width',
-        };
-        const items =
-            dialogName === 'cell'
-                ? [borderWidth].concat(advTabItems)
-                : advTabItems;
-        return {
-            title: 'Advanced',
-            name: 'advanced',
-            items,
-        };
+      const emptyBorderStyle = [{
+          text: 'Select...',
+          value: ''
+        }];
+      const advTabItems = [
+        {
+          name: 'borderstyle',
+          type: 'listbox',
+          label: 'Border style',
+          items: emptyBorderStyle.concat(buildListItems(getTableBorderStyles(editor)))
+        },
+        {
+          name: 'bordercolor',
+          type: 'colorinput',
+          label: 'Border color'
+        },
+        {
+          name: 'backgroundcolor',
+          type: 'colorinput',
+          label: 'Background color'
+        }
+      ];
+      const borderWidth = {
+        name: 'borderwidth',
+        type: 'input',
+        label: 'Border width'
+      };
+      const items = dialogName === 'cell' ? [borderWidth].concat(advTabItems) : advTabItems;
+      return {
+        title: 'Advanced',
+        name: 'advanced',
+        items
+      };
     };
 
     const normal = (editor, element) => {
-        const dom = editor.dom;
-        const setAttrib = (attr, value) => {
-            dom.setAttrib(element, attr, value);
-        };
-        const setStyle = (prop, value) => {
-            dom.setStyle(element, prop, value);
-        };
-        const setFormat = (formatName, value) => {
-            if (value === '') {
-                editor.formatter.remove(
-                    formatName,
-                    { value: null },
-                    element,
-                    true
-                );
-            } else {
-                editor.formatter.apply(formatName, { value }, element);
-            }
-        };
-        return {
-            setAttrib,
-            setStyle,
-            setFormat,
-        };
+      const dom = editor.dom;
+      const setAttrib = (attr, value) => {
+        dom.setAttrib(element, attr, value);
+      };
+      const setStyle = (prop, value) => {
+        dom.setStyle(element, prop, value);
+      };
+      const setFormat = (formatName, value) => {
+        if (value === '') {
+          editor.formatter.remove(formatName, { value: null }, element, true);
+        } else {
+          editor.formatter.apply(formatName, { value }, element);
+        }
+      };
+      return {
+        setAttrib,
+        setStyle,
+        setFormat
+      };
     };
     const DomModifier = { normal };
 
     const isHeaderCell = isTag('th');
     const getRowHeaderType = (isHeaderRow, isHeaderCells) => {
-        if (isHeaderRow && isHeaderCells) {
-            return 'sectionCells';
-        } else if (isHeaderRow) {
-            return 'section';
-        } else {
-            return 'cells';
-        }
+      if (isHeaderRow && isHeaderCells) {
+        return 'sectionCells';
+      } else if (isHeaderRow) {
+        return 'section';
+      } else {
+        return 'cells';
+      }
     };
-    const getRowType$1 = (row) => {
-        const isHeaderRow = row.section === 'thead';
-        const isHeaderCells = is(findCommonCellType(row.cells), 'th');
-        if (row.section === 'tfoot') {
-            return { type: 'footer' };
-        } else if (isHeaderRow || isHeaderCells) {
-            return {
-                type: 'header',
-                subType: getRowHeaderType(isHeaderRow, isHeaderCells),
-            };
-        } else {
-            return { type: 'body' };
-        }
+    const getRowType$1 = row => {
+      const isHeaderRow = row.section === 'thead';
+      const isHeaderCells = is(findCommonCellType(row.cells), 'th');
+      if (row.section === 'tfoot') {
+        return { type: 'footer' };
+      } else if (isHeaderRow || isHeaderCells) {
+        return {
+          type: 'header',
+          subType: getRowHeaderType(isHeaderRow, isHeaderCells)
+        };
+      } else {
+        return { type: 'body' };
+      }
     };
     const findCommonCellType = cells => {
       const headerCells = filter(cells, cell => isHeaderCell(cell.element));
@@ -2074,395 +2062,324 @@
       return getRowsType(table, target);
     }).getOr('');
     const extractDataFromTableElement = (editor, elm, hasAdvTableTab) => {
-        const getBorder = (dom, elm) => {
-            const optBorderWidth = getRaw(
-                SugarElement.fromDom(elm),
-                'border-width'
-            );
-            if (shouldStyleWithCss(editor) && optBorderWidth.isSome()) {
-                return optBorderWidth.getOr('');
-            }
-            return (
-                dom.getAttrib(elm, 'border') ||
-                getTDTHOverallStyle(editor.dom, elm, 'border-width') ||
-                getTDTHOverallStyle(editor.dom, elm, 'border')
-            );
-        };
-        const dom = editor.dom;
-        const cellspacing = shouldStyleWithCss(editor)
-            ? dom.getStyle(elm, 'border-spacing') ||
-              dom.getAttrib(elm, 'cellspacing')
-            : dom.getAttrib(elm, 'cellspacing') ||
-              dom.getStyle(elm, 'border-spacing');
-        const cellpadding = shouldStyleWithCss(editor)
-            ? getTDTHOverallStyle(dom, elm, 'padding') ||
-              dom.getAttrib(elm, 'cellpadding')
-            : dom.getAttrib(elm, 'cellpadding') ||
-              getTDTHOverallStyle(dom, elm, 'padding');
-        return {
-            width: dom.getStyle(elm, 'width') || dom.getAttrib(elm, 'width'),
-            height: dom.getStyle(elm, 'height') || dom.getAttrib(elm, 'height'),
-            cellspacing,
-            cellpadding,
-            border: getBorder(dom, elm),
-            caption: !!dom.select('caption', elm)[0],
-            class: dom.getAttrib(elm, 'class', ''),
-            align: getHAlignment(editor, elm),
-            ...(hasAdvTableTab ? extractAdvancedStyles(elm) : {}),
-        };
+      const getBorder = (dom, elm) => {
+        const optBorderWidth = getRaw(SugarElement.fromDom(elm), 'border-width');
+        if (shouldStyleWithCss(editor) && optBorderWidth.isSome()) {
+          return optBorderWidth.getOr('');
+        }
+        return dom.getAttrib(elm, 'border') || getTDTHOverallStyle(editor.dom, elm, 'border-width') || getTDTHOverallStyle(editor.dom, elm, 'border');
+      };
+      const dom = editor.dom;
+      const cellspacing = shouldStyleWithCss(editor) ? dom.getStyle(elm, 'border-spacing') || dom.getAttrib(elm, 'cellspacing') : dom.getAttrib(elm, 'cellspacing') || dom.getStyle(elm, 'border-spacing');
+      const cellpadding = shouldStyleWithCss(editor) ? getTDTHOverallStyle(dom, elm, 'padding') || dom.getAttrib(elm, 'cellpadding') : dom.getAttrib(elm, 'cellpadding') || getTDTHOverallStyle(dom, elm, 'padding');
+      return {
+        width: dom.getStyle(elm, 'width') || dom.getAttrib(elm, 'width'),
+        height: dom.getStyle(elm, 'height') || dom.getAttrib(elm, 'height'),
+        cellspacing,
+        cellpadding,
+        border: getBorder(dom, elm),
+        caption: !!dom.select('caption', elm)[0],
+        class: dom.getAttrib(elm, 'class', ''),
+        align: getHAlignment(editor, elm),
+        ...hasAdvTableTab ? extractAdvancedStyles(elm) : {}
+      };
     };
     const extractDataFromRowElement = (editor, elm, hasAdvancedRowTab) => {
-        const dom = editor.dom;
-        return {
-            height: dom.getStyle(elm, 'height') || dom.getAttrib(elm, 'height'),
-            class: dom.getAttrib(elm, 'class', ''),
-            type: getRowType(elm),
-            align: getHAlignment(editor, elm),
-            ...(hasAdvancedRowTab ? extractAdvancedStyles(elm) : {}),
-        };
+      const dom = editor.dom;
+      return {
+        height: dom.getStyle(elm, 'height') || dom.getAttrib(elm, 'height'),
+        class: dom.getAttrib(elm, 'class', ''),
+        type: getRowType(elm),
+        align: getHAlignment(editor, elm),
+        ...hasAdvancedRowTab ? extractAdvancedStyles(elm) : {}
+      };
     };
-    const extractDataFromCellElement = (
-        editor,
-        cell,
-        hasAdvancedCellTab,
-        column
-    ) => {
-        const dom = editor.dom;
-        const colElm = column.getOr(cell);
-        const getStyle = (element, style) =>
-            dom.getStyle(element, style) || dom.getAttrib(element, style);
-        return {
-            width: getStyle(colElm, 'width'),
-            height: getStyle(cell, 'height'),
-            scope: dom.getAttrib(cell, 'scope'),
-            celltype: getNodeName(cell),
-            class: dom.getAttrib(cell, 'class', ''),
-            halign: getHAlignment(editor, cell),
-            valign: getVAlignment(editor, cell),
-            ...(hasAdvancedCellTab ? extractAdvancedStyles(cell) : {}),
-        };
+    const extractDataFromCellElement = (editor, cell, hasAdvancedCellTab, column) => {
+      const dom = editor.dom;
+      const colElm = column.getOr(cell);
+      const getStyle = (element, style) => dom.getStyle(element, style) || dom.getAttrib(element, style);
+      return {
+        width: getStyle(colElm, 'width'),
+        height: getStyle(cell, 'height'),
+        scope: dom.getAttrib(cell, 'scope'),
+        celltype: getNodeName(cell),
+        class: dom.getAttrib(cell, 'class', ''),
+        halign: getHAlignment(editor, cell),
+        valign: getVAlignment(editor, cell),
+        ...hasAdvancedCellTab ? extractAdvancedStyles(cell) : {}
+      };
     };
 
     const getSelectedCells = (table, cells) => {
-        const warehouse = Warehouse.fromTable(table);
-        const allCells = Warehouse.justCells(warehouse);
-        const filtered = filter(allCells, (cellA) =>
-            exists(cells, (cellB) => eq(cellA.element, cellB))
-        );
-        return map(filtered, (cell) => ({
-            element: cell.element.dom,
-            column: Warehouse.getColumnAt(warehouse, cell.column).map(
-                (col) => col.element.dom
-            ),
-        }));
+      const warehouse = Warehouse.fromTable(table);
+      const allCells = Warehouse.justCells(warehouse);
+      const filtered = filter(allCells, cellA => exists(cells, cellB => eq(cellA.element, cellB)));
+      return map(filtered, cell => ({
+        element: cell.element.dom,
+        column: Warehouse.getColumnAt(warehouse, cell.column).map(col => col.element.dom)
+      }));
     };
     const updateSimpleProps$1 = (modifier, colModifier, data, shouldUpdate) => {
-        if (shouldUpdate('scope')) {
-            modifier.setAttrib('scope', data.scope);
-        }
-        if (shouldUpdate('class')) {
-            modifier.setAttrib('class', data.class);
-        }
-        if (shouldUpdate('height')) {
-            modifier.setStyle('height', addPxSuffix(data.height));
-        }
-        if (shouldUpdate('width')) {
-            colModifier.setStyle('width', addPxSuffix(data.width));
-        }
+      if (shouldUpdate('scope')) {
+        modifier.setAttrib('scope', data.scope);
+      }
+      if (shouldUpdate('class')) {
+        modifier.setAttrib('class', data.class);
+      }
+      if (shouldUpdate('height')) {
+        modifier.setStyle('height', addPxSuffix(data.height));
+      }
+      if (shouldUpdate('width')) {
+        colModifier.setStyle('width', addPxSuffix(data.width));
+      }
     };
     const updateAdvancedProps$1 = (modifier, data, shouldUpdate) => {
-        if (shouldUpdate('backgroundcolor')) {
-            modifier.setFormat(
-                'tablecellbackgroundcolor',
-                data.backgroundcolor
-            );
-        }
-        if (shouldUpdate('bordercolor')) {
-            modifier.setFormat('tablecellbordercolor', data.bordercolor);
-        }
-        if (shouldUpdate('borderstyle')) {
-            modifier.setFormat('tablecellborderstyle', data.borderstyle);
-        }
-        if (shouldUpdate('borderwidth')) {
-            modifier.setFormat(
-                'tablecellborderwidth',
-                addPxSuffix(data.borderwidth)
-            );
-        }
+      if (shouldUpdate('backgroundcolor')) {
+        modifier.setFormat('tablecellbackgroundcolor', data.backgroundcolor);
+      }
+      if (shouldUpdate('bordercolor')) {
+        modifier.setFormat('tablecellbordercolor', data.bordercolor);
+      }
+      if (shouldUpdate('borderstyle')) {
+        modifier.setFormat('tablecellborderstyle', data.borderstyle);
+      }
+      if (shouldUpdate('borderwidth')) {
+        modifier.setFormat('tablecellborderwidth', addPxSuffix(data.borderwidth));
+      }
     };
     const applyStyleData$1 = (editor, cells, data, wasChanged) => {
-        const isSingleCell = cells.length === 1;
-        each(cells, (item) => {
-            const cellElm = item.element;
-            const shouldOverrideCurrentValue = isSingleCell
-                ? always
-                : wasChanged;
-            const modifier = DomModifier.normal(editor, cellElm);
-            const colModifier = item.column
-                .map((col) => DomModifier.normal(editor, col))
-                .getOr(modifier);
-            updateSimpleProps$1(
-                modifier,
-                colModifier,
-                data,
-                shouldOverrideCurrentValue
-            );
-            if (hasAdvancedCellTab(editor)) {
-                updateAdvancedProps$1(
-                    modifier,
-                    data,
-                    shouldOverrideCurrentValue
-                );
-            }
-            if (wasChanged('halign')) {
-                setAlign(editor, cellElm, data.halign);
-            }
-            if (wasChanged('valign')) {
-                setVAlign(editor, cellElm, data.valign);
-            }
-        });
+      const isSingleCell = cells.length === 1;
+      each(cells, item => {
+        const cellElm = item.element;
+        const shouldOverrideCurrentValue = isSingleCell ? always : wasChanged;
+        const modifier = DomModifier.normal(editor, cellElm);
+        const colModifier = item.column.map(col => DomModifier.normal(editor, col)).getOr(modifier);
+        updateSimpleProps$1(modifier, colModifier, data, shouldOverrideCurrentValue);
+        if (hasAdvancedCellTab(editor)) {
+          updateAdvancedProps$1(modifier, data, shouldOverrideCurrentValue);
+        }
+        if (wasChanged('halign')) {
+          setAlign(editor, cellElm, data.halign);
+        }
+        if (wasChanged('valign')) {
+          setVAlign(editor, cellElm, data.valign);
+        }
+      });
     };
     const applyStructureData$1 = (editor, data) => {
-        editor.execCommand('mceTableCellType', false, {
-            type: data.celltype,
-            no_events: true,
-        });
+      editor.execCommand('mceTableCellType', false, {
+        type: data.celltype,
+        no_events: true
+      });
     };
     const applyCellData = (editor, cells, oldData, data) => {
-        const modifiedData = filter$1(
-            data,
-            (value, key) => oldData[key] !== value
-        );
-        if (size(modifiedData) > 0 && cells.length >= 1) {
-            table(cells[0]).each((table) => {
-                const selectedCells = getSelectedCells(table, cells);
-                const styleModified =
-                    size(
-                        filter$1(
-                            modifiedData,
-                            (_value, key) =>
-                                key !== 'scope' && key !== 'celltype'
-                        )
-                    ) > 0;
-                const structureModified = has(modifiedData, 'celltype');
-                if (styleModified || has(modifiedData, 'scope')) {
-                    applyStyleData$1(
-                        editor,
-                        selectedCells,
-                        data,
-                        curry(has, modifiedData)
-                    );
-                }
-                if (structureModified) {
-                    applyStructureData$1(editor, data);
-                }
-                fireTableModified(editor, table.dom, {
-                    structure: structureModified,
-                    style: styleModified,
-                });
-            });
-        }
+      const modifiedData = filter$1(data, (value, key) => oldData[key] !== value);
+      if (size(modifiedData) > 0 && cells.length >= 1) {
+        table(cells[0]).each(table => {
+          const selectedCells = getSelectedCells(table, cells);
+          const styleModified = size(filter$1(modifiedData, (_value, key) => key !== 'scope' && key !== 'celltype')) > 0;
+          const structureModified = has(modifiedData, 'celltype');
+          if (styleModified || has(modifiedData, 'scope')) {
+            applyStyleData$1(editor, selectedCells, data, curry(has, modifiedData));
+          }
+          if (structureModified) {
+            applyStructureData$1(editor, data);
+          }
+          fireTableModified(editor, table.dom, {
+            structure: structureModified,
+            style: styleModified
+          });
+        });
+      }
     };
     const onSubmitCellForm = (editor, cells, oldData, api) => {
-        const data = api.getData();
-        api.close();
-        editor.undoManager.transact(() => {
-            applyCellData(editor, cells, oldData, data);
-            editor.focus();
-        });
+      const data = api.getData();
+      api.close();
+      editor.undoManager.transact(() => {
+        applyCellData(editor, cells, oldData, data);
+        editor.focus();
+      });
     };
     const getData$1 = (editor, cells) => {
-        const cellsData = table(cells[0]).map((table) =>
-            map(getSelectedCells(table, cells), (item) =>
-                extractDataFromCellElement(
-                    editor,
-                    item.element,
-                    hasAdvancedCellTab(editor),
-                    item.column
-                )
-            )
-        );
-        return getSharedValues(cellsData.getOrDie());
+      const cellsData = table(cells[0]).map(table => map(getSelectedCells(table, cells), item => extractDataFromCellElement(editor, item.element, hasAdvancedCellTab(editor), item.column)));
+      return getSharedValues(cellsData.getOrDie());
     };
-    const open$2 = (editor) => {
-        const cells = getCellsFromSelection(editor);
-        if (cells.length === 0) {
-            return;
-        }
-        const data = getData$1(editor, cells);
-        const dialogTabPanel = {
-            type: 'tabpanel',
-            tabs: [
-                {
-                    title: 'General',
-                    name: 'general',
-                    items: getItems$2(editor),
-                },
-                getAdvancedTab(editor, 'cell'),
-            ],
-        };
-        const dialogPanel = {
-            type: 'panel',
-            items: [
-                {
-                    type: 'grid',
-                    columns: 2,
-                    items: getItems$2(editor),
-                },
-            ],
-        };
-        editor.windowManager.open({
-            title: 'Cell Properties',
-            size: 'normal',
-            body: hasAdvancedCellTab(editor) ? dialogTabPanel : dialogPanel,
-            buttons: [
-                {
-                    type: 'cancel',
-                    name: 'cancel',
-                    text: 'Cancel',
-                },
-                {
-                    type: 'submit',
-                    name: 'save',
-                    text: 'Save',
-                    primary: true,
-                },
-            ],
-            initialData: data,
-            onSubmit: curry(onSubmitCellForm, editor, cells, data),
-        });
+    const open$2 = editor => {
+      const cells = getCellsFromSelection(editor);
+      if (cells.length === 0) {
+        return;
+      }
+      const data = getData$1(editor, cells);
+      const dialogTabPanel = {
+        type: 'tabpanel',
+        tabs: [
+          {
+            title: 'General',
+            name: 'general',
+            items: getItems$2(editor)
+          },
+          getAdvancedTab(editor, 'cell')
+        ]
+      };
+      const dialogPanel = {
+        type: 'panel',
+        items: [{
+            type: 'grid',
+            columns: 2,
+            items: getItems$2(editor)
+          }]
+      };
+      editor.windowManager.open({
+        title: 'Cell Properties',
+        size: 'normal',
+        body: hasAdvancedCellTab(editor) ? dialogTabPanel : dialogPanel,
+        buttons: [
+          {
+            type: 'cancel',
+            name: 'cancel',
+            text: 'Cancel'
+          },
+          {
+            type: 'submit',
+            name: 'save',
+            text: 'Save',
+            primary: true
+          }
+        ],
+        initialData: data,
+        onSubmit: curry(onSubmitCellForm, editor, cells, data)
+      });
     };
 
-    const getClassList = (editor) => {
-        const classes = buildListItems(getRowClassList(editor));
-        if (classes.length > 0) {
-            return Optional.some({
-                name: 'class',
-                type: 'listbox',
-                label: 'Class',
-                items: classes,
-            });
-        }
-        return Optional.none();
+    const getClassList = editor => {
+      const classes = buildListItems(getRowClassList(editor));
+      if (classes.length > 0) {
+        return Optional.some({
+          name: 'class',
+          type: 'listbox',
+          label: 'Class',
+          items: classes
+        });
+      }
+      return Optional.none();
     };
     const formChildren = [
-        {
-            type: 'listbox',
-            name: 'type',
-            label: 'Row type',
-            items: [
-                {
-                    text: 'Header',
-                    value: 'header',
-                },
-                {
-                    text: 'Body',
-                    value: 'body',
-                },
-                {
-                    text: 'Footer',
-                    value: 'footer',
-                },
-            ],
-        },
-        {
-            type: 'listbox',
-            name: 'align',
-            label: 'Alignment',
-            items: [
-                {
-                    text: 'None',
-                    value: '',
-                },
-                {
-                    text: 'Left',
-                    value: 'left',
-                },
-                {
-                    text: 'Center',
-                    value: 'center',
-                },
-                {
-                    text: 'Right',
-                    value: 'right',
-                },
-            ],
-        },
-        {
-            label: 'Height',
-            name: 'height',
-            type: 'input',
-        },
+      {
+        type: 'listbox',
+        name: 'type',
+        label: 'Row type',
+        items: [
+          {
+            text: 'Header',
+            value: 'header'
+          },
+          {
+            text: 'Body',
+            value: 'body'
+          },
+          {
+            text: 'Footer',
+            value: 'footer'
+          }
+        ]
+      },
+      {
+        type: 'listbox',
+        name: 'align',
+        label: 'Alignment',
+        items: [
+          {
+            text: 'None',
+            value: ''
+          },
+          {
+            text: 'Left',
+            value: 'left'
+          },
+          {
+            text: 'Center',
+            value: 'center'
+          },
+          {
+            text: 'Right',
+            value: 'right'
+          }
+        ]
+      },
+      {
+        label: 'Height',
+        name: 'height',
+        type: 'input'
+      }
     ];
-    const getItems$1 = (editor) =>
-        formChildren.concat(getClassList(editor).toArray());
+    const getItems$1 = editor => formChildren.concat(getClassList(editor).toArray());
 
     const updateSimpleProps = (modifier, data, shouldUpdate) => {
-        if (shouldUpdate('class')) {
-            modifier.setAttrib('class', data.class);
-        }
-        if (shouldUpdate('height')) {
-            modifier.setStyle('height', addPxSuffix(data.height));
-        }
+      if (shouldUpdate('class')) {
+        modifier.setAttrib('class', data.class);
+      }
+      if (shouldUpdate('height')) {
+        modifier.setStyle('height', addPxSuffix(data.height));
+      }
     };
     const updateAdvancedProps = (modifier, data, shouldUpdate) => {
-        if (shouldUpdate('backgroundcolor')) {
-            modifier.setStyle('background-color', data.backgroundcolor);
-        }
-        if (shouldUpdate('bordercolor')) {
-            modifier.setStyle('border-color', data.bordercolor);
-        }
-        if (shouldUpdate('borderstyle')) {
-            modifier.setStyle('border-style', data.borderstyle);
-        }
+      if (shouldUpdate('backgroundcolor')) {
+        modifier.setStyle('background-color', data.backgroundcolor);
+      }
+      if (shouldUpdate('bordercolor')) {
+        modifier.setStyle('border-color', data.bordercolor);
+      }
+      if (shouldUpdate('borderstyle')) {
+        modifier.setStyle('border-style', data.borderstyle);
+      }
     };
     const applyStyleData = (editor, rows, data, wasChanged) => {
-        const isSingleRow = rows.length === 1;
-        const shouldOverrideCurrentValue = isSingleRow ? always : wasChanged;
-        each(rows, (rowElm) => {
-            const modifier = DomModifier.normal(editor, rowElm);
-            updateSimpleProps(modifier, data, shouldOverrideCurrentValue);
-            if (hasAdvancedRowTab(editor)) {
-                updateAdvancedProps(modifier, data, shouldOverrideCurrentValue);
-            }
-            if (wasChanged('align')) {
-                setAlign(editor, rowElm, data.align);
-            }
-        });
+      const isSingleRow = rows.length === 1;
+      const shouldOverrideCurrentValue = isSingleRow ? always : wasChanged;
+      each(rows, rowElm => {
+        const modifier = DomModifier.normal(editor, rowElm);
+        updateSimpleProps(modifier, data, shouldOverrideCurrentValue);
+        if (hasAdvancedRowTab(editor)) {
+          updateAdvancedProps(modifier, data, shouldOverrideCurrentValue);
+        }
+        if (wasChanged('align')) {
+          setAlign(editor, rowElm, data.align);
+        }
+      });
     };
     const applyStructureData = (editor, data) => {
-        editor.execCommand('mceTableRowType', false, {
-            type: data.type,
-            no_events: true,
-        });
+      editor.execCommand('mceTableRowType', false, {
+        type: data.type,
+        no_events: true
+      });
     };
     const applyRowData = (editor, rows, oldData, data) => {
-        const modifiedData = filter$1(data, (value, key) => oldData[key] !== value);
-        if (size(modifiedData) > 0) {
-            const typeModified = has(modifiedData, 'type');
-            const styleModified = typeModified ? size(modifiedData) > 1 : true;
-            if (styleModified) {
-                applyStyleData(editor, rows, data, curry(has, modifiedData));
-            }
-            if (typeModified) {
-                applyStructureData(editor, data);
-            }
-            table(SugarElement.fromDom(rows[0])).each(table => fireTableModified(editor, table.dom, {
-                structure: typeModified,
-                style: styleModified
-            }));
+      const modifiedData = filter$1(data, (value, key) => oldData[key] !== value);
+      if (size(modifiedData) > 0) {
+        const typeModified = has(modifiedData, 'type');
+        const styleModified = typeModified ? size(modifiedData) > 1 : true;
+        if (styleModified) {
+          applyStyleData(editor, rows, data, curry(has, modifiedData));
         }
+        if (typeModified) {
+          applyStructureData(editor, data);
+        }
+        table(SugarElement.fromDom(rows[0])).each(table => fireTableModified(editor, table.dom, {
+          structure: typeModified,
+          style: styleModified
+        }));
+      }
     };
     const onSubmitRowForm = (editor, rows, oldData, api) => {
-        const data = api.getData();
-        api.close();
-        editor.undoManager.transact(() => {
-            applyRowData(editor, rows, oldData, data);
-            editor.focus();
-        });
+      const data = api.getData();
+      api.close();
+      editor.undoManager.transact(() => {
+        applyRowData(editor, rows, oldData, data);
+        editor.focus();
+      });
     };
     const open$1 = editor => {
-        const rows = getRowsFromSelection(getSelectionStart(editor), ephemera.selected);
+      const rows = getRowsFromSelection(getSelectionStart(editor), ephemera.selected);
       if (rows.length === 0) {
         return;
       }
@@ -2665,30 +2582,21 @@
       }
       editor.undoManager.transact(() => {
         if (!tableElm) {
-            const cols = parseInt(data.cols, 10) || 1;
-            const rows = parseInt(data.rows, 10) || 1;
-            editor.execCommand('mceInsertTable', false, {
-                rows,
-                columns: cols,
-            });
-            tableElm = getSelectionCell(
-                getSelectionStart(editor),
-                getIsRoot(editor)
-            )
-                .bind((cell) => table(cell, getIsRoot(editor)))
-                .map((table) => table.dom)
-                .getOrUndefined();
+          const cols = parseInt(data.cols, 10) || 1;
+          const rows = parseInt(data.rows, 10) || 1;
+          editor.execCommand('mceInsertTable', false, {
+            rows,
+            columns: cols
+          });
+          tableElm = getSelectionCell(getSelectionStart(editor), getIsRoot(editor)).bind(cell => table(cell, getIsRoot(editor))).map(table => table.dom).getOrUndefined();
         }
         if (size(modifiedData) > 0) {
-            applyDataToElement(editor, tableElm, data);
-            const captionElm = dom.select('caption', tableElm)[0];
-            if (
-                (captionElm && !data.caption) ||
-                (!captionElm && data.caption)
-            ) {
-                editor.execCommand('mceTableToggleCaption');
-            }
-            setAlign(editor, tableElm, data.align);
+          applyDataToElement(editor, tableElm, data);
+          const captionElm = dom.select('caption', tableElm)[0];
+          if (captionElm && !data.caption || !captionElm && data.caption) {
+            editor.execCommand('mceTableToggleCaption');
+          }
+          setAlign(editor, tableElm, data.align);
         }
         editor.focus();
         editor.addVisual();

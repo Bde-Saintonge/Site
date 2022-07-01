@@ -2613,777 +2613,599 @@
       });
     };
     const getEncodeFunc = (name, entities) => {
-        const entitiesMap = buildEntitiesLookup(entities) || namedEntities;
-        const encodeNamedAndNumeric = (text, attr) =>
-            text.replace(attr ? attrsCharsRegExp : textCharsRegExp, (chr) => {
-                if (baseEntities[chr] !== undefined) {
-                    return baseEntities[chr];
-                }
-                if (entitiesMap[chr] !== undefined) {
-                    return entitiesMap[chr];
-                }
-                if (chr.length > 1) {
-                    return (
-                        '&#' +
-                        ((chr.charCodeAt(0) - 55296) * 1024 +
-                            (chr.charCodeAt(1) - 56320) +
-                            65536) +
-                        ';'
-                    );
-                }
-                return '&#' + chr.charCodeAt(0) + ';';
-            });
-        const encodeCustomNamed = (text, attr) => {
-            return encodeNamed(text, attr, entitiesMap);
-        };
-        const nameMap = makeMap$3(name.replace(/\+/g, ','));
-        if (nameMap.named && nameMap.numeric) {
-            return encodeNamedAndNumeric;
+      const entitiesMap = buildEntitiesLookup(entities) || namedEntities;
+      const encodeNamedAndNumeric = (text, attr) => text.replace(attr ? attrsCharsRegExp : textCharsRegExp, chr => {
+        if (baseEntities[chr] !== undefined) {
+          return baseEntities[chr];
         }
-        if (nameMap.named) {
-            if (entities) {
-                return encodeCustomNamed;
-            }
-            return encodeNamed;
+        if (entitiesMap[chr] !== undefined) {
+          return entitiesMap[chr];
         }
-        if (nameMap.numeric) {
-            return encodeNumeric;
+        if (chr.length > 1) {
+          return '&#' + ((chr.charCodeAt(0) - 55296) * 1024 + (chr.charCodeAt(1) - 56320) + 65536) + ';';
         }
-        return encodeRaw;
+        return '&#' + chr.charCodeAt(0) + ';';
+      });
+      const encodeCustomNamed = (text, attr) => {
+        return encodeNamed(text, attr, entitiesMap);
+      };
+      const nameMap = makeMap$3(name.replace(/\+/g, ','));
+      if (nameMap.named && nameMap.numeric) {
+        return encodeNamedAndNumeric;
+      }
+      if (nameMap.named) {
+        if (entities) {
+          return encodeCustomNamed;
+        }
+        return encodeNamed;
+      }
+      if (nameMap.numeric) {
+        return encodeNumeric;
+      }
+      return encodeRaw;
     };
-    const decode = (text) =>
-        text.replace(entityRegExp, (all, numeric) => {
-            if (numeric) {
-                if (numeric.charAt(0).toLowerCase() === 'x') {
-                    numeric = parseInt(numeric.substr(1), 16);
-                } else {
-                    numeric = parseInt(numeric, 10);
-                }
-                if (numeric > 65535) {
-                    numeric -= 65536;
-                    return String.fromCharCode(
-                        55296 + (numeric >> 10),
-                        56320 + (numeric & 1023)
-                    );
-                }
-                return asciiMap[numeric] || String.fromCharCode(numeric);
-            }
-            return (
-                reverseEntities[all] || namedEntities[all] || nativeDecode(all)
-            );
-        });
+    const decode = text => text.replace(entityRegExp, (all, numeric) => {
+      if (numeric) {
+        if (numeric.charAt(0).toLowerCase() === 'x') {
+          numeric = parseInt(numeric.substr(1), 16);
+        } else {
+          numeric = parseInt(numeric, 10);
+        }
+        if (numeric > 65535) {
+          numeric -= 65536;
+          return String.fromCharCode(55296 + (numeric >> 10), 56320 + (numeric & 1023));
+        }
+        return asciiMap[numeric] || String.fromCharCode(numeric);
+      }
+      return reverseEntities[all] || namedEntities[all] || nativeDecode(all);
+    });
     const Entities = {
-        encodeRaw,
-        encodeAllRaw,
-        encodeNumeric,
-        encodeNamed,
-        getEncodeFunc,
-        decode,
+      encodeRaw,
+      encodeAllRaw,
+      encodeNumeric,
+      encodeNamed,
+      getEncodeFunc,
+      decode
     };
 
-    const mapCache = {},
-        dummyObj = {};
-    const makeMap$2 = Tools.makeMap,
-        each$d = Tools.each,
-        extend$2 = Tools.extend,
-        explode$2 = Tools.explode,
-        inArray = Tools.inArray;
+    const mapCache = {}, dummyObj = {};
+    const makeMap$2 = Tools.makeMap, each$d = Tools.each, extend$2 = Tools.extend, explode$2 = Tools.explode, inArray = Tools.inArray;
     const split$1 = (items, delim) => {
-        items = Tools.trim(items);
-        return items ? items.split(delim || ' ') : [];
+      items = Tools.trim(items);
+      return items ? items.split(delim || ' ') : [];
     };
     const createMap = (defaultValue, extendWith) => {
-        const value = makeMap$2(
-            defaultValue,
-            ' ',
-            makeMap$2(defaultValue.toUpperCase(), ' ')
-        );
-        return extend$2(value, extendWith);
+      const value = makeMap$2(defaultValue, ' ', makeMap$2(defaultValue.toUpperCase(), ' '));
+      return extend$2(value, extendWith);
     };
-    const getTextRootBlockElements = (schema) =>
-        createMap(
-            'td th li dt dd figcaption caption details summary',
-            schema.getTextBlockElements()
-        );
-    const compileSchema = (type) => {
-        const schema = {};
-        let globalAttributes, blockContent;
-        let phrasingContent,
-            flowContent,
-            html4BlockContent,
-            html4PhrasingContent;
-        const add = (name, attributes = '', children = '') => {
-            const childNames = split$1(children);
-            const names = split$1(name);
-            let ni = names.length;
-            while (ni--) {
-                const attributesOrder = split$1(
-                    [globalAttributes, attributes].join(' ')
-                );
-                schema[names[ni]] = {
-                    attributes: mapToObject(attributesOrder, () => ({})),
-                    attributesOrder,
-                    children: mapToObject(childNames, constant(dummyObj)),
-                };
-            }
-        };
-        const addAttrs = (name, attributes) => {
-            const names = split$1(name);
-            const attrs = split$1(attributes);
-            let ni = names.length;
-            while (ni--) {
-                const schemaItem = schema[names[ni]];
-                for (let i = 0, l = attrs.length; i < l; i++) {
-                    schemaItem.attributes[attrs[i]] = {};
-                    schemaItem.attributesOrder.push(attrs[i]);
-                }
-            }
-        };
-        if (mapCache[type]) {
-            return mapCache[type];
+    const getTextRootBlockElements = schema => createMap('td th li dt dd figcaption caption details summary', schema.getTextBlockElements());
+    const compileSchema = type => {
+      const schema = {};
+      let globalAttributes, blockContent;
+      let phrasingContent, flowContent, html4BlockContent, html4PhrasingContent;
+      const add = (name, attributes = '', children = '') => {
+        const childNames = split$1(children);
+        const names = split$1(name);
+        let ni = names.length;
+        while (ni--) {
+          const attributesOrder = split$1([
+            globalAttributes,
+            attributes
+          ].join(' '));
+          schema[names[ni]] = {
+            attributes: mapToObject(attributesOrder, () => ({})),
+            attributesOrder,
+            children: mapToObject(childNames, constant(dummyObj))
+          };
         }
-        globalAttributes =
-            'id accesskey class dir lang style tabindex title role';
-        blockContent =
-            'address blockquote div dl fieldset form h1 h2 h3 h4 h5 h6 hr menu ol p pre table ul';
-        phrasingContent =
-            'a abbr b bdo br button cite code del dfn em embed i iframe img input ins kbd ' +
-            'label map noscript object q s samp script select small span strong sub sup ' +
-            'textarea u var #text #comment';
-        if (type !== 'html4') {
-            globalAttributes +=
-                ' contenteditable contextmenu draggable dropzone ' +
-                'hidden spellcheck translate';
-            blockContent +=
-                ' article aside details dialog figure main header footer hgroup section nav';
-            phrasingContent +=
-                ' audio canvas command datalist mark meter output picture ' +
-                'progress time wbr video ruby bdi keygen';
+      };
+      const addAttrs = (name, attributes) => {
+        const names = split$1(name);
+        const attrs = split$1(attributes);
+        let ni = names.length;
+        while (ni--) {
+          const schemaItem = schema[names[ni]];
+          for (let i = 0, l = attrs.length; i < l; i++) {
+            schemaItem.attributes[attrs[i]] = {};
+            schemaItem.attributesOrder.push(attrs[i]);
+          }
         }
-        if (type !== 'html5-strict') {
-            globalAttributes += ' xml:lang';
-            html4PhrasingContent = 'acronym applet basefont big font strike tt';
-            phrasingContent = [phrasingContent, html4PhrasingContent].join(' ');
-            each$d(split$1(html4PhrasingContent), (name) => {
-                add(name, '', phrasingContent);
-            });
-            html4BlockContent = 'center dir isindex noframes';
-            blockContent = [blockContent, html4BlockContent].join(' ');
-            flowContent = [blockContent, phrasingContent].join(' ');
-            each$d(split$1(html4BlockContent), (name) => {
-                add(name, '', flowContent);
-            });
-        }
-        flowContent = flowContent || [blockContent, phrasingContent].join(' ');
-        add('html', 'manifest', 'head body');
-        add('head', '', 'base command link meta noscript script style title');
-        add('title hr noscript br');
-        add('base', 'href target');
-        add('link', 'href rel media hreflang type sizes hreflang');
-        add('meta', 'name http-equiv content charset');
-        add('style', 'media type scoped');
-        add('script', 'src async defer type charset');
-        add(
-            'body',
-            'onafterprint onbeforeprint onbeforeunload onblur onerror onfocus ' +
-                'onhashchange onload onmessage onoffline ononline onpagehide onpageshow ' +
-                'onpopstate onresize onscroll onstorage onunload',
-            flowContent
-        );
-        add('address dt dd div caption', '', flowContent);
-        add(
-            'h1 h2 h3 h4 h5 h6 pre p abbr code var samp kbd sub sup i b u bdo span legend em strong small s cite dfn',
-            '',
-            phrasingContent
-        );
-        add('blockquote', 'cite', flowContent);
-        add('ol', 'reversed start type', 'li');
-        add('ul', '', 'li');
-        add('li', 'value', flowContent);
-        add('dl', '', 'dt dd');
-        add('a', 'href target rel media hreflang type', phrasingContent);
-        add('q', 'cite', phrasingContent);
-        add('ins del', 'cite datetime', flowContent);
-        add('img', 'src sizes srcset alt usemap ismap width height');
-        add('iframe', 'src name width height', flowContent);
-        add('embed', 'src type width height');
-        add(
-            'object',
-            'data type typemustmatch name usemap form width height',
-            [flowContent, 'param'].join(' ')
-        );
-        add('param', 'name value');
-        add('map', 'name', [flowContent, 'area'].join(' '));
-        add('area', 'alt coords shape href target rel media hreflang type');
-        add(
-            'table',
-            'border',
-            'caption colgroup thead tfoot tbody tr' +
-                (type === 'html4' ? ' col' : '')
-        );
-        add('colgroup', 'span', 'col');
-        add('col', 'span');
-        add('tbody thead tfoot', '', 'tr');
-        add('tr', '', 'td th');
-        add('td', 'colspan rowspan headers', flowContent);
-        add('th', 'colspan rowspan headers scope abbr', flowContent);
-        add(
-            'form',
-            'accept-charset action autocomplete enctype method name novalidate target',
-            flowContent
-        );
-        add(
-            'fieldset',
-            'disabled form name',
-            [flowContent, 'legend'].join(' ')
-        );
-        add('label', 'form for', phrasingContent);
-        add(
-            'input',
-            'accept alt autocomplete checked dirname disabled form formaction formenctype formmethod formnovalidate ' +
-                'formtarget height list max maxlength min multiple name pattern readonly required size src step type value width'
-        );
-        add(
-            'button',
-            'disabled form formaction formenctype formmethod formnovalidate formtarget name type value',
-            type === 'html4' ? flowContent : phrasingContent
-        );
-        add(
-            'select',
-            'disabled form multiple name required size',
-            'option optgroup'
-        );
-        add('optgroup', 'disabled label', 'option');
-        add('option', 'disabled label selected value');
-        add(
-            'textarea',
-            'cols dirname disabled form maxlength name readonly required rows wrap'
-        );
-        add('menu', 'type label', [flowContent, 'li'].join(' '));
-        add('noscript', '', flowContent);
-        if (type !== 'html4') {
-            add('wbr');
-            add('ruby', '', [phrasingContent, 'rt rp'].join(' '));
-            add('figcaption', '', flowContent);
-            add('mark rt rp summary bdi', '', phrasingContent);
-            add('canvas', 'width height', flowContent);
-            add(
-                'video',
-                'src crossorigin poster preload autoplay mediagroup loop ' +
-                    'muted controls width height buffered',
-                [flowContent, 'track source'].join(' ')
-            );
-            add(
-                'audio',
-                'src crossorigin preload autoplay mediagroup loop muted controls ' +
-                    'buffered volume',
-                [flowContent, 'track source'].join(' ')
-            );
-            add('picture', '', 'img source');
-            add('source', 'src srcset type media sizes');
-            add('track', 'kind src srclang label default');
-            add('datalist', '', [phrasingContent, 'option'].join(' '));
-            add(
-                'article section nav aside main header footer',
-                '',
-                flowContent
-            );
-            add('hgroup', '', 'h1 h2 h3 h4 h5 h6');
-            add('figure', '', [flowContent, 'figcaption'].join(' '));
-            add('time', 'datetime', phrasingContent);
-            add('dialog', 'open', flowContent);
-            add(
-                'command',
-                'type label icon disabled checked radiogroup command'
-            );
-            add('output', 'for form name', phrasingContent);
-            add('progress', 'value max', phrasingContent);
-            add('meter', 'value min max low high optimum', phrasingContent);
-            add('details', 'open', [flowContent, 'summary'].join(' '));
-            add('keygen', 'autofocus challenge disabled form keytype name');
-        }
-        if (type !== 'html5-strict') {
-            addAttrs('script', 'language xml:space');
-            addAttrs('style', 'xml:space');
-            addAttrs(
-                'object',
-                'declare classid code codebase codetype archive standby align border hspace vspace'
-            );
-            addAttrs('embed', 'align name hspace vspace');
-            addAttrs('param', 'valuetype type');
-            addAttrs('a', 'charset name rev shape coords');
-            addAttrs('br', 'clear');
-            addAttrs(
-                'applet',
-                'codebase archive code object alt name width height align hspace vspace'
-            );
-            addAttrs('img', 'name longdesc align border hspace vspace');
-            addAttrs(
-                'iframe',
-                'longdesc frameborder marginwidth marginheight scrolling align'
-            );
-            addAttrs('font basefont', 'size color face');
-            addAttrs('input', 'usemap align');
-            addAttrs('select');
-            addAttrs('textarea');
-            addAttrs('h1 h2 h3 h4 h5 h6 div p legend caption', 'align');
-            addAttrs('ul', 'type compact');
-            addAttrs('li', 'type');
-            addAttrs('ol dl menu dir', 'compact');
-            addAttrs('pre', 'width xml:space');
-            addAttrs('hr', 'align noshade size width');
-            addAttrs('isindex', 'prompt');
-            addAttrs(
-                'table',
-                'summary width frame rules cellspacing cellpadding align bgcolor'
-            );
-            addAttrs('col', 'width align char charoff valign');
-            addAttrs('colgroup', 'width align char charoff valign');
-            addAttrs('thead', 'align char charoff valign');
-            addAttrs('tr', 'align char charoff valign bgcolor');
-            addAttrs(
-                'th',
-                'axis align char charoff valign nowrap bgcolor width height'
-            );
-            addAttrs('form', 'accept');
-            addAttrs(
-                'td',
-                'abbr axis scope align char charoff valign nowrap bgcolor width height'
-            );
-            addAttrs('tfoot', 'align char charoff valign');
-            addAttrs('tbody', 'align char charoff valign');
-            addAttrs('area', 'nohref');
-            addAttrs('body', 'background bgcolor text link vlink alink');
-        }
-        if (type !== 'html4') {
-            addAttrs('input button select textarea', 'autofocus');
-            addAttrs('input textarea', 'placeholder');
-            addAttrs('a', 'download');
-            addAttrs('link script img', 'crossorigin');
-            addAttrs('img', 'loading');
-            addAttrs('iframe', 'sandbox seamless allowfullscreen loading');
-        }
-        if (type !== 'html4') {
-            each$g([schema.video, schema.audio], (item) => {
-                delete item.children.audio;
-                delete item.children.video;
-            });
-        }
-        each$d(split$1('a form meter progress dfn'), (name) => {
-            if (schema[name]) {
-                delete schema[name].children[name];
-            }
+      };
+      if (mapCache[type]) {
+        return mapCache[type];
+      }
+      globalAttributes = 'id accesskey class dir lang style tabindex title role';
+      blockContent = 'address blockquote div dl fieldset form h1 h2 h3 h4 h5 h6 hr menu ol p pre table ul';
+      phrasingContent = 'a abbr b bdo br button cite code del dfn em embed i iframe img input ins kbd ' + 'label map noscript object q s samp script select small span strong sub sup ' + 'textarea u var #text #comment';
+      if (type !== 'html4') {
+        globalAttributes += ' contenteditable contextmenu draggable dropzone ' + 'hidden spellcheck translate';
+        blockContent += ' article aside details dialog figure main header footer hgroup section nav';
+        phrasingContent += ' audio canvas command datalist mark meter output picture ' + 'progress time wbr video ruby bdi keygen';
+      }
+      if (type !== 'html5-strict') {
+        globalAttributes += ' xml:lang';
+        html4PhrasingContent = 'acronym applet basefont big font strike tt';
+        phrasingContent = [
+          phrasingContent,
+          html4PhrasingContent
+        ].join(' ');
+        each$d(split$1(html4PhrasingContent), name => {
+          add(name, '', phrasingContent);
         });
-        delete schema.caption.children.table;
-        delete schema.script;
-        mapCache[type] = schema;
-        return schema;
+        html4BlockContent = 'center dir isindex noframes';
+        blockContent = [
+          blockContent,
+          html4BlockContent
+        ].join(' ');
+        flowContent = [
+          blockContent,
+          phrasingContent
+        ].join(' ');
+        each$d(split$1(html4BlockContent), name => {
+          add(name, '', flowContent);
+        });
+      }
+      flowContent = flowContent || [
+        blockContent,
+        phrasingContent
+      ].join(' ');
+      add('html', 'manifest', 'head body');
+      add('head', '', 'base command link meta noscript script style title');
+      add('title hr noscript br');
+      add('base', 'href target');
+      add('link', 'href rel media hreflang type sizes hreflang');
+      add('meta', 'name http-equiv content charset');
+      add('style', 'media type scoped');
+      add('script', 'src async defer type charset');
+      add('body', 'onafterprint onbeforeprint onbeforeunload onblur onerror onfocus ' + 'onhashchange onload onmessage onoffline ononline onpagehide onpageshow ' + 'onpopstate onresize onscroll onstorage onunload', flowContent);
+      add('address dt dd div caption', '', flowContent);
+      add('h1 h2 h3 h4 h5 h6 pre p abbr code var samp kbd sub sup i b u bdo span legend em strong small s cite dfn', '', phrasingContent);
+      add('blockquote', 'cite', flowContent);
+      add('ol', 'reversed start type', 'li');
+      add('ul', '', 'li');
+      add('li', 'value', flowContent);
+      add('dl', '', 'dt dd');
+      add('a', 'href target rel media hreflang type', phrasingContent);
+      add('q', 'cite', phrasingContent);
+      add('ins del', 'cite datetime', flowContent);
+      add('img', 'src sizes srcset alt usemap ismap width height');
+      add('iframe', 'src name width height', flowContent);
+      add('embed', 'src type width height');
+      add('object', 'data type typemustmatch name usemap form width height', [
+        flowContent,
+        'param'
+      ].join(' '));
+      add('param', 'name value');
+      add('map', 'name', [
+        flowContent,
+        'area'
+      ].join(' '));
+      add('area', 'alt coords shape href target rel media hreflang type');
+      add('table', 'border', 'caption colgroup thead tfoot tbody tr' + (type === 'html4' ? ' col' : ''));
+      add('colgroup', 'span', 'col');
+      add('col', 'span');
+      add('tbody thead tfoot', '', 'tr');
+      add('tr', '', 'td th');
+      add('td', 'colspan rowspan headers', flowContent);
+      add('th', 'colspan rowspan headers scope abbr', flowContent);
+      add('form', 'accept-charset action autocomplete enctype method name novalidate target', flowContent);
+      add('fieldset', 'disabled form name', [
+        flowContent,
+        'legend'
+      ].join(' '));
+      add('label', 'form for', phrasingContent);
+      add('input', 'accept alt autocomplete checked dirname disabled form formaction formenctype formmethod formnovalidate ' + 'formtarget height list max maxlength min multiple name pattern readonly required size src step type value width');
+      add('button', 'disabled form formaction formenctype formmethod formnovalidate formtarget name type value', type === 'html4' ? flowContent : phrasingContent);
+      add('select', 'disabled form multiple name required size', 'option optgroup');
+      add('optgroup', 'disabled label', 'option');
+      add('option', 'disabled label selected value');
+      add('textarea', 'cols dirname disabled form maxlength name readonly required rows wrap');
+      add('menu', 'type label', [
+        flowContent,
+        'li'
+      ].join(' '));
+      add('noscript', '', flowContent);
+      if (type !== 'html4') {
+        add('wbr');
+        add('ruby', '', [
+          phrasingContent,
+          'rt rp'
+        ].join(' '));
+        add('figcaption', '', flowContent);
+        add('mark rt rp summary bdi', '', phrasingContent);
+        add('canvas', 'width height', flowContent);
+        add('video', 'src crossorigin poster preload autoplay mediagroup loop ' + 'muted controls width height buffered', [
+          flowContent,
+          'track source'
+        ].join(' '));
+        add('audio', 'src crossorigin preload autoplay mediagroup loop muted controls ' + 'buffered volume', [
+          flowContent,
+          'track source'
+        ].join(' '));
+        add('picture', '', 'img source');
+        add('source', 'src srcset type media sizes');
+        add('track', 'kind src srclang label default');
+        add('datalist', '', [
+          phrasingContent,
+          'option'
+        ].join(' '));
+        add('article section nav aside main header footer', '', flowContent);
+        add('hgroup', '', 'h1 h2 h3 h4 h5 h6');
+        add('figure', '', [
+          flowContent,
+          'figcaption'
+        ].join(' '));
+        add('time', 'datetime', phrasingContent);
+        add('dialog', 'open', flowContent);
+        add('command', 'type label icon disabled checked radiogroup command');
+        add('output', 'for form name', phrasingContent);
+        add('progress', 'value max', phrasingContent);
+        add('meter', 'value min max low high optimum', phrasingContent);
+        add('details', 'open', [
+          flowContent,
+          'summary'
+        ].join(' '));
+        add('keygen', 'autofocus challenge disabled form keytype name');
+      }
+      if (type !== 'html5-strict') {
+        addAttrs('script', 'language xml:space');
+        addAttrs('style', 'xml:space');
+        addAttrs('object', 'declare classid code codebase codetype archive standby align border hspace vspace');
+        addAttrs('embed', 'align name hspace vspace');
+        addAttrs('param', 'valuetype type');
+        addAttrs('a', 'charset name rev shape coords');
+        addAttrs('br', 'clear');
+        addAttrs('applet', 'codebase archive code object alt name width height align hspace vspace');
+        addAttrs('img', 'name longdesc align border hspace vspace');
+        addAttrs('iframe', 'longdesc frameborder marginwidth marginheight scrolling align');
+        addAttrs('font basefont', 'size color face');
+        addAttrs('input', 'usemap align');
+        addAttrs('select');
+        addAttrs('textarea');
+        addAttrs('h1 h2 h3 h4 h5 h6 div p legend caption', 'align');
+        addAttrs('ul', 'type compact');
+        addAttrs('li', 'type');
+        addAttrs('ol dl menu dir', 'compact');
+        addAttrs('pre', 'width xml:space');
+        addAttrs('hr', 'align noshade size width');
+        addAttrs('isindex', 'prompt');
+        addAttrs('table', 'summary width frame rules cellspacing cellpadding align bgcolor');
+        addAttrs('col', 'width align char charoff valign');
+        addAttrs('colgroup', 'width align char charoff valign');
+        addAttrs('thead', 'align char charoff valign');
+        addAttrs('tr', 'align char charoff valign bgcolor');
+        addAttrs('th', 'axis align char charoff valign nowrap bgcolor width height');
+        addAttrs('form', 'accept');
+        addAttrs('td', 'abbr axis scope align char charoff valign nowrap bgcolor width height');
+        addAttrs('tfoot', 'align char charoff valign');
+        addAttrs('tbody', 'align char charoff valign');
+        addAttrs('area', 'nohref');
+        addAttrs('body', 'background bgcolor text link vlink alink');
+      }
+      if (type !== 'html4') {
+        addAttrs('input button select textarea', 'autofocus');
+        addAttrs('input textarea', 'placeholder');
+        addAttrs('a', 'download');
+        addAttrs('link script img', 'crossorigin');
+        addAttrs('img', 'loading');
+        addAttrs('iframe', 'sandbox seamless allowfullscreen loading');
+      }
+      if (type !== 'html4') {
+        each$g([
+          schema.video,
+          schema.audio
+        ], item => {
+          delete item.children.audio;
+          delete item.children.video;
+        });
+      }
+      each$d(split$1('a form meter progress dfn'), name => {
+        if (schema[name]) {
+          delete schema[name].children[name];
+        }
+      });
+      delete schema.caption.children.table;
+      delete schema.script;
+      mapCache[type] = schema;
+      return schema;
     };
     const compileElementMap = (value, mode) => {
-        let styles;
-        if (value) {
-            styles = {};
-            if (typeof value === 'string') {
-                value = { '*': value };
-            }
-            each$d(value, (value, key) => {
-                styles[key] = styles[key.toUpperCase()] =
-                    mode === 'map'
-                        ? makeMap$2(value, /[, ]/)
-                        : explode$2(value, /[, ]/);
-            });
+      let styles;
+      if (value) {
+        styles = {};
+        if (typeof value === 'string') {
+          value = { '*': value };
         }
-        return styles;
+        each$d(value, (value, key) => {
+          styles[key] = styles[key.toUpperCase()] = mode === 'map' ? makeMap$2(value, /[, ]/) : explode$2(value, /[, ]/);
+        });
+      }
+      return styles;
     };
     const Schema = settings => {
       var _a;
       const elements = {};
       const children = {};
-        let patternElements = [];
-        const customElementsMap = {}, specialElements = {};
-        const createLookupTable = (option, defaultValue, extendWith) => {
-            let value = settings[option];
-            if (!value) {
-                value = mapCache[option];
-                if (!value) {
-                    value = createMap(defaultValue, extendWith);
-                    mapCache[option] = value;
-                }
-            } else {
-                value = makeMap$2(
-                    value,
-                    /[, ]/,
-                    makeMap$2(value.toUpperCase(), /[, ]/)
-                );
-            }
-            return value;
-        };
-        settings = settings || {};
-        const schemaType =
-            (_a = settings.schema) !== null && _a !== void 0 ? _a : 'html5';
-        const schemaItems = compileSchema(schemaType);
-        if (settings.verify_html === false) {
-            settings.valid_elements = '*[*]';
-        }
-        const validStyles = compileElementMap(settings.valid_styles);
-        const invalidStyles = compileElementMap(settings.invalid_styles, 'map');
-        const validClasses = compileElementMap(settings.valid_classes, 'map');
-        const whitespaceElementsMap = createLookupTable(
-            'whitespace_elements',
-            'pre script noscript style textarea video audio iframe object code'
-        );
-        const selfClosingElementsMap = createLookupTable(
-            'self_closing_elements',
-            'colgroup dd dt li option p td tfoot th thead tr'
-        );
-        const voidElementsMap = createLookupTable(
-            'void_elements',
-            'area base basefont br col frame hr img input isindex link ' +
-                'meta param embed source wbr track'
-        );
-        const boolAttrMap = createLookupTable(
-            'boolean_attributes',
-            'checked compact declare defer disabled ismap multiple nohref noresize ' +
-                'noshade nowrap readonly selected autoplay loop controls allowfullscreen'
-        );
-        const nonEmptyOrMoveCaretBeforeOnEnter =
-            'td th iframe video audio object script code';
-        const nonEmptyElementsMap = createLookupTable(
-            'non_empty_elements',
-            nonEmptyOrMoveCaretBeforeOnEnter + ' pre',
-            voidElementsMap
-        );
-        const moveCaretBeforeOnEnterElementsMap = createLookupTable(
-            'move_caret_before_on_enter_elements',
-            nonEmptyOrMoveCaretBeforeOnEnter + ' table',
-            voidElementsMap
-        );
-        const textBlockElementsMap = createLookupTable(
-            'text_block_elements',
-            'h1 h2 h3 h4 h5 h6 p div address pre form ' +
-                'blockquote center dir fieldset header footer article section hgroup aside main nav figure'
-        );
-        const blockElementsMap = createLookupTable(
-            'block_elements',
-            'hr table tbody thead tfoot ' +
-                'th tr td li ol ul caption dl dt dd noscript menu isindex option ' +
-                'datalist select optgroup figcaption details summary',
-            textBlockElementsMap
-        );
-        const textInlineElementsMap = createLookupTable(
-            'text_inline_elements',
-            'span strong b em i font s strike u var cite ' +
-                'dfn code mark q sup sub samp'
-        );
-        each$d(
-            'script noscript iframe noframes noembed title style textarea xmp plaintext'.split(
-                ' '
-            ),
-            (name) => {
-                specialElements[name] = new RegExp(
-                    '</' + name + '[^>]*>',
-                    'gi'
-                );
-            }
-        );
-        const patternToRegExp = (str) =>
-            new RegExp('^' + str.replace(/([?+*])/g, '.$1') + '$');
-        const addValidElements = (validElements) => {
-            let ei,
-                el,
-                ai,
-                al,
-                matches,
-                element,
-                attr,
-                attrData,
-                elementName,
-                attrName,
-                attrType,
-                attributes,
-                attributesOrder,
-                prefix,
-                outputName,
-                globalAttributes,
-                globalAttributesOrder,
-                value;
-            const elementRuleRegExp =
-                    /^([#+\-])?([^\[!\/]+)(?:\/([^\[!]+))?(?:(!?)\[([^\]]+)])?$/,
-                attrRuleRegExp =
-                    /^([!\-])?(\w+[\\:]:\w+|[^=~<]+)?(?:([=~<])(.*))?$/,
-                hasPatternsRegExp = /[*?+]/;
-            if (validElements) {
-                const validElementsArr = split$1(validElements, ',');
-                if (elements['@']) {
-                    globalAttributes = elements['@'].attributes;
-                    globalAttributesOrder = elements['@'].attributesOrder;
-                }
-                for (ei = 0, el = validElementsArr.length; ei < el; ei++) {
-                    matches = elementRuleRegExp.exec(validElementsArr[ei]);
-                    if (matches) {
-                        prefix = matches[1];
-                        elementName = matches[2];
-                        outputName = matches[3];
-                        attrData = matches[5];
-                        attributes = {};
-                        attributesOrder = [];
-                        element = {
-                            attributes,
-                            attributesOrder,
-                        };
-                        if (prefix === '#') {
-                            element.paddEmpty = true;
-                        }
-                        if (prefix === '-') {
-                            element.removeEmpty = true;
-                        }
-                        if (matches[4] === '!') {
-                            element.removeEmptyAttrs = true;
-                        }
-                        if (globalAttributes) {
-                            each$f(globalAttributes, (value, key) => {
-                                attributes[key] = value;
-                            });
-                            attributesOrder.push.apply(
-                                attributesOrder,
-                                globalAttributesOrder
-                            );
-                        }
-                        if (attrData) {
-                            attrData = split$1(attrData, '|');
-                            for (ai = 0, al = attrData.length; ai < al; ai++) {
-                                matches = attrRuleRegExp.exec(attrData[ai]);
-                                if (matches) {
-                                    attr = {};
-                                    attrType = matches[1];
-                                    attrName = matches[2].replace(
-                                        /[\\:]:/g,
-                                        ':'
-                                    );
-                                    prefix = matches[3];
-                                    value = matches[4];
-                                    if (attrType === '!') {
-                                        element.attributesRequired =
-                                            element.attributesRequired || [];
-                                        element.attributesRequired.push(
-                                            attrName
-                                        );
-                                        attr.required = true;
-                                    }
-                                    if (attrType === '-') {
-                                        delete attributes[attrName];
-                                        attributesOrder.splice(
-                                            inArray(attributesOrder, attrName),
-                                            1
-                                        );
-                                        continue;
-                                    }
-                                    if (prefix) {
-                                        if (prefix === '=') {
-                                            element.attributesDefault =
-                                                element.attributesDefault || [];
-                                            element.attributesDefault.push({
-                                                name: attrName,
-                                                value,
-                                            });
-                                            attr.defaultValue = value;
-                                        }
-                                        if (prefix === '~') {
-                                            element.attributesForced =
-                                                element.attributesForced || [];
-                                            element.attributesForced.push({
-                                                name: attrName,
-                                                value,
-                                            });
-                                            attr.forcedValue = value;
-                                        }
-                                        if (prefix === '<') {
-                                            attr.validValues = makeMap$2(
-                                                value,
-                                                '?'
-                                            );
-                                        }
-                                    }
-                                    if (hasPatternsRegExp.test(attrName)) {
-                                        element.attributePatterns =
-                                            element.attributePatterns || [];
-                                        attr.pattern =
-                                            patternToRegExp(attrName);
-                                        element.attributePatterns.push(attr);
-                                    } else {
-                                        if (!attributes[attrName]) {
-                                            attributesOrder.push(attrName);
-                                        }
-                                        attributes[attrName] = attr;
-                                    }
-                                }
-                            }
-                        }
-                        if (!globalAttributes && elementName === '@') {
-                            globalAttributes = attributes;
-                            globalAttributesOrder = attributesOrder;
-                        }
-                        if (outputName) {
-                            element.outputName = elementName;
-                            elements[outputName] = element;
-                        }
-                        if (hasPatternsRegExp.test(elementName)) {
-                            element.pattern = patternToRegExp(elementName);
-                            patternElements.push(element);
-                        } else {
-                            elements[elementName] = element;
-                        }
-                    }
-                }
-            }
-        };
-        const setValidElements = (validElements) => {
-            patternElements = [];
-            each$g(keys(elements), (name) => {
-                delete elements[name];
-            });
-            addValidElements(validElements);
-            each$d(schemaItems, (element, name) => {
-                children[name] = element.children;
-            });
-        };
-        const addCustomElements = (customElements) => {
-            const customElementRegExp = /^(~)?(.+)$/;
-            if (customElements) {
-                mapCache.text_block_elements = mapCache.block_elements = null;
-                each$d(split$1(customElements, ','), (rule) => {
-                    const matches = customElementRegExp.exec(rule),
-                        inline = matches[1] === '~',
-                        cloneName = inline ? 'span' : 'div',
-                        name = matches[2];
-                    children[name] = children[cloneName];
-                    customElementsMap[name] = cloneName;
-                    if (!inline) {
-                        blockElementsMap[name.toUpperCase()] = {};
-                        blockElementsMap[name] = {};
-                    }
-                    if (!elements[name]) {
-                        let customRule = elements[cloneName];
-                        customRule = extend$2({}, customRule);
-                        delete customRule.removeEmptyAttrs;
-                        delete customRule.removeEmpty;
-                        elements[name] = customRule;
-                    }
-                    each$d(children, (element, elmName) => {
-                        if (element[cloneName]) {
-                            children[elmName] = element = extend$2(
-                                {},
-                                children[elmName]
-                            );
-                            element[name] = element[cloneName];
-                        }
-                    });
-                });
-            }
-        };
-        const addValidChildren = (validChildren) => {
-            const childRuleRegExp =
-                /^([+\-]?)([A-Za-z0-9_\-.\u00b7\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u037d\u037f-\u1fff\u200c-\u200d\u203f-\u2040\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]+)\[([^\]]+)]$/;
-            mapCache[schemaType] = null;
-            if (validChildren) {
-                each$d(split$1(validChildren, ','), (rule) => {
-                    const matches = childRuleRegExp.exec(rule);
-                    let parent, prefix;
-                    if (matches) {
-                        prefix = matches[1];
-                        if (prefix) {
-                            parent = children[matches[2]];
-                        } else {
-                            parent = children[matches[2]] = { '#comment': {} };
-                        }
-                        parent = children[matches[2]];
-                        each$d(split$1(matches[3], '|'), (child) => {
-                            if (prefix === '-') {
-                                delete parent[child];
-                            } else {
-                                parent[child] = {};
-                            }
-                        });
-                    }
-                });
-            }
-        };
-        const getElementRule = (name) => {
-            let element = elements[name],
-                i;
-            if (element) {
-                return element;
-            }
-            i = patternElements.length;
-            while (i--) {
-                element = patternElements[i];
-                if (element.pattern.test(name)) {
-                    return element;
-                }
-            }
-        };
-        if (!settings.valid_elements) {
-            each$d(schemaItems, (element, name) => {
-                elements[name] = {
-                    attributes: element.attributes,
-                    attributesOrder: element.attributesOrder,
-                };
-                children[name] = element.children;
-            });
-            each$d(split$1('strong/b em/i'), (item) => {
-                const items = split$1(item, '/');
-                elements[items[1]].outputName = items[0];
-            });
-            each$d(textInlineElementsMap, (_val, name) => {
-                if (elements[name]) {
-                    if (settings.padd_empty_block_inline_children) {
-                        elements[name].paddInEmptyBlock = true;
-                    }
-                    elements[name].removeEmpty = true;
-                }
-            });
-            each$d(split$1('ol ul blockquote a table tbody'), (name) => {
-                if (elements[name]) {
-                    elements[name].removeEmpty = true;
-                }
-            });
-            each$d(
-                split$1('p h1 h2 h3 h4 h5 h6 th td pre div address caption li'),
-                (name) => {
-                    elements[name].paddEmpty = true;
-                }
-            );
-            each$d(split$1('span'), (name) => {
-                elements[name].removeEmptyAttrs = true;
-            });
+      let patternElements = [];
+      const customElementsMap = {}, specialElements = {};
+      const createLookupTable = (option, defaultValue, extendWith) => {
+        let value = settings[option];
+        if (!value) {
+          value = mapCache[option];
+          if (!value) {
+            value = createMap(defaultValue, extendWith);
+            mapCache[option] = value;
+          }
         } else {
-            setValidElements(settings.valid_elements);
+          value = makeMap$2(value, /[, ]/, makeMap$2(value.toUpperCase(), /[, ]/));
         }
-        addCustomElements(settings.custom_elements);
-        addValidChildren(settings.valid_children);
-        addValidElements(settings.extended_valid_elements);
-        addValidChildren('+ol[ul|ol],+ul[ul|ol]');
-        each$d(
-            {
-                dd: 'dl',
-                dt: 'dl',
-                li: 'ul ol',
-                td: 'tr',
-                th: 'tr',
-                tr: 'tbody thead tfoot',
-                tbody: 'table',
-                thead: 'table',
-                tfoot: 'table',
-                legend: 'fieldset',
-                area: 'map',
-                param: 'video audio object',
-            },
-            (parents, item) => {
-                if (elements[item]) {
-                    elements[item].parentsRequired = split$1(parents);
+        return value;
+      };
+      settings = settings || {};
+      const schemaType = (_a = settings.schema) !== null && _a !== void 0 ? _a : 'html5';
+      const schemaItems = compileSchema(schemaType);
+      if (settings.verify_html === false) {
+        settings.valid_elements = '*[*]';
+      }
+      const validStyles = compileElementMap(settings.valid_styles);
+      const invalidStyles = compileElementMap(settings.invalid_styles, 'map');
+      const validClasses = compileElementMap(settings.valid_classes, 'map');
+      const whitespaceElementsMap = createLookupTable('whitespace_elements', 'pre script noscript style textarea video audio iframe object code');
+      const selfClosingElementsMap = createLookupTable('self_closing_elements', 'colgroup dd dt li option p td tfoot th thead tr');
+      const voidElementsMap = createLookupTable('void_elements', 'area base basefont br col frame hr img input isindex link ' + 'meta param embed source wbr track');
+      const boolAttrMap = createLookupTable('boolean_attributes', 'checked compact declare defer disabled ismap multiple nohref noresize ' + 'noshade nowrap readonly selected autoplay loop controls allowfullscreen');
+      const nonEmptyOrMoveCaretBeforeOnEnter = 'td th iframe video audio object script code';
+      const nonEmptyElementsMap = createLookupTable('non_empty_elements', nonEmptyOrMoveCaretBeforeOnEnter + ' pre', voidElementsMap);
+      const moveCaretBeforeOnEnterElementsMap = createLookupTable('move_caret_before_on_enter_elements', nonEmptyOrMoveCaretBeforeOnEnter + ' table', voidElementsMap);
+      const textBlockElementsMap = createLookupTable('text_block_elements', 'h1 h2 h3 h4 h5 h6 p div address pre form ' + 'blockquote center dir fieldset header footer article section hgroup aside main nav figure');
+      const blockElementsMap = createLookupTable('block_elements', 'hr table tbody thead tfoot ' + 'th tr td li ol ul caption dl dt dd noscript menu isindex option ' + 'datalist select optgroup figcaption details summary', textBlockElementsMap);
+      const textInlineElementsMap = createLookupTable('text_inline_elements', 'span strong b em i font s strike u var cite ' + 'dfn code mark q sup sub samp');
+      each$d('script noscript iframe noframes noembed title style textarea xmp plaintext'.split(' '), name => {
+        specialElements[name] = new RegExp('</' + name + '[^>]*>', 'gi');
+      });
+      const patternToRegExp = str => new RegExp('^' + str.replace(/([?+*])/g, '.$1') + '$');
+      const addValidElements = validElements => {
+        let ei, el, ai, al, matches, element, attr, attrData, elementName, attrName, attrType, attributes, attributesOrder, prefix, outputName, globalAttributes, globalAttributesOrder, value;
+        const elementRuleRegExp = /^([#+\-])?([^\[!\/]+)(?:\/([^\[!]+))?(?:(!?)\[([^\]]+)])?$/, attrRuleRegExp = /^([!\-])?(\w+[\\:]:\w+|[^=~<]+)?(?:([=~<])(.*))?$/, hasPatternsRegExp = /[*?+]/;
+        if (validElements) {
+          const validElementsArr = split$1(validElements, ',');
+          if (elements['@']) {
+            globalAttributes = elements['@'].attributes;
+            globalAttributesOrder = elements['@'].attributesOrder;
+          }
+          for (ei = 0, el = validElementsArr.length; ei < el; ei++) {
+            matches = elementRuleRegExp.exec(validElementsArr[ei]);
+            if (matches) {
+              prefix = matches[1];
+              elementName = matches[2];
+              outputName = matches[3];
+              attrData = matches[5];
+              attributes = {};
+              attributesOrder = [];
+              element = {
+                attributes,
+                attributesOrder
+              };
+              if (prefix === '#') {
+                element.paddEmpty = true;
+              }
+              if (prefix === '-') {
+                element.removeEmpty = true;
+              }
+              if (matches[4] === '!') {
+                element.removeEmptyAttrs = true;
+              }
+              if (globalAttributes) {
+                each$f(globalAttributes, (value, key) => {
+                  attributes[key] = value;
+                });
+                attributesOrder.push.apply(attributesOrder, globalAttributesOrder);
+              }
+              if (attrData) {
+                attrData = split$1(attrData, '|');
+                for (ai = 0, al = attrData.length; ai < al; ai++) {
+                  matches = attrRuleRegExp.exec(attrData[ai]);
+                  if (matches) {
+                    attr = {};
+                    attrType = matches[1];
+                    attrName = matches[2].replace(/[\\:]:/g, ':');
+                    prefix = matches[3];
+                    value = matches[4];
+                    if (attrType === '!') {
+                      element.attributesRequired = element.attributesRequired || [];
+                      element.attributesRequired.push(attrName);
+                      attr.required = true;
+                    }
+                    if (attrType === '-') {
+                      delete attributes[attrName];
+                      attributesOrder.splice(inArray(attributesOrder, attrName), 1);
+                      continue;
+                    }
+                    if (prefix) {
+                      if (prefix === '=') {
+                        element.attributesDefault = element.attributesDefault || [];
+                        element.attributesDefault.push({
+                          name: attrName,
+                          value
+                        });
+                        attr.defaultValue = value;
+                      }
+                      if (prefix === '~') {
+                        element.attributesForced = element.attributesForced || [];
+                        element.attributesForced.push({
+                          name: attrName,
+                          value
+                        });
+                        attr.forcedValue = value;
+                      }
+                      if (prefix === '<') {
+                        attr.validValues = makeMap$2(value, '?');
+                      }
+                    }
+                    if (hasPatternsRegExp.test(attrName)) {
+                      element.attributePatterns = element.attributePatterns || [];
+                      attr.pattern = patternToRegExp(attrName);
+                      element.attributePatterns.push(attr);
+                    } else {
+                      if (!attributes[attrName]) {
+                        attributesOrder.push(attrName);
+                      }
+                      attributes[attrName] = attr;
+                    }
+                  }
                 }
+              }
+              if (!globalAttributes && elementName === '@') {
+                globalAttributes = attributes;
+                globalAttributesOrder = attributesOrder;
+              }
+              if (outputName) {
+                element.outputName = elementName;
+                elements[outputName] = element;
+              }
+              if (hasPatternsRegExp.test(elementName)) {
+                element.pattern = patternToRegExp(elementName);
+                patternElements.push(element);
+              } else {
+                elements[elementName] = element;
+              }
             }
-        );
+          }
+        }
+      };
+      const setValidElements = validElements => {
+        patternElements = [];
+        each$g(keys(elements), name => {
+          delete elements[name];
+        });
+        addValidElements(validElements);
+        each$d(schemaItems, (element, name) => {
+          children[name] = element.children;
+        });
+      };
+      const addCustomElements = customElements => {
+        const customElementRegExp = /^(~)?(.+)$/;
+        if (customElements) {
+          mapCache.text_block_elements = mapCache.block_elements = null;
+          each$d(split$1(customElements, ','), rule => {
+            const matches = customElementRegExp.exec(rule), inline = matches[1] === '~', cloneName = inline ? 'span' : 'div', name = matches[2];
+            children[name] = children[cloneName];
+            customElementsMap[name] = cloneName;
+            if (!inline) {
+              blockElementsMap[name.toUpperCase()] = {};
+              blockElementsMap[name] = {};
+            }
+            if (!elements[name]) {
+              let customRule = elements[cloneName];
+              customRule = extend$2({}, customRule);
+              delete customRule.removeEmptyAttrs;
+              delete customRule.removeEmpty;
+              elements[name] = customRule;
+            }
+            each$d(children, (element, elmName) => {
+              if (element[cloneName]) {
+                children[elmName] = element = extend$2({}, children[elmName]);
+                element[name] = element[cloneName];
+              }
+            });
+          });
+        }
+      };
+      const addValidChildren = validChildren => {
+        const childRuleRegExp = /^([+\-]?)([A-Za-z0-9_\-.\u00b7\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u037d\u037f-\u1fff\u200c-\u200d\u203f-\u2040\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]+)\[([^\]]+)]$/;
+        mapCache[schemaType] = null;
+        if (validChildren) {
+          each$d(split$1(validChildren, ','), rule => {
+            const matches = childRuleRegExp.exec(rule);
+            let parent, prefix;
+            if (matches) {
+              prefix = matches[1];
+              if (prefix) {
+                parent = children[matches[2]];
+              } else {
+                parent = children[matches[2]] = { '#comment': {} };
+              }
+              parent = children[matches[2]];
+              each$d(split$1(matches[3], '|'), child => {
+                if (prefix === '-') {
+                  delete parent[child];
+                } else {
+                  parent[child] = {};
+                }
+              });
+            }
+          });
+        }
+      };
+      const getElementRule = name => {
+        let element = elements[name], i;
+        if (element) {
+          return element;
+        }
+        i = patternElements.length;
+        while (i--) {
+          element = patternElements[i];
+          if (element.pattern.test(name)) {
+            return element;
+          }
+        }
+      };
+      if (!settings.valid_elements) {
+        each$d(schemaItems, (element, name) => {
+          elements[name] = {
+            attributes: element.attributes,
+            attributesOrder: element.attributesOrder
+          };
+          children[name] = element.children;
+        });
+        each$d(split$1('strong/b em/i'), item => {
+          const items = split$1(item, '/');
+          elements[items[1]].outputName = items[0];
+        });
+        each$d(textInlineElementsMap, (_val, name) => {
+          if (elements[name]) {
+            if (settings.padd_empty_block_inline_children) {
+              elements[name].paddInEmptyBlock = true;
+            }
+            elements[name].removeEmpty = true;
+          }
+        });
+        each$d(split$1('ol ul blockquote a table tbody'), name => {
+          if (elements[name]) {
+            elements[name].removeEmpty = true;
+          }
+        });
+        each$d(split$1('p h1 h2 h3 h4 h5 h6 th td pre div address caption li'), name => {
+          elements[name].paddEmpty = true;
+        });
+        each$d(split$1('span'), name => {
+          elements[name].removeEmptyAttrs = true;
+        });
+      } else {
+        setValidElements(settings.valid_elements);
+      }
+      addCustomElements(settings.custom_elements);
+      addValidChildren(settings.valid_children);
+      addValidElements(settings.extended_valid_elements);
+      addValidChildren('+ol[ul|ol],+ul[ul|ol]');
+      each$d({
+        dd: 'dl',
+        dt: 'dl',
+        li: 'ul ol',
+        td: 'tr',
+        th: 'tr',
+        tr: 'tbody thead tfoot',
+        tbody: 'table',
+        thead: 'table',
+        tfoot: 'table',
+        legend: 'fieldset',
+        area: 'map',
+        param: 'video audio object'
+      }, (parents, item) => {
+        if (elements[item]) {
+          elements[item].parentsRequired = split$1(parents);
+        }
+      });
       if (settings.invalid_elements) {
         each$d(explode$2(settings.invalid_elements), item => {
           if (elements[item]) {
@@ -13301,42 +13123,25 @@
 
     const each$7 = Tools.each;
     const mergeTextDecorationsAndColor = (dom, format, vars, node) => {
-        const processTextDecorationsAndColor = (n) => {
-            if (
-                n.nodeType === 1 &&
-                n.parentNode &&
-                n.parentNode.nodeType === 1
-            ) {
-                const textDecoration = getTextDecoration(dom, n.parentNode);
-                if (dom.getStyle(n, 'color') && textDecoration) {
-                    dom.setStyle(n, 'text-decoration', textDecoration);
-                } else if (
-                    dom.getStyle(n, 'text-decoration') === textDecoration
-                ) {
-                    dom.setStyle(n, 'text-decoration', null);
-                }
-            }
-        };
-        if (
-            format.styles &&
-            (format.styles.color || format.styles.textDecoration)
-        ) {
-            Tools.walk(node, processTextDecorationsAndColor, 'childNodes');
-            processTextDecorationsAndColor(node);
+      const processTextDecorationsAndColor = n => {
+        if (n.nodeType === 1 && n.parentNode && n.parentNode.nodeType === 1) {
+          const textDecoration = getTextDecoration(dom, n.parentNode);
+          if (dom.getStyle(n, 'color') && textDecoration) {
+            dom.setStyle(n, 'text-decoration', textDecoration);
+          } else if (dom.getStyle(n, 'text-decoration') === textDecoration) {
+            dom.setStyle(n, 'text-decoration', null);
+          }
         }
+      };
+      if (format.styles && (format.styles.color || format.styles.textDecoration)) {
+        Tools.walk(node, processTextDecorationsAndColor, 'childNodes');
+        processTextDecorationsAndColor(node);
+      }
     };
     const mergeBackgroundColorAndFontSize = (dom, format, vars, node) => {
-        if (format.styles && format.styles.backgroundColor) {
-            processChildElements(
-                node,
-                hasStyle(dom, 'fontSize'),
-                applyStyle(
-                    dom,
-                    'backgroundColor',
-                    replaceVars(format.styles.backgroundColor, vars)
-                )
-            );
-        }
+      if (format.styles && format.styles.backgroundColor) {
+        processChildElements(node, hasStyle(dom, 'fontSize'), applyStyle(dom, 'backgroundColor', replaceVars(format.styles.backgroundColor, vars)));
+      }
     };
     const mergeSubSup = (dom, format, vars, node) => {
       if (isInlineFormat(format) && (format.inline === 'sub' || format.inline === 'sup')) {
@@ -13378,13 +13183,13 @@
       return isElement$6(node) && !isBookmarkNode$1(node) && !isCaretNode(node) && !isBogus$2(node);
     };
     const canFormatBR = (editor, format, node, parentName) => {
-        if (canFormatEmptyLines(editor) && isInlineFormat(format)) {
-            const validBRParentElements = getTextRootBlockElements(editor.schema);
-            const hasCaretNodeSibling = sibling(SugarElement.fromDom(node), sibling => isCaretNode(sibling.dom));
-            return hasNonNullableKey(validBRParentElements, parentName) && isEmpty$2(SugarElement.fromDom(node.parentNode), false) && !hasCaretNodeSibling;
-        } else {
-            return false;
-        }
+      if (canFormatEmptyLines(editor) && isInlineFormat(format)) {
+        const validBRParentElements = getTextRootBlockElements(editor.schema);
+        const hasCaretNodeSibling = sibling(SugarElement.fromDom(node), sibling => isCaretNode(sibling.dom));
+        return hasNonNullableKey(validBRParentElements, parentName) && isEmpty$2(SugarElement.fromDom(node.parentNode), false) && !hasCaretNodeSibling;
+      } else {
+        return false;
+      }
     };
     const applyFormat$1 = (ed, name, vars, node) => {
       const formatList = ed.formatter.get(name);
@@ -16073,144 +15878,110 @@
       }
     };
     const walkTree = (root, preprocessors, postprocessors) => {
-        const traverseOrder = [];
-        for (
-            let node = root, lastNode = node;
-            isNonNullable(node);
-            lastNode = node, node = node.walk()
-        ) {
-            each$g(preprocessors, (preprocess) => preprocess(node));
-            if (isNullable(node.parent) && node !== root) {
-                node = lastNode;
-            } else {
-                traverseOrder.push(node);
-            }
+      const traverseOrder = [];
+      for (let node = root, lastNode = node; isNonNullable(node); lastNode = node, node = node.walk()) {
+        each$g(preprocessors, preprocess => preprocess(node));
+        if (isNullable(node.parent) && node !== root) {
+          node = lastNode;
+        } else {
+          traverseOrder.push(node);
         }
-        for (let i = traverseOrder.length - 1; i >= 0; i--) {
-            const node = traverseOrder[i];
-            each$g(postprocessors, (postprocess) => postprocess(node));
-        }
+      }
+      for (let i = traverseOrder.length - 1; i >= 0; i--) {
+        const node = traverseOrder[i];
+        each$g(postprocessors, postprocess => postprocess(node));
+      }
     };
     const whitespaceCleaner = (root, schema, settings, args) => {
-        const validate = settings.validate;
-        const nonEmptyElements = schema.getNonEmptyElements();
-        const whitespaceElements = schema.getWhitespaceElements();
-        const blockElements = extend$1(
-            makeMap('script,style,head,html,body,title,meta,param'),
-            schema.getBlockElements()
-        );
-        const textRootBlockElements = getTextRootBlockElements(schema);
-        const allWhiteSpaceRegExp = /[ \t\r\n]+/g;
-        const startWhiteSpaceRegExp = /^[ \t\r\n]+/;
-        const endWhiteSpaceRegExp = /[ \t\r\n]+$/;
-        const hasWhitespaceParent = (node) => {
+      const validate = settings.validate;
+      const nonEmptyElements = schema.getNonEmptyElements();
+      const whitespaceElements = schema.getWhitespaceElements();
+      const blockElements = extend$1(makeMap('script,style,head,html,body,title,meta,param'), schema.getBlockElements());
+      const textRootBlockElements = getTextRootBlockElements(schema);
+      const allWhiteSpaceRegExp = /[ \t\r\n]+/g;
+      const startWhiteSpaceRegExp = /^[ \t\r\n]+/;
+      const endWhiteSpaceRegExp = /[ \t\r\n]+$/;
+      const hasWhitespaceParent = node => {
+        node = node.parent;
+        while (isNonNullable(node)) {
+          if (node.name in whitespaceElements) {
+            return true;
+          } else {
             node = node.parent;
-            while (isNonNullable(node)) {
-                if (node.name in whitespaceElements) {
-                    return true;
-                } else {
-                    node = node.parent;
-                }
+          }
+        }
+        return false;
+      };
+      const isTextRootBlockEmpty = node => {
+        let tempNode = node;
+        while (isNonNullable(tempNode)) {
+          if (tempNode.name in textRootBlockElements) {
+            return isEmpty(schema, nonEmptyElements, whitespaceElements, tempNode);
+          } else {
+            tempNode = tempNode.parent;
+          }
+        }
+        return false;
+      };
+      const isAtEdgeOfBlock = (node, start) => {
+        const neighbour = start ? node.prev : node.next;
+        if (isNonNullable(neighbour)) {
+          return false;
+        }
+        return node.parent.name in blockElements && (node.parent !== root || args.isRootContent);
+      };
+      const preprocess = node => {
+        if (node.type === 3) {
+          if (!hasWhitespaceParent(node)) {
+            let text = node.value;
+            text = text.replace(allWhiteSpaceRegExp, ' ');
+            if (isLineBreakNode(node.prev, blockElements) || isAtEdgeOfBlock(node, true)) {
+              text = text.replace(startWhiteSpaceRegExp, '');
             }
-            return false;
-        };
-        const isTextRootBlockEmpty = (node) => {
-            let tempNode = node;
-            while (isNonNullable(tempNode)) {
-                if (tempNode.name in textRootBlockElements) {
-                    return isEmpty(
-                        schema,
-                        nonEmptyElements,
-                        whitespaceElements,
-                        tempNode
-                    );
-                } else {
-                    tempNode = tempNode.parent;
-                }
+            if (text.length === 0) {
+              node.remove();
+            } else {
+              node.value = text;
             }
-            return false;
-        };
-        const isAtEdgeOfBlock = (node, start) => {
-            const neighbour = start ? node.prev : node.next;
-            if (isNonNullable(neighbour)) {
-                return false;
+          }
+        }
+      };
+      const postprocess = node => {
+        var _a;
+        if (node.type === 1) {
+          const elementRule = schema.getElementRule(node.name);
+          if (validate && elementRule) {
+            const isNodeEmpty = isEmpty(schema, nonEmptyElements, whitespaceElements, node);
+            if (elementRule.paddInEmptyBlock && isNodeEmpty && isTextRootBlockEmpty(node)) {
+              paddEmptyNode(settings, args, blockElements, node);
+            } else if (elementRule.removeEmpty && isNodeEmpty) {
+              if (blockElements[node.name]) {
+                node.remove();
+              } else {
+                node.unwrap();
+              }
+            } else if (elementRule.paddEmpty && (isNodeEmpty || isPaddedWithNbsp(node))) {
+              paddEmptyNode(settings, args, blockElements, node);
             }
-            return (
-                node.parent.name in blockElements &&
-                (node.parent !== root || args.isRootContent)
-            );
-        };
-        const preprocess = (node) => {
-            if (node.type === 3) {
-                if (!hasWhitespaceParent(node)) {
-                    let text = node.value;
-                    text = text.replace(allWhiteSpaceRegExp, ' ');
-                    if (
-                        isLineBreakNode(node.prev, blockElements) ||
-                        isAtEdgeOfBlock(node, true)
-                    ) {
-                        text = text.replace(startWhiteSpaceRegExp, '');
-                    }
-                    if (text.length === 0) {
-                        node.remove();
-                    } else {
-                        node.value = text;
-                    }
-                }
+          }
+        } else if (node.type === 3) {
+          if (!hasWhitespaceParent(node)) {
+            let text = node.value;
+            if (blockElements[(_a = node.next) === null || _a === void 0 ? void 0 : _a.name] || isAtEdgeOfBlock(node, false)) {
+              text = text.replace(endWhiteSpaceRegExp, '');
             }
-        };
-        const postprocess = (node) => {
-            var _a;
-            if (node.type === 1) {
-                const elementRule = schema.getElementRule(node.name);
-                if (validate && elementRule) {
-                    const isNodeEmpty = isEmpty(
-                        schema,
-                        nonEmptyElements,
-                        whitespaceElements,
-                        node
-                    );
-                    if (
-                        elementRule.paddInEmptyBlock &&
-                        isNodeEmpty &&
-                        isTextRootBlockEmpty(node)
-                    ) {
-                        paddEmptyNode(settings, args, blockElements, node);
-                    } else if (elementRule.removeEmpty && isNodeEmpty) {
-                        if (blockElements[node.name]) {
-                            node.remove();
-                        } else {
-                            node.unwrap();
-                        }
-                    } else if (
-                        elementRule.paddEmpty &&
-                        (isNodeEmpty || isPaddedWithNbsp(node))
-                    ) {
-                        paddEmptyNode(settings, args, blockElements, node);
-                    }
-                }
-            } else if (node.type === 3) {
-                if (!hasWhitespaceParent(node)) {
-                    let text = node.value;
-                    if (
-                        blockElements[
-                            (_a = node.next) === null || _a === void 0
-                                ? void 0
-                                : _a.name
-                        ] ||
-                        isAtEdgeOfBlock(node, false)
-                    ) {
-                        text = text.replace(endWhiteSpaceRegExp, '');
-                    }
-                    if (text.length === 0) {
-                        node.remove();
-                    } else {
-                        node.value = text;
-                    }
-                }
+            if (text.length === 0) {
+              node.remove();
+            } else {
+              node.value = text;
             }
-        };
-        return [preprocess, postprocess];
+          }
+        }
+      };
+      return [
+        preprocess,
+        postprocess
+      ];
     };
     const getRootBlockName = (settings, args) => {
       var _a;
@@ -25670,550 +25441,470 @@
       setup$2(editor);
     };
 
-    const Quirks = (editor) => {
-        const each = Tools.each;
-        const BACKSPACE = VK.BACKSPACE,
-            DELETE = VK.DELETE,
-            dom = editor.dom,
-            selection = editor.selection,
-            parser = editor.parser;
-        const browser = Env.browser;
-        const isGecko = browser.isFirefox();
-        const isWebKit = browser.isChromium() || browser.isSafari();
-        const isiOS = Env.deviceType.isiPhone() || Env.deviceType.isiPad();
-        const isMac = Env.os.isMacOS() || Env.os.isiOS();
-        const setEditorCommandState = (cmd, state) => {
-            try {
-                editor.getDoc().execCommand(cmd, false, state);
-            } catch (ex) {}
-        };
-        const isDefaultPrevented = (e) => {
-            return e.isDefaultPrevented();
-        };
-        const emptyEditorWhenDeleting = () => {
-            const serializeRng = (rng) => {
-                const body = dom.create('body');
-                const contents = rng.cloneContents();
-                body.appendChild(contents);
-                return selection.serializer.serialize(body, { format: 'html' });
-            };
-            const allContentsSelected = (rng) => {
-                const selection = serializeRng(rng);
-                const allRng = dom.createRng();
-                allRng.selectNode(editor.getBody());
-                const allSelection = serializeRng(allRng);
-                return selection === allSelection;
-            };
-            editor.on('keydown', (e) => {
-                const keyCode = e.keyCode;
-                let isCollapsed, body;
-                if (
-                    !isDefaultPrevented(e) &&
-                    (keyCode === DELETE || keyCode === BACKSPACE)
-                ) {
-                    isCollapsed = editor.selection.isCollapsed();
-                    body = editor.getBody();
-                    if (isCollapsed && !dom.isEmpty(body)) {
-                        return;
-                    }
-                    if (
-                        !isCollapsed &&
-                        !allContentsSelected(editor.selection.getRng())
-                    ) {
-                        return;
-                    }
-                    e.preventDefault();
-                    editor.setContent('');
-                    if (body.firstChild && dom.isBlock(body.firstChild)) {
-                        editor.selection.setCursorLocation(body.firstChild, 0);
-                    } else {
-                        editor.selection.setCursorLocation(body, 0);
-                    }
-                    editor.nodeChanged();
-                }
-            });
-        };
-        const selectAll = () => {
-            editor.shortcuts.add('meta+a', null, 'SelectAll');
-        };
-        const documentElementEditingFocus = () => {
-            if (!editor.inline) {
-                dom.bind(editor.getDoc(), 'mousedown mouseup', (e) => {
-                    let rng;
-                    if (e.target === editor.getDoc().documentElement) {
-                        rng = selection.getRng();
-                        editor.getBody().focus();
-                        if (e.type === 'mousedown') {
-                            if (isCaretContainer$2(rng.startContainer)) {
-                                return;
-                            }
-                            selection.placeCaretAt(e.clientX, e.clientY);
-                        } else {
-                            selection.setRng(rng);
-                        }
-                    }
-                });
-            }
-        };
-        const removeHrOnBackspace = () => {
-            editor.on('keydown', (e) => {
-                if (!isDefaultPrevented(e) && e.keyCode === BACKSPACE) {
-                    if (!editor.getBody().getElementsByTagName('hr').length) {
-                        return;
-                    }
-                    if (
-                        selection.isCollapsed() &&
-                        selection.getRng().startOffset === 0
-                    ) {
-                        const node = selection.getNode();
-                        const previousSibling = node.previousSibling;
-                        if (node.nodeName === 'HR') {
-                            dom.remove(node);
-                            e.preventDefault();
-                            return;
-                        }
-                        if (
-                            previousSibling &&
-                            previousSibling.nodeName &&
-                            previousSibling.nodeName.toLowerCase() === 'hr'
-                        ) {
-                            dom.remove(previousSibling);
-                            e.preventDefault();
-                        }
-                    }
-                }
-            });
-        };
-        const focusBody = () => {
-            if (!Range.prototype.getClientRects) {
-                editor.on('mousedown', (e) => {
-                    if (
-                        !isDefaultPrevented(e) &&
-                        e.target.nodeName === 'HTML'
-                    ) {
-                        const body = editor.getBody();
-                        body.blur();
-                        Delay.setEditorTimeout(editor, () => {
-                            body.focus();
-                        });
-                    }
-                });
-            }
-        };
-        const selectControlElements = () => {
-            const visualAidsAnchorClass = getVisualAidsAnchorClass(editor);
-            editor.on('click', (e) => {
-                const target = e.target;
-                if (
-                    /^(IMG|HR)$/.test(target.nodeName) &&
-                    dom.getContentEditableParent(target) !== 'false'
-                ) {
-                    e.preventDefault();
-                    editor.selection.select(target);
-                    editor.nodeChanged();
-                }
-                if (
-                    target.nodeName === 'A' &&
-                    dom.hasClass(target, visualAidsAnchorClass) &&
-                    target.childNodes.length === 0
-                ) {
-                    e.preventDefault();
-                    selection.select(target);
-                }
-            });
-        };
-        const removeStylesWhenDeletingAcrossBlockElements = () => {
-            const getAttributeApplyFunction = () => {
-                const template = dom.getAttribs(
-                    selection.getStart().cloneNode(false)
-                );
-                return () => {
-                    const target = selection.getStart();
-                    if (target !== editor.getBody()) {
-                        dom.setAttrib(target, 'style', null);
-                        each(template, (attr) => {
-                            target.setAttributeNode(attr.cloneNode(true));
-                        });
-                    }
-                };
-            };
-            const isSelectionAcrossElements = () => {
-                return (
-                    !selection.isCollapsed() &&
-                    dom.getParent(selection.getStart(), dom.isBlock) !==
-                        dom.getParent(selection.getEnd(), dom.isBlock)
-                );
-            };
-            editor.on('keypress', (e) => {
-                let applyAttributes;
-                if (
-                    !isDefaultPrevented(e) &&
-                    (e.keyCode === 8 || e.keyCode === 46) &&
-                    isSelectionAcrossElements()
-                ) {
-                    applyAttributes = getAttributeApplyFunction();
-                    editor.getDoc().execCommand('delete', false, null);
-                    applyAttributes();
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            dom.bind(editor.getDoc(), 'cut', (e) => {
-                let applyAttributes;
-                if (!isDefaultPrevented(e) && isSelectionAcrossElements()) {
-                    applyAttributes = getAttributeApplyFunction();
-                    Delay.setEditorTimeout(editor, () => {
-                        applyAttributes();
-                    });
-                }
-            });
-        };
-        const disableBackspaceIntoATable = () => {
-            editor.on('keydown', (e) => {
-                if (!isDefaultPrevented(e) && e.keyCode === BACKSPACE) {
-                    if (
-                        selection.isCollapsed() &&
-                        selection.getRng().startOffset === 0
-                    ) {
-                        const previousSibling =
-                            selection.getNode().previousSibling;
-                        if (
-                            previousSibling &&
-                            previousSibling.nodeName &&
-                            previousSibling.nodeName.toLowerCase() === 'table'
-                        ) {
-                            e.preventDefault();
-                            return false;
-                        }
-                    }
-                }
-            });
-        };
-        const removeBlockQuoteOnBackSpace = () => {
-            editor.on('keydown', (e) => {
-                let rng, parent;
-                if (isDefaultPrevented(e) || e.keyCode !== VK.BACKSPACE) {
-                    return;
-                }
-                rng = selection.getRng();
-                const container = rng.startContainer;
-                const offset = rng.startOffset;
-                const root = dom.getRoot();
-                parent = container;
-                if (!rng.collapsed || offset !== 0) {
-                    return;
-                }
-                while (
-                    parent &&
-                    parent.parentNode &&
-                    parent.parentNode.firstChild === parent &&
-                    parent.parentNode !== root
-                ) {
-                    parent = parent.parentNode;
-                }
-                if (parent.tagName === 'BLOCKQUOTE') {
-                    editor.formatter.toggle('blockquote', null, parent);
-                    rng = dom.createRng();
-                    rng.setStart(container, 0);
-                    rng.setEnd(container, 0);
-                    selection.setRng(rng);
-                }
-            });
-        };
-        const setGeckoEditingOptions = () => {
-            const setOpts = () => {
-                setEditorCommandState('StyleWithCSS', false);
-                setEditorCommandState('enableInlineTableEditing', false);
-                if (!getObjectResizing(editor)) {
-                    setEditorCommandState('enableObjectResizing', false);
-                }
-            };
-            if (!isReadOnly$1(editor)) {
-                editor.on('BeforeExecCommand mousedown', setOpts);
-            }
-        };
-        const addBrAfterLastLinks = () => {
-            const fixLinks = () => {
-                each(dom.select('a'), (node) => {
-                    let parentNode = node.parentNode;
-                    const root = dom.getRoot();
-                    if (parentNode.lastChild === node) {
-                        while (parentNode && !dom.isBlock(parentNode)) {
-                            if (
-                                parentNode.parentNode.lastChild !==
-                                    parentNode ||
-                                parentNode === root
-                            ) {
-                                return;
-                            }
-                            parentNode = parentNode.parentNode;
-                        }
-                        dom.add(parentNode, 'br', { 'data-mce-bogus': 1 });
-                    }
-                });
-            };
-            editor.on('SetContent ExecCommand', (e) => {
-                if (e.type === 'setcontent' || e.command === 'mceInsertLink') {
-                    fixLinks();
-                }
-            });
-        };
-        const setDefaultBlockType = () => {
-            editor.on('init', () => {
-                setEditorCommandState(
-                    'DefaultParagraphSeparator',
-                    getForcedRootBlock(editor)
-                );
-            });
-        };
-        const normalizeSelection = () => {
-            editor.on(
-                'keyup focusin mouseup',
-                (e) => {
-                    if (!VK.modifierPressed(e)) {
-                        selection.normalize();
-                    }
-                },
-                true
-            );
-        };
-        const showBrokenImageIcon = () => {
-            editor.contentStyles.push(
-                'img:-moz-broken {' +
-                    '-moz-force-broken-image-icon:1;' +
-                    'min-width:24px;' +
-                    'min-height:24px' +
-                    '}'
-            );
-        };
-        const restoreFocusOnKeyDown = () => {
-            if (!editor.inline) {
-                editor.on('keydown', () => {
-                    if (document.activeElement === document.body) {
-                        editor.getWin().focus();
-                    }
-                });
-            }
-        };
-        const bodyHeight = () => {
-            if (!editor.inline) {
-                editor.contentStyles.push('body {min-height: 150px}');
-                editor.on('click', (e) => {
-                    let rng;
-                    if (e.target.nodeName === 'HTML') {
-                        rng = editor.selection.getRng();
-                        editor.getBody().focus();
-                        editor.selection.setRng(rng);
-                        editor.selection.normalize();
-                        editor.nodeChanged();
-                    }
-                });
-            }
-        };
-        const blockCmdArrowNavigation = () => {
-            if (isMac) {
-                editor.on('keydown', (e) => {
-                    if (
-                        VK.metaKeyPressed(e) &&
-                        !e.shiftKey &&
-                        (e.keyCode === 37 || e.keyCode === 39)
-                    ) {
-                        e.preventDefault();
-                        const selection = editor.selection.getSel();
-                        selection.modify(
-                            'move',
-                            e.keyCode === 37 ? 'backward' : 'forward',
-                            'lineboundary'
-                        );
-                    }
-                });
-            }
-        };
-        const tapLinksAndImages = () => {
-            editor.on('click', (e) => {
-                let elm = e.target;
-                do {
-                    if (elm.tagName === 'A') {
-                        e.preventDefault();
-                        return;
-                    }
-                } while ((elm = elm.parentNode));
-            });
-            editor.contentStyles.push(
-                '.mce-content-body {-webkit-touch-callout: none}'
-            );
-        };
-        const blockFormSubmitInsideEditor = () => {
-            editor.on('init', () => {
-                editor.dom.bind(editor.getBody(), 'submit', (e) => {
-                    e.preventDefault();
-                });
-            });
-        };
-        const removeAppleInterchangeBrs = () => {
-            parser.addNodeFilter('br', (nodes) => {
-                let i = nodes.length;
-                while (i--) {
-                    if (
-                        nodes[i].attr('class') === 'Apple-interchange-newline'
-                    ) {
-                        nodes[i].remove();
-                    }
-                }
-            });
-        };
-        const refreshContentEditable = noop;
-        const isHidden = () => {
-            if (!isGecko || editor.removed) {
-                return false;
-            }
-            const sel = editor.selection.getSel();
-            return !sel || !sel.rangeCount || sel.rangeCount === 0;
-        };
-        const setupRtc = () => {
-            if (isWebKit) {
-                documentElementEditingFocus();
-                selectControlElements();
-                blockFormSubmitInsideEditor();
-                selectAll();
-                if (isiOS) {
-                    restoreFocusOnKeyDown();
-                    bodyHeight();
-                    tapLinksAndImages();
-                }
-            }
-            if (isGecko) {
-                focusBody();
-                setGeckoEditingOptions();
-                showBrokenImageIcon();
-                blockCmdArrowNavigation();
-            }
-        };
-        const setup = () => {
-            removeBlockQuoteOnBackSpace();
-            emptyEditorWhenDeleting();
-            if (!Env.windowsPhone) {
-                normalizeSelection();
-            }
-            if (isWebKit) {
-                documentElementEditingFocus();
-                selectControlElements();
-                setDefaultBlockType();
-                blockFormSubmitInsideEditor();
-                disableBackspaceIntoATable();
-                removeAppleInterchangeBrs();
-                if (isiOS) {
-                    restoreFocusOnKeyDown();
-                    bodyHeight();
-                    tapLinksAndImages();
-                } else {
-                    selectAll();
-                }
-            }
-            if (isGecko) {
-                removeHrOnBackspace();
-                focusBody();
-                removeStylesWhenDeletingAcrossBlockElements();
-                setGeckoEditingOptions();
-                addBrAfterLastLinks();
-                showBrokenImageIcon();
-                blockCmdArrowNavigation();
-                disableBackspaceIntoATable();
-            }
-        };
-        if (isRtc(editor)) {
-            setupRtc();
-        } else {
-            setup();
+    const Quirks = editor => {
+      const each = Tools.each;
+      const BACKSPACE = VK.BACKSPACE, DELETE = VK.DELETE, dom = editor.dom, selection = editor.selection, parser = editor.parser;
+      const browser = Env.browser;
+      const isGecko = browser.isFirefox();
+      const isWebKit = browser.isChromium() || browser.isSafari();
+      const isiOS = Env.deviceType.isiPhone() || Env.deviceType.isiPad();
+      const isMac = Env.os.isMacOS() || Env.os.isiOS();
+      const setEditorCommandState = (cmd, state) => {
+        try {
+          editor.getDoc().execCommand(cmd, false, state);
+        } catch (ex) {
         }
-        return {
-            refreshContentEditable,
-            isHidden,
+      };
+      const isDefaultPrevented = e => {
+        return e.isDefaultPrevented();
+      };
+      const emptyEditorWhenDeleting = () => {
+        const serializeRng = rng => {
+          const body = dom.create('body');
+          const contents = rng.cloneContents();
+          body.appendChild(contents);
+          return selection.serializer.serialize(body, { format: 'html' });
         };
+        const allContentsSelected = rng => {
+          const selection = serializeRng(rng);
+          const allRng = dom.createRng();
+          allRng.selectNode(editor.getBody());
+          const allSelection = serializeRng(allRng);
+          return selection === allSelection;
+        };
+        editor.on('keydown', e => {
+          const keyCode = e.keyCode;
+          let isCollapsed, body;
+          if (!isDefaultPrevented(e) && (keyCode === DELETE || keyCode === BACKSPACE)) {
+            isCollapsed = editor.selection.isCollapsed();
+            body = editor.getBody();
+            if (isCollapsed && !dom.isEmpty(body)) {
+              return;
+            }
+            if (!isCollapsed && !allContentsSelected(editor.selection.getRng())) {
+              return;
+            }
+            e.preventDefault();
+            editor.setContent('');
+            if (body.firstChild && dom.isBlock(body.firstChild)) {
+              editor.selection.setCursorLocation(body.firstChild, 0);
+            } else {
+              editor.selection.setCursorLocation(body, 0);
+            }
+            editor.nodeChanged();
+          }
+        });
+      };
+      const selectAll = () => {
+        editor.shortcuts.add('meta+a', null, 'SelectAll');
+      };
+      const documentElementEditingFocus = () => {
+        if (!editor.inline) {
+          dom.bind(editor.getDoc(), 'mousedown mouseup', e => {
+            let rng;
+            if (e.target === editor.getDoc().documentElement) {
+              rng = selection.getRng();
+              editor.getBody().focus();
+              if (e.type === 'mousedown') {
+                if (isCaretContainer$2(rng.startContainer)) {
+                  return;
+                }
+                selection.placeCaretAt(e.clientX, e.clientY);
+              } else {
+                selection.setRng(rng);
+              }
+            }
+          });
+        }
+      };
+      const removeHrOnBackspace = () => {
+        editor.on('keydown', e => {
+          if (!isDefaultPrevented(e) && e.keyCode === BACKSPACE) {
+            if (!editor.getBody().getElementsByTagName('hr').length) {
+              return;
+            }
+            if (selection.isCollapsed() && selection.getRng().startOffset === 0) {
+              const node = selection.getNode();
+              const previousSibling = node.previousSibling;
+              if (node.nodeName === 'HR') {
+                dom.remove(node);
+                e.preventDefault();
+                return;
+              }
+              if (previousSibling && previousSibling.nodeName && previousSibling.nodeName.toLowerCase() === 'hr') {
+                dom.remove(previousSibling);
+                e.preventDefault();
+              }
+            }
+          }
+        });
+      };
+      const focusBody = () => {
+        if (!Range.prototype.getClientRects) {
+          editor.on('mousedown', e => {
+            if (!isDefaultPrevented(e) && e.target.nodeName === 'HTML') {
+              const body = editor.getBody();
+              body.blur();
+              Delay.setEditorTimeout(editor, () => {
+                body.focus();
+              });
+            }
+          });
+        }
+      };
+      const selectControlElements = () => {
+        const visualAidsAnchorClass = getVisualAidsAnchorClass(editor);
+        editor.on('click', e => {
+          const target = e.target;
+          if (/^(IMG|HR)$/.test(target.nodeName) && dom.getContentEditableParent(target) !== 'false') {
+            e.preventDefault();
+            editor.selection.select(target);
+            editor.nodeChanged();
+          }
+          if (target.nodeName === 'A' && dom.hasClass(target, visualAidsAnchorClass) && target.childNodes.length === 0) {
+            e.preventDefault();
+            selection.select(target);
+          }
+        });
+      };
+      const removeStylesWhenDeletingAcrossBlockElements = () => {
+        const getAttributeApplyFunction = () => {
+          const template = dom.getAttribs(selection.getStart().cloneNode(false));
+          return () => {
+            const target = selection.getStart();
+            if (target !== editor.getBody()) {
+              dom.setAttrib(target, 'style', null);
+              each(template, attr => {
+                target.setAttributeNode(attr.cloneNode(true));
+              });
+            }
+          };
+        };
+        const isSelectionAcrossElements = () => {
+          return !selection.isCollapsed() && dom.getParent(selection.getStart(), dom.isBlock) !== dom.getParent(selection.getEnd(), dom.isBlock);
+        };
+        editor.on('keypress', e => {
+          let applyAttributes;
+          if (!isDefaultPrevented(e) && (e.keyCode === 8 || e.keyCode === 46) && isSelectionAcrossElements()) {
+            applyAttributes = getAttributeApplyFunction();
+            editor.getDoc().execCommand('delete', false, null);
+            applyAttributes();
+            e.preventDefault();
+            return false;
+          }
+        });
+        dom.bind(editor.getDoc(), 'cut', e => {
+          let applyAttributes;
+          if (!isDefaultPrevented(e) && isSelectionAcrossElements()) {
+            applyAttributes = getAttributeApplyFunction();
+            Delay.setEditorTimeout(editor, () => {
+              applyAttributes();
+            });
+          }
+        });
+      };
+      const disableBackspaceIntoATable = () => {
+        editor.on('keydown', e => {
+          if (!isDefaultPrevented(e) && e.keyCode === BACKSPACE) {
+            if (selection.isCollapsed() && selection.getRng().startOffset === 0) {
+              const previousSibling = selection.getNode().previousSibling;
+              if (previousSibling && previousSibling.nodeName && previousSibling.nodeName.toLowerCase() === 'table') {
+                e.preventDefault();
+                return false;
+              }
+            }
+          }
+        });
+      };
+      const removeBlockQuoteOnBackSpace = () => {
+        editor.on('keydown', e => {
+          let rng, parent;
+          if (isDefaultPrevented(e) || e.keyCode !== VK.BACKSPACE) {
+            return;
+          }
+          rng = selection.getRng();
+          const container = rng.startContainer;
+          const offset = rng.startOffset;
+          const root = dom.getRoot();
+          parent = container;
+          if (!rng.collapsed || offset !== 0) {
+            return;
+          }
+          while (parent && parent.parentNode && parent.parentNode.firstChild === parent && parent.parentNode !== root) {
+            parent = parent.parentNode;
+          }
+          if (parent.tagName === 'BLOCKQUOTE') {
+            editor.formatter.toggle('blockquote', null, parent);
+            rng = dom.createRng();
+            rng.setStart(container, 0);
+            rng.setEnd(container, 0);
+            selection.setRng(rng);
+          }
+        });
+      };
+      const setGeckoEditingOptions = () => {
+        const setOpts = () => {
+          setEditorCommandState('StyleWithCSS', false);
+          setEditorCommandState('enableInlineTableEditing', false);
+          if (!getObjectResizing(editor)) {
+            setEditorCommandState('enableObjectResizing', false);
+          }
+        };
+        if (!isReadOnly$1(editor)) {
+          editor.on('BeforeExecCommand mousedown', setOpts);
+        }
+      };
+      const addBrAfterLastLinks = () => {
+        const fixLinks = () => {
+          each(dom.select('a'), node => {
+            let parentNode = node.parentNode;
+            const root = dom.getRoot();
+            if (parentNode.lastChild === node) {
+              while (parentNode && !dom.isBlock(parentNode)) {
+                if (parentNode.parentNode.lastChild !== parentNode || parentNode === root) {
+                  return;
+                }
+                parentNode = parentNode.parentNode;
+              }
+              dom.add(parentNode, 'br', { 'data-mce-bogus': 1 });
+            }
+          });
+        };
+        editor.on('SetContent ExecCommand', e => {
+          if (e.type === 'setcontent' || e.command === 'mceInsertLink') {
+            fixLinks();
+          }
+        });
+      };
+      const setDefaultBlockType = () => {
+        editor.on('init', () => {
+          setEditorCommandState('DefaultParagraphSeparator', getForcedRootBlock(editor));
+        });
+      };
+      const normalizeSelection = () => {
+        editor.on('keyup focusin mouseup', e => {
+          if (!VK.modifierPressed(e)) {
+            selection.normalize();
+          }
+        }, true);
+      };
+      const showBrokenImageIcon = () => {
+        editor.contentStyles.push('img:-moz-broken {' + '-moz-force-broken-image-icon:1;' + 'min-width:24px;' + 'min-height:24px' + '}');
+      };
+      const restoreFocusOnKeyDown = () => {
+        if (!editor.inline) {
+          editor.on('keydown', () => {
+            if (document.activeElement === document.body) {
+              editor.getWin().focus();
+            }
+          });
+        }
+      };
+      const bodyHeight = () => {
+        if (!editor.inline) {
+          editor.contentStyles.push('body {min-height: 150px}');
+          editor.on('click', e => {
+            let rng;
+            if (e.target.nodeName === 'HTML') {
+              rng = editor.selection.getRng();
+              editor.getBody().focus();
+              editor.selection.setRng(rng);
+              editor.selection.normalize();
+              editor.nodeChanged();
+            }
+          });
+        }
+      };
+      const blockCmdArrowNavigation = () => {
+        if (isMac) {
+          editor.on('keydown', e => {
+            if (VK.metaKeyPressed(e) && !e.shiftKey && (e.keyCode === 37 || e.keyCode === 39)) {
+              e.preventDefault();
+              const selection = editor.selection.getSel();
+              selection.modify('move', e.keyCode === 37 ? 'backward' : 'forward', 'lineboundary');
+            }
+          });
+        }
+      };
+      const tapLinksAndImages = () => {
+        editor.on('click', e => {
+          let elm = e.target;
+          do {
+            if (elm.tagName === 'A') {
+              e.preventDefault();
+              return;
+            }
+          } while (elm = elm.parentNode);
+        });
+        editor.contentStyles.push('.mce-content-body {-webkit-touch-callout: none}');
+      };
+      const blockFormSubmitInsideEditor = () => {
+        editor.on('init', () => {
+          editor.dom.bind(editor.getBody(), 'submit', e => {
+            e.preventDefault();
+          });
+        });
+      };
+      const removeAppleInterchangeBrs = () => {
+        parser.addNodeFilter('br', nodes => {
+          let i = nodes.length;
+          while (i--) {
+            if (nodes[i].attr('class') === 'Apple-interchange-newline') {
+              nodes[i].remove();
+            }
+          }
+        });
+      };
+      const refreshContentEditable = noop;
+      const isHidden = () => {
+        if (!isGecko || editor.removed) {
+          return false;
+        }
+        const sel = editor.selection.getSel();
+        return !sel || !sel.rangeCount || sel.rangeCount === 0;
+      };
+      const setupRtc = () => {
+        if (isWebKit) {
+          documentElementEditingFocus();
+          selectControlElements();
+          blockFormSubmitInsideEditor();
+          selectAll();
+          if (isiOS) {
+            restoreFocusOnKeyDown();
+            bodyHeight();
+            tapLinksAndImages();
+          }
+        }
+        if (isGecko) {
+          focusBody();
+          setGeckoEditingOptions();
+          showBrokenImageIcon();
+          blockCmdArrowNavigation();
+        }
+      };
+      const setup = () => {
+        removeBlockQuoteOnBackSpace();
+        emptyEditorWhenDeleting();
+        if (!Env.windowsPhone) {
+          normalizeSelection();
+        }
+        if (isWebKit) {
+          documentElementEditingFocus();
+          selectControlElements();
+          setDefaultBlockType();
+          blockFormSubmitInsideEditor();
+          disableBackspaceIntoATable();
+          removeAppleInterchangeBrs();
+          if (isiOS) {
+            restoreFocusOnKeyDown();
+            bodyHeight();
+            tapLinksAndImages();
+          } else {
+            selectAll();
+          }
+        }
+        if (isGecko) {
+          removeHrOnBackspace();
+          focusBody();
+          removeStylesWhenDeletingAcrossBlockElements();
+          setGeckoEditingOptions();
+          addBrAfterLastLinks();
+          showBrokenImageIcon();
+          blockCmdArrowNavigation();
+          disableBackspaceIntoATable();
+        }
+      };
+      if (isRtc(editor)) {
+        setupRtc();
+      } else {
+        setup();
+      }
+      return {
+        refreshContentEditable,
+        isHidden
+      };
     };
 
     const DOM$6 = DOMUtils.DOM;
     const appendStyle = (editor, text) => {
-        const body = SugarElement.fromDom(editor.getBody());
-        const container = getStyleContainer(getRootNode(body));
-        const style = SugarElement.fromTag('style');
-        set$2(style, 'type', 'text/css');
-        append$1(style, SugarElement.fromText(text));
-        append$1(container, style);
-        editor.on('remove', () => {
-            remove$5(style);
-        });
+      const body = SugarElement.fromDom(editor.getBody());
+      const container = getStyleContainer(getRootNode(body));
+      const style = SugarElement.fromTag('style');
+      set$2(style, 'type', 'text/css');
+      append$1(style, SugarElement.fromText(text));
+      append$1(container, style);
+      editor.on('remove', () => {
+        remove$5(style);
+      });
     };
-    const getRootName = (editor) =>
-        editor.inline ? editor.getElement().nodeName.toLowerCase() : undefined;
-    const removeUndefined = (obj) =>
-        filter$5(obj, (v) => isUndefined(v) === false);
-    const mkParserSettings = (editor) => {
-        const getOption = editor.options.get;
-        const blobCache = editor.editorUpload.blobCache;
-        return removeUndefined({
-            allow_conditional_comments: getOption('allow_conditional_comments'),
-            allow_html_data_urls: getOption('allow_html_data_urls'),
-            allow_svg_data_urls: getOption('allow_svg_data_urls'),
-            allow_html_in_named_anchor: getOption('allow_html_in_named_anchor'),
-            allow_script_urls: getOption('allow_script_urls'),
-            allow_unsafe_link_target: getOption('allow_unsafe_link_target'),
-            convert_fonts_to_spans: getOption('convert_fonts_to_spans'),
-            fix_list_elements: getOption('fix_list_elements'),
-            font_size_legacy_values: getOption('font_size_legacy_values'),
-            forced_root_block: getOption('forced_root_block'),
-            forced_root_block_attrs: getOption('forced_root_block_attrs'),
-            preserve_cdata: getOption('preserve_cdata'),
-            remove_trailing_brs: getOption('remove_trailing_brs'),
-            inline_styles: getOption('inline_styles'),
-            root_name: getRootName(editor),
-            validate: true,
-            blob_cache: blobCache,
-            document: editor.getDoc(),
-        });
+    const getRootName = editor => editor.inline ? editor.getElement().nodeName.toLowerCase() : undefined;
+    const removeUndefined = obj => filter$5(obj, v => isUndefined(v) === false);
+    const mkParserSettings = editor => {
+      const getOption = editor.options.get;
+      const blobCache = editor.editorUpload.blobCache;
+      return removeUndefined({
+        allow_conditional_comments: getOption('allow_conditional_comments'),
+        allow_html_data_urls: getOption('allow_html_data_urls'),
+        allow_svg_data_urls: getOption('allow_svg_data_urls'),
+        allow_html_in_named_anchor: getOption('allow_html_in_named_anchor'),
+        allow_script_urls: getOption('allow_script_urls'),
+        allow_unsafe_link_target: getOption('allow_unsafe_link_target'),
+        convert_fonts_to_spans: getOption('convert_fonts_to_spans'),
+        fix_list_elements: getOption('fix_list_elements'),
+        font_size_legacy_values: getOption('font_size_legacy_values'),
+        forced_root_block: getOption('forced_root_block'),
+        forced_root_block_attrs: getOption('forced_root_block_attrs'),
+        preserve_cdata: getOption('preserve_cdata'),
+        remove_trailing_brs: getOption('remove_trailing_brs'),
+        inline_styles: getOption('inline_styles'),
+        root_name: getRootName(editor),
+        validate: true,
+        blob_cache: blobCache,
+        document: editor.getDoc()
+      });
     };
-    const mkSchemaSettings = (editor) => {
-        const getOption = editor.options.get;
-        return removeUndefined({
-            custom_elements: getOption('custom_elements'),
-            extended_valid_elements: getOption('extended_valid_elements'),
-            invalid_elements: getOption('invalid_elements'),
-            invalid_styles: getOption('invalid_styles'),
-            schema: getOption('schema'),
-            valid_children: getOption('valid_children'),
-            valid_classes: getOption('valid_classes'),
-            valid_elements: getOption('valid_elements'),
-            valid_styles: getOption('valid_styles'),
-            verify_html: getOption('verify_html'),
-            padd_empty_block_inline_children: getOption('format_empty_lines'),
-        });
+    const mkSchemaSettings = editor => {
+      const getOption = editor.options.get;
+      return removeUndefined({
+        custom_elements: getOption('custom_elements'),
+        extended_valid_elements: getOption('extended_valid_elements'),
+        invalid_elements: getOption('invalid_elements'),
+        invalid_styles: getOption('invalid_styles'),
+        schema: getOption('schema'),
+        valid_children: getOption('valid_children'),
+        valid_classes: getOption('valid_classes'),
+        valid_elements: getOption('valid_elements'),
+        valid_styles: getOption('valid_styles'),
+        verify_html: getOption('verify_html'),
+        padd_empty_block_inline_children: getOption('format_empty_lines')
+      });
     };
-    const mkSerializerSettings = (editor) => {
-        const getOption = editor.options.get;
-        return {
-            ...mkParserSettings(editor),
-            ...mkSchemaSettings(editor),
-            ...removeUndefined({
-                url_converter: getOption('url_converter'),
-                url_converter_scope: getOption('url_converter_scope'),
-                element_format: getOption('element_format'),
-                entities: getOption('entities'),
-                entity_encoding: getOption('entity_encoding'),
-                indent: getOption('indent'),
-                indent_after: getOption('indent_after'),
-                indent_before: getOption('indent_before'),
-            }),
-        };
+    const mkSerializerSettings = editor => {
+      const getOption = editor.options.get;
+      return {
+        ...mkParserSettings(editor),
+        ...mkSchemaSettings(editor),
+        ...removeUndefined({
+          url_converter: getOption('url_converter'),
+          url_converter_scope: getOption('url_converter_scope'),
+          element_format: getOption('element_format'),
+          entities: getOption('entities'),
+          entity_encoding: getOption('entity_encoding'),
+          indent: getOption('indent'),
+          indent_after: getOption('indent_after'),
+          indent_before: getOption('indent_before')
+        })
+      };
     };
     const createParser = editor => {
-        const parser = DomParser(mkParserSettings(editor), editor.schema);
-        parser.addAttributeFilter('src,href,style,tabindex', (nodes, name) => {
-            let i = nodes.length, node, value;
-            const dom = editor.dom;
-            const internalName = 'data-mce-' + name;
-            while (i--) {
-                node = nodes[i];
-                value = node.attr(name);
+      const parser = DomParser(mkParserSettings(editor), editor.schema);
+      parser.addAttributeFilter('src,href,style,tabindex', (nodes, name) => {
+        let i = nodes.length, node, value;
+        const dom = editor.dom;
+        const internalName = 'data-mce-' + name;
+        while (i--) {
+          node = nodes[i];
+          value = node.attr(name);
           if (value && !node.attr(internalName)) {
             if (value.indexOf('data:') === 0 || value.indexOf('blob:') === 0) {
               continue;
@@ -28361,358 +28052,333 @@
     const DOM$1 = DOMUtils.DOM;
     const extend = Tools.extend, each$1 = Tools.each;
     class Editor {
-        constructor(id, options, editorManager) {
-            this.plugins = {};
-            this.contentCSS = [];
-            this.contentStyles = [];
-            this.loadedCSS = {};
-            this.isNotDirty = false;
-            this.editorManager = editorManager;
-            this.documentBaseUrl = editorManager.documentBaseURL;
-            extend(this, EditorObservable);
-            const self = this;
-            this.id = id;
-            this.hidden = false;
-            const normalizedOptions = normalizeOptions(
-                editorManager.defaultOptions,
-                options
-            );
-            this.options = create$5(self, normalizedOptions);
-            register$7(self);
-            const getOption = this.options.get;
-            if (getOption('deprecation_warnings')) {
-                logWarnings(options, normalizedOptions);
-            }
-            const suffix = getOption('suffix');
-            if (suffix) {
-                editorManager.suffix = suffix;
-            }
-            this.suffix = editorManager.suffix;
-            const baseUrl = getOption('base_url');
-            if (baseUrl) {
-                editorManager._setBaseUrl(baseUrl);
-            }
-            this.baseUri = editorManager.baseURI;
-            const referrerPolicy = getReferrerPolicy(self);
-            if (referrerPolicy) {
-                ScriptLoader.ScriptLoader._setReferrerPolicy(referrerPolicy);
-                DOMUtils.DOM.styleSheetLoader._setReferrerPolicy(
-                    referrerPolicy
-                );
-            }
-            AddOnManager.languageLoad = getOption('language_load');
-            AddOnManager.baseURL = editorManager.baseURL;
-            this.setDirty(false);
-            this.documentBaseURI = new URI(getDocumentBaseUrl(self), {
-                base_uri: this.baseUri,
+      constructor(id, options, editorManager) {
+        this.plugins = {};
+        this.contentCSS = [];
+        this.contentStyles = [];
+        this.loadedCSS = {};
+        this.isNotDirty = false;
+        this.editorManager = editorManager;
+        this.documentBaseUrl = editorManager.documentBaseURL;
+        extend(this, EditorObservable);
+        const self = this;
+        this.id = id;
+        this.hidden = false;
+        const normalizedOptions = normalizeOptions(editorManager.defaultOptions, options);
+        this.options = create$5(self, normalizedOptions);
+        register$7(self);
+        const getOption = this.options.get;
+        if (getOption('deprecation_warnings')) {
+          logWarnings(options, normalizedOptions);
+        }
+        const suffix = getOption('suffix');
+        if (suffix) {
+          editorManager.suffix = suffix;
+        }
+        this.suffix = editorManager.suffix;
+        const baseUrl = getOption('base_url');
+        if (baseUrl) {
+          editorManager._setBaseUrl(baseUrl);
+        }
+        this.baseUri = editorManager.baseURI;
+        const referrerPolicy = getReferrerPolicy(self);
+        if (referrerPolicy) {
+          ScriptLoader.ScriptLoader._setReferrerPolicy(referrerPolicy);
+          DOMUtils.DOM.styleSheetLoader._setReferrerPolicy(referrerPolicy);
+        }
+        AddOnManager.languageLoad = getOption('language_load');
+        AddOnManager.baseURL = editorManager.baseURL;
+        this.setDirty(false);
+        this.documentBaseURI = new URI(getDocumentBaseUrl(self), { base_uri: this.baseUri });
+        this.baseURI = this.baseUri;
+        this.inline = isInline(self);
+        this.shortcuts = new Shortcuts(this);
+        this.editorCommands = new EditorCommands(this);
+        registerCommands(this);
+        const cacheSuffix = getOption('cache_suffix');
+        if (cacheSuffix) {
+          Env.cacheSuffix = cacheSuffix.replace(/^[\?\&]+/, '');
+        }
+        this.ui = {
+          registry: registry(),
+          styleSheetLoader: undefined,
+          show: noop,
+          hide: noop,
+          setEnabled: noop,
+          isEnabled: always
+        };
+        this.mode = create$4(self);
+        editorManager.dispatch('SetupEditor', { editor: this });
+        const setupCallback = getSetupCallback(self);
+        if (isFunction(setupCallback)) {
+          setupCallback.call(self, self);
+        }
+      }
+      render() {
+        render(this);
+      }
+      focus(skipFocus) {
+        this.execCommand('mceFocus', false, skipFocus);
+      }
+      hasFocus() {
+        return hasFocus(this);
+      }
+      translate(text) {
+        return I18n.translate(text);
+      }
+      getParam(name, defaultVal, type) {
+        const options = this.options;
+        if (!options.isRegistered(name)) {
+          if (isNonNullable(type)) {
+            options.register(name, {
+              processor: type,
+              default: defaultVal
             });
-            this.baseURI = this.baseUri;
-            this.inline = isInline(self);
-            this.shortcuts = new Shortcuts(this);
-            this.editorCommands = new EditorCommands(this);
-            registerCommands(this);
-            const cacheSuffix = getOption('cache_suffix');
-            if (cacheSuffix) {
-                Env.cacheSuffix = cacheSuffix.replace(/^[\?\&]+/, '');
-            }
-            this.ui = {
-                registry: registry(),
-                styleSheetLoader: undefined,
-                show: noop,
-                hide: noop,
-                setEnabled: noop,
-                isEnabled: always,
-            };
-            this.mode = create$4(self);
-            editorManager.dispatch('SetupEditor', { editor: this });
-            const setupCallback = getSetupCallback(self);
-            if (isFunction(setupCallback)) {
-                setupCallback.call(self, self);
-            }
-        }
-        render() {
-            render(this);
-        }
-        focus(skipFocus) {
-            this.execCommand('mceFocus', false, skipFocus);
-        }
-        hasFocus() {
-            return hasFocus(this);
-        }
-        translate(text) {
-            return I18n.translate(text);
-        }
-        getParam(name, defaultVal, type) {
-            const options = this.options;
-            if (!options.isRegistered(name)) {
-                if (isNonNullable(type)) {
-                    options.register(name, {
-                        processor: type,
-                        default: defaultVal,
-                    });
-                } else {
-                    options.register(name, {
-                        processor: always,
-                        default: defaultVal,
-                    });
-                }
-            }
-            return !options.isSet(name) && !isUndefined(defaultVal)
-                ? defaultVal
-                : options.get(name);
-        }
-        hasPlugin(name, loaded) {
-            const hasPlugin = contains$2(getPlugins(this), name);
-            if (hasPlugin) {
-                return loaded ? PluginManager.get(name) !== undefined : true;
-            } else {
-                return false;
-            }
-        }
-        nodeChanged(args) {
-            this._nodeChangeDispatcher.nodeChanged(args);
-        }
-        addCommand(name, callback, scope) {
-            this.editorCommands.addCommand(name, callback, scope);
-        }
-        addQueryStateHandler(name, callback, scope) {
-            this.editorCommands.addQueryStateHandler(name, callback, scope);
-        }
-        addQueryValueHandler(name, callback, scope) {
-            this.editorCommands.addQueryValueHandler(name, callback, scope);
-        }
-        addShortcut(pattern, desc, cmdFunc, scope) {
-            this.shortcuts.add(pattern, desc, cmdFunc, scope);
-        }
-        execCommand(cmd, ui, value, args) {
-            return this.editorCommands.execCommand(cmd, ui, value, args);
-        }
-        queryCommandState(cmd) {
-            return this.editorCommands.queryCommandState(cmd);
-        }
-        queryCommandValue(cmd) {
-            return this.editorCommands.queryCommandValue(cmd);
-        }
-        queryCommandSupported(cmd) {
-            return this.editorCommands.queryCommandSupported(cmd);
-        }
-        show() {
-            const self = this;
-            if (self.hidden) {
-                self.hidden = false;
-                if (self.inline) {
-                    self.getBody().contentEditable = 'true';
-                } else {
-                    DOM$1.show(self.getContainer());
-                    DOM$1.hide(self.id);
-                }
-                self.load();
-                self.dispatch('show');
-            }
-        }
-        hide() {
-            const self = this;
-            if (!self.hidden) {
-                self.save();
-                if (self.inline) {
-                    self.getBody().contentEditable = 'false';
-                    if (self === self.editorManager.focusedEditor) {
-                        self.editorManager.focusedEditor = null;
-                    }
-                } else {
-                    DOM$1.hide(self.getContainer());
-                    DOM$1.setStyle(self.id, 'display', self.orgDisplay);
-                }
-                self.hidden = true;
-                self.dispatch('hide');
-            }
-        }
-        isHidden() {
-            return this.hidden;
-        }
-        setProgressState(state, time) {
-            this.dispatch('ProgressState', {
-                state,
-                time,
+          } else {
+            options.register(name, {
+              processor: always,
+              default: defaultVal
             });
+          }
         }
-        load(args) {
-            const self = this;
-            let elm = self.getElement(),
-                html;
-            if (self.removed) {
-                return '';
-            }
-            if (elm) {
-                args = args || {};
-                args.load = true;
-                const value = isTextareaOrInput(elm)
-                    ? elm.value
-                    : elm.innerHTML;
-                html = self.setContent(value, args);
-                args.element = elm;
-                if (!args.no_events) {
-                    self.dispatch('LoadContent', args);
-                }
-                args.element = elm = null;
-                return html;
-            }
+        return !options.isSet(name) && !isUndefined(defaultVal) ? defaultVal : options.get(name);
+      }
+      hasPlugin(name, loaded) {
+        const hasPlugin = contains$2(getPlugins(this), name);
+        if (hasPlugin) {
+          return loaded ? PluginManager.get(name) !== undefined : true;
+        } else {
+          return false;
         }
-        save(args) {
-            const self = this;
-            let elm = self.getElement(),
-                html,
-                form;
-            if (!elm || !self.initialized || self.removed) {
-                return;
+      }
+      nodeChanged(args) {
+        this._nodeChangeDispatcher.nodeChanged(args);
+      }
+      addCommand(name, callback, scope) {
+        this.editorCommands.addCommand(name, callback, scope);
+      }
+      addQueryStateHandler(name, callback, scope) {
+        this.editorCommands.addQueryStateHandler(name, callback, scope);
+      }
+      addQueryValueHandler(name, callback, scope) {
+        this.editorCommands.addQueryValueHandler(name, callback, scope);
+      }
+      addShortcut(pattern, desc, cmdFunc, scope) {
+        this.shortcuts.add(pattern, desc, cmdFunc, scope);
+      }
+      execCommand(cmd, ui, value, args) {
+        return this.editorCommands.execCommand(cmd, ui, value, args);
+      }
+      queryCommandState(cmd) {
+        return this.editorCommands.queryCommandState(cmd);
+      }
+      queryCommandValue(cmd) {
+        return this.editorCommands.queryCommandValue(cmd);
+      }
+      queryCommandSupported(cmd) {
+        return this.editorCommands.queryCommandSupported(cmd);
+      }
+      show() {
+        const self = this;
+        if (self.hidden) {
+          self.hidden = false;
+          if (self.inline) {
+            self.getBody().contentEditable = 'true';
+          } else {
+            DOM$1.show(self.getContainer());
+            DOM$1.hide(self.id);
+          }
+          self.load();
+          self.dispatch('show');
+        }
+      }
+      hide() {
+        const self = this;
+        if (!self.hidden) {
+          self.save();
+          if (self.inline) {
+            self.getBody().contentEditable = 'false';
+            if (self === self.editorManager.focusedEditor) {
+              self.editorManager.focusedEditor = null;
             }
-            args = args || {};
-            args.save = true;
-            args.element = elm;
-            html = args.content = self.getContent(args);
-            if (!args.no_events) {
-                self.dispatch('SaveContent', args);
-            }
-            if (args.format === 'raw') {
-                self.dispatch('RawSaveContent', args);
-            }
-            html = args.content;
-            if (!isTextareaOrInput(elm)) {
-                if (args.is_removing || !self.inline) {
-                    elm.innerHTML = html;
-                }
-                if ((form = DOM$1.getParent(self.id, 'form'))) {
-                    each$1(form.elements, (elm) => {
-                        if (elm.name === self.id) {
-                            elm.value = html;
-                            return false;
-                        }
-                    });
-                }
-            } else {
+          } else {
+            DOM$1.hide(self.getContainer());
+            DOM$1.setStyle(self.id, 'display', self.orgDisplay);
+          }
+          self.hidden = true;
+          self.dispatch('hide');
+        }
+      }
+      isHidden() {
+        return this.hidden;
+      }
+      setProgressState(state, time) {
+        this.dispatch('ProgressState', {
+          state,
+          time
+        });
+      }
+      load(args) {
+        const self = this;
+        let elm = self.getElement(), html;
+        if (self.removed) {
+          return '';
+        }
+        if (elm) {
+          args = args || {};
+          args.load = true;
+          const value = isTextareaOrInput(elm) ? elm.value : elm.innerHTML;
+          html = self.setContent(value, args);
+          args.element = elm;
+          if (!args.no_events) {
+            self.dispatch('LoadContent', args);
+          }
+          args.element = elm = null;
+          return html;
+        }
+      }
+      save(args) {
+        const self = this;
+        let elm = self.getElement(), html, form;
+        if (!elm || !self.initialized || self.removed) {
+          return;
+        }
+        args = args || {};
+        args.save = true;
+        args.element = elm;
+        html = args.content = self.getContent(args);
+        if (!args.no_events) {
+          self.dispatch('SaveContent', args);
+        }
+        if (args.format === 'raw') {
+          self.dispatch('RawSaveContent', args);
+        }
+        html = args.content;
+        if (!isTextareaOrInput(elm)) {
+          if (args.is_removing || !self.inline) {
+            elm.innerHTML = html;
+          }
+          if (form = DOM$1.getParent(self.id, 'form')) {
+            each$1(form.elements, elm => {
+              if (elm.name === self.id) {
                 elm.value = html;
-            }
-            args.element = elm = null;
-            if (args.set_dirty !== false) {
-                self.setDirty(false);
-            }
-            return html;
+                return false;
+              }
+            });
+          }
+        } else {
+          elm.value = html;
         }
-        setContent(content, args) {
-            return setContent(this, content, args);
+        args.element = elm = null;
+        if (args.set_dirty !== false) {
+          self.setDirty(false);
         }
-        getContent(args) {
-            return getContent(this, args);
+        return html;
+      }
+      setContent(content, args) {
+        return setContent(this, content, args);
+      }
+      getContent(args) {
+        return getContent(this, args);
+      }
+      insertContent(content, args) {
+        if (args) {
+          content = extend({ content }, args);
         }
-        insertContent(content, args) {
-            if (args) {
-                content = extend({ content }, args);
-            }
-            this.execCommand('mceInsertContent', false, content);
+        this.execCommand('mceInsertContent', false, content);
+      }
+      resetContent(initialContent) {
+        if (initialContent === undefined) {
+          setContent(this, this.startContent, { format: 'raw' });
+        } else {
+          setContent(this, initialContent);
         }
-        resetContent(initialContent) {
-            if (initialContent === undefined) {
-                setContent(this, this.startContent, { format: 'raw' });
-            } else {
-                setContent(this, initialContent);
-            }
-            this.undoManager.reset();
-            this.setDirty(false);
-            this.nodeChanged();
+        this.undoManager.reset();
+        this.setDirty(false);
+        this.nodeChanged();
+      }
+      isDirty() {
+        return !this.isNotDirty;
+      }
+      setDirty(state) {
+        const oldState = !this.isNotDirty;
+        this.isNotDirty = !state;
+        if (state && state !== oldState) {
+          this.dispatch('dirty');
         }
-        isDirty() {
-            return !this.isNotDirty;
+      }
+      getContainer() {
+        const self = this;
+        if (!self.container) {
+          self.container = DOM$1.get(self.editorContainer || self.id + '_parent');
         }
-        setDirty(state) {
-            const oldState = !this.isNotDirty;
-            this.isNotDirty = !state;
-            if (state && state !== oldState) {
-                this.dispatch('dirty');
-            }
+        return self.container;
+      }
+      getContentAreaContainer() {
+        return this.contentAreaContainer;
+      }
+      getElement() {
+        if (!this.targetElm) {
+          this.targetElm = DOM$1.get(this.id);
         }
-        getContainer() {
-            const self = this;
-            if (!self.container) {
-                self.container = DOM$1.get(
-                    self.editorContainer || self.id + '_parent'
-                );
-            }
-            return self.container;
+        return this.targetElm;
+      }
+      getWin() {
+        const self = this;
+        let elm;
+        if (!self.contentWindow) {
+          elm = self.iframeElement;
+          if (elm) {
+            self.contentWindow = elm.contentWindow;
+          }
         }
-        getContentAreaContainer() {
-            return this.contentAreaContainer;
+        return self.contentWindow;
+      }
+      getDoc() {
+        const self = this;
+        let win;
+        if (!self.contentDocument) {
+          win = self.getWin();
+          if (win) {
+            self.contentDocument = win.document;
+          }
         }
-        getElement() {
-            if (!this.targetElm) {
-                this.targetElm = DOM$1.get(this.id);
-            }
-            return this.targetElm;
+        return self.contentDocument;
+      }
+      getBody() {
+        const doc = this.getDoc();
+        return this.bodyElement || (doc ? doc.body : null);
+      }
+      convertURL(url, name, elm) {
+        const self = this, getOption = self.options.get;
+        const urlConverterCallback = getUrlConverterCallback(self);
+        if (isFunction(urlConverterCallback)) {
+          return urlConverterCallback.call(self, url, elm, true, name);
         }
-        getWin() {
-            const self = this;
-            let elm;
-            if (!self.contentWindow) {
-                elm = self.iframeElement;
-                if (elm) {
-                    self.contentWindow = elm.contentWindow;
-                }
-            }
-            return self.contentWindow;
+        if (!getOption('convert_urls') || elm && elm.nodeName === 'LINK' || url.indexOf('file:') === 0 || url.length === 0) {
+          return url;
         }
-        getDoc() {
-            const self = this;
-            let win;
-            if (!self.contentDocument) {
-                win = self.getWin();
-                if (win) {
-                    self.contentDocument = win.document;
-                }
-            }
-            return self.contentDocument;
+        if (getOption('relative_urls')) {
+          return self.documentBaseURI.toRelative(url);
         }
-        getBody() {
-            const doc = this.getDoc();
-            return this.bodyElement || (doc ? doc.body : null);
-        }
-        convertURL(url, name, elm) {
-            const self = this,
-                getOption = self.options.get;
-            const urlConverterCallback = getUrlConverterCallback(self);
-            if (isFunction(urlConverterCallback)) {
-                return urlConverterCallback.call(self, url, elm, true, name);
-            }
-            if (
-                !getOption('convert_urls') ||
-                (elm && elm.nodeName === 'LINK') ||
-                url.indexOf('file:') === 0 ||
-                url.length === 0
-            ) {
-                return url;
-            }
-            if (getOption('relative_urls')) {
-                return self.documentBaseURI.toRelative(url);
-            }
-            url = self.documentBaseURI.toAbsolute(
-                url,
-                getOption('remove_script_host')
-            );
-            return url;
-        }
-        addVisual(elm) {
-            addVisual(this, elm);
-        }
-        remove() {
-            remove$1(this);
-        }
-        destroy(automatic) {
-            destroy(this, automatic);
-        }
-        uploadImages() {
-            return this.editorUpload.uploadImages();
-        }
-        _scanForImages() {
-            return this.editorUpload.scanForImages();
-        }
+        url = self.documentBaseURI.toAbsolute(url, getOption('remove_script_host'));
+        return url;
+      }
+      addVisual(elm) {
+        addVisual(this, elm);
+      }
+      remove() {
+        remove$1(this);
+      }
+      destroy(automatic) {
+        destroy(this, automatic);
+      }
+      uploadImages() {
+        return this.editorUpload.uploadImages();
+      }
+      _scanForImages() {
+        return this.editorUpload.scanForImages();
+      }
     }
 
     const DOM = DOMUtils.DOM;
@@ -28720,389 +28386,351 @@
     let boundGlobalEvents = false;
     let beforeUnloadDelegate;
     let editors = [];
-    const globalEventDelegate = (e) => {
-        const type = e.type;
-        each(EditorManager.get(), (editor) => {
-            switch (type) {
-                case 'scroll':
-                    editor.dispatch('ScrollWindow', e);
-                    break;
-                case 'resize':
-                    editor.dispatch('ResizeWindow', e);
-                    break;
-            }
-        });
+    const globalEventDelegate = e => {
+      const type = e.type;
+      each(EditorManager.get(), editor => {
+        switch (type) {
+        case 'scroll':
+          editor.dispatch('ScrollWindow', e);
+          break;
+        case 'resize':
+          editor.dispatch('ResizeWindow', e);
+          break;
+        }
+      });
     };
-    const toggleGlobalEvents = (state) => {
-        if (state !== boundGlobalEvents) {
-            const DOM = DOMUtils.DOM;
-            if (state) {
-                DOM.bind(window, 'resize', globalEventDelegate);
-                DOM.bind(window, 'scroll', globalEventDelegate);
-            } else {
-                DOM.unbind(window, 'resize', globalEventDelegate);
-                DOM.unbind(window, 'scroll', globalEventDelegate);
-            }
-            boundGlobalEvents = state;
+    const toggleGlobalEvents = state => {
+      if (state !== boundGlobalEvents) {
+        const DOM = DOMUtils.DOM;
+        if (state) {
+          DOM.bind(window, 'resize', globalEventDelegate);
+          DOM.bind(window, 'scroll', globalEventDelegate);
+        } else {
+          DOM.unbind(window, 'resize', globalEventDelegate);
+          DOM.unbind(window, 'scroll', globalEventDelegate);
         }
+        boundGlobalEvents = state;
+      }
     };
-    const removeEditorFromList = (targetEditor) => {
-        const oldEditors = editors;
-        editors = filter$6(editors, (editor) => {
-            return targetEditor !== editor;
-        });
-        if (EditorManager.activeEditor === targetEditor) {
-            EditorManager.activeEditor = editors.length > 0 ? editors[0] : null;
-        }
-        if (EditorManager.focusedEditor === targetEditor) {
-            EditorManager.focusedEditor = null;
-        }
-        return oldEditors.length !== editors.length;
+    const removeEditorFromList = targetEditor => {
+      const oldEditors = editors;
+      editors = filter$6(editors, editor => {
+        return targetEditor !== editor;
+      });
+      if (EditorManager.activeEditor === targetEditor) {
+        EditorManager.activeEditor = editors.length > 0 ? editors[0] : null;
+      }
+      if (EditorManager.focusedEditor === targetEditor) {
+        EditorManager.focusedEditor = null;
+      }
+      return oldEditors.length !== editors.length;
     };
-    const purgeDestroyedEditor = (editor) => {
-        if (
-            editor &&
-            editor.initialized &&
-            !(editor.getContainer() || editor.getBody()).parentNode
-        ) {
-            removeEditorFromList(editor);
-            editor.unbindAllNativeEvents();
-            editor.destroy(true);
-            editor.removed = true;
-            editor = null;
-        }
-        return editor;
+    const purgeDestroyedEditor = editor => {
+      if (editor && editor.initialized && !(editor.getContainer() || editor.getBody()).parentNode) {
+        removeEditorFromList(editor);
+        editor.unbindAllNativeEvents();
+        editor.destroy(true);
+        editor.removed = true;
+        editor = null;
+      }
+      return editor;
     };
     const isQuirksMode = document.compatMode !== 'CSS1Compat';
     const EditorManager = {
-        ...Observable,
-        baseURI: null,
-        baseURL: null,
-        defaultOptions: {},
-        documentBaseURL: null,
-        suffix: null,
-        majorVersion: '6',
-        minorVersion: '0.3',
-        releaseDate: '2022-05-25',
-        i18n: I18n,
-        activeEditor: null,
-        focusedEditor: null,
-        setup() {
-            const self = this;
-            let baseURL,
-                documentBaseURL,
-                suffix = '';
-            documentBaseURL = URI.getDocumentBaseUrl(document.location);
-            if (/^[^:]+:\/\/\/?[^\/]+\//.test(documentBaseURL)) {
-                documentBaseURL = documentBaseURL
-                    .replace(/[\?#].*$/, '')
-                    .replace(/[\/\\][^\/]+$/, '');
-                if (!/[\/\\]$/.test(documentBaseURL)) {
-                    documentBaseURL += '/';
-                }
+      ...Observable,
+      baseURI: null,
+      baseURL: null,
+      defaultOptions: {},
+      documentBaseURL: null,
+      suffix: null,
+      majorVersion: '6',
+      minorVersion: '0.3',
+      releaseDate: '2022-05-25',
+      i18n: I18n,
+      activeEditor: null,
+      focusedEditor: null,
+      setup() {
+        const self = this;
+        let baseURL, documentBaseURL, suffix = '';
+        documentBaseURL = URI.getDocumentBaseUrl(document.location);
+        if (/^[^:]+:\/\/\/?[^\/]+\//.test(documentBaseURL)) {
+          documentBaseURL = documentBaseURL.replace(/[\?#].*$/, '').replace(/[\/\\][^\/]+$/, '');
+          if (!/[\/\\]$/.test(documentBaseURL)) {
+            documentBaseURL += '/';
+          }
+        }
+        const preInit = window.tinymce || window.tinyMCEPreInit;
+        if (preInit) {
+          baseURL = preInit.base || preInit.baseURL;
+          suffix = preInit.suffix;
+        } else {
+          const scripts = document.getElementsByTagName('script');
+          for (let i = 0; i < scripts.length; i++) {
+            const src = scripts[i].src || '';
+            if (src === '') {
+              continue;
             }
-            const preInit = window.tinymce || window.tinyMCEPreInit;
-            if (preInit) {
-                baseURL = preInit.base || preInit.baseURL;
-                suffix = preInit.suffix;
-            } else {
-                const scripts = document.getElementsByTagName('script');
-                for (let i = 0; i < scripts.length; i++) {
-                    const src = scripts[i].src || '';
-                    if (src === '') {
-                        continue;
-                    }
-                    const srcScript = src.substring(src.lastIndexOf('/'));
-                    if (
-                        /tinymce(\.full|\.jquery|)(\.min|\.dev|)\.js/.test(src)
-                    ) {
-                        if (srcScript.indexOf('.min') !== -1) {
-                            suffix = '.min';
-                        }
-                        baseURL = src.substring(0, src.lastIndexOf('/'));
-                        break;
-                    }
-                }
-                if (!baseURL && document.currentScript) {
-                    const src = document.currentScript.src;
-                    if (src.indexOf('.min') !== -1) {
-                        suffix = '.min';
-                    }
-                    baseURL = src.substring(0, src.lastIndexOf('/'));
-                }
+            const srcScript = src.substring(src.lastIndexOf('/'));
+            if (/tinymce(\.full|\.jquery|)(\.min|\.dev|)\.js/.test(src)) {
+              if (srcScript.indexOf('.min') !== -1) {
+                suffix = '.min';
+              }
+              baseURL = src.substring(0, src.lastIndexOf('/'));
+              break;
             }
-            self.baseURL = new URI(documentBaseURL).toAbsolute(baseURL);
-            self.documentBaseURL = documentBaseURL;
-            self.baseURI = new URI(self.baseURL);
-            self.suffix = suffix;
-            setup$v(self);
-        },
-        overrideDefaults(defaultOptions) {
-            const baseUrl = defaultOptions.base_url;
-            if (baseUrl) {
-                this._setBaseUrl(baseUrl);
+          }
+          if (!baseURL && document.currentScript) {
+            const src = document.currentScript.src;
+            if (src.indexOf('.min') !== -1) {
+              suffix = '.min';
             }
-            const suffix = defaultOptions.suffix;
-            if (defaultOptions.suffix) {
-                this.suffix = suffix;
-            }
-            this.defaultOptions = defaultOptions;
-            const pluginBaseUrls = defaultOptions.plugin_base_urls;
-            if (pluginBaseUrls !== undefined) {
-                each$f(pluginBaseUrls, (pluginBaseUrl, pluginName) => {
-                    AddOnManager.PluginManager.urls[pluginName] = pluginBaseUrl;
-                });
-            }
-        },
-        init(options) {
-            const self = this;
-            let result;
-            const invalidInlineTargets = Tools.makeMap(
-                'area base basefont br col frame hr img input isindex link meta param embed source wbr track ' +
-                    'colgroup option table tbody tfoot thead tr th td script noscript style textarea video audio iframe object menu',
-                ' '
-            );
-            const isInvalidInlineTarget = (options, elm) =>
-                options.inline &&
-                elm.tagName.toLowerCase() in invalidInlineTargets;
-            const createId = (elm) => {
-                let id = elm.id;
-                if (!id) {
-                    id = get$a(elm, 'name')
-                        .filter((name) => !DOM.get(name))
-                        .getOrThunk(DOM.uniqueId);
-                    elm.setAttribute('id', id);
-                }
-                return id;
-            };
-            const execCallback = (name) => {
-                const callback = options[name];
-                if (!callback) {
-                    return;
-                }
-                return callback.apply(self, []);
-            };
-            const findTargets = (options) => {
-                if (Env.browser.isIE() || Env.browser.isEdge()) {
-                    initError(
-                        'TinyMCE does not support the browser you are using. For a list of supported' +
-                            ' browsers please see: https://www.tiny.cloud/docs/tinymce/6/support/#supportedwebbrowsers'
-                    );
-                    return [];
-                } else if (isQuirksMode) {
-                    initError(
-                        'Failed to initialize the editor as the document is not in standards mode. ' +
-                            'TinyMCE requires standards mode.'
-                    );
-                    return [];
-                } else if (isString(options.selector)) {
-                    return DOM.select(options.selector);
-                } else if (isNonNullable(options.target)) {
-                    return [options.target];
-                } else {
-                    return [];
-                }
-            };
-            let provideResults = (editors) => {
-                result = editors;
-            };
-            const initEditors = () => {
-                let initCount = 0;
-                const editors = [];
-                let targets;
-                const createEditor = (id, options, targetElm) => {
-                    const editor = new Editor(id, options, self);
-                    editors.push(editor);
-                    editor.on('init', () => {
-                        if (++initCount === targets.length) {
-                            provideResults(editors);
-                        }
-                    });
-                    editor.targetElm = editor.targetElm || targetElm;
-                    editor.render();
-                };
-                DOM.unbind(window, 'ready', initEditors);
-                execCallback('onpageload');
-                targets = unique$1(findTargets(options));
-                Tools.each(targets, (elm) => {
-                    purgeDestroyedEditor(self.get(elm.id));
-                });
-                targets = Tools.grep(targets, (elm) => {
-                    return !self.get(elm.id);
-                });
-                if (targets.length === 0) {
-                    provideResults([]);
-                } else {
-                    each(targets, (elm) => {
-                        if (isInvalidInlineTarget(options, elm)) {
-                            initError(
-                                'Could not initialize inline editor on invalid inline target element',
-                                elm
-                            );
-                        } else {
-                            createEditor(createId(elm), options, elm);
-                        }
-                    });
-                }
-            };
-            DOM.bind(window, 'ready', initEditors);
-            return new Promise((resolve) => {
-                if (result) {
-                    resolve(result);
-                } else {
-                    provideResults = (editors) => {
-                        resolve(editors);
-                    };
-                }
+            baseURL = src.substring(0, src.lastIndexOf('/'));
+          }
+        }
+        self.baseURL = new URI(documentBaseURL).toAbsolute(baseURL);
+        self.documentBaseURL = documentBaseURL;
+        self.baseURI = new URI(self.baseURL);
+        self.suffix = suffix;
+        setup$v(self);
+      },
+      overrideDefaults(defaultOptions) {
+        const baseUrl = defaultOptions.base_url;
+        if (baseUrl) {
+          this._setBaseUrl(baseUrl);
+        }
+        const suffix = defaultOptions.suffix;
+        if (defaultOptions.suffix) {
+          this.suffix = suffix;
+        }
+        this.defaultOptions = defaultOptions;
+        const pluginBaseUrls = defaultOptions.plugin_base_urls;
+        if (pluginBaseUrls !== undefined) {
+          each$f(pluginBaseUrls, (pluginBaseUrl, pluginName) => {
+            AddOnManager.PluginManager.urls[pluginName] = pluginBaseUrl;
+          });
+        }
+      },
+      init(options) {
+        const self = this;
+        let result;
+        const invalidInlineTargets = Tools.makeMap('area base basefont br col frame hr img input isindex link meta param embed source wbr track ' + 'colgroup option table tbody tfoot thead tr th td script noscript style textarea video audio iframe object menu', ' ');
+        const isInvalidInlineTarget = (options, elm) => options.inline && elm.tagName.toLowerCase() in invalidInlineTargets;
+        const createId = elm => {
+          let id = elm.id;
+          if (!id) {
+            id = get$a(elm, 'name').filter(name => !DOM.get(name)).getOrThunk(DOM.uniqueId);
+            elm.setAttribute('id', id);
+          }
+          return id;
+        };
+        const execCallback = name => {
+          const callback = options[name];
+          if (!callback) {
+            return;
+          }
+          return callback.apply(self, []);
+        };
+        const findTargets = options => {
+          if (Env.browser.isIE() || Env.browser.isEdge()) {
+            initError('TinyMCE does not support the browser you are using. For a list of supported' + ' browsers please see: https://www.tiny.cloud/docs/tinymce/6/support/#supportedwebbrowsers');
+            return [];
+          } else if (isQuirksMode) {
+            initError('Failed to initialize the editor as the document is not in standards mode. ' + 'TinyMCE requires standards mode.');
+            return [];
+          } else if (isString(options.selector)) {
+            return DOM.select(options.selector);
+          } else if (isNonNullable(options.target)) {
+            return [options.target];
+          } else {
+            return [];
+          }
+        };
+        let provideResults = editors => {
+          result = editors;
+        };
+        const initEditors = () => {
+          let initCount = 0;
+          const editors = [];
+          let targets;
+          const createEditor = (id, options, targetElm) => {
+            const editor = new Editor(id, options, self);
+            editors.push(editor);
+            editor.on('init', () => {
+              if (++initCount === targets.length) {
+                provideResults(editors);
+              }
             });
-        },
-        get(id) {
-            if (arguments.length === 0) {
-                return editors.slice(0);
-            } else if (isString(id)) {
-                return find$2(editors, (editor) => {
-                    return editor.id === id;
-                }).getOr(null);
-            } else if (isNumber(id)) {
-                return editors[id] ? editors[id] : null;
-            } else {
-                return null;
-            }
-        },
-        add(editor) {
-            const self = this;
-            const existingEditor = self.get(editor.id);
-            if (existingEditor === editor) {
-                return editor;
-            }
-            if (existingEditor === null) {
-                editors.push(editor);
-            }
-            toggleGlobalEvents(true);
-            self.activeEditor = editor;
-            self.dispatch('AddEditor', { editor });
-            if (!beforeUnloadDelegate) {
-                beforeUnloadDelegate = (e) => {
-                    const event = self.dispatch('BeforeUnload');
-                    if (event.returnValue) {
-                        e.preventDefault();
-                        e.returnValue = event.returnValue;
-                        return event.returnValue;
-                    }
-                };
-                window.addEventListener('beforeunload', beforeUnloadDelegate);
-            }
-            return editor;
-        },
-        createEditor(id, options) {
-            return this.add(new Editor(id, options, this));
-        },
-        remove(selector) {
-            const self = this;
-            let i, editor;
-            if (!selector) {
-                for (i = editors.length - 1; i >= 0; i--) {
-                    self.remove(editors[i]);
-                }
-                return;
-            }
-            if (isString(selector)) {
-                each(DOM.select(selector), (elm) => {
-                    editor = self.get(elm.id);
-                    if (editor) {
-                        self.remove(editor);
-                    }
-                });
-                return;
-            }
-            editor = selector;
-            if (isNull(self.get(editor.id))) {
-                return null;
-            }
-            if (removeEditorFromList(editor)) {
-                self.dispatch('RemoveEditor', { editor });
-            }
-            if (editors.length === 0) {
-                window.removeEventListener(
-                    'beforeunload',
-                    beforeUnloadDelegate
-                );
-            }
-            editor.remove();
-            toggleGlobalEvents(editors.length > 0);
-            return editor;
-        },
-        execCommand(cmd, ui, value) {
-            var _a;
-            const self = this;
-            const editorId = isObject(value)
-                ? (_a = value.id) !== null && _a !== void 0
-                    ? _a
-                    : value.index
-                : value;
-            switch (cmd) {
-                case 'mceAddEditor': {
-                    if (!self.get(editorId)) {
-                        const editorOptions = value.options;
-                        new Editor(editorId, editorOptions, self).render();
-                    }
-                    return true;
-                }
-                case 'mceRemoveEditor': {
-                    const editor = self.get(editorId);
-                    if (editor) {
-                        editor.remove();
-                    }
-                    return true;
-                }
-                case 'mceToggleEditor': {
-                    const editor = self.get(editorId);
-                    if (!editor) {
-                        self.execCommand('mceAddEditor', false, value);
-                        return true;
-                    }
-                    if (editor.isHidden()) {
-                        editor.show();
-                    } else {
-                        editor.hide();
-                    }
-                    return true;
-                }
-            }
-            if (self.activeEditor) {
-                return self.activeEditor.execCommand(cmd, ui, value);
-            }
-            return false;
-        },
-        triggerSave: () => {
-            each(editors, (editor) => {
-                editor.save();
+            editor.targetElm = editor.targetElm || targetElm;
+            editor.render();
+          };
+          DOM.unbind(window, 'ready', initEditors);
+          execCallback('onpageload');
+          targets = unique$1(findTargets(options));
+          Tools.each(targets, elm => {
+            purgeDestroyedEditor(self.get(elm.id));
+          });
+          targets = Tools.grep(targets, elm => {
+            return !self.get(elm.id);
+          });
+          if (targets.length === 0) {
+            provideResults([]);
+          } else {
+            each(targets, elm => {
+              if (isInvalidInlineTarget(options, elm)) {
+                initError('Could not initialize inline editor on invalid inline target element', elm);
+              } else {
+                createEditor(createId(elm), options, elm);
+              }
             });
-        },
-        addI18n: (code, items) => {
-            I18n.add(code, items);
-        },
-        translate: (text) => {
-            return I18n.translate(text);
-        },
-        setActive(editor) {
-            const activeEditor = this.activeEditor;
-            if (this.activeEditor !== editor) {
-                if (activeEditor) {
-                    activeEditor.dispatch('deactivate', {
-                        relatedTarget: editor,
-                    });
-                }
-                editor.dispatch('activate', { relatedTarget: activeEditor });
+          }
+        };
+        DOM.bind(window, 'ready', initEditors);
+        return new Promise(resolve => {
+          if (result) {
+            resolve(result);
+          } else {
+            provideResults = editors => {
+              resolve(editors);
+            };
+          }
+        });
+      },
+      get(id) {
+        if (arguments.length === 0) {
+          return editors.slice(0);
+        } else if (isString(id)) {
+          return find$2(editors, editor => {
+            return editor.id === id;
+          }).getOr(null);
+        } else if (isNumber(id)) {
+          return editors[id] ? editors[id] : null;
+        } else {
+          return null;
+        }
+      },
+      add(editor) {
+        const self = this;
+        const existingEditor = self.get(editor.id);
+        if (existingEditor === editor) {
+          return editor;
+        }
+        if (existingEditor === null) {
+          editors.push(editor);
+        }
+        toggleGlobalEvents(true);
+        self.activeEditor = editor;
+        self.dispatch('AddEditor', { editor });
+        if (!beforeUnloadDelegate) {
+          beforeUnloadDelegate = e => {
+            const event = self.dispatch('BeforeUnload');
+            if (event.returnValue) {
+              e.preventDefault();
+              e.returnValue = event.returnValue;
+              return event.returnValue;
             }
-            this.activeEditor = editor;
-        },
-        _setBaseUrl(baseUrl) {
-            this.baseURL = new URI(this.documentBaseURL).toAbsolute(
-                baseUrl.replace(/\/+$/, '')
-            );
-            this.baseURI = new URI(this.baseURL);
-        },
+          };
+          window.addEventListener('beforeunload', beforeUnloadDelegate);
+        }
+        return editor;
+      },
+      createEditor(id, options) {
+        return this.add(new Editor(id, options, this));
+      },
+      remove(selector) {
+        const self = this;
+        let i, editor;
+        if (!selector) {
+          for (i = editors.length - 1; i >= 0; i--) {
+            self.remove(editors[i]);
+          }
+          return;
+        }
+        if (isString(selector)) {
+          each(DOM.select(selector), elm => {
+            editor = self.get(elm.id);
+            if (editor) {
+              self.remove(editor);
+            }
+          });
+          return;
+        }
+        editor = selector;
+        if (isNull(self.get(editor.id))) {
+          return null;
+        }
+        if (removeEditorFromList(editor)) {
+          self.dispatch('RemoveEditor', { editor });
+        }
+        if (editors.length === 0) {
+          window.removeEventListener('beforeunload', beforeUnloadDelegate);
+        }
+        editor.remove();
+        toggleGlobalEvents(editors.length > 0);
+        return editor;
+      },
+      execCommand(cmd, ui, value) {
+        var _a;
+        const self = this;
+        const editorId = isObject(value) ? (_a = value.id) !== null && _a !== void 0 ? _a : value.index : value;
+        switch (cmd) {
+        case 'mceAddEditor': {
+            if (!self.get(editorId)) {
+              const editorOptions = value.options;
+              new Editor(editorId, editorOptions, self).render();
+            }
+            return true;
+          }
+        case 'mceRemoveEditor': {
+            const editor = self.get(editorId);
+            if (editor) {
+              editor.remove();
+            }
+            return true;
+          }
+        case 'mceToggleEditor': {
+            const editor = self.get(editorId);
+            if (!editor) {
+              self.execCommand('mceAddEditor', false, value);
+              return true;
+            }
+            if (editor.isHidden()) {
+              editor.show();
+            } else {
+              editor.hide();
+            }
+            return true;
+          }
+        }
+        if (self.activeEditor) {
+          return self.activeEditor.execCommand(cmd, ui, value);
+        }
+        return false;
+      },
+      triggerSave: () => {
+        each(editors, editor => {
+          editor.save();
+        });
+      },
+      addI18n: (code, items) => {
+        I18n.add(code, items);
+      },
+      translate: text => {
+        return I18n.translate(text);
+      },
+      setActive(editor) {
+        const activeEditor = this.activeEditor;
+        if (this.activeEditor !== editor) {
+          if (activeEditor) {
+            activeEditor.dispatch('deactivate', { relatedTarget: editor });
+          }
+          editor.dispatch('activate', { relatedTarget: activeEditor });
+        }
+        this.activeEditor = editor;
+      },
+      _setBaseUrl(baseUrl) {
+        this.baseURL = new URI(this.documentBaseURL).toAbsolute(baseUrl.replace(/\/+$/, ''));
+        this.baseURI = new URI(this.baseURL);
+      }
     };
     EditorManager.setup();
 

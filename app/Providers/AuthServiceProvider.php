@@ -5,8 +5,6 @@ namespace App\Providers;
 use App\Models\Office;
 use App\Models\Post;
 use App\Models\User;
-use App\Policies\AdminPostPolicy;
-use App\Policies\PostPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -19,13 +17,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Models\Model' => 'App\Policies\ModelPolicy',
-        Post::class => AdminPostPolicy::class,
+        // TODO: Policy.
     ];
 
     /**
      * Register any authentication / authorization services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -40,16 +36,21 @@ class AuthServiceProvider extends ServiceProvider
                     return true;
                 }
             }
+
             return false;
         });
 
-        Gate::define('verified-office', function (string $checkedOffice) {
+        Gate::define('verified-office', function (
+            User $user,
+            string $checkedOffice
+        ) {
             if (
-                $this->user->office_id ===
+                $user->office_id ===
                 Office::where('code_name', $checkedOffice)->first()->id
             ) {
                 return true;
             }
+
             return false;
         });
     }

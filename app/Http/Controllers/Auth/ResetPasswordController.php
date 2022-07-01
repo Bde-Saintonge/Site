@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\ResetPassword as ResetPasswordEmail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Mail\ResetPassword as ResetPasswordEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Models\User;
 
 class ResetPasswordController extends BaseController
 {
     /**
-     * Méthode qui permet de lancer le processus de réinitialisation de mot de passe
-     * @var $request Request
+     * Méthode qui permet de lancer le processus de réinitialisation de mot de passe.
+     *
+     * @var Request
      */
-
-    public function reset_password_without_token(Request $request)
+    public function reset(Request $request)
     {
         if (!Auth::check()) {
             $user = DB::table('users')
                 ->where('email', '=', $request->email)
                 ->first();
 
-            //Check if the user exists
+            // Check if the user exists
             if (is_null($user)) {
                 return redirect()
                     ->back()
@@ -34,7 +34,7 @@ class ResetPasswordController extends BaseController
                     ]);
             }
 
-            //Change the password and send it to the user
+            // Change the password and send it to the user
             if ($this->resetPassword($user)) {
                 return redirect()
                     ->back()
@@ -43,27 +43,27 @@ class ResetPasswordController extends BaseController
                             'Un nouveau mot de passe a été envoyé à votre adresse électronique.',
                         ],
                     ]);
-            } else {
-                return redirect()
-                    ->back()
-                    ->withErrors([
-                        'error' =>
-                            'Une erreur de réseau s\'est produite. Veuillez réessayer.',
-                    ]);
             }
-        } else {
-            return back()->withErrors([
-                'error' =>
-                    'Veillez-vous déconnecter avant de modifier votre mot de passe.',
-            ]);
+
+            return redirect()
+                ->back()
+                ->withErrors([
+                    'error' => 'Une erreur de réseau s\'est produite. Veuillez réessayer.',
+                ]);
         }
+
+        return back()->withErrors([
+            'error' => 'Veillez-vous déconnecter avant de modifier votre mot de passe.',
+        ]);
     }
 
     /**
-     * Méthode qui permet d'enregistrer le nouveau mot de passe et envoyer l'email
-     * @var $user utilisateur
+     * Méthode qui permet d'enregistrer le nouveau mot de passe et envoyer l'email.
+     *
+     *
+     * @param mixed $user
      */
-    private function resetPassword($user)
+    private function resetPassword($user): bool
     {
         $new_password = $this->generate_password(20);
 
@@ -82,15 +82,15 @@ class ResetPasswordController extends BaseController
 
     /**
      * Méthode qui permet de générer le nouveau mdp
-     * $n
+     * $n.
      */
-    function generate_password(int $n)
+    public function generate_password(int $n)
     {
         $characters =
-            '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&;:<>=?!';
+            '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_@#$^%&;:=?!';
         $randomString = '';
 
-        for ($i = 0; $i < $n; $i++) {
+        for ($i = 0; $i < $n; ++$i) {
             $index = rand(0, strlen($characters) - 1);
             $randomString .= $characters[$index];
         }
