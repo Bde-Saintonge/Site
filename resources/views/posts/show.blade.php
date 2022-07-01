@@ -15,7 +15,7 @@
                 </div>
                 <hr class="sm:mx-12">
                 <article class="bde dark:text-coolGray-100">
-                    {!! $post->content !!}
+                    {!! $post->text !!}
                 </article>
             </div>
         </div>

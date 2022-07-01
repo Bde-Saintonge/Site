@@ -11,8 +11,6 @@ class PostTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -101,13 +99,13 @@ class PostTableSeeder extends Seeder
             'role_id' => $role_bde,
         ]);
 
-        for ($i = 0; $i < 25; $i++) {
+        for ($i = 0; $i < 25; ++$i) {
             DB::table('posts')->insert([
                 'title' => $faker->sentence,
                 'image_url' => 'https://source.unsplash.com/random/480x360',
-                'summary'=> $faker->words(10, true) . "...",
+                'summary' => $faker->words(10, true).'...',
                 'slug' => $faker->slug,
-                'content' => $faker->text,
+                'text' => $faker->text,
                 'is_published' => (bool) mt_rand(0, 1),
                 'office_id' => random_int(1, 3),
                 'created_at' => $faker->dateTime,

@@ -51,11 +51,11 @@ class PostController extends Controller
         $post = Post::create([
             'title' => $validated['title'],
             'image_url' => $validated['image_url'],
-            'content' => $validated['content'],
+            'text' => $validated['text'],
             'office_id' => Office::where('code_name', $validated['office'])->first()->id,
         ]);
 
-        return redirect()->route('admin.dashboard')->with([
+        return redirect()->route('admin.dashboard', ['office' => $post->office->code_name])->with([
             'success' => ['Article créer avec succès !'],
         ]);
     }
@@ -94,10 +94,10 @@ class PostController extends Controller
         $post->update([
             'title' => $validated['title'],
             'image_url' => $validated['image_url'],
-            'content' => $validated['content'],
+            'text' => $validated['text'],
         ]);
 
-        return redirect()->route('admin.dashboard')->with([
+        return redirect()->route('admin.dashboard', ['office' => $post->office->code_name])->with([
             'success' => ['Article modifié avec succès !'],
         ]);
     }
@@ -110,7 +110,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('admin.dashboard')->with([
+        return back()->with([
             'success' => ['Article placé dans la corbeille !'],
         ]);
     }
