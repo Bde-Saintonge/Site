@@ -131,45 +131,24 @@ class PostController extends Controller
             'updated_at' => new DateTime('now'),
         ]);
 
-        return redirect("dashboard/{$post->office->code_name}")->with([
+        return redirect()->route('admin.dashboard')->with([
             'success' => ['Article modifié avec succès !'],
         ]);
     }
 
     /**
-     * @param $id
+     * @param Post $post
+     * @return Redirector|Application|RedirectResponse
      */
-    public function destroy($id): Redirector|Application|RedirectResponse
+    public function destroy(Post $post): Redirector|Application|RedirectResponse
     {
-        $post = Post::find($id_post);
-
-        if (is_null($post)) {
-            return redirect(
-                "dashboard/{$this->user->office->code_name}",
-            )->withErrors([
-                'error' => "L'article n'existe plus.",
-            ]);
-        }
-
-        /*
-         * A: Est admin
-         * O: Appartient au même office
-         * P: Est publié
-         *
-         * A + ( O . !P ) => A le droit de supprimer.
-         * !A . ( !O + P ) => N'a pas le droit de supprimer.
-         */
-        if (!$this->check_role('admin')) {
-            return redirect(
-                "dashboard/{$this->user->office->code_name}",
-            )->withErrors([
-                'error' => 'Vous ne disposez pas des permissions nécessaires pour supprimer cet article.',
-            ]);
+        if (!Gate::allows('verified-role', ['admin'])) {
+            return redirect()->route('admin.dashboard')->withErrors(['error' => 'Vous ne disposez pas des permissions nécessaires pour supprimer des articles.']);
         }
 
         $post->delete();
 
-        return redirect("dashboard/{$post->office->code_name}")->with([
+        return redirect()->route('admin.dashboard')->with([
             'success' => ['Article placé dans la corbeille !'],
         ]);
     }
