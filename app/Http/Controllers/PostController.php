@@ -51,11 +51,11 @@ class PostController extends Controller
         $post = Post::create([
             'title' => $validated['title'],
             'image_url' => $validated['image_url'],
-            'content' => $validated['content'],
+            'text' => $validated['text'],
             'office_id' => Office::where('code_name', $validated['office'])->first()->id,
         ]);
 
-        return redirect()->route('admin.dashboard')->with([
+        return redirect()->route('admin.dashboard', ['office' => $post->office->code_name])->with([
             'success' => ['Article créer avec succès !'],
         ]);
     }
@@ -87,31 +87,17 @@ class PostController extends Controller
 
     // TODO
 
-    public function update(RegisterPostRequest $request): Redirector|RedirectResponse|Application
+    public function update(RegisterPostRequest $request, Post $post): Redirector|RedirectResponse|Application
     {
-        if (!Gate::allows('verified-role', ['admin']) && !Gate::allows('verified-office', [$post->office->code_name])
-        ) {
-            return back()->withErrors([
-                'error' => 'Vous ne disposez pas des permissions nécessaires pour modifier cet article.',
-            ]);
-        }
-
         $validated = $request->safe()->all();
-        $validator = $request->validate([
-            'title' => 'required|max:255',
-            'image_url' => 'required',
-            'content' => 'required',
-        ]);
 
         $post->update([
-            'title' => $request->input('title'),
-            'image_url' => $request->input('image_url'),
-            'content' => $request->input('content'),
-            'is_published' => false,
-            'updated_at' => new DateTime('now'),
+            'title' => $validated['title'],
+            'image_url' => $validated['image_url'],
+            'text' => $validated['text'],
         ]);
 
-        return redirect()->route('admin.dashboard')->with([
+        return redirect()->route('admin.dashboard', ['office' => $post->office->code_name])->with([
             'success' => ['Article modifié avec succès !'],
         ]);
     }
@@ -124,7 +110,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('admin.dashboard')->with([
+        return back()->with([
             'success' => ['Article placé dans la corbeille !'],
         ]);
     }

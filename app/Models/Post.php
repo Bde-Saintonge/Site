@@ -75,7 +75,7 @@ class Post extends Model
         'title',
         'image_url',
         'slug',
-        'content',
+        'text',
         'office_id',
         'is_published',
     ];
@@ -92,6 +92,6 @@ class Post extends Model
 
     public function getHtmlAttribute(): HtmlString
     {
-        return Markdown::parse($this->content);
+        return Markdown::parse($this->text);
     }
 }

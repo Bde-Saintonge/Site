@@ -9,14 +9,12 @@ class RegisterPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     * @return bool
      */
     public function authorize(): bool
     {
-        dd($this);
         if (
             !Gate::allows('verified-role', ['admin'])
-            && ($this->user()->office->code_name !== $this->office_code_name)
+            && ($this->user()->office->code_name !== $this->office || $this->user()->office->code_name !== $this->route('post')->office->code_name)
         ) {
             return false;
         }
@@ -28,7 +26,6 @@ class RegisterPostRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     * @return array
      */
     public function rules(): array
     {
@@ -36,7 +33,7 @@ class RegisterPostRequest extends FormRequest
             'title' => ['sometimes', 'required', 'max:255'],
             'image_url' => ['sometimes', 'required', 'url'],
             'office' => ['sometimes', 'required', 'exists:offices,code_name', 'regex:/^[a-z-]{3,8}/'],
-            'content' => ['sometimes', 'required'],
+            'text' => ['sometimes', 'required'],
         ];
     }
 
@@ -45,9 +42,8 @@ class RegisterPostRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-        // TODO: do sanitization of text in priority with https://github.com/tgalopin/html-sanitizer
         // TODO: Verif strip tags et verif transfo en html entitites
-        $this->merge([
+        $filters = [
             'title' => trim(
                 filter_var($this->title, FILTER_SANITIZE_STRING, [
                     FILTER_FLAG_ENCODE_AMP,
@@ -65,7 +61,21 @@ class RegisterPostRequest extends FormRequest
                     FILTER_FLAG_STRIP_HIGH,
                 ])
             ),
-            'content' => $this->text,
-        ]);
+            // TODO: do sanitization of text in priority with https://github.com/tgalopin/html-sanitizer
+            'text' => $this->text,
+        ];
+
+        // Take shared keys between filtered data and request input.
+        $sharedInputs = array_intersect_key($this->all(), $filters);
+
+        // Replace the 'text' key name by 'content' for validation.
+//        if (array_key_exists('text', $sharedInputs)) {
+//            $keys = array_keys($sharedInputs);
+//            $keys[array_search('text', $keys)] = 'content';
+//
+//            $editedInputs = array_combine($keys, $sharedInputs);
+//        }
+
+        $this->replace($sharedInputs);
     }
 }

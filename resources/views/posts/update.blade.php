@@ -22,11 +22,11 @@
                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-white dark:text-black dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                     </div>
                     <div class="col-span-full">
-                        <label for="content" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Contenu
+                        <label for="text" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Contenu
                             de
                             l'article</label>
-                        <textarea id="content" name="text"
-                                  class="w-full rounded-md focus:ring focus:ring-blue-400 focus:ring-opacity-75 dark:border-gray-700 dark:text-gray-900">{{ $post->content }}</textarea>
+                        <textarea id="text" name="text"
+                                  class="w-full rounded-md focus:ring focus:ring-blue-400 focus:ring-opacity-75 dark:border-gray-700 dark:text-gray-900">{{ $post->text }}</textarea>
                     </div>
                 </div>
                 <button type="submit"
