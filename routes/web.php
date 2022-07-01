@@ -108,13 +108,7 @@ Route::prefix('admin')
                 return route('home.home');
             }
 
-            if ('null' === $secret) {
-                \Artisan::call("{$mode}");
-            }
-
-            \Artisan::call("{$mode} --secret={$secret}");
-
-            return route('home.home');
+            return ('null' === $secret) ? \Artisan::call("{$mode}") : \Artisan::call("{$mode} --secret={$secret}");
         })->name('maintenance');
         // TODO: Route maintenance
     })
