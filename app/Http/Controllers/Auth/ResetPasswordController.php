@@ -23,7 +23,8 @@ class ResetPasswordController extends BaseController
         if (!Auth::check()) {
             $user = DB::table('users')
                 ->where('email', '=', $request->email)
-                ->first();
+                ->first()
+            ;
 
             // Check if the user exists
             if (is_null($user)) {
@@ -31,7 +32,8 @@ class ResetPasswordController extends BaseController
                     ->back()
                     ->withErrors([
                         'error' => "L'utilisateur n'existe pas en base !",
-                    ]);
+                    ])
+                ;
             }
 
             // Change the password and send it to the user
@@ -42,42 +44,21 @@ class ResetPasswordController extends BaseController
                         'success' => [
                             'Un nouveau mot de passe a été envoyé à votre adresse électronique.',
                         ],
-                    ]);
+                    ])
+                ;
             }
 
             return redirect()
                 ->back()
                 ->withErrors([
                     'error' => 'Une erreur de réseau s\'est produite. Veuillez réessayer.',
-                ]);
+                ])
+            ;
         }
 
         return back()->withErrors([
             'error' => 'Veillez-vous déconnecter avant de modifier votre mot de passe.',
         ]);
-    }
-
-    /**
-     * Méthode qui permet d'enregistrer le nouveau mot de passe et envoyer l'email.
-     *
-     *
-     * @param mixed $user
-     */
-    private function resetPassword($user): bool
-    {
-        $new_password = $this->generate_password(20);
-
-        User::find($user->id)->update([
-            'password' => Hash::make($new_password),
-        ]);
-
-        $temp = new \stdClass();
-        $temp->user = $user;
-        $temp->newPassword = $new_password;
-
-        Mail::to($user->email)->send(new ResetPasswordEmail($temp));
-
-        return true;
     }
 
     /**
@@ -96,5 +77,27 @@ class ResetPasswordController extends BaseController
         }
 
         return $randomString;
+    }
+
+    /**
+     * Méthode qui permet d'enregistrer le nouveau mot de passe et d'envoyer l'email.
+     *
+     * @param mixed $user
+     */
+    private function resetPassword($user): bool
+    {
+        $new_password = $this->generate_password(20);
+
+        User::find($user->id)->update([
+            'password' => Hash::make($new_password),
+        ]);
+
+        $temp = new \stdClass();
+        $temp->user = $user;
+        $temp->newPassword = $new_password;
+
+        Mail::to($user->email)->send(new ResetPasswordEmail($temp));
+
+        return true;
     }
 }
