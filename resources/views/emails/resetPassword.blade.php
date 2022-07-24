@@ -341,16 +341,15 @@
                                                                 style="line-height: 140%; text-align: left; word-wrap: break-word;">
                                                                 <p style="font-size: 14px; line-height: 140%;"><span
                                                                         style="font-size: 18px; line-height: 25.2px; color: #666666;">Bonjour
-                                                                        {{ $data->user->name }}
-                                                                        {{ strtoupper($data->user->lastname) }},</span>
+                                                                        {{ $data->user->first_name }}
+                                                                        {{ strtoupper($data->user->last_name) }},</span>
                                                                 </p>
                                                                 <p style="font-size: 14px; line-height: 140%;">&nbsp;
                                                                 </p>
                                                                 <p style="font-size: 14px; line-height: 140%;"><span
                                                                         style="font-size: 18px; line-height: 25.2px; color: #666666;">Vous
                                                                         avez demandé la modification de votre mot de
-                                                                        passe
-                                                                        du site bde-saintonge.fr :</span></p>
+                                                                        passe <a href='https://bde-saintonge.fr'>bde-saintonge.fr</a> :</span></p>
                                                                 <p style="font-size: 14px; line-height: 140%;">&nbsp;
                                                                 </p>
                                                                 <p style="font-size: 14px; line-height: 140%;"><span
@@ -378,7 +377,7 @@
                                                                                 style="font-size: 16px; line-height: 22.4px;">Ceci
                                                                                 est un email automatique, merci de ne
                                                                                 pas
-                                                                                r&eacute;pondre</span></em></span><br /><span
+                                                                                r&eacute;pondre.</span></em></span><br /><span
                                                                         style="color: #888888; font-size: 14px; line-height: 19.6px;"><em><span
                                                                                 style="font-size: 16px; line-height: 22.4px;">&nbsp;</span></em></span>
                                                                 </p>
@@ -428,8 +427,9 @@
                                                             <div
                                                                 style="line-height: 140%; text-align: left; word-wrap: break-word;">
                                                                 <p style="font-size: 14px; line-height: 140%;"><span
-                                                                        style="font-size: 16px; line-height: 22.4px; color: #ffffff;">Contact</span>
+                                                                        style="font-size: 16px; line-height: 22.4px; color: #ffffff;">Contacts</span>
                                                                 </p>
+                                                                <br>
                                                                 <p style="font-size: 14px; line-height: 140%;"><span
                                                                         style="font-size: 14px; line-height: 19.6px; color: #ffffff;">12
                                                                         rue de Saintonge, 33000 Bordeaux</span></p>
